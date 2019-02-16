@@ -13,6 +13,7 @@ from digits import utils  # noqa
 from digits.utils import filesystem as fs  # noqa
 from digits.utils.store import StoreCache  # noqa
 import digits.scheduler  # noqa
+from flask_babel import Babel
 
 # Create Flask, Scheduler and SocketIO objects
 
@@ -29,6 +30,11 @@ socketio = SocketIO(app, async_mode='gevent', path=url_prefix+'/socket.io')
 app.config['store_cache'] = StoreCache()
 app.config['store_url_list'] = config_value('model_store')['url_list']
 scheduler = digits.scheduler.Scheduler(config_value('gpu_list'), True)
+
+#set app default locale
+app.config['BABEL_DEFAULT_LOCALE'] = 'zh_Hans_CN'
+# use flask-babel
+babel = Babel(app)
 
 # Register filters and views
 

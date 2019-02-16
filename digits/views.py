@@ -18,7 +18,7 @@ import digits
 from digits import dataset, extensions, model, utils, pretrained_model
 from digits.log import logger
 from digits.utils.routing import request_wants_json
-
+from flask_babel import gettext as _
 blueprint = flask.Blueprint(__name__, __name__)
 
 
@@ -56,12 +56,12 @@ def home(tab=2):
         new_dataset_options = {
             'Images': {
                 'image-classification': {
-                    'title': 'Classification',
+                    'title': _('Classification'),
                     'url': flask.url_for(
                         'digits.dataset.images.classification.views.new'),
                 },
                 'image-other': {
-                    'title': 'Other',
+                    'title': _('Other'),
                     'url': flask.url_for(
                         'digits.dataset.images.generic.views.new'),
                 },
@@ -71,12 +71,12 @@ def home(tab=2):
         new_model_options = {
             'Images': {
                 'image-classification': {
-                    'title': 'Classification',
+                    'title': _('Classification'),
                     'url': flask.url_for(
                         'digits.model.images.classification.views.new'),
                 },
                 'image-other': {
-                    'title': 'Other',
+                    'title': _('Other'),
                     'url': flask.url_for(
                         'digits.model.images.generic.views.new'),
                 },
