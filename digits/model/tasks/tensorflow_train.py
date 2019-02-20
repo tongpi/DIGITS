@@ -18,6 +18,7 @@ import digits
 from digits import utils
 from digits.utils import subclass, override, constants
 import tensorflow as tf
+from flask_babel import gettext as _
 
 # NOTE: Increment this everytime the pickled object changes
 PICKLE_VERSION = 1
@@ -45,7 +46,7 @@ def subprocess_visible_devices(gpus):
     Calculates CUDA_VISIBLE_DEVICES for a subprocess
     """
     if not isinstance(gpus, list):
-        raise ValueError('gpus should be a list')
+        raise ValueError(_('gpus should be a list'))
     gpus = [int(g) for g in gpus]
 
     old_cvd = os.environ.get('CUDA_VISIBLE_DEVICES', None)
@@ -125,7 +126,7 @@ class TensorflowTrainTask(TrainTask):
     # Task overrides
     @override
     def name(self):
-        return 'Train Tensorflow Model'
+        return _('Train Tensorflow Model')
 
     @override
     def before_run(self):
@@ -147,7 +148,7 @@ class TensorflowTrainTask(TrainTask):
         snapshot_pre = None
 
         if len(self.snapshots) == 0:
-            return "no snapshots"
+            return _("no snapshots")
 
         if epoch == -1 or not epoch:
             epoch = self.snapshots[-1][1]
@@ -158,7 +159,7 @@ class TensorflowTrainTask(TrainTask):
                     snapshot_pre = f
                     break
         if not snapshot_pre:
-            raise ValueError('Invalid epoch')
+            raise ValueError(_('Invalid epoch'))
         if download:
             snapshot_file = snapshot_pre + ".data-00000-of-00001"
             meta_file = snapshot_pre + ".meta"
@@ -189,7 +190,7 @@ class TensorflowTrainTask(TrainTask):
 
         if self.use_mean != 'none':
             mean_file = self.dataset.get_mean_file()
-            assert mean_file is not None, 'Failed to retrieve mean file.'
+            assert mean_file is not None, _('Failed to retrieve mean file.')
             args.append('--mean=%s' % self.dataset.path(mean_file))
 
         if hasattr(self.dataset, 'labels_file'):
@@ -556,7 +557,7 @@ class TensorflowTrainTask(TrainTask):
 
         if self.use_mean != 'none':
             mean_file = self.dataset.get_mean_file()
-            assert mean_file is not None, 'Failed to retrieve mean file.'
+            assert mean_file is not None, _('Failed to retrieve mean file.')
             args.append('--mean=%s' % self.dataset.path(mean_file))
 
         if self.use_mean == 'pixel':
@@ -600,7 +601,7 @@ class TensorflowTrainTask(TrainTask):
                 for line in utils.nonblocking_readlines(p.stdout):
                     if self.aborted.is_set():
                         p.terminate()
-                        raise digits.inference.errors.InferenceError('%s classify one task got aborted. error code - %d' % (self.get_framework_id(), p.returncode))  # noqa
+                        raise digits.inference.errors.InferenceError(_('%(id)s classify one task got aborted. error code - %(returncode)d', id=self.get_framework_id(), returncode=p.returncode))  # noqa
 
                     if line is not None and len(line) > 1:
                         if not self.process_test_output(line, predictions, 'one'):
@@ -616,9 +617,11 @@ class TensorflowTrainTask(TrainTask):
             if type(e) == digits.inference.errors.InferenceError:
                 error_message = e.__str__()
             else:
-                error_message = '%s classify one task failed with error code %d \n %s' % (
+                error_message_log = '%s classify one task failed with error code %d \n %s' % (
                     self.get_framework_id(), p.returncode, str(e))
-            self.logger.error(error_message)
+                error_message = _('%(id)s classify one task failed with error code %(returncode)d \n %(str_e)s',
+                                  id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
+            self.logger.error(error_message_log)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
                 error_message = error_message + unrecognized_output
@@ -628,8 +631,9 @@ class TensorflowTrainTask(TrainTask):
             self.after_test_run(temp_image_path)
 
         if p.returncode != 0:
-            error_message = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
-            self.logger.error(error_message)
+            error_message_log = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
+            error_message = _('%(id)s classify one task failed with error code %(returncode)d', id=self.get_framework_id(), returncode=p.returncode)
+            self.logger.error(error_message_log)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
                 error_message = error_message + unrecognized_output
@@ -758,7 +762,7 @@ class TensorflowTrainTask(TrainTask):
         if match:
             label = match.group(1)
             confidence = match.group(2)
-            assert not('inf' in confidence or 'nan' in confidence), 'Network reported %s for confidence value. Please check image and network' % label  # noqa
+            assert not('inf' in confidence or 'nan' in confidence), _('Network reported %(label)s for confidence value. Please check image and network', label=label) # noqa
             confidence = float(confidence)
             predictions.append((label, confidence))
             return True
@@ -787,8 +791,8 @@ class TensorflowTrainTask(TrainTask):
             return True
 
         if level in ['error', 'critical']:
-            raise digits.inference.errors.InferenceError('%s classify %s task failed with error message - %s' % (
-                self.get_framework_id(), test_category, message))
+            raise digits.inference.errors.InferenceError(_('%(id)s classify %(test_category)s task failed with error message - %(message)s',
+                id=self.get_framework_id(), test_category=test_category, message=message))
 
         return False  # control should never reach this line.
 
@@ -891,9 +895,9 @@ class TensorflowTrainTask(TrainTask):
                     for line in utils.nonblocking_readlines(p.stdout):
                         if self.aborted.is_set():
                             p.terminate()
-                            raise digits.inference.errors.InferenceError('%s classify many task got aborted.'
-                                                                         'error code - %d' % (self.get_framework_id(),
-                                                                                              p.returncode))
+                            raise digits.inference.errors.InferenceError(_('%(id)s classify many task got aborted.'
+                                                                         'error code - %(returncode)d', id=self.get_framework_id(),
+                                                                           returncode=p.returncode))
 
                         if line is not None and len(line) > 1:
                             if not self.process_test_output(line, predictions, 'many'):
@@ -909,18 +913,22 @@ class TensorflowTrainTask(TrainTask):
                 if type(e) == digits.inference.errors.InferenceError:
                     error_message = e.__str__()
                 else:
-                    error_message = '%s classify many task failed with error code %d \n %s' % (
+                    error_message_log = '%s classify many task failed with error code %d \n %s' % (
                         self.get_framework_id(), p.returncode, str(e))
-                self.logger.error(error_message)
+                    error_message = _('%(id)s classify many task failed with error code %(returncode)d \n %(str_e)s',
+                        id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
+                self.logger.error(error_message_log)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output
                 raise digits.inference.errors.InferenceError(error_message)
 
             if p.returncode != 0:
-                error_message = '%s classify many task failed with error code %d' % (self.get_framework_id(),
+                error_message_log = '%s classify many task failed with error code %d' % (self.get_framework_id(),
                                                                                      p.returncode)
-                self.logger.error(error_message)
+                error_message = _('%(id)s classify many task failed with error code %(returncode)d', id=self.get_framework_id(),
+                                  returncode=p.returncode)
+                self.logger.error(error_message_log)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output

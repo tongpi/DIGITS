@@ -22,6 +22,8 @@ from digits.config import config_value
 from digits.status import Status
 from digits.utils import subclass, override, constants
 from digits.utils.filesystem import tail
+from flask_babel import gettext as _
+
 
 # Must import after importing digit.config
 import caffe
@@ -208,7 +210,7 @@ class CaffeTrainTask(TrainTask):
 
     @override
     def name(self):
-        return 'Train Caffe Model'
+        return _('Train Caffe Model')
 
     @override
     def before_run(self):
@@ -253,7 +255,7 @@ class CaffeTrainTask(TrainTask):
                     data_shape = network.input_shape[0].dim
                 else:
                     data_shape = network.input_dim[:4]
-                assert len(data_shape) == 4, 'Bad data shape.'
+                assert len(data_shape) == 4, _('Bad data shape.')
 
                 # Get the image
                 mean_image = mean_image.astype('uint8')
@@ -330,32 +332,32 @@ class CaffeTrainTask(TrainTask):
         for layer in data_layers.layer:
             for rule in layer.include:
                 if rule.phase == caffe_pb2.TRAIN:
-                    assert train_data_layer is None, 'cannot specify two train data layers'
+                    assert train_data_layer is None, _('cannot specify two train data layers')
                     train_data_layer = layer
                 elif rule.phase == caffe_pb2.TEST:
-                    assert val_data_layer is None, 'cannot specify two test data layers'
+                    assert val_data_layer is None, _('cannot specify two test data layers')
                     val_data_layer = layer
 
         if train_data_layer is None:
-            assert val_data_layer is None, 'cannot specify a test data layer without a train data layer'
+            assert val_data_layer is None, _('cannot specify a test data layer without a train data layer')
 
         dataset_backend = self.dataset.get_backend()
         has_val_set = self.dataset.get_entry_count(constants.VAL_DB) > 0
 
         if train_data_layer is not None:
             if dataset_backend == 'lmdb':
-                assert train_data_layer.type == 'Data', 'expecting a Data layer'
+                assert train_data_layer.type == 'Data', _('expecting a Data layer')
             elif dataset_backend == 'hdf5':
-                assert train_data_layer.type == 'HDF5Data', 'expecting an HDF5Data layer'
+                assert train_data_layer.type == 'HDF5Data', _('expecting an HDF5Data layer')
             if dataset_backend == 'lmdb' and train_data_layer.HasField('data_param'):
-                assert not train_data_layer.data_param.HasField('source'), "don't set the data_param.source"
-                assert not train_data_layer.data_param.HasField('backend'), "don't set the data_param.backend"
+                assert not train_data_layer.data_param.HasField('source'), _("don't set the data_param.source")
+                assert not train_data_layer.data_param.HasField('backend'), _("don't set the data_param.backend")
             if dataset_backend == 'hdf5' and train_data_layer.HasField('hdf5_data_param'):
-                assert not train_data_layer.hdf5_data_param.HasField('source'), "don't set the hdf5_data_param.source"
+                assert not train_data_layer.hdf5_data_param.HasField('source'), _("don't set the hdf5_data_param.source")
             max_crop_size = min(self.dataset.get_feature_dims()[0], self.dataset.get_feature_dims()[1])
             if self.crop_size:
-                assert dataset_backend != 'hdf5', 'HDF5Data layer does not support cropping'
-                assert self.crop_size <= max_crop_size, 'crop_size is larger than the image size'
+                assert dataset_backend != 'hdf5', _('HDF5Data layer does not support cropping')
+                assert self.crop_size <= max_crop_size, _('crop_size is larger than the image size')
                 train_data_layer.transform_param.crop_size = self.crop_size
             elif train_data_layer.transform_param.HasField('crop_size'):
                 cs = train_data_layer.transform_param.crop_size
@@ -368,14 +370,14 @@ class CaffeTrainTask(TrainTask):
             train_data_layer = train_val_network.layer[-1]
             if val_data_layer is not None and has_val_set:
                 if dataset_backend == 'lmdb':
-                    assert val_data_layer.type == 'Data', 'expecting a Data layer'
+                    assert val_data_layer.type == 'Data', _('expecting a Data layer')
                 elif dataset_backend == 'hdf5':
-                    assert val_data_layer.type == 'HDF5Data', 'expecting an HDF5Data layer'
+                    assert val_data_layer.type == 'HDF5Data', _('expecting an HDF5Data layer')
                 if dataset_backend == 'lmdb' and val_data_layer.HasField('data_param'):
-                    assert not val_data_layer.data_param.HasField('source'), "don't set the data_param.source"
-                    assert not val_data_layer.data_param.HasField('backend'), "don't set the data_param.backend"
+                    assert not val_data_layer.data_param.HasField('source'), _("don't set the data_param.source")
+                    assert not val_data_layer.data_param.HasField('backend'), _("don't set the data_param.backend")
                 if dataset_backend == 'hdf5' and val_data_layer.HasField('hdf5_data_param'):
-                    assert not val_data_layer.hdf5_data_param.HasField('source'), "don't set the hdf5_data_param.source"
+                    assert not val_data_layer.hdf5_data_param.HasField('source'), _("don't set the hdf5_data_param.source")
                 if self.crop_size:
                     # use our error checking from the train layer
                     val_data_layer.transform_param.crop_size = self.crop_size
@@ -394,7 +396,7 @@ class CaffeTrainTask(TrainTask):
             elif dataset_backend == 'hdf5':
                 train_data_layer.hdf5_data_param.batch_size = constants.DEFAULT_BATCH_SIZE
             if self.crop_size:
-                assert dataset_backend != 'hdf5', 'HDF5Data layer does not support cropping'
+                assert dataset_backend != 'hdf5', _('HDF5Data layer does not support cropping')
                 train_data_layer.transform_param.crop_size = self.crop_size
             if has_val_set:
                 val_data_layer = train_val_network.layer.add(type=layer_type, name='data')
@@ -421,7 +423,7 @@ class CaffeTrainTask(TrainTask):
                     self.dataset.get_feature_db_path(constants.VAL_DB), 'list.txt')
 
         if self.use_mean == 'pixel':
-            assert dataset_backend != 'hdf5', 'HDF5Data layer does not support mean subtraction'
+            assert dataset_backend != 'hdf5', _('HDF5Data layer does not support mean subtraction')
             mean_pixel = self.get_mean_pixel(self.dataset.path(self.dataset.get_mean_file()))
             self.set_mean_value(train_data_layer, mean_pixel)
             if val_data_layer is not None and has_val_set:
@@ -500,8 +502,8 @@ class CaffeTrainTask(TrainTask):
                 found_softmax = True
                 break
         assert found_softmax, \
-            ('Your deploy network is missing a Softmax layer! '
-             'Read the documentation for custom networks and/or look at the standard networks for examples.')
+            _('Your deploy network is missing a Softmax layer! '
+              'Read the documentation for custom networks and/or look at the standard networks for examples.')
 
         # Write solver file
 
@@ -580,7 +582,7 @@ class CaffeTrainTask(TrainTask):
             # stepsize = stepsize * scale
             solver.stepsize = int(math.ceil(float(self.lr_policy['stepsize']) * scale))
         else:
-            raise Exception('Unknown lr_policy: "%s"' % solver.lr_policy)
+            raise Exception(_('Unknown lr_policy: "%(policy)s"', policy=solver.lr_policy))
 
         # These solver types don't support momentum
         unsupported = [solver.ADAGRAD]
@@ -621,7 +623,7 @@ class CaffeTrainTask(TrainTask):
         val_feature_db_path = self.dataset.get_feature_db_path(constants.VAL_DB)
         val_label_db_path = self.dataset.get_label_db_path(constants.VAL_DB)
 
-        assert train_feature_db_path is not None, 'Training images are required'
+        assert train_feature_db_path is not None, _('Training images are required')
 
         # Save the origin network to file:
         with open(self.path(self.model_file), 'w') as outfile:
@@ -651,21 +653,21 @@ class CaffeTrainTask(TrainTask):
                     for top_name in layer.top:
                         if 'data' in top_name:
                             assert train_image_data_layer is None, \
-                                'cannot specify two train image data layers'
+                                _('cannot specify two train image data layers')
                             train_image_data_layer = layer
                         elif 'label' in top_name:
                             assert train_label_data_layer is None, \
-                                'cannot specify two train label data layers'
+                                _('cannot specify two train label data layers')
                             train_label_data_layer = layer
                 elif rule.phase == caffe_pb2.TEST:
                     for top_name in layer.top:
                         if 'data' in top_name:
                             assert val_image_data_layer is None, \
-                                'cannot specify two val image data layers'
+                                _('cannot specify two val image data layers')
                             val_image_data_layer = layer
                         elif 'label' in top_name:
                             assert val_label_data_layer is None, \
-                                'cannot specify two val label data layers'
+                                _('cannot specify two val label data layers')
                             val_label_data_layer = layer
 
         # Create and add the Data layers
@@ -809,7 +811,7 @@ class CaffeTrainTask(TrainTask):
             # stepsize = stepsize * scale
             solver.stepsize = int(math.ceil(float(self.lr_policy['stepsize']) * scale))
         else:
-            raise Exception('Unknown lr_policy: "%s"' % solver.lr_policy)
+            raise Exception(_('Unknown lr_policy: "%(policy)s"', policy=solver.lr_policy))
 
         # These solver types don't support momentum
         unsupported = [solver.ADAGRAD]
@@ -886,7 +888,7 @@ class CaffeTrainTask(TrainTask):
         # crop size
         if name == 'data' and self.crop_size:
             max_crop_size = min(self.dataset.get_feature_dims()[0], self.dataset.get_feature_dims()[1])
-            assert self.crop_size <= max_crop_size, 'crop_size is larger than the image size'
+            assert self.crop_size <= max_crop_size, _('crop_size is larger than the image size')
             layer.transform_param.crop_size = self.crop_size
         return layer
 
@@ -913,7 +915,7 @@ class CaffeTrainTask(TrainTask):
                 if 'gpus' in resources:
                     n_gpus = len(resources['gpus'])
                     if n_gpus > 1:
-                        raise Exception('Please select single GPU when running in Windows with Python layer.')
+                        raise Exception(_('Please select single GPU when running in Windows with Python layer.'))
                     elif n_gpus == 1:
                         win_python_layer_gpu_id = resources['gpus'][0][0]
                 # We know which GPU to use, call helper to create the script
@@ -942,7 +944,7 @@ class CaffeTrainTask(TrainTask):
                 elif config_value('caffe')['flavor'] == 'BVLC':
                     args.append('--gpu=%s' % ','.join(identifiers))
                 else:
-                    raise ValueError('Unknown flavor.  Support NVIDIA and BVLC flavors only.')
+                    raise ValueError(_('Unknown flavor.  Support NVIDIA and BVLC flavors only.'))
         if self.pretrained_model:
             args.append('--weights=%s' % ','.join(map(lambda x: self.path(x),
                                                       self.pretrained_model.split(os.path.pathsep))))
@@ -968,7 +970,7 @@ class CaffeTrainTask(TrainTask):
         try:
             solver_type = solver_type_mapping[self.solver_type]
         except KeyError:
-            raise ValueError("Unknown solver type {}.".format(self.solver_type))
+            raise ValueError(_("Unknown solver type %(solver_type)s.", solver_type=self.solver_type))
         if gpu_id is not None:
             gpu_script = "caffe.set_device({id});caffe.set_mode_gpu();".format(id=gpu_id)
         else:
@@ -1015,7 +1017,7 @@ class CaffeTrainTask(TrainTask):
             name = match.group(3)
             value = match.group(4)
             assert value.lower() != 'nan', \
-                'Network outputted NaN for "%s" (%s phase). Try decreasing your learning rate.' % (name, phase)
+                _('Network outputted NaN for "%(name)s" (%(phase)s phase). Try decreasing your learning rate.', name=name, phase=phase)
             value = float(value)
 
             # Find the layer type
@@ -1619,7 +1621,7 @@ class CaffeTrainTask(TrainTask):
         Perform various sanity checks on the network, including:
         - check that all layer bottoms are included at the specified stage
         """
-        assert phase == caffe_pb2.TRAIN or phase == caffe_pb2.TEST, "Unknown phase: %s" % repr(phase)
+        assert phase == caffe_pb2.TRAIN or phase == caffe_pb2.TEST, _("Unknown phase: %(phase)s", phase=repr(phase))
         # work out which layers and tops are included at the specified phase
         layers = []
         tops = []
@@ -1646,13 +1648,10 @@ class CaffeTrainTask(TrainTask):
             for bottom in layer.bottom:
                 if bottom not in tops:
                     raise CaffeTrainSanityCheckError(
-                        "Layer '%s' references bottom '%s' at the %s stage however "
-                        "this blob is not included at that stage. Please consider "
-                        "using an include directive to limit the scope of this layer."
-                        % (
-                            layer.name, bottom,
-                            "TRAIN" if phase == caffe_pb2.TRAIN else "TEST"
-                        )
+                        _("Layer '%(name)s' references bottom '%(bottom)s' at the %(status)s stage however "
+                          "this blob is not included at that stage. Please consider "
+                          "using an include directive to limit the scope of this layer."
+                          , name=layer.name, bottom=bottom, status="TRAIN" if phase == caffe_pb2.TRAIN else "TEST")
                     )
 
 
@@ -1667,7 +1666,7 @@ def cleanedUpClassificationNetwork(original_network, num_categories):
     for i, layer in enumerate(network.layer):
         if 'Data' in layer.type:
             assert layer.type in ['Data', 'HDF5Data'], \
-                'Unsupported data layer type %s' % layer.type
+                _('Unsupported data layer type %(type)s', type=layer.type)
 
         elif layer.type == 'Input':
             # DIGITS handles the deploy file for you
@@ -1698,7 +1697,7 @@ def cleanedUpGenericNetwork(original_network):
     for i, layer in enumerate(network.layer):
         if 'Data' in layer.type:
             assert layer.type in ['Data'], \
-                'Unsupported data layer type %s' % layer.type
+                _('Unsupported data layer type %(type)s', type=layer.type)
 
         elif layer.type == 'Input':
             # DIGITS handles the deploy file for you
@@ -1707,7 +1706,7 @@ def cleanedUpGenericNetwork(original_network):
         elif layer.type == 'InnerProduct':
             # Check to see if num_output is unset
             assert layer.inner_product_param.HasField('num_output'), \
-                "Don't leave inner_product_param.num_output unset for generic networks (layer %s)" % layer.name
+                _("Don't leave inner_product_param.num_output unset for generic networks (layer %(name)s)", nam=layer.name)
 
     return network
 

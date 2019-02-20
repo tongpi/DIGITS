@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-16 11:50+0800\n"
+"POT-Creation-Date: 2019-02-20 16:20+0800\n"
 "PO-Revision-Date: 2019-02-16 11:51+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -18,6 +18,41 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.6.0\n"
 
+#: scheduler.py:223
+#, python-format
+msgid "Unhandled job type %(job_type)s"
+msgstr "未处理的工作类型%(job_type)s"
+
+#: scheduler.py:256
+#, python-format
+msgid "called delete_job with a %(type)s"
+msgstr "调用%(type)s的删除作业"
+
+#: scheduler.py:481
+#, python-format
+msgid "Resource \"%(resourceType)s\" with identifier=\"%(identifier)s\" not found"
+msgstr "identifier=\"%(identifier)s\" 的资源 \"%(resourceType)s\" 未发现"
+
+#: status.py:62
+msgid "Waiting"
+msgstr "等待中"
+
+#: status.py:65
+msgid "Running"
+msgstr "正在运行中"
+
+#: status.py:68
+msgid "Done"
+msgstr "完成"
+
+#: status.py:71
+msgid "Aborted"
+msgstr "终止"
+
+#: status.py:74
+msgid "Error"
+msgstr "出错"
+
 #: views.py:59 views.py:74
 msgid "Classification"
 msgstr "分类"
@@ -26,49 +61,1268 @@ msgstr "分类"
 msgid "Other"
 msgstr "其他"
 
+#: pretrained_model/tasks/upload_pretrained.py:37 views.py:89
+msgid "Upload Pretrained Model"
+msgstr "上传预训练模型"
+
+#: views.py:95
+msgid "Retrieve from Model Store"
+msgstr "从模型商店获取"
+
+#: model/views.py:37 model/views.py:73 model/views.py:274 utils/routing.py:21
+#: views.py:255 views.py:373 views.py:393 views.py:456 views.py:572
+#: views.py:591
+msgid "Job not found"
+msgstr "未发现作业"
+
+#: views.py:318
+msgid "Jobs regrouped."
+msgstr "作业重组"
+
+#: model/views.py:50 views.py:382 views.py:605
+msgid "Invalid job type"
+msgstr "无效作业类型"
+
+#: views.py:402
+msgid "name cannot be blank"
+msgstr "名称不能为空"
+
+#: views.py:436
+msgid "Job not found."
+msgstr "未发现作业。"
+
+#: views.py:463
+msgid "Job deleted."
+msgstr "作业已删除"
+
+#: views.py:465
+msgid "Job not deleted"
+msgstr "作业未删除"
+
+#: views.py:513
+msgid "Jobs deleted."
+msgstr "作业已删除。"
+
+#: views.py:559
+msgid "Jobs aborted."
+msgstr ""
+
+#: views.py:577
+msgid "Job not aborted"
+msgstr ""
+
+#: model/views.py:123 views.py:711
+#, python-format
+msgid "Unknown extension '%(extension_id)s'"
+msgstr ""
+
+#: model/forms.py:28
+msgid "Selected job doesn't exist. Maybe it was deleted by another user."
+msgstr ""
+
+#: model/forms.py:36
+#, python-format
+msgid "Bad network: %(message)s"
+msgstr ""
+
+#: model/forms.py:49
+#, python-format
+msgid "Server side file, %(filename)s, does not exist."
+msgstr ""
+
+#: model/forms.py:65
+#, python-format
+msgid "Python file, %(filename)s, needs .py or .pyc extension."
+msgstr ""
+
+#: model/forms.py:72
+msgid "Select Dataset"
+msgstr ""
+
+#: model/forms.py:74
+msgid "Choose the dataset to use for this model."
+msgstr ""
+
+#: model/forms.py:78
+msgid "Use client-side file"
+msgstr ""
+
+#: model/forms.py:83
+msgid "Client-side file"
+msgstr ""
+
+#: model/forms.py:87
+msgid "Choose a Python file on the client containing layer definitions."
+msgstr ""
+
+#: model/forms.py:90
+msgid "Server-side file"
+msgstr ""
+
+#: model/forms.py:95
+msgid "Choose a Python file on the server containing layer definitions."
+msgstr ""
+
+#: model/forms.py:99
+msgid "Training epochs"
+msgstr "训练回合"
+
+#: model/forms.py:104
+msgid "How many passes through the training data?"
+msgstr "通过训练数据的次数是多少？"
+
+#: model/forms.py:108
+msgid "Snapshot interval (in epochs)"
+msgstr ""
+
+#: model/forms.py:113
+msgid "How many epochs of training between taking a snapshot?"
+msgstr ""
+
+#: model/forms.py:117
+msgid "Validation interval (in epochs)"
+msgstr "在回合中的验证间隔"
+
+#: model/forms.py:122
+msgid ""
+"How many epochs of training between running through one pass of the "
+"validation data?"
+msgstr "在验证数据的一次通过之间进行了多少次训练？"
+
+#: model/forms.py:126
+msgid "Tracing Interval (in steps)"
+msgstr ""
+
+#: model/forms.py:131
+msgid "Generation of a timeline trace every few steps"
+msgstr ""
+
+#: model/forms.py:135
+msgid "Random seed"
+msgstr ""
+
+#: model/forms.py:140
+msgid ""
+"If you provide a random seed, then back-to-back runs with the same model "
+"and dataset should give identical results."
+msgstr ""
+
+#: model/forms.py:145
+msgid "Batch size"
+msgstr "批处理大小"
+
+#: model/forms.py:150
+msgid ""
+"How many images to process at once. If blank, values are used from the "
+"network definition."
+msgstr ""
+
+#: model/forms.py:154
+msgid "Batch Accumulation"
+msgstr ""
+
+#: model/forms.py:159
+msgid ""
+"Accumulate gradients over multiple batches (useful when you need a bigger"
+" batch size for training but it doesn't fit in memory)."
+msgstr ""
+
+#: model/forms.py:166
+msgid "Solver type"
+msgstr ""
+
+#: model/forms.py:168
+msgid "SGD (Stochastic Gradient Descent)"
+msgstr ""
+
+#: model/forms.py:169
+msgid "Momentum"
+msgstr ""
+
+#: model/forms.py:170
+msgid "NAG (Nesterov's accelerated gradient)"
+msgstr ""
+
+#: model/forms.py:171
+msgid "AdaGrad (Adaptive Gradient)"
+msgstr ""
+
+#: model/forms.py:172
+msgid "AdaGradDA (AdaGrad Dual Averaging)"
+msgstr ""
+
+#: model/forms.py:173
+msgid "AdaDelta"
+msgstr ""
+
+#: model/forms.py:174
+msgid "Adam (Adaptive Moment Estimation)"
+msgstr ""
+
+#: model/forms.py:175
+msgid "RMSprop"
+msgstr ""
+
+#: model/forms.py:176
+msgid "FTRL (Follow-The-Regularized-Leader)"
+msgstr ""
+
+#: model/forms.py:179
+msgid "What type of solver will be used?"
+msgstr ""
+
+#: model/forms.py:187
+msgid "Solver type not supported by this framework"
+msgstr ""
+
+#: model/forms.py:192
+msgid "RMS decay value"
+msgstr ""
+
+#: model/forms.py:197
+msgid ""
+"If the gradient updates results in oscillations the gradient is reduced "
+"by times 1-rms_decay. Otherwise it will be increased by rms_decay."
+msgstr ""
+
+#: model/forms.py:204
+msgid "Base Learning Rate"
+msgstr ""
+
+#: model/forms.py:209
+msgid ""
+"Affects how quickly the network learns. If you are getting NaN for your "
+"loss, you probably need to lower this value."
+msgstr ""
+
+#: model/forms.py:214
+msgid "Policy"
+msgstr ""
+
+#: model/forms.py:216
+msgid "Fixed"
+msgstr ""
+
+#: model/forms.py:217
+msgid "Step Down"
+msgstr ""
+
+#: model/forms.py:218
+msgid "Step Down (arbitrary steps)"
+msgstr ""
+
+#: model/forms.py:219
+msgid "Exponential Decay"
+msgstr ""
+
+#: model/forms.py:220
+msgid "Inverse Decay"
+msgstr ""
+
+#: model/forms.py:221
+msgid "Polynomial Decay"
+msgstr ""
+
+#: model/forms.py:222
+msgid "Sigmoid Decay"
+msgstr ""
+
+#: model/forms.py:252
+msgid "Network type"
+msgstr ""
+
+#: model/forms.py:254
+msgid "Standard network"
+msgstr ""
+
+#: model/forms.py:255
+msgid "Previous network"
+msgstr ""
+
+#: model/forms.py:256
+msgid "Pretrained network"
+msgstr ""
+
+#: model/forms.py:257
+msgid "Custom network"
+msgstr ""
+
+#: model/forms.py:264
+msgid "framework"
+msgstr ""
+
+#: model/forms.py:268
+msgid "The framework you choose is not currently supported."
+msgstr ""
+
+#: model/forms.py:276
+msgid "Standard Networks"
+msgstr ""
+
+#: model/forms.py:283
+msgid "Previous Networks"
+msgstr ""
+
+#: model/forms.py:292
+msgid "Pretrained Networks"
+msgstr ""
+
+#: model/forms.py:301
+msgid "Custom Network"
+msgstr ""
+
+#: model/forms.py:309
+msgid "Pretrained model(s)"
+msgstr ""
+
+#: model/forms.py:310
+#, python-format
+msgid ""
+"Paths to pretrained model files, separated by '%(pathsep)s'. Only edit "
+"this field if you understand how fine-tuning works in caffe or torch."
+msgstr ""
+
+#: model/forms.py:324
+msgid "Select which GPU you would like to use"
+msgstr ""
+
+#: model/forms.py:341
+msgid "Select which GPU[s] you would like to use"
+msgstr ""
+
+#: model/forms.py:353
+msgid "The job won't start until all of the chosen GPUs are available."
+msgstr ""
+
+#: model/forms.py:358
+msgid "Select which GPU[s] you would like to use (comma separated)"
+msgstr ""
+
+#: model/forms.py:365
+msgid "Use this many GPUs (next available)"
+msgstr ""
+
+#: model/forms.py:380
+msgid "Model Name"
+msgstr ""
+
+#: model/forms.py:384
+msgid "An identifier, later used to refer to this model in the Application."
+msgstr ""
+
+#: model/forms.py:388
+msgid "An optional group name for organization on the main page."
+msgstr ""
+
+#: model/forms.py:393
+msgid "Shuffle Train Data"
+msgstr ""
+
+#: model/forms.py:395
+msgid "For every epoch, shuffle the data before training."
+msgstr ""
+
+#: model/views.py:61
+msgid "network not provided"
+msgstr ""
+
+#: model/views.py:112
+msgid "step is a required field"
+msgstr ""
+
+#: model/views.py:136
+msgid "framework not provided"
+msgstr ""
+
+#: model/views.py:312
+msgid "Invalid extension"
+msgstr ""
+
+#: model/images/forms.py:16
+msgid "Crop Size"
+msgstr ""
+
+#: model/images/forms.py:21
+msgid ""
+"If specified, during training a random square crop will be taken from the"
+" input image before using as input for the network."
+msgstr ""
+
+#: model/images/forms.py:26
+msgid "Subtract Mean"
+msgstr ""
+
+#: model/images/forms.py:28 model/images/forms.py:39 model/images/forms.py:51
+msgid "None"
+msgstr ""
+
+#: model/images/forms.py:29
+msgid "Image"
+msgstr ""
+
+#: model/images/forms.py:30
+msgid "Pixel"
+msgstr ""
+
+#: model/images/forms.py:33
+msgid "Subtract the mean file or mean pixel for this dataset from each image."
+msgstr ""
+
+#: model/images/forms.py:37
+msgid "Flipping"
+msgstr ""
+
+#: model/images/forms.py:40
+msgid "Horizontal"
+msgstr ""
+
+#: model/images/forms.py:41
+msgid "Vertical"
+msgstr ""
+
+#: model/images/forms.py:42
+msgid "Horizontal and/or Vertical"
+msgstr ""
+
+#: model/images/forms.py:45
+msgid "Randomly flips each image during batch preprocessing."
+msgstr ""
+
+#: model/images/forms.py:49
+msgid "Quadrilateral Rotation"
+msgstr ""
+
+#: model/images/forms.py:52
+msgid "0, 90 or 270 degrees"
+msgstr ""
+
+#: model/images/forms.py:53
+msgid "0 or 180 degrees"
+msgstr ""
+
+#: model/images/forms.py:54
+msgid "0, 90, 180 or 270 degrees."
+msgstr ""
+
+#: model/images/forms.py:57
+msgid "Randomly rotates (90 degree steps) each image during batch preprocessing."
+msgstr ""
+
+#: model/images/forms.py:61
+msgid "Rotation (+- deg)"
+msgstr ""
+
+#: model/images/forms.py:66
+msgid ""
+"The uniform-random rotation angle that will be performed during batch "
+"preprocessing."
+msgstr ""
+
+#: model/images/forms.py:70
+msgid "Rescale (stddev)"
+msgstr ""
+
+#: model/images/forms.py:75
+msgid ""
+"Retaining image size, the image is rescaled with a +-stddev of this "
+"parameter. Suggested value is 0.07."
+msgstr ""
+
+#: model/images/forms.py:80
+msgid "Noise (stddev)"
+msgstr ""
+
+#: model/images/forms.py:85
+msgid ""
+"Adds AWGN (Additive White Gaussian Noise) during batch preprocessing, "
+"assuming [0 1] pixel-value range. Suggested value is 0.03."
+msgstr ""
+
+#: model/images/forms.py:90
+msgid "Contrast (factor)"
+msgstr ""
+
+#: model/images/forms.py:95
+msgid ""
+"Per channel, the mean of the channel is computed and then adjusts each "
+"component x of each pixel to (x - mean) * contrast_factor + mean. The "
+"contrast_factor is picked form a random uniform distribution to yield a "
+"value between [1-contrast_factor, 1+contrast_factor]. Suggested value is "
+"0.8."
+msgstr ""
+
+#: model/images/forms.py:102
+msgid "Whitening"
+msgstr ""
+
+#: model/images/forms.py:105
+msgid ""
+"Per-image whitening by subtracting its own mean, and dividing by its own "
+"standard deviation."
+msgstr ""
+
+#: model/images/forms.py:109
+msgid "HSV Shifting"
+msgstr ""
+
+#: model/images/forms.py:111
+msgid ""
+"Augmentation by normal-distributed random shifts in HSV color space, "
+"assuming [0 1] pixel-value range."
+msgstr ""
+
+#: model/images/forms.py:115
+msgid "Hue"
+msgstr ""
+
+#: model/images/forms.py:120 model/images/forms.py:129
+#: model/images/forms.py:138
+msgid ""
+"Standard deviation of a shift that will be performed during "
+"preprocessing, assuming [0 1] pixel-value range."
+msgstr ""
+
+#: model/images/forms.py:124
+msgid "Saturation"
+msgstr ""
+
+#: model/images/forms.py:133
+msgid "Value"
+msgstr ""
+
+#: model/images/classification/job.py:26
+msgid "Image Classification Model"
+msgstr ""
+
+#: model/images/classification/views.py:127 model/images/generic/views.py:100
+#, python-format
+msgid "Unknown dataset job_id \"%(data)s\""
+msgstr ""
+
+#: model/images/classification/views.py:176
+#, python-format
+msgid "Unknown standard model \"%(data)s\""
+msgstr ""
+
+#: model/images/classification/views.py:181
+#, python-format
+msgid "Job not found: %(data)s"
+msgstr ""
+
+#: model/images/classification/views.py:198
+#, python-format
+msgid ""
+"For the job %(data)s, selected pretrained_model for epoch %(epoch)d is "
+"invalid!"
+msgstr ""
+
+#: model/images/classification/views.py:205 model/images/generic/views.py:170
+msgid ""
+"Pretrained_model for the selected epoch doesn't exist. May be deleted by "
+"another user/process. Please restart the server to load the correct "
+"pretrained_model details."
+msgstr ""
+
+#: model/images/classification/views.py:225 model/images/generic/views.py:189
+#, python-format
+msgid "Unrecognized method: \"%(data)s\""
+msgstr ""
+
+#: model/images/classification/views.py:248 model/images/generic/views.py:212
+msgid "Invalid learning rate policy"
+msgstr ""
+
+#: model/images/classification/views.py:393 model/images/generic/views.py:353
+msgid "must provide image_path or image_file"
+msgstr ""
+
+#: model/images/classification/views.py:477 model/images/generic/views.py:622
+msgid "image_list is a required field"
+msgstr ""
+
+#: model/images/classification/views.py:482
+#: model/images/classification/views.py:642 model/images/generic/views.py:627
+#, python-format
+msgid "image_folder \"%(image_folder)s\" does not exit"
+msgstr ""
+
+#: model/images/classification/views.py:545
+msgid "Unable to classify any image from the file"
+msgstr ""
+
+#: model/images/classification/views.py:629
+msgid "File upload not found"
+msgstr ""
+
+#: model/images/classification/views.py:682
+msgid "An error occurred while processing the images"
+msgstr ""
+
+#: model/images/generic/job.py:26
+msgid "Generic Image Model"
+msgstr ""
+
+#: model/images/generic/views.py:535
+msgid "db_path is a required field"
+msgstr ""
+
+#: model/images/generic/views.py:540
+#, python-format
+msgid "DB \"%(db_path)s\" does not exit"
+msgstr ""
+
+#: model/images/generic/views.py:797
+#, python-format
+msgid "Unknown extension '%(view_extension_id)s'"
+msgstr ""
+
+#: model/images/generic/views.py:806
+#, python-format
+msgid "Extension form validation failed with %(ext_form_error)s"
+msgstr ""
+
+#: model/tasks/caffe_train.py:213
+msgid "Train Caffe Model"
+msgstr ""
+
+#: model/tasks/caffe_train.py:258
+msgid "Bad data shape."
+msgstr ""
+
+#: model/tasks/caffe_train.py:335
+msgid "cannot specify two train data layers"
+msgstr ""
+
+#: model/tasks/caffe_train.py:338
+msgid "cannot specify two test data layers"
+msgstr ""
+
+#: model/tasks/caffe_train.py:342
+msgid "cannot specify a test data layer without a train data layer"
+msgstr ""
+
+#: model/tasks/caffe_train.py:349 model/tasks/caffe_train.py:373
+msgid "expecting a Data layer"
+msgstr ""
+
+#: model/tasks/caffe_train.py:351 model/tasks/caffe_train.py:375
+msgid "expecting an HDF5Data layer"
+msgstr ""
+
+#: model/tasks/caffe_train.py:353 model/tasks/caffe_train.py:377
+msgid "don't set the data_param.source"
+msgstr ""
+
+#: model/tasks/caffe_train.py:354 model/tasks/caffe_train.py:378
+msgid "don't set the data_param.backend"
+msgstr ""
+
+#: model/tasks/caffe_train.py:356 model/tasks/caffe_train.py:380
+msgid "don't set the hdf5_data_param.source"
+msgstr ""
+
+#: model/tasks/caffe_train.py:359 model/tasks/caffe_train.py:399
+msgid "HDF5Data layer does not support cropping"
+msgstr ""
+
+#: model/tasks/caffe_train.py:360 model/tasks/caffe_train.py:891
+msgid "crop_size is larger than the image size"
+msgstr ""
+
+#: model/tasks/caffe_train.py:426
+msgid "HDF5Data layer does not support mean subtraction"
+msgstr ""
+
+#: model/tasks/caffe_train.py:505
+msgid ""
+"Your deploy network is missing a Softmax layer! Read the documentation "
+"for custom networks and/or look at the standard networks for examples."
+msgstr ""
+
+#: model/tasks/caffe_train.py:585 model/tasks/caffe_train.py:814
+#, python-format
+msgid "Unknown lr_policy: \"%(policy)s\""
+msgstr ""
+
+#: model/tasks/caffe_train.py:626
+msgid "Training images are required"
+msgstr ""
+
+#: model/tasks/caffe_train.py:656
+msgid "cannot specify two train image data layers"
+msgstr ""
+
+#: model/tasks/caffe_train.py:660
+msgid "cannot specify two train label data layers"
+msgstr ""
+
+#: model/tasks/caffe_train.py:666
+msgid "cannot specify two val image data layers"
+msgstr ""
+
+#: model/tasks/caffe_train.py:670
+msgid "cannot specify two val label data layers"
+msgstr ""
+
+#: model/tasks/caffe_train.py:918
+msgid "Please select single GPU when running in Windows with Python layer."
+msgstr ""
+
+#: model/tasks/caffe_train.py:947
+msgid "Unknown flavor.  Support NVIDIA and BVLC flavors only."
+msgstr ""
+
+#: model/tasks/caffe_train.py:973
+#, python-format
+msgid "Unknown solver type %(solver_type)s."
+msgstr ""
+
+#: model/tasks/caffe_train.py:1020
+#, python-format
+msgid ""
+"Network outputted NaN for \"%(name)s\" (%(phase)s phase). Try decreasing "
+"your learning rate."
+msgstr ""
+
+#: model/tasks/caffe_train.py:1624
+#, python-format
+msgid "Unknown phase: %(phase)s"
+msgstr ""
+
+#: model/tasks/caffe_train.py:1651
+#, python-format
+msgid ""
+"Layer '%(name)s' references bottom '%(bottom)s' at the %(status)s stage "
+"however this blob is not included at that stage. Please consider using an"
+" include directive to limit the scope of this layer."
+msgstr ""
+
+#: model/tasks/caffe_train.py:1669 model/tasks/caffe_train.py:1700
+#, python-format
+msgid "Unsupported data layer type %(type)s"
+msgstr ""
+
+#: model/tasks/caffe_train.py:1709
+#, python-format
+msgid ""
+"Don't leave inner_product_param.num_output unset for generic networks "
+"(layer %(name)s)"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:49
+msgid "gpus should be a list"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:129
+msgid "Train Tensorflow Model"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:151 model/tasks/train.py:447
+msgid "no snapshots"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:162 model/tasks/train.py:458
+msgid "Invalid epoch"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:193 model/tasks/tensorflow_train.py:560
+msgid "Failed to retrieve mean file."
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:604 model/tasks/torch_train.py:626
+#, python-format
+msgid "%(id)s classify one task got aborted. error code - %(returncode)d"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:623
+#, python-format
+msgid ""
+"%(id)s classify one task failed with error code %(returncode)d \n"
+" %(str_e)s"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:635 model/tasks/torch_train.py:658
+#, python-format
+msgid "%(id)s classify one task failed with error code %(returncode)d"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:765 model/tasks/torch_train.py:787
+#, python-format
+msgid ""
+"Network reported %(label)s for confidence value. Please check image and "
+"network"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:795 model/tasks/torch_train.py:817
+#, python-format
+msgid ""
+"%(id)s classify %(test_category)s task failed with error message - "
+"%(message)s"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:899
+#, python-format
+msgid "%(id)s classify many task got aborted.error code - %(returncode)d"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:919 model/tasks/torch_train.py:951
+#, python-format
+msgid ""
+"%(id)s classify many task failed with error code %(returncode)d \n"
+" %(str_e)s"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:929 model/tasks/torch_train.py:963
+#, python-format
+msgid "%(id)s classify many task failed with error code %(returncode)d"
+msgstr ""
+
+#: model/tasks/torch_train.py:122
+msgid "Train Torch Model"
+msgstr ""
+
+#: model/tasks/torch_train.py:142
+msgid ""
+"Mean subtraction required but dataset has no mean file in .binaryproto "
+"format"
+msgstr ""
+
+#: model/tasks/torch_train.py:278
+msgid "Torch does not support multiple pretrained model files"
+msgstr ""
+
+#: model/tasks/torch_train.py:345
+#, python-format
+msgid ""
+"Network reported %(l)s for training loss. Try decreasing your learning "
+"rate."
+msgstr ""
+
+#: model/tasks/torch_train.py:554
+#, python-format
+msgid "Unable to save file to \"%(temp_image_path)s\""
+msgstr ""
+
+#: model/tasks/torch_train.py:857
+#, python-format
+msgid "Unable to save file to \"%(path)s\""
+msgstr ""
+
+#: model/tasks/torch_train.py:927
+#, python-format
+msgid "%(id)s classify many task got aborted. error code - %(returncode)d"
+msgstr ""
+
+#: model/tasks/train.py:195
+#, python-format
+msgid "Failed to load gpu information for GPU #\"%(index)s\""
+msgstr ""
+
+#: model/tasks/train.py:358
+msgid "Received a new output without being told the new epoch"
+msgstr ""
+
+#: model/tasks/train.py:543
+msgid "Requested timeline not found in timeline list"
+msgstr ""
+
+#: pretrained_model/job.py:46
+#, python-format
+msgid "framework of type %(framework)s is not supported"
+msgstr ""
+
+#: pretrained_model/job.py:73
+msgid "Pretrained Model"
+msgstr ""
+
+#: pretrained_model/views.py:34 pretrained_model/views.py:56
+msgid "Missing weights file"
+msgstr ""
+
+#: pretrained_model/views.py:36
+msgid "Weights must be a .caffemodel file"
+msgstr ""
+
+#: pretrained_model/views.py:40 pretrained_model/views.py:62
+msgid "Missing model definition file"
+msgstr ""
+
+#: pretrained_model/views.py:42
+msgid "Model definition must be .prototxt file"
+msgstr ""
+
+#: pretrained_model/views.py:58
+msgid "Weights must be a .t7 file"
+msgstr ""
+
+#: pretrained_model/views.py:64
+msgid "Model definition must be .lua file"
+msgstr ""
+
+#: pretrained_model/views.py:100
+msgid "Incorrect Archive Type"
+msgstr ""
+
+#: pretrained_model/views.py:115
+#, python-format
+msgid "Missing Key %(key)s in info.json"
+msgstr ""
+
+#: pretrained_model/views.py:125
+msgid "Missing model definition in info.json"
+msgstr ""
+
+#: pretrained_model/views.py:146
+msgid "success"
+msgstr ""
+
+#: pretrained_model/views.py:148
+msgid "Missing or Incorrect json file"
+msgstr ""
+
+#: pretrained_model/views.py:169 pretrained_model/views.py:171
+msgid "Missing job name"
+msgstr ""
+
+#: pretrained_model/tasks/caffe_upload.py:18
+msgid "Upload Pretrained Caffe Model"
+msgstr ""
+
+#: pretrained_model/tasks/tensorflow_upload.py:18
+msgid "Upload Pretrained Tensorflow Model"
+msgstr ""
+
+#: pretrained_model/tasks/torch_upload.py:17
+msgid "Upload Pretrained Torch Model"
+msgstr ""
+
+#: pretrained_model/tasks/upload_pretrained.py:73
+#: pretrained_model/tasks/upload_pretrained.py:79
+msgid "Please implement me"
+msgstr ""
+
+#: store/views.py:143
+msgid "Unable to find requested model"
+msgstr ""
+
+#: store/views.py:195
+#, python-format
+msgid "Thanks for visiting %(url)s"
+msgstr ""
+
 #: templates/home.html:30
 msgid "Home"
 msgstr "首页"
 
-#: utils/forms.py:76
+#: tools/analyze_db.py:70
+msgid "No such file or directory"
+msgstr ""
+
+#: tools/analyze_db.py:74
+msgid "Not a directory"
+msgstr ""
+
+#: tools/analyze_db.py:148
+msgid "Shape is not set and datum is not encoded"
+msgstr ""
+
+#: tools/create_db.py:242
+msgid "input_file does not exist"
+msgstr ""
+
+#: tools/create_db.py:250
+msgid "invalid image width"
+msgstr ""
+
+#: tools/create_db.py:252
+msgid "invalid image height"
+msgstr ""
+
+#: tools/create_db.py:254
+msgid "invalid number of channels"
+msgstr ""
+
+#: tools/create_db.py:256
+msgid "invalid resize_mode"
+msgstr ""
+
+#: tools/create_db.py:258
+msgid "image_folder does not exist"
+msgstr ""
+
+#: tools/create_db.py:268
+#, python-format
+msgid "Cannot save mean file at \"%(mean_file)s\""
+msgstr ""
+
+#: tools/create_db.py:308
+msgid "invalid backend"
+msgstr ""
+
+#: tools/create_db.py:325
+msgid "Can't create TFRecords as support for Tensorflow is not enabled."
+msgstr ""
+
+#: tools/create_db.py:384 tools/create_db.py:463 tools/create_db.py:546
+msgid "no images loaded from input file"
+msgstr ""
+
+#: tools/create_db.py:388 tools/create_db.py:467 tools/create_db.py:550
+msgid "no images written to database"
+msgstr ""
+
+#: tools/create_db.py:594
+msgid "No valid lines in input file"
+msgstr ""
+
+#: tools/create_db.py:735 tools/create_db.py:790 tools/create_generic_db.py:138
+msgid "Invalid encoding type"
+msgstr ""
+
+#: tools/create_db.py:772
+#, python-format
+msgid "Image has unrecognized shape: \"%(image_shape)s\""
+msgstr ""
+
+#: tools/create_db.py:815 tools/create_generic_db.py:210
+#, python-format
+msgid "py-lmdb is out of date (%(version)s vs 0.87)"
+msgstr ""
+
+#: tools/create_db.py:867
+msgid "An input file of labeled images"
+msgstr ""
+
+#: tools/create_db.py:869
+msgid "Path to the output database"
+msgstr ""
+
+#: tools/create_db.py:872
+msgid "width of resized images"
+msgstr ""
+
+#: tools/create_db.py:876
+msgid "height of resized images"
+msgstr ""
+
+#: tools/create_db.py:884
+msgid "channels of resized images (1 for grayscale, 3 for color [default])"
+msgstr ""
+
+#: tools/create_db.py:887
+msgid ""
+"resize mode for images (must be \"crop\", \"squash\" [default], \"fill\" "
+"or \"half_crop\")"
+msgstr ""
+
+#: tools/create_db.py:890
+msgid "location to output the image mean (doesn't save mean if not specified)"
+msgstr ""
+
+#: tools/create_db.py:892
+msgid "folder containing the images (if the paths in input_file are not absolute)"
+msgstr ""
+
+#: tools/create_db.py:895
+msgid "Shuffle images before saving"
+msgstr ""
+
+#: tools/create_db.py:898
+msgid "Image encoding format (jpg/png)"
+msgstr ""
+
+#: tools/create_db.py:901
+msgid "Database compression format (gzip)"
+msgstr ""
+
+#: tools/create_db.py:905
+msgid "The database backend - lmdb[default], hdf5 or tfrecords"
+msgstr ""
+
+#: tools/create_db.py:908
+msgid "The initial map size for LMDB (in MB)"
+msgstr ""
+
+#: tools/create_db.py:912
+msgid "The size limit for HDF5 datasets"
+msgstr ""
+
+#: tools/create_generic_db.py:114
+#, python-format
+msgid "Invalid number of dimensions: %(ndim)d"
+msgstr ""
+
+#: tools/create_generic_db.py:262 tools/create_generic_db.py:352
+#, python-format
+msgid "Feature shape mismatch (last:%(fshape1)s, previous:%(fshape2)s)"
+msgstr ""
+
+#: tools/create_generic_db.py:265 tools/create_generic_db.py:355
+#, python-format
+msgid "Label shape mismatch (last:%(lshape1)s, previous:%(lshape2)s)"
+msgstr ""
+
+#: tools/create_generic_db.py:373
+#, python-format
+msgid "Number of processed entries (%(i1)d) does not match entry count (%(i2)d)"
+msgstr ""
+
+#: tools/create_generic_db.py:417
+#, python-format
+msgid "Dataset dir %(dataset_dir)s does not exist"
+msgstr ""
+
+#: utils/auth.py:22
+msgid "username is required"
+msgstr "用户名必填"
+
+#: utils/auth.py:24
+msgid "Must start with a lowercase letter"
+msgstr "必须以小写字母开头"
+
+#: utils/auth.py:26
+msgid "Only lowercase letters, numbers, periods, dashes and underscores allowed"
+msgstr "只允许使用小写字母，数字，句号，破折号和下划线"
+
+#: utils/filesystem.py:16
+#, python-format
+msgid "Incorrect path: %(start_path)s"
+msgstr ""
+
+#: utils/filesystem.py:29
+#, python-format
+msgid "Python file, %(basename)s, needs .py or .pyc extension."
+msgstr ""
+
+#: utils/filesystem.py:32
+#, python-format
+msgid "Python file, %(filename)s, already exists."
+msgstr ""
+
+#: utils/filesystem.py:75
+#, python-format
+msgid "%(dir_name)s is not a directory."
+msgstr ""
+
+#: utils/forms.py:33
+msgid "This field is required."
+msgstr ""
+
+#: utils/forms.py:57
+#, python-format
+msgid "This field is required if %(other_field)s is set."
+msgstr ""
+
+#: utils/forms.py:77
 #, python-format
 msgid "Invalid field name '%s'."
 msgstr ""
 
-#: utils/forms.py:78
+#: utils/forms.py:79
 #, python-format
 msgid "Field must be greater than %s."
 msgstr ""
 
-#: utils/forms.py:314
+#: utils/forms.py:290 utils/forms.py:336
+msgid "multiples allowed"
+msgstr ""
+
+#: utils/forms.py:315
 msgid "Not a valid integer value"
 msgstr ""
 
-#: utils/forms.py:360
+#: utils/forms.py:361
 msgid "Not a valid float value"
 msgstr ""
 
-#: utils/forms.py:410
+#: utils/forms.py:411
 msgid "No data."
 msgstr ""
 
-#: utils/forms.py:412
+#: utils/forms.py:413
 #, python-format
 msgid "Number %(data)s must be at least %(min)s."
 msgstr ""
 
-#: utils/forms.py:414
+#: utils/forms.py:415
 #, python-format
 msgid "Number %(data)s must be at most %(max)s."
 msgstr ""
 
-#: utils/forms.py:416
+#: utils/forms.py:417
 #, python-format
 msgid "Number %(data)s must be greater than %(min)s."
 msgstr ""
 
-#: utils/forms.py:418
+#: utils/forms.py:419
 #, python-format
 msgid "Number %(data)s must be less than %(max)s."
 msgstr ""
+
+#: utils/image.py:67
+#, python-format
+msgid "IOError: Trying to load \"%(path)s\": %(message)s"
+msgstr ""
+
+#: utils/image.py:70
+#, python-format
+msgid "\"%(path)s\" not found"
+msgstr ""
+
+#: utils/image.py:92
+#, python-format
+msgid "Image mode \"%(mode)s\" not supported"
+msgstr ""
+
+#: utils/image.py:106
+#, python-format
+msgid "Ratio must be greater than 1 (ratio=%(ratio)f)"
+msgstr ""
+
+#: utils/image.py:129
+#, python-format
+msgid "unsupported number of channels: %(channels)s"
+msgstr ""
+
+#: utils/image.py:136
+#, python-format
+msgid "unknown image mode \"%(image_mode)s\""
+msgstr ""
+
+#: utils/image.py:156 utils/image.py:163 utils/image.py:172 utils/image.py:183
+#, python-format
+msgid "invalid image shape: %(image_shape)s"
+msgstr ""
+
+#: utils/image.py:185
+msgid "resize_image() expected a PIL.Image.Image or a numpy.ndarray"
+msgstr ""
+
+#: utils/image.py:210
+#, python-format
+msgid "resize_mode \"%(resize_mode)s\" not supported"
+msgstr ""
+
+#: utils/image.py:275
+#, python-format
+msgid "unrecognized resize_mode \"%(resize_mode)s\""
+msgstr ""
+
+#: utils/image.py:311
+msgid "image must be a PIL.Image or a np.ndarray"
+msgstr "图像必须是PIL.Image或np.ndarray"
+
+#: utils/image.py:346
+#, python-format
+msgid "Unsupported channel_order %(channel_order)s"
+msgstr "不支持的通道顺序%(channel_order)s"
+
+#: utils/image.py:385
+#, python-format
+msgid "unrecognized data shape: %(data_shape)s"
+msgstr "未识别的数据形状：%(data_shape)s"
+
+#: utils/routing.py:17
+msgid "job_id is a required field"
+msgstr "作业id必填项"
 

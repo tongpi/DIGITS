@@ -12,6 +12,7 @@ from digits import utils
 from digits.webapp import scheduler
 from digits.pretrained_model import PretrainedModelJob
 import werkzeug.exceptions
+from flask_babel import gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -30,15 +31,15 @@ def validate_caffe_files(files):
     """
     # Validate model weights:
     if str(files['weights_file'].filename) is '':
-        raise werkzeug.exceptions.BadRequest('Missing weights file')
+        raise werkzeug.exceptions.BadRequest(_('Missing weights file'))
     elif files['weights_file'].filename.rsplit('.', 1)[1] != "caffemodel":
-        raise werkzeug.exceptions.BadRequest('Weights must be a .caffemodel file')
+        raise werkzeug.exceptions.BadRequest(_('Weights must be a .caffemodel file'))
 
     # Validate model definition:
     if str(files['model_def_file'].filename) is '':
-        raise werkzeug.exceptions.BadRequest('Missing model definition file')
+        raise werkzeug.exceptions.BadRequest(_('Missing model definition file'))
     elif files['model_def_file'].filename.rsplit('.', 1)[1] != "prototxt":
-        raise werkzeug.exceptions.BadRequest('Model definition must be .prototxt file')
+        raise werkzeug.exceptions.BadRequest(_('Model definition must be .prototxt file'))
 
     weights_path = get_tempfile(flask.request.files['weights_file'], ".caffemodel")
     model_def_path = get_tempfile(flask.request.files['model_def_file'], ".prototxt")
@@ -52,15 +53,15 @@ def validate_torch_files(files):
     """
     # Validate model weights:
     if str(files['weights_file'].filename) is '':
-        raise werkzeug.exceptions.BadRequest('Missing weights file')
+        raise werkzeug.exceptions.BadRequest(_('Missing weights file'))
     elif files['weights_file'].filename.rsplit('.', 1)[1] != "t7":
-        raise werkzeug.exceptions.BadRequest('Weights must be a .t7 file')
+        raise werkzeug.exceptions.BadRequest(_('Weights must be a .t7 file'))
 
     # Validate model definition:
     if str(files['model_def_file'].filename) is '':
-        raise werkzeug.exceptions.BadRequest('Missing model definition file')
+        raise werkzeug.exceptions.BadRequest(_('Missing model definition file'))
     elif files['model_def_file'].filename.rsplit('.', 1)[1] != "lua":
-        raise werkzeug.exceptions.BadRequest('Model definition must be .lua file')
+        raise werkzeug.exceptions.BadRequest(_('Model definition must be .lua file'))
 
     weights_path = get_tempfile(flask.request.files['weights_file'], ".t7")
     model_def_path = get_tempfile(flask.request.files['model_def_file'], ".lua")
@@ -96,7 +97,7 @@ def upload_archive():
         archive = zipfile.ZipFile(archive_file, 'r')
         names = archive.namelist()
     else:
-        return flask.jsonify({"status": "Incorrect Archive Type"}), 500
+        return flask.jsonify({"status": _("Incorrect Archive Type")}), 500
 
     if "info.json" in names:
 
@@ -111,7 +112,7 @@ def upload_archive():
         valid, key = validate_archive_keys(info)
 
         if valid is False:
-            return flask.jsonify({"status": "Missing Key '" + key + "' in info.json"}), 500
+            return flask.jsonify({"status": _("Missing Key %(key)s in info.json", key=key)}), 500
 
         # Get path to files needed to be uploaded in directory
         weights_file = os.path.join(tempdir, info["snapshot file"])
@@ -121,7 +122,7 @@ def upload_archive():
         elif "network file" in info:
             model_file = os.path.join(tempdir, info["network file"])
         else:
-            return flask.jsonify({"status": "Missing model definition in info.json"}), 500
+            return flask.jsonify({"status": _("Missing model definition in info.json")}), 500
 
         if "labels file" in info:
             labels_file = os.path.join(tempdir, info["labels file"])
@@ -142,9 +143,9 @@ def upload_archive():
         # Delete temp directory
         shutil.rmtree(tempdir, ignore_errors=True)
 
-        return flask.jsonify({"status": "success"}), 200
+        return flask.jsonify({"status": _("success")}), 200
     else:
-        return flask.jsonify({"status": "Missing or Incorrect json file"}), 500
+        return flask.jsonify({"status": _("Missing or Incorrect json file")}), 500
 
 
 @utils.auth.requires_login
@@ -165,9 +166,9 @@ def new():
         framework = form['framework']
 
     if 'job_name' not in flask.request.form:
-        raise werkzeug.exceptions.BadRequest('Missing job name')
+        raise werkzeug.exceptions.BadRequest(_('Missing job name'))
     elif str(flask.request.form['job_name']) is '':
-        raise werkzeug.exceptions.BadRequest('Missing job name')
+        raise werkzeug.exceptions.BadRequest(_('Missing job name'))
 
     if framework == "caffe":
         weights_path, model_def_path = validate_caffe_files(files)

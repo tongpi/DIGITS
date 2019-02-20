@@ -15,7 +15,7 @@ from digits.pretrained_model import PretrainedModelJob
 from digits.utils import auth
 from digits.utils.store import StoreParser
 from digits.webapp import app, scheduler, socketio
-
+from flask_babel import gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -140,7 +140,7 @@ def push():
             if found:
                 break
     if not found:
-        return 'Unable to find requested model', 404
+        return _('Unable to find requested model'), 404
     else:
         progress = Progress(model_id)
         weights, model, label, meta_data, python_layer = retrieve_files(url, directory, progress)
@@ -192,7 +192,7 @@ def models():
                 parser.feed(page.content)
                 if len(parser.get_child_dirs()) > 0:  # we have list of subdirectories
                     dirs = [d[:-1] for d in parser.get_child_dirs()]
-                    msg = 'Thanks for visiting {}'.format(store_base_url)
+                    msg = _('Thanks for visiting %(url)s', url=store_base_url)
                 else:  # nothing found, try next URL
                     continue
         except requests.exceptions.RequestException as e:

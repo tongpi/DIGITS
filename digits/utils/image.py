@@ -16,6 +16,7 @@ import PIL.Image
 import scipy.misc
 
 from . import is_url, HTTP_TIMEOUT, errors
+from flask_babel import gettext as _
 
 # Library defaults:
 #   PIL.Image:
@@ -63,9 +64,10 @@ def load_image(path):
             image = PIL.Image.open(path)
             image.load()
         except IOError as e:
-            raise errors.LoadImageError, 'IOError: Trying to load "%s": %s' % (path, e.message)
+            raise errors.LoadImageError, _('IOError: Trying to load "%(path)s": %(message)s', path=path,
+                                           message=e.message)
     else:
-        raise errors.LoadImageError, '"%s" not found' % path
+        raise errors.LoadImageError, _('"%(path)s" not found', path=path)
 
     if image.mode in ['L', 'RGB']:
         # No conversion necessary
@@ -87,7 +89,7 @@ def load_image(path):
         new.paste(image, mask=image.convert('RGBA'))
         return new
     else:
-        raise errors.LoadImageError, 'Image mode "%s" not supported' % image.mode
+        raise errors.LoadImageError, _('Image mode "%(mode)s" not supported', mode=image.mode)
 
 
 def upscale(image, ratio):
@@ -101,7 +103,7 @@ def upscale(image, ratio):
     if not isinstance(image, np.ndarray):
         raise ValueError('Expected ndarray')
     if ratio < 1:
-        raise ValueError('Ratio must be greater than 1 (ratio=%f)' % ratio)
+        raise ValueError(_('Ratio must be greater than 1 (ratio=%(ratio)f)', ratio=ratio))
     width = int(math.floor(image.shape[1] * ratio))
     height = int(math.floor(image.shape[0] * ratio))
     channels = image.shape[2]
@@ -124,14 +126,14 @@ def image_to_array(image,
     """
 
     if channels not in [None, 1, 3, 4]:
-        raise ValueError('unsupported number of channels: %s' % channels)
+        raise ValueError(_('unsupported number of channels: %(channels)s', channels=channels))
 
     if isinstance(image, PIL.Image.Image):
         # Convert image mode (channels)
         if channels is None:
             image_mode = image.mode
             if image_mode not in ['L', 'RGB', 'RGBA']:
-                raise ValueError('unknown image mode "%s"' % image_mode)
+                raise ValueError(_('unknown image mode "%(image_mode)s"', image_mode=image_mode))
         elif channels == 1:
             # 8-bit pixels, black and white
             image_mode = 'L'
@@ -151,14 +153,14 @@ def image_to_array(image,
             image = image.reshape(image.shape[:2])
         if channels is None:
             if not (image.ndim == 2 or (image.ndim == 3 and image.shape[2] in [3, 4])):
-                raise ValueError('invalid image shape: %s' % (image.shape,))
+                raise ValueError(_('invalid image shape: %(image_shape)s', image_shape=image.shape))
         elif channels == 1:
             if image.ndim != 2:
                 if image.ndim == 3 and image.shape[2] in [3, 4]:
                     # color to grayscale. throw away alpha
                     image = np.dot(image[:, :, :3], [0.299, 0.587, 0.114]).astype(np.uint8)
                 else:
-                    raise ValueError('invalid image shape: %s' % (image.shape,))
+                    raise ValueError(_('invalid image shape: %(image_shape)s', image_shape=image.shape))
         elif channels == 3:
             if image.ndim == 2:
                 # grayscale to color
@@ -167,7 +169,7 @@ def image_to_array(image,
                 # throw away alpha
                 image = image[:, :, :3]
             elif image.shape[2] != 3:
-                raise ValueError('invalid image shape: %s' % (image.shape,))
+                raise ValueError(_('invalid image shape: %(image_shape)s', image_shape=image.shape))
         elif channels == 4:
             if image.ndim == 2:
                 # grayscale to color
@@ -178,9 +180,9 @@ def image_to_array(image,
                 image = np.append(image, np.zeros(image.shape[:2] + (1,), dtype='uint8'), axis=2)
                 image[:, :, 3] = 255
             elif image.shape[2] != 4:
-                raise ValueError('invalid image shape: %s' % (image.shape,))
+                raise ValueError(_('invalid image shape: %(image_shape)s', image_shape=image.shape))
     else:
-        raise ValueError('resize_image() expected a PIL.Image.Image or a numpy.ndarray')
+        raise ValueError(_('resize_image() expected a PIL.Image.Image or a numpy.ndarray'))
 
     return image
 
@@ -205,7 +207,7 @@ def resize_image(image, height, width,
     if resize_mode is None:
         resize_mode = 'squash'
     if resize_mode not in ['crop', 'squash', 'fill', 'half_crop']:
-        raise ValueError('resize_mode "%s" not supported' % resize_mode)
+        raise ValueError(_('resize_mode "%(resize_mode)s" not supported', resize_mode=resize_mode))
 
     # convert to array
     image = image_to_array(image, channels)
@@ -270,7 +272,7 @@ def resize_image(image, height, width,
                 start = int(round((resize_height - height) / 2.0))
                 image = image[start:start + height, :]
         else:
-            raise Exception('unrecognized resize_mode "%s"' % resize_mode)
+            raise Exception(_('unrecognized resize_mode "%(resize_mode)s"', resize_mode=resize_mode))
 
         # fill ends of dimension that is too short with random noise
         if width_ratio > height_ratio:
@@ -306,7 +308,7 @@ def embed_image_html(image):
     elif isinstance(image, np.ndarray):
         image = PIL.Image.fromarray(image)
     else:
-        raise ValueError('image must be a PIL.Image or a np.ndarray')
+        raise ValueError(_('image must be a PIL.Image or a np.ndarray'))
 
     # Read format from the image
     fmt = image.format
@@ -341,7 +343,7 @@ def get_layer_vis_square(data,
     max_width -- maximum width for the vis_square
     """
     if channel_order not in ['RGB', 'BGR']:
-        raise ValueError('Unsupported channel_order %s' % channel_order)
+        raise ValueError(_('Unsupported channel_order %(channel_order)s', channel_order=channel_order))
     if data.ndim == 1:
         # interpret as 1x1 grayscale images
         # (N, 1, 1)
@@ -380,7 +382,7 @@ def get_layer_vis_square(data,
             # (N, H, W)
             data = data.reshape((data.shape[0] * data.shape[1], data.shape[2], data.shape[3]))
     else:
-        raise RuntimeError('unrecognized data shape: %s' % (data.shape,))
+        raise RuntimeError(_('unrecognized data shape: %(data_shape)s', data_shap=data.shape))
 
     # chop off data so that it will fit within max_width
     padsize = 0

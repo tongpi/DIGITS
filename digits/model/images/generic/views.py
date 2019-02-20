@@ -21,6 +21,7 @@ from digits.utils import constants
 from digits.utils.forms import fill_form_if_cloned, save_form_to_job
 from digits.utils.routing import request_wants_json, job_from_request
 from digits.webapp import scheduler
+from flask_babel import gettext
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -96,7 +97,7 @@ def create(extension_id=None):
     datasetJob = scheduler.get_job(form.dataset.data)
     if not datasetJob:
         raise werkzeug.exceptions.BadRequest(
-            'Unknown dataset job_id "%s"' % form.dataset.data)
+            gettext('Unknown dataset job_id "%(data)s"', data=form.dataset.data))
 
     # sweeps will be a list of the the permutations of swept fields
     # Get swept learning_rate
@@ -166,9 +167,9 @@ def create(extension_id=None):
 
                             if not (os.path.exists(pretrained_model)):
                                 raise werkzeug.exceptions.BadRequest(
-                                    "Pretrained_model for the selected epoch doesn't exist. "
-                                    "May be deleted by another user/process. "
-                                    "Please restart the server to load the correct pretrained_model details.")
+                                    gettext("Pretrained_model for the selected epoch doesn't exist. "
+                                      "May be deleted by another user/process. "
+                                      "Please restart the server to load the correct pretrained_model details."))
                             # get logical path
                             pretrained_model = old_job.train_task().get_snapshot(epoch)
                         break
@@ -185,7 +186,7 @@ def create(extension_id=None):
                 pretrained_model = form.custom_network_snapshot.data.strip()
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    'Unrecognized method: "%s"' % form.method.data)
+                    gettext('Unrecognized method: "%(data)s"', data=form.method.data))
 
             policy = {'policy': form.lr_policy.data}
             if form.lr_policy.data == 'fixed':
@@ -208,7 +209,7 @@ def create(extension_id=None):
                 policy['gamma'] = form.lr_sigmoid_gamma.data
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    'Invalid learning rate policy')
+                    gettext('Invalid learning rate policy'))
 
             if config_value('caffe')['multi_gpu']:
                 if form.select_gpu_count.data:
@@ -349,7 +350,7 @@ def infer_one():
         os.close(outfile[0])
         remove_image_path = True
     else:
-        raise werkzeug.exceptions.BadRequest('must provide image_path or image_file')
+        raise werkzeug.exceptions.BadRequest(gettext('must provide image_path or image_file'))
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -531,12 +532,12 @@ def infer_db():
     model_job = job_from_request()
 
     if 'db_path' not in flask.request.form or flask.request.form['db_path'] is None:
-        raise werkzeug.exceptions.BadRequest('db_path is a required field')
+        raise werkzeug.exceptions.BadRequest(gettext('db_path is a required field'))
 
     db_path = flask.request.form['db_path']
 
     if not os.path.exists(db_path):
-        raise werkzeug.exceptions.BadRequest('DB "%s" does not exit' % db_path)
+        raise werkzeug.exceptions.BadRequest(gettext('DB "%(db_path)s" does not exit', db_path=db_path))
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -618,12 +619,12 @@ def infer_many():
 
     image_list = flask.request.files.get('image_list')
     if not image_list:
-        raise werkzeug.exceptions.BadRequest('image_list is a required field')
+        raise werkzeug.exceptions.BadRequest(gettext('image_list is a required field'))
 
     if 'image_folder' in flask.request.form and flask.request.form['image_folder'].strip():
         image_folder = flask.request.form['image_folder']
         if not os.path.exists(image_folder):
-            raise werkzeug.exceptions.BadRequest('image_folder "%s" does not exit' % image_folder)
+            raise werkzeug.exceptions.BadRequest(gettext('image_folder "%(image_folder)s" does not exit', image_folder=image_folder))
     else:
         image_folder = None
 
@@ -793,7 +794,7 @@ def get_inference_visualizations(dataset, inputs, outputs):
         view_extension_id = flask.request.form['view_extension_id']
         extension_class = extensions.view.get_extension(view_extension_id)
         if extension_class is None:
-            raise ValueError("Unknown extension '%s'" % view_extension_id)
+            raise ValueError(gettext("Unknown extension '%(view_extension_id)s'", view_extension_id=view_extension_id))
     else:
         # no view extension specified, use default
         extension_class = extensions.view.get_default_extension()
@@ -802,7 +803,7 @@ def get_inference_visualizations(dataset, inputs, outputs):
     # validate form
     extension_form_valid = extension_form.validate_on_submit()
     if not extension_form_valid:
-        raise ValueError("Extension form validation failed with %s" % repr(extension_form.errors))
+        raise ValueError(gettext("Extension form validation failed with %(ext_form_error)s", ext_form_error=repr(extension_form.errors)))
 
     # create instance of extension class
     extension = extension_class(dataset, **extension_form.data)

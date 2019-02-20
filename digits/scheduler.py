@@ -21,6 +21,7 @@ from .model import ModelJob
 from .pretrained_model import PretrainedModelJob
 from .status import Status
 from digits.utils import errors
+from flask_babel import gettext as _
 
 """
 This constant configures how long to wait before automatically
@@ -219,7 +220,7 @@ class Scheduler:
         elif isinstance(job, DatasetJob):
             datajob = job
         else:
-            raise ValueError("Unhandled job type %s" % job.job_type())
+            raise ValueError(_("Unhandled job type %(job_type)s", job_type=job.job_type()))
 
         for j in self.jobs.values():
             # Any model that shares (this/the same) dataset should be added too:
@@ -252,7 +253,7 @@ class Scheduler:
         elif isinstance(job, Job):
             job_id = job.id()
         else:
-            raise ValueError('called delete_job with a %s' % type(job))
+            raise ValueError(_('called delete_job with a %(type)s', type=type(job)))
         dependent_jobs = []
         # try to find the job
         job = self.jobs.get(job_id, None)
@@ -477,8 +478,8 @@ class Scheduler:
                             found = True
                             break
                     if not found:
-                        raise RuntimeError('Resource "%s" with identifier="%s" not found' % (
-                            resource_type, identifier))
+                        raise RuntimeError(_('Resource "%(resourceType)s" with identifier="%(identifier)s" not found',
+                                             resourceType=resource_type, identifier=identifier))
             task.current_resources = resources
             return True
         except Exception as e:

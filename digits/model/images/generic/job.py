@@ -5,6 +5,7 @@ import os.path
 
 from ..job import ImageModelJob
 from digits.utils import subclass, override
+from flask_babel import gettext
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 1
@@ -22,7 +23,7 @@ class GenericImageModelJob(ImageModelJob):
 
     @override
     def job_type(self):
-        return 'Generic Image Model'
+        return gettext('Generic Image Model')
 
     @override
     def download_files(self, epoch=-1):

@@ -1,6 +1,6 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
-
+from flask_babel import gettext as _
 import time
 
 
@@ -59,19 +59,19 @@ class Status():
             self.name = 'Initialized'
             self.css = 'warning'
         elif val == self.WAIT:
-            self.name = 'Waiting'
+            self.name = _('Waiting')
             self.css = 'warning'
         elif val == self.RUN:
-            self.name = 'Running'
+            self.name = _('Running')
             self.css = 'info'
         elif val == self.DONE:
-            self.name = 'Done'
+            self.name = _('Done')
             self.css = 'success'
         elif val == self.ABORT:
-            self.name = 'Aborted'
+            self.name = _('Aborted')
             self.css = 'warning'
         elif val == self.ERROR:
-            self.name = 'Error'
+            self.name = _('Error')
             self.css = 'danger'
         else:
             self.name = '?'

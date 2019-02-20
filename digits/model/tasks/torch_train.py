@@ -18,6 +18,7 @@ import digits
 from digits import utils
 from digits.config import config_value
 from digits.utils import subclass, override, constants
+from flask_babel import gettext as _
 
 # Must import after importing digit.config
 import caffe_pb2
@@ -118,7 +119,7 @@ class TorchTrainTask(TrainTask):
 
     @override
     def name(self):
-        return 'Train Torch Model'
+        return _('Train Torch Model')
 
     @override
     def before_run(self):
@@ -138,7 +139,7 @@ class TorchTrainTask(TrainTask):
         if not os.path.exists(filename):
             mean_file = self.dataset.get_mean_file()
             assert mean_file is not None and mean_file.endswith('.binaryproto'), \
-                'Mean subtraction required but dataset has no mean file in .binaryproto format'
+                _('Mean subtraction required but dataset has no mean file in .binaryproto format')
             blob = caffe_pb2.BlobProto()
             with open(self.dataset.path(mean_file), 'rb') as infile:
                 blob.ParseFromString(infile.read())
@@ -274,7 +275,7 @@ class TorchTrainTask(TrainTask):
         if self.pretrained_model:
             filenames = self.pretrained_model.split(os.path.pathsep)
             if len(filenames) > 1:
-                raise ValueError('Torch does not support multiple pretrained model files')
+                raise ValueError(_('Torch does not support multiple pretrained model files'))
             args.append('--weights=%s' % self.path(filenames[0]))
 
         # Augmentations
@@ -341,7 +342,7 @@ class TorchTrainTask(TrainTask):
             index = float(match.group(1))
             l = match.group(2)
             assert not('inf' in l or 'nan' in l), \
-                'Network reported %s for training loss. Try decreasing your learning rate.' % l
+                _('Network reported %(l)s for training loss. Try decreasing your learning rate.', l=l)
             l = float(l)
             lr = match.group(4)
             lr = float(lr)
@@ -549,8 +550,9 @@ class TorchTrainTask(TrainTask):
         try:
             image.save(temp_image_path, format='png')
         except KeyError:
-            error_message = 'Unable to save file to "%s"' % temp_image_path
-            self.logger.error(error_message)
+            error_message_log = 'Unable to save file to "%s"' % temp_image_path
+            error_message = _('Unable to save file to "%(temp_image_path)s"', temp_image_path=temp_image_path)
+            self.logger.error(error_message_log)
             raise digits.inference.errors.InferenceError(error_message)
 
         file_to_load = self.get_snapshot(snapshot_epoch)
@@ -621,8 +623,7 @@ class TorchTrainTask(TrainTask):
                     if self.aborted.is_set():
                         p.terminate()
                         raise digits.inference.errors.InferenceError(
-                            '%s classify one task got aborted. error code - %d'
-                            % (self.get_framework_id(), p.returncode))
+                            _('%(id)s classify one task got aborted. error code - %(returncode)d', id=self.get_framework_id(), returncode=p.returncode))
 
                     if line is not None:
                         # Remove color codes and whitespace
@@ -654,8 +655,9 @@ class TorchTrainTask(TrainTask):
             self.after_test_run(temp_image_path)
 
         if p.returncode != 0:
-            error_message = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
-            self.logger.error(error_message)
+            error_message = _('%(id)s classify one task failed with error code %(returncode)d', id=self.get_framework_id(), returncode=p.returncode)
+            error_message_log = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
+            self.logger.error(error_message_log)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
                 error_message = error_message + unrecognized_output
@@ -782,7 +784,7 @@ class TorchTrainTask(TrainTask):
             label = match.group(1)
             confidence = match.group(2)
             assert not('inf' in confidence or 'nan' in confidence), \
-                'Network reported %s for confidence value. Please check image and network' % label
+                _('Network reported %(label)s for confidence value. Please check image and network', label=label)
             confidence = float(confidence)
             predictions.append((label, confidence))
             return True
@@ -812,8 +814,7 @@ class TorchTrainTask(TrainTask):
 
         if level in ['error', 'critical']:
             raise digits.inference.errors.InferenceError(
-                '%s classify %s task failed with error message - %s'
-                % (self.get_framework_id(), test_category, message))
+                _('%(id)s classify %(test_category)s task failed with error message - %(message)s', id=self.get_framework_id(), test_category=test_category, message=message))
 
         return True           # control never reach this line. It can be removed.
 
@@ -852,8 +853,9 @@ class TorchTrainTask(TrainTask):
                 try:
                     image.save(temp_image_path, format='png')
                 except KeyError:
-                    error_message = 'Unable to save file to "%s"' % temp_image_path
-                    self.logger.error(error_message)
+                    error_message_log = 'Unable to save file to "%s"' % temp_image_path
+                    error_message = _('Unable to save file to "%(path)s"', path=temp_image_path)
+                    self.logger.error(error_message_log)
                     raise digits.inference.errors.InferenceError(error_message)
                 os.write(temp_imglist_handle, "%s\n" % temp_image_path)
                 os.close(temp_image_handle)
@@ -922,8 +924,7 @@ class TorchTrainTask(TrainTask):
                         if self.aborted.is_set():
                             p.terminate()
                             raise digits.inference.errors.InferenceError(
-                                '%s classify many task got aborted. error code - %d'
-                                % (self.get_framework_id(), p.returncode))
+                                _('%(id)s classify many task got aborted. error code - %(returncode)d', id=self.get_framework_id(), returncode=p.returncode))
 
                         if line is not None:
                             # Remove whitespace and color codes.
@@ -945,18 +946,22 @@ class TorchTrainTask(TrainTask):
                 if type(e) == digits.inference.errors.InferenceError:
                     error_message = e.__str__()
                 else:
-                    error_message = '%s classify many task failed with error code %d \n %s' % (
+                    error_message_log = '%s classify many task failed with error code %d \n %s' % (
                         self.get_framework_id(), p.returncode, str(e))
-                self.logger.error(error_message)
+                    error_message = _('%(id)s classify many task failed with error code %(returncode)d \n %(str_e)s', id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
+
+                self.logger.error(error_message_log)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output
                 raise digits.inference.errors.InferenceError(error_message)
 
             if p.returncode != 0:
-                error_message = '%s classify many task failed with error code %d' % (
+                error_message_log = '%s classify many task failed with error code %d' % (
                     self.get_framework_id(), p.returncode)
-                self.logger.error(error_message)
+                error_message = _('%(id)s classify many task failed with error code %(returncode)d',
+                                  id=self.get_framework_id(), returncode=p.returncode)
+                self.logger.error(error_message_log)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output

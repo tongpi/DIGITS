@@ -55,6 +55,7 @@ app.jinja_env.lstrip_blocks = True
 import digits.views  # noqa
 app.register_blueprint(digits.views.blueprint,
                        url_prefix=url_prefix)
+
 import digits.dataset.views  # noqa
 app.register_blueprint(digits.dataset.views.blueprint,
                        url_prefix=url_prefix+'/datasets')

@@ -12,6 +12,8 @@ import psutil
 from digits import device_query
 from digits.task import Task
 from digits.utils import subclass, override
+from flask_babel import gettext
+
 
 # NOTE: Increment this every time the picked object changes
 PICKLE_VERSION = 2
@@ -190,7 +192,7 @@ class TrainTask(Task):
                 if device:
                     devices.append((index, device))
                 else:
-                    raise RuntimeError('Failed to load gpu information for GPU #"%s"' % index)
+                    raise RuntimeError(gettext('Failed to load gpu information for GPU #"%(index)s"', index=index))
 
         # this thread continues until killed in after_run()
         while True:
@@ -353,7 +355,7 @@ class TrainTask(Task):
 
         # save to back of d[name]
         if name_len > epoch_len:
-            raise Exception('Received a new output without being told the new epoch')
+            raise Exception(gettext('Received a new output without being told the new epoch'))
         elif name_len == epoch_len:
             # already exists
             if isinstance(d[name].data[-1], list):
@@ -442,7 +444,7 @@ class TrainTask(Task):
         snapshot_filename = None
 
         if len(self.snapshots) == 0:
-            return "no snapshots"
+            return gettext("no snapshots")
 
         if epoch == -1 or not epoch:
             epoch = self.snapshots[-1][1]
@@ -453,7 +455,7 @@ class TrainTask(Task):
                     snapshot_filename = f
                     break
         if not snapshot_filename:
-            raise ValueError('Invalid epoch')
+            raise ValueError(gettext('Invalid epoch'))
 
         return snapshot_filename
 
@@ -538,7 +540,7 @@ class TrainTask(Task):
                 with open(fn, 'r') as file_data:
                     return file_data.read()
 
-        raise ValueError('Requested timeline not found in timeline list')
+        raise ValueError(gettext('Requested timeline not found in timeline list'))
 
     def timeline_trace_list(self):
         """

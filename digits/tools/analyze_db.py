@@ -18,6 +18,7 @@ except ImportError:
 import lmdb
 import numpy as np
 import PIL.Image
+from flask_babel import gettext as _
 
 # Add path for DIGITS package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -66,11 +67,11 @@ def validate_database_path(database):
     """
     p = os.path.abspath(database)
     if not os.path.exists(p):
-        raise ValueError('No such file or directory')
+        raise ValueError(_('No such file or directory'))
     if os.path.isfile(p):
         p = os.path.dirname(p)
     if not os.path.isdir(p):
-        raise ValueError('Not a directory')
+        raise ValueError(_('Not a directory'))
     return p
 
 
@@ -143,8 +144,9 @@ def analyze_db(database,
                     height = '?'
                     channels = '?'
             else:
-                errstr = 'Shape is not set and datum is not encoded'
-                logger.error(errstr)
+                errstrlog = 'Shape is not set and datum is not encoded'
+                errstr = _('Shape is not set and datum is not encoded')
+                logger.error(errstrlog)
                 raise ValueError(errstr)
         else:
             width, height, channels = datum.width, datum.height, datum.channels
