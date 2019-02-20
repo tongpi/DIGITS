@@ -137,11 +137,11 @@ msgstr ""
 
 #: model/forms.py:72
 msgid "Select Dataset"
-msgstr ""
+msgstr "选择数据集"
 
 #: model/forms.py:74
 msgid "Choose the dataset to use for this model."
-msgstr ""
+msgstr "选择要用于此模型的数据集。"
 
 #: model/forms.py:78
 msgid "Use client-side file"
