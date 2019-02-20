@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-16 11:50+0800\n"
+"POT-Creation-Date: 2019-02-16 16:21+0800\n"
 "PO-Revision-Date: 2019-02-16 11:51+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -16,7 +16,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.6.0\n"
+"Generated-By: Babel 2.5.0\n"
 
 #: views.py:59 views.py:74
 msgid "Classification"
@@ -29,6 +29,16 @@ msgstr "其他"
 #: templates/home.html:30
 msgid "Home"
 msgstr "首页"
+
+#: templates/datasets/generic/new.html:11
+#: templates/datasets/generic/new.html:20
+#, python-format
+msgid "New %(title)s Dataset"
+msgstr "新%(title)s数据集"
+
+#: templates/datasets/generic/new.html:15
+msgid "New Dataset"
+msgstr "新数据集"
 
 #: utils/forms.py:76
 #, python-format
