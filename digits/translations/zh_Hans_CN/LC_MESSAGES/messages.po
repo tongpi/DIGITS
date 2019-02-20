@@ -357,23 +357,23 @@ msgstr ""
 
 #: model/forms.py:276
 msgid "Standard Networks"
-msgstr ""
+msgstr "标准网络"
 
 #: model/forms.py:283
 msgid "Previous Networks"
-msgstr ""
+msgstr "之前的网络"
 
 #: model/forms.py:292
 msgid "Pretrained Networks"
-msgstr ""
+msgstr "预训练网络"
 
 #: model/forms.py:301
 msgid "Custom Network"
-msgstr ""
+msgstr "自定义网络"
 
 #: model/forms.py:309
 msgid "Pretrained model(s)"
-msgstr ""
+msgstr "预训练模型"
 
 #: model/forms.py:310
 #, python-format
