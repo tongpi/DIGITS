@@ -7,7 +7,7 @@ import re
 import werkzeug.exceptions
 
 from .routing import get_request_arg, request_wants_json
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 def get_username():
     return get_request_arg('username') or \

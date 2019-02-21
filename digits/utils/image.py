@@ -16,7 +16,7 @@ import PIL.Image
 import scipy.misc
 
 from . import is_url, HTTP_TIMEOUT, errors
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 # Library defaults:
 #   PIL.Image:

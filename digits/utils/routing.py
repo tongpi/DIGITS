@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 import flask
 import werkzeug.exceptions
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 def job_from_request():
     """

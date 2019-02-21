@@ -18,7 +18,7 @@ import digits
 from digits import utils
 from digits.utils import subclass, override, constants
 import tensorflow as tf
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 # NOTE: Increment this everytime the pickled object changes
 PICKLE_VERSION = 1

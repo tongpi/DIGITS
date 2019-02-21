@@ -18,7 +18,7 @@ import digits
 from digits import dataset, extensions, model, utils, pretrained_model
 from digits.log import logger
 from digits.utils.routing import request_wants_json
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 blueprint = flask.Blueprint(__name__, __name__)
 
 

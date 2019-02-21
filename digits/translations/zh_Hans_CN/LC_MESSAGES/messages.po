@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-20 18:31+0800\n"
+"POT-Creation-Date: 2019-02-21 15:03+0800\n"
 "PO-Revision-Date: 2019-02-16 11:51+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -594,72 +594,33 @@ msgstr ""
 msgid "Image Classification Model"
 msgstr ""
 
-#: model/images/classification/views.py:127 model/images/generic/views.py:100
+#: model/images/generic/job.py:26
+msgid "Generic Image Model"
+msgstr ""
+
+#: model/images/generic/views.py:100
 #, python-format
 msgid "Unknown dataset job_id \"%(data)s\""
 msgstr ""
 
-#: model/images/classification/views.py:176
-#, python-format
-msgid "Unknown standard model \"%(data)s\""
-msgstr ""
-
-#: model/images/classification/views.py:181
-#, python-format
-msgid "Job not found: %(data)s"
-msgstr ""
-
-#: model/images/classification/views.py:198
-#, python-format
-msgid ""
-"For the job %(data)s, selected pretrained_model for epoch %(epoch)d is "
-"invalid!"
-msgstr ""
-
-#: model/images/classification/views.py:205 model/images/generic/views.py:170
+#: model/images/generic/views.py:170
 msgid ""
 "Pretrained_model for the selected epoch doesn't exist. May be deleted by "
 "another user/process. Please restart the server to load the correct "
 "pretrained_model details."
 msgstr ""
 
-#: model/images/classification/views.py:225 model/images/generic/views.py:189
+#: model/images/generic/views.py:189
 #, python-format
 msgid "Unrecognized method: \"%(data)s\""
 msgstr ""
 
-#: model/images/classification/views.py:248 model/images/generic/views.py:212
+#: model/images/generic/views.py:212
 msgid "Invalid learning rate policy"
 msgstr ""
 
-#: model/images/classification/views.py:393 model/images/generic/views.py:353
+#: model/images/generic/views.py:353
 msgid "must provide image_path or image_file"
-msgstr ""
-
-#: model/images/classification/views.py:477 model/images/generic/views.py:622
-msgid "image_list is a required field"
-msgstr ""
-
-#: model/images/classification/views.py:482
-#: model/images/classification/views.py:642 model/images/generic/views.py:627
-#, python-format
-msgid "image_folder \"%(image_folder)s\" does not exit"
-msgstr ""
-
-#: model/images/classification/views.py:545
-msgid "Unable to classify any image from the file"
-msgstr ""
-
-#: model/images/classification/views.py:629
-msgid "File upload not found"
-msgstr ""
-
-#: model/images/classification/views.py:682
-msgid "An error occurred while processing the images"
-msgstr ""
-
-#: model/images/generic/job.py:26
-msgid "Generic Image Model"
 msgstr ""
 
 #: model/images/generic/views.py:535
@@ -669,6 +630,15 @@ msgstr ""
 #: model/images/generic/views.py:540
 #, python-format
 msgid "DB \"%(db_path)s\" does not exit"
+msgstr ""
+
+#: model/images/generic/views.py:622
+msgid "image_list is a required field"
+msgstr ""
+
+#: model/images/generic/views.py:627
+#, python-format
+msgid "image_folder \"%(image_folder)s\" does not exit"
 msgstr ""
 
 #: model/images/generic/views.py:797
@@ -1325,4 +1295,25 @@ msgstr "未识别的数据形状：%(data_shape)s"
 #: utils/routing.py:17
 msgid "job_id is a required field"
 msgstr "作业id必填项"
+
+#~ msgid "Unknown standard model \"%(data)s\""
+#~ msgstr ""
+
+#~ msgid "Job not found: %(data)s"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "For the job %(data)s, selected "
+#~ "pretrained_model for epoch %(epoch)d is "
+#~ "invalid!"
+#~ msgstr ""
+
+#~ msgid "Unable to classify any image from the file"
+#~ msgstr ""
+
+#~ msgid "File upload not found"
+#~ msgstr ""
+
+#~ msgid "An error occurred while processing the images"
+#~ msgstr ""
 

@@ -5,7 +5,7 @@ import os
 from digits.job import Job
 from digits.utils import subclass, override
 from digits.pretrained_model.tasks import CaffeUploadTask, TorchUploadTask, TensorflowUploadTask
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 
 @subclass

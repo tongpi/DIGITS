@@ -22,7 +22,7 @@ from digits.config import config_value
 from digits.status import Status
 from digits.utils import subclass, override, constants
 from digits.utils.filesystem import tail
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 
 # Must import after importing digit.config

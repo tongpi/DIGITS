@@ -15,7 +15,7 @@ from digits.pretrained_model import PretrainedModelJob
 from digits.utils import auth
 from digits.utils.store import StoreParser
 from digits.webapp import app, scheduler, socketio
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 

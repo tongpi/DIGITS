@@ -21,7 +21,7 @@ from .model import ModelJob
 from .pretrained_model import PretrainedModelJob
 from .status import Status
 from digits.utils import errors
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 """
 This constant configures how long to wait before automatically

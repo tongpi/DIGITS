@@ -22,7 +22,7 @@ from digits.utils import filesystem as fs
 from digits.utils.forms import fill_form_if_cloned, save_form_to_job
 from digits.utils.routing import request_wants_json, job_from_request
 from digits.webapp import scheduler
-from flask_babel import gettext
+from flask_babel import lazy_gettext
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -124,7 +124,7 @@ def create():
     datasetJob = scheduler.get_job(form.dataset.data)
     if not datasetJob:
         raise werkzeug.exceptions.BadRequest(
-            _('Unknown dataset job_id "%(data)s"', data=form.dataset.data))
+            lazy_gettext('Unknown dataset job_id "%(data)s"', data=form.dataset.data))
 
     # sweeps will be a list of the the permutations of swept fields
     # Get swept learning_rate
@@ -173,12 +173,12 @@ def create():
 
                 if not found:
                     raise werkzeug.exceptions.BadRequest(
-                        gettext('Unknown standard model "%(data)s"', data=form.standard_networks.data))
+                        lazy_gettext('Unknown standard model "%(data)s"', data=form.standard_networks.data))
             elif form.method.data == 'previous':
                 old_job = scheduler.get_job(form.previous_networks.data)
                 if not old_job:
                     raise werkzeug.exceptions.BadRequest(
-                        gettext('Job not found: %(data)s', data=form.previous_networks.data))
+                        lazy_gettext('Job not found: %(data)s', data=form.previous_networks.data))
 
                 use_same_dataset = (old_job.dataset_id == job.dataset_id)
                 network = fw.get_network_from_previous(old_job.train_task().network, use_same_dataset)
@@ -195,14 +195,14 @@ def create():
                             pretrained_model = old_job.train_task().get_snapshot(epoch, download=True)
                             if pretrained_model is None:
                                 raise werkzeug.exceptions.BadRequest(
-                                    gettext("For the job %(data)s, selected pretrained_model for epoch %(epoch)d is invalid!", data=form.previous_networks.data, epoch=epoch))
+                                    lazy_gettext("For the job %(data)s, selected pretrained_model for epoch %(epoch)d is invalid!", data=form.previous_networks.data, epoch=epoch))
                             # the first is the actual file if a list is returned, other should be meta data
                             if isinstance(pretrained_model, list):
                                 pretrained_model = pretrained_model[0]
 
                             if not (os.path.exists(pretrained_model)):
                                 raise werkzeug.exceptions.BadRequest(
-                                    gettext("Pretrained_model for the selected epoch doesn't exist. "
+                                    lazy_gettext("Pretrained_model for the selected epoch doesn't exist. "
                                       "May be deleted by another user/process. "
                                       "Please restart the server to load the correct pretrained_model details."))
                             # get logical path
@@ -222,7 +222,7 @@ def create():
                 pretrained_model = form.custom_network_snapshot.data.strip()
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    gettext('Unrecognized method: "%(data)s"', data=form.method.data))
+                    lazy_gettext('Unrecognized method: "%(data)s"', data=form.method.data))
 
             policy = {'policy': form.lr_policy.data}
             if form.lr_policy.data == 'fixed':
@@ -245,7 +245,7 @@ def create():
                 policy['gamma'] = form.lr_sigmoid_gamma.data
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    gettext('Invalid learning rate policy'))
+                    lazy_gettext('Invalid learning rate policy'))
 
             if config_value('caffe')['multi_gpu']:
                 if form.select_gpus.data:
@@ -390,7 +390,7 @@ def classify_one():
         os.close(outfile[0])
         remove_image_path = True
     else:
-        raise werkzeug.exceptions.BadRequest(gettext('must provide image_path or image_file'))
+        raise werkzeug.exceptions.BadRequest(lazy_gettext('must provide image_path or image_file'))
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -474,12 +474,12 @@ def classify_many():
 
     image_list = flask.request.files.get('image_list')
     if not image_list:
-        raise werkzeug.exceptions.BadRequest(gettext('image_list is a required field'))
+        raise werkzeug.exceptions.BadRequest(lazy_gettext('image_list is a required field'))
 
     if 'image_folder' in flask.request.form and flask.request.form['image_folder'].strip():
         image_folder = flask.request.form['image_folder']
         if not os.path.exists(image_folder):
-            raise werkzeug.exceptions.BadRequest(gettext('image_folder "%(image_folder)s" does not exit', image_folder=image_folder))
+            raise werkzeug.exceptions.BadRequest(lazy_gettext('image_folder "%(image_folder)s" does not exit', image_folder=image_folder))
     else:
         image_folder = None
 
@@ -542,7 +542,7 @@ def classify_many():
         last_output_name, last_output_data = outputs.items()[-1]
         if len(last_output_data) < 1:
             raise werkzeug.exceptions.BadRequest(
-                gettext('Unable to classify any image from the file'))
+                lazy_gettext('Unable to classify any image from the file'))
 
         scores = last_output_data
         # take top 5
@@ -626,7 +626,7 @@ def top_n():
 
     image_list = flask.request.files['image_list']
     if not image_list:
-        raise werkzeug.exceptions.BadRequest(gettext('File upload not found'))
+        raise werkzeug.exceptions.BadRequest(lazy_gettext('File upload not found'))
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -639,7 +639,7 @@ def top_n():
     if 'image_folder' in flask.request.form and flask.request.form['image_folder'].strip():
         image_folder = flask.request.form['image_folder']
         if not os.path.exists(image_folder):
-            raise werkzeug.exceptions.BadRequest(gettext('image_folder "%(image_folder)s" does not exit', image_folder=image_folder))
+            raise werkzeug.exceptions.BadRequest(lazy_gettext('image_folder "%(image_folder)s" does not exit', image_folder=image_folder))
     else:
         image_folder = None
 
@@ -679,7 +679,7 @@ def top_n():
         scores = last_output_data
 
         if scores is None:
-            raise RuntimeError(gettext('An error occurred while processing the images'))
+            raise RuntimeError(lazy_gettext('An error occurred while processing the images'))
 
         labels = model_job.train_task().get_labels()
         images = inputs['data']

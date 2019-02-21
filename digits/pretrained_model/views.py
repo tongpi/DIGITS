@@ -12,7 +12,7 @@ from digits import utils
 from digits.webapp import scheduler
 from digits.pretrained_model import PretrainedModelJob
 import werkzeug.exceptions
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 

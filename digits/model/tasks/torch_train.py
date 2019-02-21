@@ -18,7 +18,7 @@ import digits
 from digits import utils
 from digits.config import config_value
 from digits.utils import subclass, override, constants
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 # Must import after importing digit.config
 import caffe_pb2

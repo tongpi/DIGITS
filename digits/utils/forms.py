@@ -8,7 +8,7 @@ from wtforms import validators
 from wtforms.compat import string_types
 
 from digits.utils.routing import get_request_arg
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 
 def validate_required_iff(**kwargs):

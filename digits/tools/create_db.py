@@ -13,7 +13,7 @@ import shutil
 import sys
 import threading
 import time
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 # Find the best implementation available
 try:
@@ -218,7 +218,7 @@ def create_db(input_file, output_dir,
               shuffle=True,
               mean_files=None,
               **kwargs):
-    from flask_babel import gettext as _
+    from flask_babel import lazy_gettext as _
     """
     Create a database of images from a list of image paths
     Raises exceptions on errors

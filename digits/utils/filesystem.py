@@ -6,7 +6,7 @@ import os.path
 import platform
 import re
 import shutil
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 def get_tree_size(start_path):
     """

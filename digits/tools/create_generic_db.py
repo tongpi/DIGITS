@@ -15,7 +15,7 @@ import PIL.Image
 import Queue
 import sys
 import threading
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 # Add path for DIGITS package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))

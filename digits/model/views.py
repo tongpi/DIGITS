@@ -18,7 +18,7 @@ from digits import frameworks, extensions
 from digits.utils import auth
 from digits.utils.routing import request_wants_json, job_from_request, get_request_arg
 from digits.webapp import scheduler
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 

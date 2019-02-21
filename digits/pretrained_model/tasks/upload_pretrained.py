@@ -4,7 +4,7 @@ import os
 import shutil
 from digits.task import Task
 from digits.utils import subclass, override
-from flask_babel import gettext as _
+from flask_babel import lazy_gettext as _
 
 @subclass
 class UploadPretrainedModelTask(Task):
