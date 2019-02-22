@@ -89,8 +89,8 @@ class DatasetForm(Form):
         _('Channel conversion'),
         choices=[
             ('RGB', 'RGB'),
-            ('L', 'Grayscale'),
-            ('none', 'None'),
+            ('L', _('Grayscale')),
+            ('none', _('None')),
         ],
         default='none',
         tooltip=_("Perform selected channel conversion.")

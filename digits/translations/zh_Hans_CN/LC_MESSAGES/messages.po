@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-22 11:39+0800\n"
+"POT-Creation-Date: 2019-02-22 15:54+0800\n"
 "PO-Revision-Date: 2019-02-16 11:51+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -121,6 +121,10 @@ msgstr "未知的扩展'%(extension_id)s'"
 msgid "Dataset Name"
 msgstr "数据集名称"
 
+#: dataset/forms.py:21 model/forms.py:387
+msgid "Group Name"
+msgstr "组名称"
+
 #: dataset/forms.py:22 model/forms.py:388
 msgid "An optional group name for organization on the main page."
 msgstr "在主页上组织一个可选的组名。"
@@ -146,7 +150,9 @@ msgstr "特征编码"
 
 #: dataset/generic/forms.py:20 dataset/generic/forms.py:33
 #: dataset/images/classification/forms.py:40 dataset/images/forms.py:23
-#: model/images/forms.py:28 model/images/forms.py:39 model/images/forms.py:51
+#: extensions/data/imageProcessing/forms.py:93
+#: extensions/data/objectDetection/forms.py:109 model/images/forms.py:28
+#: model/images/forms.py:39 model/images/forms.py:51
 msgid "None"
 msgstr "无"
 
@@ -280,7 +286,7 @@ msgstr "找不到网址"
 #: dataset/images/classification/forms.py:70
 #, python-format
 msgid "Caught %(name)s while checking URL: %(e)s"
-msgstr ""
+msgstr "检查URL：%(e)s时捕获%(name)s"
 
 #: dataset/images/classification/forms.py:77 dataset/images/generic/forms.py:36
 msgid "Folder does not exist"
@@ -625,6 +631,11 @@ msgstr "验证标签图像文件夹"
 #: extensions/data/objectDetection/forms.py:105
 msgid "Channel conversion"
 msgstr "通道转换"
+
+#: extensions/data/imageProcessing/forms.py:92
+#: extensions/data/objectDetection/forms.py:108
+msgid "Grayscale"
+msgstr "灰度级"
 
 #: extensions/data/imageProcessing/forms.py:96
 #: extensions/data/objectDetection/forms.py:112
@@ -1142,6 +1153,14 @@ msgstr "多项式衰变"
 #: model/forms.py:222
 msgid "Sigmoid Decay"
 msgstr "S形状衰变"
+
+#: model/forms.py:227
+msgid "Step Size"
+msgstr "步长"
+
+#: model/forms.py:237
+msgid "invalid value"
+msgstr "无效值"
 
 #: model/forms.py:252
 msgid "Network type"
@@ -1778,6 +1797,14 @@ msgstr "上传预训练的Tensorflow模型"
 msgid "Upload Pretrained Torch Model"
 msgstr "上传预训练Torch模型"
 
+#: static/js/PretrainedModel.js:35
+msgid "Fill"
+msgstr "填充"
+
+#: static/js/PretrainedModel.js:36
+msgid "Half Crop, Half Fill"
+msgstr "一半剪切，一半填充"
+
 #: store/views.py:143
 msgid "Unable to find requested model"
 msgstr "无法找到被请求的模型"
@@ -1992,17 +2019,17 @@ msgstr "如果设置了%(other_field)s，则此字段是必需的。"
 
 #: utils/forms.py:77
 #, python-format
-msgid "Invalid field name '%s'."
-msgstr ""
+msgid "Invalid field name '%(fieldname)s'."
+msgstr "无效的字段名称'%(fieldname)s'"
 
 #: utils/forms.py:79
 #, python-format
-msgid "Field must be greater than %s."
-msgstr "字段必须大于%s。"
+msgid "Field must be greater than %(fieldname)s."
+msgstr "字段必须大于%(fieldname)s。"
 
 #: utils/forms.py:290 utils/forms.py:336
 msgid "multiples allowed"
-msgstr "倍数允许"
+msgstr "允许倍数"
 
 #: utils/forms.py:315
 msgid "Not a valid integer value"
@@ -2103,4 +2130,12 @@ msgstr "未识别的数据形状：%(data_shape)s"
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
 
+#~ msgid "folder or URL"
+#~ msgstr ""
+
+#~ msgid "Invalid field name '%s'."
+#~ msgstr "无效字段名称"
+
+#~ msgid "Field must be greater than %s."
+#~ msgstr "字段必须大于%s。"
 

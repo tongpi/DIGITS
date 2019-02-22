@@ -74,9 +74,9 @@ def validate_greater_than(fieldname):
         try:
             other = form[fieldname]
         except KeyError:
-            raise validators.ValidationError(field.gettext(u"Invalid field name '%s'.") % fieldname)
+            raise validators.ValidationError(field.gettext(_(u"Invalid field name '%(fieldname)s'.", fieldname=fieldname)))
         if field.data != '' and field.data < other.data:
-            message = field.gettext(u'Field must be greater than %s.' % fieldname)
+            message = field.gettext(_(u'Field must be greater than %(fieldname)s.', fieldname=fieldname))
             raise validators.ValidationError(message)
     return _validator
 

@@ -18,6 +18,6 @@ class DatasetForm(Form):
                                            validators=[DataRequired()]
                                            )
 
-    group_name = utils.forms.StringField('Group Name',
+    group_name = utils.forms.StringField(_('Group Name'),
                                          tooltip=_("An optional group name for organization on the main page.")
                                          )

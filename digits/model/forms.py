@@ -224,7 +224,7 @@ class ModelForm(Form):
         default='step'
     )
 
-    lr_step_size = wtforms.FloatField('Step Size', default=33)
+    lr_step_size = wtforms.FloatField(_('Step Size'), default=33)
     lr_step_gamma = wtforms.FloatField('Gamma', default=0.1)
     lr_multistep_values = wtforms.StringField('Step Values', default="50,85")
 
@@ -234,7 +234,7 @@ class ModelForm(Form):
                 try:
                     float(value)
                 except ValueError:
-                    raise validators.ValidationError('invalid value')
+                    raise validators.ValidationError(_('invalid value'))
 
     lr_multistep_gamma = wtforms.FloatField('Gamma', default=0.5)
     lr_exp_gamma = wtforms.FloatField('Gamma', default=0.95)
@@ -384,7 +384,7 @@ class ModelForm(Form):
                                          tooltip=_("An identifier, later used to refer to this model in the Application.")
                                          )
 
-    group_name = utils.forms.StringField('Group Name',
+    group_name = utils.forms.StringField(_('Group Name'),
                                          tooltip=_("An optional group name for organization on the main page.")
                                          )
 

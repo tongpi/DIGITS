@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-22 11:39+0800\n"
+"POT-Creation-Date: 2019-02-22 15:54+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -120,6 +120,10 @@ msgstr ""
 msgid "Dataset Name"
 msgstr ""
 
+#: dataset/forms.py:21 model/forms.py:387
+msgid "Group Name"
+msgstr ""
+
 #: dataset/forms.py:22 model/forms.py:388
 msgid "An optional group name for organization on the main page."
 msgstr ""
@@ -145,7 +149,9 @@ msgstr ""
 
 #: dataset/generic/forms.py:20 dataset/generic/forms.py:33
 #: dataset/images/classification/forms.py:40 dataset/images/forms.py:23
-#: model/images/forms.py:28 model/images/forms.py:39 model/images/forms.py:51
+#: extensions/data/imageProcessing/forms.py:93
+#: extensions/data/objectDetection/forms.py:109 model/images/forms.py:28
+#: model/images/forms.py:39 model/images/forms.py:51
 msgid "None"
 msgstr ""
 
@@ -618,6 +624,11 @@ msgstr ""
 #: extensions/data/imageSegmentation/forms.py:106
 #: extensions/data/objectDetection/forms.py:105
 msgid "Channel conversion"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:92
+#: extensions/data/objectDetection/forms.py:108
+msgid "Grayscale"
 msgstr ""
 
 #: extensions/data/imageProcessing/forms.py:96
@@ -1120,6 +1131,14 @@ msgstr ""
 
 #: model/forms.py:222
 msgid "Sigmoid Decay"
+msgstr ""
+
+#: model/forms.py:227
+msgid "Step Size"
+msgstr ""
+
+#: model/forms.py:237
+msgid "invalid value"
 msgstr ""
 
 #: model/forms.py:252
@@ -1749,6 +1768,14 @@ msgstr ""
 msgid "Upload Pretrained Torch Model"
 msgstr ""
 
+#: static/js/PretrainedModel.js:35
+msgid "Fill"
+msgstr ""
+
+#: static/js/PretrainedModel.js:36
+msgid "Half Crop, Half Fill"
+msgstr ""
+
 #: store/views.py:143
 msgid "Unable to find requested model"
 msgstr ""
@@ -1963,12 +1990,12 @@ msgstr ""
 
 #: utils/forms.py:77
 #, python-format
-msgid "Invalid field name '%s'."
+msgid "Invalid field name '%(fieldname)s'."
 msgstr ""
 
 #: utils/forms.py:79
 #, python-format
-msgid "Field must be greater than %s."
+msgid "Field must be greater than %(fieldname)s."
 msgstr ""
 
 #: utils/forms.py:290 utils/forms.py:336

@@ -32,8 +32,8 @@ var PretrainedModel = function(params) {
   self.resize_modes = [
     {text: 'Squash', value: 'squash'},
     {text: 'Crop', value: 'crop'},
-    {text: 'Fill', value: 'fill'},
-    {text: 'Half Crop, Half Fill', value: 'half_crop'}
+    {text: "{{_('Fill')}}", value: 'fill'},
+    {text: "{{_('Half Crop, Half Fill')}}", value: 'half_crop'}
   ];
 
   self.frameworkChanged = function() {
