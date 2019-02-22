@@ -10,6 +10,7 @@ import digits
 from digits.utils import subclass, override
 from .forms import ConfigForm
 from ..interface import VisualizationInterface
+from flask_babel import lazy_gettext as _
 
 CONFIG_TEMPLATE = "config_template.html"
 VIEW_TEMPLATE = "view_template.html"
@@ -119,6 +120,6 @@ class Visualization(VisualizationInterface):
         elif channels == 3:
             image = PIL.Image.fromarray(data)
         else:
-            raise ValueError("Unhandled number of channels: %d" % channels)
+            raise ValueError(_("Unhandled number of channels: %(channels)d", channels=channels))
 
         return image

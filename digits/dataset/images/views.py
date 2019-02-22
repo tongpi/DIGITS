@@ -14,6 +14,7 @@ import PIL.Image
 
 import digits
 from digits import utils
+from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -55,10 +56,11 @@ def resize_example():
 
         data = utils.image.embed_image_html(image)
 
-        return '<img src=\"' + data + '\" style=\"width:%spx;height=%spx\" />\n<br>\n<i>Image size: %s</i>' % (
-            width,
-            height,
-            utils.sizeof_fmt(length)
+        return _('<img src="%(data)s" style=\"width:%(width)spx;height=%(height)spx\" />\n<br>\n<i>Image size: %(size)s</i>',
+                 data=data,
+                 width=width,
+                 height=height,
+                 size=utils.sizeof_fmt(length)
         )
     except Exception as e:
         return '%s: %s' % (type(e).__name__, e)

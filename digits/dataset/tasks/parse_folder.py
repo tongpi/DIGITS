@@ -9,6 +9,7 @@ import digits
 from digits import utils
 from digits.task import Task
 from digits.utils import subclass, override
+from flask_babel import lazy_gettext as _
 
 # NOTE: Increment this every time the pickled object
 PICKLE_VERSION = 1
@@ -47,7 +48,7 @@ class ParseFolderTask(Task):
             if pct < 0:
                 pct = 0
             elif pct > 100:
-                raise ValueError('percent_val must not exceed 100')
+                raise ValueError(_('percent_val must not exceed 100'))
             self.percent_val = pct
 
         if percent_test is None:
@@ -57,11 +58,11 @@ class ParseFolderTask(Task):
             if pct < 0:
                 pct = 0
             elif pct > 100:
-                raise ValueError('percent_test must not exceed 100')
+                raise ValueError(_('percent_test must not exceed 100'))
             self.percent_test = pct
 
         if percent_val is not None and percent_test is not None and percent_val + percent_test > 100:
-            raise ValueError('the sum of percent_val and percent_test must not exceed 100')
+            raise ValueError(_('the sum of percent_val and percent_test must not exceed 100'))
 
         self.train_file = utils.constants.TRAIN_FILE
         self.val_file = utils.constants.VAL_FILE

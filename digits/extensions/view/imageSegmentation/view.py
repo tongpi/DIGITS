@@ -15,6 +15,8 @@ from digits.utils import subclass, override
 from digits.utils.constants import COLOR_PALETTE_ATTRIBUTE
 from .forms import ConfigForm
 from ..interface import VisualizationInterface
+from flask_babel import lazy_gettext as _
+
 
 CONFIG_TEMPLATE = "config_template.html"
 HEADER_TEMPLATE = "header_template.html"
@@ -44,7 +46,7 @@ class Visualization(VisualizationInterface):
         if kwargs['colormap'] == 'dataset':
             if COLOR_PALETTE_ATTRIBUTE not in dataset.extension_userdata or \
                     not dataset.extension_userdata[COLOR_PALETTE_ATTRIBUTE]:
-                raise ValueError("No palette found in dataset - choose other colormap")
+                raise ValueError(_("No palette found in dataset - choose other colormap"))
             palette = dataset.extension_userdata[COLOR_PALETTE_ATTRIBUTE]
             # assume 8-bit RGB palette and convert to N*3 numpy array
             palette = np.array(palette).reshape((len(palette) / 3, 3)) / 255.
@@ -59,7 +61,7 @@ class Visualization(VisualizationInterface):
         elif kwargs['colormap'] == 'none':
             self.map = None
         else:
-            raise ValueError("Unknown color map option: %s" % kwargs['colormap'])
+            raise ValueError(_("Unknown color map option: %(colormap)s", colormap=kwargs['colormap']))
 
         # memorize class labels
         if 'class_labels' in dataset.extension_userdata:

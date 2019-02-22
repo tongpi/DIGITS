@@ -22,6 +22,8 @@ from digits.utils.constants import COLOR_PALETTE_ATTRIBUTE
 from digits.utils.routing import request_wants_json, job_from_request
 from digits.utils.lmdbreader import DbReader
 from digits.webapp import scheduler
+from flask_babel import lazy_gettext as _
+
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -40,7 +42,7 @@ def new(extension_id):
 
     extension = extensions.data.get_extension(extension_id)
     if extension is None:
-        raise ValueError("Unknown extension '%s'" % extension_id)
+        raise ValueError(_("Unknown extension '%(id)s'", id=extension_id))
     extension_form = extension.get_dataset_form()
 
     # Is there a request to clone a job with ?clone=<job_id>
@@ -179,7 +181,7 @@ def explore():
             datum = caffe_pb2.Datum()
             datum.ParseFromString(value)
             if not datum.encoded:
-                raise RuntimeError("Expected encoded database")
+                raise RuntimeError(_("Expected encoded database"))
             s = StringIO()
             s.write(datum.data)
             s.seek(0)

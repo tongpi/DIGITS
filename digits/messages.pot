@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-21 15:03+0800\n"
+"POT-Creation-Date: 2019-02-22 11:39+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -78,7 +78,8 @@ msgstr ""
 msgid "Jobs regrouped."
 msgstr ""
 
-#: model/views.py:50 views.py:382 views.py:605
+#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:382
+#: views.py:605
 msgid "Invalid job type"
 msgstr ""
 
@@ -113,6 +114,801 @@ msgstr ""
 #: model/views.py:123 views.py:711
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
+msgstr ""
+
+#: dataset/forms.py:17
+msgid "Dataset Name"
+msgstr ""
+
+#: dataset/forms.py:22 model/forms.py:388
+msgid "An optional group name for organization on the main page."
+msgstr ""
+
+#: dataset/job.py:28 dataset/job.py:34 dataset/job.py:40 dataset/job.py:46
+#: dataset/job.py:52 dataset/job.py:58 frameworks/framework.py:54
+#: frameworks/framework.py:66 frameworks/framework.py:72
+#: frameworks/framework.py:78 frameworks/framework.py:84
+#: frameworks/framework.py:90 frameworks/framework.py:96
+#: pretrained_model/tasks/upload_pretrained.py:73
+#: pretrained_model/tasks/upload_pretrained.py:79
+msgid "Please implement me"
+msgstr ""
+
+#: dataset/views.py:71
+#, python-format
+msgid "Unable to find data extension with ID=%(id)s"
+msgstr ""
+
+#: dataset/generic/forms.py:18
+msgid "Feature Encoding"
+msgstr ""
+
+#: dataset/generic/forms.py:20 dataset/generic/forms.py:33
+#: dataset/images/classification/forms.py:40 dataset/images/forms.py:23
+#: model/images/forms.py:28 model/images/forms.py:39 model/images/forms.py:51
+msgid "None"
+msgstr ""
+
+#: dataset/generic/forms.py:21 dataset/generic/forms.py:34
+#: dataset/images/forms.py:24
+msgid "PNG (lossless)"
+msgstr ""
+
+#: dataset/generic/forms.py:22 dataset/generic/forms.py:35
+#: dataset/images/forms.py:25
+msgid "JPEG (lossy, 90% quality)"
+msgstr ""
+
+#: dataset/generic/forms.py:24 dataset/generic/forms.py:37
+#: dataset/images/forms.py:27
+msgid ""
+"Using either of these compression formats can save disk space, but can "
+"also require marginally more time for training."
+msgstr ""
+
+#: dataset/generic/forms.py:30
+msgid "Label Encoding"
+msgstr ""
+
+#: dataset/generic/forms.py:43
+msgid "Encoder batch size"
+msgstr ""
+
+#: dataset/generic/forms.py:49
+msgid "Encode data in batches of specified number of entries"
+msgstr ""
+
+#: dataset/generic/forms.py:53
+msgid "Number of encoder threads"
+msgstr ""
+
+#: dataset/generic/forms.py:59
+msgid "Use specified number of encoder threads"
+msgstr ""
+
+#: dataset/generic/forms.py:63
+msgid "DB backend"
+msgstr ""
+
+#: dataset/generic/forms.py:71 dataset/images/generic/forms.py:81
+msgid "Enforce same shape"
+msgstr ""
+
+#: dataset/generic/forms.py:78
+msgid ""
+"Check that each entry in the database has the same shape.Disabling this "
+"will also disable mean image computation."
+msgstr ""
+
+#: dataset/generic/views.py:45
+#, python-format
+msgid "Unknown extension '%(id)s'"
+msgstr ""
+
+#: dataset/generic/views.py:184
+msgid "Expected encoded database"
+msgstr ""
+
+#: dataset/images/forms.py:20
+msgid "Image Encoding"
+msgstr ""
+
+#: dataset/images/forms.py:34
+msgid "Image Type"
+msgstr ""
+
+#: dataset/images/forms.py:37
+msgid "Color is 3-channel RGB. Grayscale is single channel monochrome."
+msgstr ""
+
+#: dataset/images/forms.py:40
+msgid "Resize Width"
+msgstr ""
+
+#: dataset/images/forms.py:45
+msgid "Resize Height"
+msgstr ""
+
+#: dataset/images/forms.py:50
+msgid "Resize Transformation"
+msgstr ""
+
+#: dataset/images/forms.py:53
+msgid ""
+"Options for dealing with aspect ratio changes during resize. See examples"
+" below."
+msgstr ""
+
+#: dataset/images/views.py:63
+#, python-format
+msgid ""
+"<img src=\"%(data)s\" style=\"width:%(width)spx;height=%(height)spx\" />\n"
+"<br>\n"
+"<i>Image size: %(size)s</i>"
+msgstr ""
+
+#: dataset/images/classification/forms.py:38
+msgid "DB compression"
+msgstr ""
+
+#: dataset/images/classification/forms.py:44
+msgid ""
+"Compressing the dataset may significantly decrease the size of your "
+"database files, but it may increase read and write times."
+msgstr ""
+
+#: dataset/images/classification/forms.py:50 dataset/images/generic/forms.py:23
+msgid "Dataset type"
+msgstr ""
+
+#: dataset/images/classification/forms.py:52
+msgid "Folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:53
+msgid "Textfiles"
+msgstr ""
+
+#: dataset/images/classification/forms.py:68
+msgid "URL not found"
+msgstr ""
+
+#: dataset/images/classification/forms.py:70
+#, python-format
+msgid "Caught %(name)s while checking URL: %(e)s"
+msgstr ""
+
+#: dataset/images/classification/forms.py:77 dataset/images/generic/forms.py:36
+msgid "Folder does not exist"
+msgstr ""
+
+#: dataset/images/classification/forms.py:79
+msgid "Filesystem path is not absolute"
+msgstr ""
+
+#: dataset/images/classification/forms.py:88 dataset/images/generic/forms.py:51
+msgid "Training Images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:93
+msgid ""
+"Indicate a folder which holds subfolders full of images. Each subfolder "
+"should be named according to the desired label for the images that it "
+"holds. Can also be a URL for an apache/nginx auto-indexed folder."
+msgstr ""
+
+#: dataset/images/classification/forms.py:99
+#: extensions/data/imageProcessing/forms.py:54
+#: extensions/data/imageSegmentation/forms.py:68
+msgid "for validation"
+msgstr ""
+
+#: dataset/images/classification/forms.py:105
+#: extensions/data/imageProcessing/forms.py:59
+#: extensions/data/imageSegmentation/forms.py:73
+msgid ""
+"You can choose to set apart a certain percentage of images from the "
+"training images for the validation set."
+msgstr ""
+
+#: dataset/images/classification/forms.py:110
+msgid "for testing"
+msgstr ""
+
+#: dataset/images/classification/forms.py:116
+msgid ""
+"You can choose to set apart a certain percentage of images from the "
+"training images for the test set."
+msgstr ""
+
+#: dataset/images/classification/forms.py:121
+#: dataset/images/classification/forms.py:162
+#: dataset/images/classification/forms.py:204
+msgid "Minimum samples per class"
+msgstr ""
+
+#: dataset/images/classification/forms.py:127
+#: dataset/images/classification/forms.py:168
+#: dataset/images/classification/forms.py:210
+msgid ""
+"You can choose to specify a minimum number of samples per class. If a "
+"class has fewer samples than the specified amount it will be ignored. "
+"Leave blank to ignore this feature."
+msgstr ""
+
+#: dataset/images/classification/forms.py:133
+#: dataset/images/classification/forms.py:174
+#: dataset/images/classification/forms.py:216
+msgid "Maximum samples per class"
+msgstr ""
+
+#: dataset/images/classification/forms.py:139
+#: dataset/images/classification/forms.py:180
+#: dataset/images/classification/forms.py:222
+msgid ""
+"You can choose to specify a maximum number of samples per class. If a "
+"class has more samples than the specified amount extra samples will be "
+"ignored. Leave blank to ignore this feature."
+msgstr ""
+
+#: dataset/images/classification/forms.py:145
+msgid "Separate validation images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:153
+#: dataset/images/generic/forms.py:64
+msgid "Validation Images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:186
+msgid "Separate test images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:194
+msgid "Test Images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:232
+msgid "Use local files"
+msgstr ""
+
+#: dataset/images/classification/forms.py:237
+#: dataset/images/classification/forms.py:245
+msgid "Training images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:252
+msgid "Training images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:262
+#: dataset/images/classification/forms.py:297
+#: dataset/images/classification/forms.py:332
+msgid "folder does not exist"
+msgstr ""
+
+#: dataset/images/classification/forms.py:265
+msgid "Validation set"
+msgstr ""
+
+#: dataset/images/classification/forms.py:271
+#: dataset/images/classification/forms.py:279
+msgid "Validation images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:287
+msgid "Validation images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:300
+msgid "Test set"
+msgstr ""
+
+#: dataset/images/classification/forms.py:306
+#: dataset/images/classification/forms.py:314
+msgid "Test images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:322
+msgid "Test images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:340
+msgid "Shuffle lines"
+msgstr ""
+
+#: dataset/images/classification/forms.py:342
+#: dataset/images/generic/forms.py:83 extensions/view/imageOutput/forms.py:51
+msgid "Yes"
+msgstr ""
+
+#: dataset/images/classification/forms.py:343
+#: dataset/images/generic/forms.py:84 extensions/view/imageOutput/forms.py:52
+msgid "No"
+msgstr ""
+
+#: dataset/images/classification/forms.py:347
+msgid "Shuffle the list[s] of images before creating the database."
+msgstr ""
+
+#: dataset/images/classification/forms.py:351
+#: dataset/images/classification/forms.py:362
+msgid "Labels"
+msgstr ""
+
+#: dataset/images/classification/forms.py:356
+#: dataset/images/classification/forms.py:367
+#: extensions/data/imageSegmentation/forms.py:122
+msgid ""
+"The 'i'th line of the file should give the string label associated with "
+"the '(i-1)'th numeric label. (E.g. the string label for the numeric label"
+" 0 is supposed to be on line 1.)"
+msgstr ""
+
+#: dataset/images/classification/job.py:134
+msgid "Image Classification Dataset"
+msgstr ""
+
+#: dataset/images/classification/views.py:323
+msgid "method not supported"
+msgstr ""
+
+#: dataset/images/classification/views.py:370
+#, python-format
+msgid "No create_db task for %(db)s"
+msgstr ""
+
+#: dataset/images/classification/views.py:372
+#, python-format
+msgid "This create_db task's status should be 'D' but is '%(status)s'"
+msgstr ""
+
+#: dataset/images/classification/views.py:374
+#, python-format
+msgid "Backend is %(backend)s while expected backend is lmdb"
+msgstr ""
+
+#: dataset/images/generic/forms.py:44
+msgid "File does not exist"
+msgstr ""
+
+#: dataset/images/generic/forms.py:58
+msgid "Training Labels"
+msgstr ""
+
+#: dataset/images/generic/forms.py:70
+msgid "Validation Labels"
+msgstr ""
+
+#: dataset/images/generic/forms.py:88
+msgid ""
+"Check that each entry in the database has the same shape (can be time-"
+"consuming)"
+msgstr ""
+
+#: dataset/images/generic/forms.py:92
+msgid "Mean Image"
+msgstr ""
+
+#: dataset/images/generic/forms.py:96
+msgid "Path to a .binaryproto file on the server"
+msgstr ""
+
+#: dataset/images/generic/job.py:115
+msgid "Generic Image Dataset"
+msgstr ""
+
+#: dataset/tasks/create_db.py:285 dataset/tasks/create_db.py:286
+msgid "labels_file not set"
+msgstr ""
+
+#: dataset/tasks/create_db.py:287
+msgid "labels_file does not exist"
+msgstr ""
+
+#: dataset/tasks/create_db.py:296
+msgid "no labels in labels_file"
+msgstr ""
+
+#: dataset/tasks/create_generic_db.py:70
+#, python-format
+msgid "Unknown db: %(name)s"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:51
+msgid "percent_val must not exceed 100"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:61
+msgid "percent_test must not exceed 100"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:65
+msgid "the sum of percent_val and percent_test must not exceed 100"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:65
+#: extensions/data/imageSegmentation/data.py:107
+#, python-format
+msgid "Unhandled number of channels: %(ndim)d"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:107
+msgid "Processing"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:126
+#: extensions/data/imageSegmentation/data.py:169
+#, python-format
+msgid ""
+"Expect same number of images in feature and label folders "
+"(%(flist)d!=%(llist)d)"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:134
+#, python-format
+msgid ""
+"No corresponding feature/label pair found for "
+"(%(feature_name)s,%(label_name)s)"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:152
+#: extensions/data/objectDetection/data.py:229
+#, python-format
+msgid "Unable to find supported images in %(folder)s"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:162
+#, python-format
+msgid ""
+"Expect same number of images in folders "
+"(%(len_filelist)d!=%(len_random_indices)d)"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:171
+#: extensions/data/imageSegmentation/data.py:233
+#: extensions/data/objectDetection/data.py:199
+#, python-format
+msgid "Unknown stage: %(stage)s"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:28
+#: extensions/data/imageSegmentation/forms.py:28
+#: extensions/data/objectDetection/forms.py:26
+msgid "Folder does not exist or is not reachable"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:33
+#: extensions/data/imageSegmentation/forms.py:44
+msgid "Feature image folder"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:38
+#: extensions/data/imageProcessing/forms.py:73
+#: extensions/data/imageSegmentation/forms.py:49
+#: extensions/data/imageSegmentation/forms.py:87
+msgid "Indicate a folder full of images."
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:42
+#: extensions/data/imageSegmentation/forms.py:53
+msgid "Label image folder"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:47
+#: extensions/data/imageProcessing/forms.py:82
+msgid ""
+"Indicate a folder full of images. For each image in the feature image "
+"folder there must be one corresponding image in the label image folder. "
+"The label image must have the same filename except for the extension, "
+"which may differ."
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:68
+#: extensions/data/imageSegmentation/forms.py:82
+msgid "Validation feature image folder"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:77
+#: extensions/data/imageSegmentation/forms.py:91
+msgid "Validation label image folder"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:89
+#: extensions/data/imageSegmentation/forms.py:106
+#: extensions/data/objectDetection/forms.py:105
+msgid "Channel conversion"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:96
+#: extensions/data/objectDetection/forms.py:112
+msgid "Perform selected channel conversion."
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:62
+#, python-format
+msgid ""
+"Your color map file seems to be badly formatted: '%(val)s' is not an "
+"integer"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:91
+msgid "All label images must use the same palette"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:177
+#, python-format
+msgid "No corresponding feature/label pair found for (%(fname)s,%(lname)s)"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:195
+#, python-format
+msgid ""
+"Labels are expected to be single-channel (paletted or  grayscale) images "
+"- %(filename)s mode is '%(image_mode)s'. If your labels are RGB images "
+"then set the 'Color Map Specification' field to 'from text file' and "
+"provide a color map text file."
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:201
+#, python-format
+msgid ""
+"Labels are expected to be RGB images - %(filename)s mode is "
+"'%(image_mode)s'. If your labels are palette or grayscale images then set"
+" the 'Color Map Specification' field to 'from label image'."
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:215
+#, python-format
+msgid "Unable to find supported images in %(floder)s"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:224
+#, python-format
+msgid "Expect same number of images in folders (%(flist)d!=%(random_indices)d)"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:39
+msgid "File does not exist or is not reachable"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:58
+#: extensions/data/imageSegmentation/forms.py:96
+msgid ""
+"Indicate a folder full of images. For each image in the feature image "
+"folder there must be one corresponding image in the label image folder. "
+"The label image must have the same filename except for the extension, "
+"which may differ. Label images are expected to be single-channel images "
+"(paletted or grayscale), or RGB images, in which case the color/class "
+"mappings need to be specified through a separate text file."
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:113
+msgid ""
+"Perform selected channel conversion on feature images. Label images are "
+"single channel and not affected by this parameter."
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:118
+msgid "Class labels (optional)"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:129
+msgid "Color map specification"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:131
+msgid "From label image"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:132
+msgid "From text file"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:135
+msgid ""
+"Specify how to map class IDs to colors. Select 'From label image' to use "
+"palette or grayscale from label images. For RGB image labels, select "
+"'From text file' and provide color map in separate text file."
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:142
+msgid "Color map file"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:147
+msgid ""
+"Specify color/class mappings through a text file. Each line in the file "
+"should contain three space-separated integer values, one for each of the "
+"Red, Green, Blue channels. The 'i'th line of the file should give the "
+"color associated with the '(i-1)'th class. (E.g. the color for class #0 "
+"is supposed to be on line 1.)"
+msgstr ""
+
+#: extensions/data/objectDetection/data.py:93
+#, python-format
+msgid "Unsupported image shape: %(shape)s"
+msgstr ""
+
+#: extensions/data/objectDetection/data.py:103
+#, python-format
+msgid "Label key %(label_id)s not found in label folder"
+msgstr ""
+
+#: extensions/data/objectDetection/data.py:172
+msgid "Object Detection"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:31
+msgid "Training image folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:36
+#: extensions/data/objectDetection/forms.py:54
+msgid "Indicate a folder of images to use for training"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:40
+msgid "Training label folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:45
+msgid "Indicate a folder of training labels"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:49
+msgid "Validation image folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:58
+msgid "Validation label folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:63
+msgid "Indicate a folder of validation labels"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:67
+msgid "Resize Image Width"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:72
+#: extensions/data/objectDetection/forms.py:81
+msgid "If specified, images will be resized to that dimension after padding"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:76
+msgid "Resize Image Height"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:85
+msgid "Padding Image Width"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:91
+#: extensions/data/objectDetection/forms.py:101
+msgid "If specified, images will be padded to that dimension"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:95
+msgid "Padding Image Height"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:116
+msgid "Minimum box size (in pixels) for validation set"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:122
+msgid ""
+"Retain only the boxes that are larger than the specified value in both "
+"dimensions. This only affects objects in the validation set. Enter 0 to "
+"disable this threshold."
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:128
+msgid "Custom classes"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:132
+msgid ""
+"Enter a comma-separated list of class names. Class IDs are assigned "
+"sequentially, starting from 0. Unmapped class names automatically map to "
+"0. Leave this field blank to use default class mappings. See object "
+"detection extension documentation for more information."
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:16
+msgid "Channel order"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:22
+msgid ""
+"Set channel order to BGR for Caffe networks (this field is ignored in the"
+" case of a grayscale image)"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:27
+msgid "Data order"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:33
+msgid ""
+"Set the order of the data. For Caffe and Torch models this is often NCHW,"
+" for Tensorflow it's NHWC. N=Batch Size, W=Width, H=Height, C=Channels"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:39
+msgid "Pixel conversion"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:41
+msgid "Normalize"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:42
+msgid "Clip"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:45
+msgid "Select method to convert pixel values to the target bit range"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:49
+#: extensions/view/imageOutput/forms.py:55
+msgid "Show input as image"
+msgstr ""
+
+#: extensions/view/imageOutput/view.py:123
+#, python-format
+msgid "Unhandled number of channels: %(channels)d"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:17
+msgid "Colormap"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:19
+msgid "From dataset"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:20
+msgid "Paired (matplotlib)"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:21
+msgid "None (grayscale)"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:24
+msgid "Set color map to use when displaying segmented image"
+msgstr ""
+
+#: extensions/view/imageSegmentation/view.py:49
+msgid "No palette found in dataset - choose other colormap"
+msgstr ""
+
+#: extensions/view/imageSegmentation/view.py:64
+#, python-format
+msgid "Unknown color map option: %(colormap)s"
+msgstr ""
+
+#: frameworks/caffe_framework.py:50 frameworks/caffe_framework.py:158
+#: model/tasks/caffe_train.py:947
+msgid "Unknown flavor.  Support NVIDIA and BVLC flavors only."
+msgstr ""
+
+#: frameworks/caffe_framework.py:77
+#, python-format
+msgid "Not a valid NetParameter: %(e)s"
+msgstr ""
+
+#: inference/job.py:33
+#, python-format
+msgid "The \"%(id)s\" framework cannot be found. Check your server configuration."
+msgstr ""
+
+#: inference/tasks/inference.py:56
+msgid "Infer Model"
 msgstr ""
 
 #: model/forms.py:28
@@ -409,10 +1205,6 @@ msgstr ""
 msgid "An identifier, later used to refer to this model in the Application."
 msgstr ""
 
-#: model/forms.py:388
-msgid "An optional group name for organization on the main page."
-msgstr ""
-
 #: model/forms.py:393
 msgid "Shuffle Train Data"
 msgstr ""
@@ -449,10 +1241,6 @@ msgstr ""
 
 #: model/images/forms.py:26
 msgid "Subtract Mean"
-msgstr ""
-
-#: model/images/forms.py:28 model/images/forms.py:39 model/images/forms.py:51
-msgid "None"
 msgstr ""
 
 #: model/images/forms.py:29
@@ -737,10 +1525,6 @@ msgstr ""
 msgid "Please select single GPU when running in Windows with Python layer."
 msgstr ""
 
-#: model/tasks/caffe_train.py:947
-msgid "Unknown flavor.  Support NVIDIA and BVLC flavors only."
-msgstr ""
-
 #: model/tasks/caffe_train.py:973
 #, python-format
 msgid "Unknown solver type %(solver_type)s."
@@ -963,11 +1747,6 @@ msgstr ""
 
 #: pretrained_model/tasks/torch_upload.py:17
 msgid "Upload Pretrained Torch Model"
-msgstr ""
-
-#: pretrained_model/tasks/upload_pretrained.py:73
-#: pretrained_model/tasks/upload_pretrained.py:79
-msgid "Please implement me"
 msgstr ""
 
 #: store/views.py:143

@@ -22,6 +22,7 @@ from digits.utils.forms import fill_form_if_cloned, save_form_to_job
 from digits.utils.lmdbreader import DbReader
 from digits.utils.routing import request_wants_json, job_from_request
 from digits.webapp import scheduler
+from flask_babel import lazy_gettext as _
 
 
 blueprint = flask.Blueprint(__name__, __name__)
@@ -319,7 +320,7 @@ def create():
             from_files(job, form)
 
         else:
-            raise ValueError('method not supported')
+            raise ValueError(_('method not supported'))
 
         # Save form data with the job so we can easily clone it later.
         save_form_to_job(job, form)
@@ -366,11 +367,11 @@ def explore():
     elif 'test' in db.lower():
         task = job.test_db_task()
     if task is None:
-        raise ValueError('No create_db task for {0}'.format(db))
+        raise ValueError(_('No create_db task for %(db)s', db=db))
     if task.status != 'D':
-        raise ValueError("This create_db task's status should be 'D' but is '{0}'".format(task.status))
+        raise ValueError(_("This create_db task's status should be 'D' but is '%(status)s'", status=task.status))
     if task.backend != 'lmdb':
-        raise ValueError("Backend is {0} while expected backend is lmdb".format(task.backend))
+        raise ValueError(_("Backend is %(backend)s while expected backend is lmdb", backend=task.backend))
     db_path = job.path(task.db_name)
     labels = task.get_labels()
 

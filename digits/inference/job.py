@@ -5,6 +5,7 @@ from . import tasks
 import digits.frameworks
 from digits.job import Job
 from digits.utils import subclass, override
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -29,8 +30,7 @@ class InferenceJob(Job):
 
         if fw is None:
             raise RuntimeError(
-                'The "%s" framework cannot be found. Check your server configuration.'
-                % fw_id)
+                _('The "%(id)s" framework cannot be found. Check your server configuration.', id=fw_id))
 
         # create inference task
         self.tasks.append(fw.create_inference_task(

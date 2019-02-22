@@ -1,6 +1,6 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
 from digits.inference.tasks import InferenceTask
-
+from flask_babel import lazy_gettext as _
 
 class Framework(object):
 
@@ -51,7 +51,7 @@ class Framework(object):
         """
         validate a network (must be implemented in child class)
         """
-        raise NotImplementedError('Please implement me')
+        raise NotImplementedError(_('Please implement me'))
 
     def create_inference_task(self, **kwargs):
         """
@@ -63,37 +63,37 @@ class Framework(object):
         """
         create train task
         """
-        raise NotImplementedError('Please implement me')
+        raise NotImplementedError(_('Please implement me'))
 
     def get_standard_network_desc(self, network):
         """
         return text description of network
         """
-        raise NotImplementedError('Please implement me')
+        raise NotImplementedError(_('Please implement me'))
 
     def get_network_from_desc(self, network_desc):
         """
         return network object from a string representation
         """
-        raise NotImplementedError('Please implement me')
+        raise NotImplementedError(_('Please implement me'))
 
     def get_network_from_previous(self, previous_network, use_same_dataset):
         """
         return new instance of network from previous network
         """
-        raise NotImplementedError('Please implement me')
+        raise NotImplementedError(_('Please implement me'))
 
     def get_network_from_path(self, path):
         """
         return network object from a file path
         """
-        raise NotImplementedError('Please implement me')
+        raise NotImplementedError(_('Please implement me'))
 
     def get_network_visualization(self, **kwargs):
         """
         return visualization of network
         """
-        raise NotImplementedError('Please implement me')
+        raise NotImplementedError(_('Please implement me'))
 
     def can_accumulate_gradients(self):
         return False
