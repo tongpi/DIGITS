@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-23 10:52+0800\n"
+"POT-Creation-Date: 2019-02-23 11:12+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,8 +60,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: pretrained_model/tasks/upload_pretrained.py:37
-#: static/js/PretrainedModel.js:150 views.py:89
+#: pretrained_model/tasks/upload_pretrained.py:37 views.py:89
 msgid "Upload Pretrained Model"
 msgstr ""
 
@@ -247,15 +246,15 @@ msgid ""
 " below."
 msgstr ""
 
-#: dataset/images/job.py:31 static/js/PretrainedModel.js:34
+#: dataset/images/job.py:31
 msgid "Crop"
 msgstr ""
 
-#: dataset/images/job.py:32 static/js/PretrainedModel.js:33
+#: dataset/images/job.py:32
 msgid "Squash"
 msgstr ""
 
-#: dataset/images/job.py:33 static/js/PretrainedModel.js:35
+#: dataset/images/job.py:33
 msgid "Fill"
 msgstr ""
 
@@ -651,7 +650,7 @@ msgstr ""
 
 #: extensions/data/imageProcessing/forms.py:92
 #: extensions/data/imageSegmentation/forms.py:109
-#: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:29
+#: extensions/data/objectDetection/forms.py:108
 msgid "Grayscale"
 msgstr ""
 
@@ -1794,38 +1793,6 @@ msgstr ""
 
 #: pretrained_model/tasks/torch_upload.py:17
 msgid "Upload Pretrained Torch Model"
-msgstr ""
-
-#: static/js/PretrainedModel.js:28
-msgid "Color"
-msgstr ""
-
-#: static/js/PretrainedModel.js:36
-msgid "Half Crop, Half Fill"
-msgstr ""
-
-#: static/js/PretrainedModel.js:113
-msgid "Upload Tar or Zip Archive"
-msgstr ""
-
-#: static/js/PretrainedModel.js:184 static/js/PretrainedModel.js:197
-msgid "Upload Model"
-msgstr ""
-
-#: static/js/PretrainedModel.js:209
-msgid "Uploading archive, one moment..."
-msgstr ""
-
-#: static/js/PretrainedModel.js:214
-msgid "Bad File Type"
-msgstr ""
-
-#: static/js/PretrainedModel.js:215 static/js/PretrainedModel.js:230
-msgid "Try Upload Again?"
-msgstr ""
-
-#: static/js/PretrainedModel.js:229
-msgid "Upload Failed"
 msgstr ""
 
 #: store/views.py:143

@@ -10,7 +10,7 @@ function drawCombinedGraph(data) {
             axis: {
                 x: {
                     label: {
-                        text: '{{_("Epoch")}}',
+                        text: 'Epoch',
                         position: 'outer-center',
                     },
                     tick: {
@@ -23,7 +23,7 @@ function drawCombinedGraph(data) {
                 },
                 y: {
                     label: {
-                        text: '{{_("Loss")}}',
+                        text: 'Loss',
                         position: 'outer-middle',
                     },
                     min: 0,
@@ -32,7 +32,7 @@ function drawCombinedGraph(data) {
                 y2: {
                     show: true,
                     label: {
-                        text: '{{_("Accuracy")}} (%)',
+                        text: 'Accuracy (%)',
                         position: 'outer-middle',
                     },
                     min: 0,
@@ -72,7 +72,7 @@ function drawLRGraph(data) {
         axis: {
             x: {
                 label: {
-                    text: '{{_("Epoch")}}',
+                    text: 'Epoch',
                     position: 'outer-center',
                 },
                 tick: {
@@ -85,7 +85,7 @@ function drawLRGraph(data) {
             },
             y: {
                 label: {
-                    text: '_("Learning Rate")}}',
+                    text: 'Learning Rate',
                     position: 'outer-middle',
                 },
                 min: 0,

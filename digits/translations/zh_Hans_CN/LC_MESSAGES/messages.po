@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-23 10:52+0800\n"
+"POT-Creation-Date: 2019-02-23 11:12+0800\n"
 "PO-Revision-Date: 2019-02-16 11:51+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -61,8 +61,7 @@ msgstr "分类"
 msgid "Other"
 msgstr "其他"
 
-#: pretrained_model/tasks/upload_pretrained.py:37
-#: static/js/PretrainedModel.js:150 views.py:89
+#: pretrained_model/tasks/upload_pretrained.py:37 views.py:89
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
 
@@ -248,15 +247,15 @@ msgid ""
 " below."
 msgstr "调整大小时处理宽高比的选项。 见下面的例子。"
 
-#: dataset/images/job.py:31 static/js/PretrainedModel.js:34
+#: dataset/images/job.py:31
 msgid "Crop"
 msgstr "剪切"
 
-#: dataset/images/job.py:32 static/js/PretrainedModel.js:33
+#: dataset/images/job.py:32
 msgid "Squash"
 msgstr "挤压"
 
-#: dataset/images/job.py:33 static/js/PretrainedModel.js:35
+#: dataset/images/job.py:33
 msgid "Fill"
 msgstr "填充"
 
@@ -657,7 +656,7 @@ msgstr "通道转换"
 
 #: extensions/data/imageProcessing/forms.py:92
 #: extensions/data/imageSegmentation/forms.py:109
-#: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:29
+#: extensions/data/objectDetection/forms.py:108
 msgid "Grayscale"
 msgstr "灰度级"
 
@@ -1825,38 +1824,6 @@ msgstr "上传预训练的Tensorflow模型"
 msgid "Upload Pretrained Torch Model"
 msgstr "上传预训练Torch模型"
 
-#: static/js/PretrainedModel.js:28
-msgid "Color"
-msgstr "色彩"
-
-#: static/js/PretrainedModel.js:36
-msgid "Half Crop, Half Fill"
-msgstr "一半剪切，一半填充"
-
-#: static/js/PretrainedModel.js:113
-msgid "Upload Tar or Zip Archive"
-msgstr "上传tar或zip存档"
-
-#: static/js/PretrainedModel.js:184 static/js/PretrainedModel.js:197
-msgid "Upload Model"
-msgstr "上传模型"
-
-#: static/js/PretrainedModel.js:209
-msgid "Uploading archive, one moment..."
-msgstr "上传档案，稍等片刻......"
-
-#: static/js/PretrainedModel.js:214
-msgid "Bad File Type"
-msgstr "错误的文件类型"
-
-#: static/js/PretrainedModel.js:215 static/js/PretrainedModel.js:230
-msgid "Try Upload Again?"
-msgstr "再试一次上传？"
-
-#: static/js/PretrainedModel.js:229
-msgid "Upload Failed"
-msgstr "上传失败"
-
 #: store/views.py:143
 msgid "Unable to find requested model"
 msgstr "无法找到被请求的模型"
@@ -2181,4 +2148,28 @@ msgstr "未识别的数据形状：%(data_shape)s"
 #: utils/routing.py:17
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
+
+#~ msgid "Color"
+#~ msgstr "色彩"
+
+#~ msgid "Half Crop, Half Fill"
+#~ msgstr "一半剪切，一半填充"
+
+#~ msgid "Upload Tar or Zip Archive"
+#~ msgstr "上传tar或zip存档"
+
+#~ msgid "Upload Model"
+#~ msgstr "上传模型"
+
+#~ msgid "Uploading archive, one moment..."
+#~ msgstr "上传档案，稍等片刻......"
+
+#~ msgid "Bad File Type"
+#~ msgstr "错误的文件类型"
+
+#~ msgid "Try Upload Again?"
+#~ msgstr "再试一次上传？"
+
+#~ msgid "Upload Failed"
+#~ msgstr "上传失败"
 

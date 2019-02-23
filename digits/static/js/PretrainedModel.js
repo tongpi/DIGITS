@@ -25,15 +25,15 @@ var PretrainedModel = function(params) {
   ];
 
   self.resize_channels = [
-    {text: '{{_("Color")}}', value: 3},
-    {text: '{{_("Grayscale")}}', value: 1}
+    {text: 'Color', value: 3},
+    {text: 'Grayscale', value: 1}
   ];
 
   self.resize_modes = [
-    {text: "{{_('Squash')}}", value: 'squash'},
-    {text: "{{_('Crop')}}", value: 'crop'},
-    {text: "{{_('Fill')}}", value: 'fill'},
-    {text: "{{_('Half Crop, Half Fill')}}", value: 'half_crop'}
+    {text: 'Squash', value: 'squash'},
+    {text: 'Crop', value: 'crop'},
+    {text: _('Fill'), value: 'fill'},
+    {text: _('Half Crop, Half Fill'), value: 'half_crop'}
   ];
 
   self.frameworkChanged = function() {
@@ -110,7 +110,7 @@ var PretrainedModel = function(params) {
 
   self.well = function(params) {
     var props = _.extend({
-      text: "{{_('Upload Tar or Zip Archive')}}",
+      text: 'Upload Tar or Zip Archive',
       class: '',
       state: 'primary'
     },params);
@@ -147,7 +147,7 @@ var PretrainedModel = function(params) {
 
   self.heading = function(params) {
     var props = _.extend({
-      text: '{{_("Upload Pretrained Model")}}',
+      text: 'Upload Pretrained Model',
       classed: false
     },params);
 
@@ -181,7 +181,7 @@ var PretrainedModel = function(params) {
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html('{{_("Upload Model")}}');
+      .html('Upload Model');
   };
 
   self.torchForm = function(e) {
@@ -194,7 +194,7 @@ var PretrainedModel = function(params) {
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html('{{_("Upload Model")}}');
+      .html('Upload Model');
   };
 
 };
@@ -206,13 +206,13 @@ PretrainedModel.Actions = function(props) {
 
   self.uploadArchive = function(file) {
        var upload_url = URL_PREFIX + '/pretrained_models/upload_archive';
-       parent.heading({classed: false, text: '{{_("Uploading archive, one moment...")}}'});
+       parent.heading({classed: false, text: 'Uploading archive, one moment...'});
 
        var formData = new FormData();
        // Check file type.
        if (file.type.indexOf('zip') == -1) {
-         parent.heading({classed: true, text: '{{_("Bad File Type")}}'});
-         parent.well({class: '', text: '{{_("Try Upload Again?")}}', state: 'danger'});
+         parent.heading({classed: true, text: 'Bad File Type'});
+         parent.well({class: '', text: 'Try Upload Again?', state: 'danger'});
          console.error('Bad File Type');
          return;
        }
@@ -226,8 +226,8 @@ PretrainedModel.Actions = function(props) {
             $('#pretrainedModelTab>a').click();
             parent.close();
           } else {
-            parent.heading({classed: true, text: '{{_("Upload Failed")}}'});
-            parent.well({class: '', text: '{{_("Try Upload Again?")}}', state: 'danger'});
+            parent.heading({classed: true, text: 'Upload Failed'});
+            parent.well({class: '', text: 'Try Upload Again?', state: 'danger'});
             console.error('Failed to Upload File');
             console.error(xhr.responseText);
             var json = JSON.parse(xhr.responseText);

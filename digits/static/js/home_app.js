@@ -315,7 +315,7 @@ try {
 
     app.controller('job_controller', function($scope, $controller) {
         $controller('select_controller', {$scope: $scope});
-        $scope.username = '{{_("username")}}';
+        $scope.username = '{{username}}';
         $scope.search_text = '';     // set the default search/filter term
         $scope.sort = {
             active1: 'submitted',
@@ -521,7 +521,7 @@ try {
 
     app.controller('running_controller', function($scope, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = '{{_("Running Jobs")}}';
+        $scope.title = 'Running Jobs';
         $scope.fields = [{name: 'name', show: true, min_width: 100},
                          {name: 'submitted', show: true, min_width: 100},
                          {name: 'status', show: true, min_width: 120},
@@ -531,7 +531,7 @@ try {
 
     app.controller('datasets_controller', function($scope, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = '{{_("Datasets")}}';
+        $scope.title = 'Datasets';
         $scope.fields = [{name: 'name', show: true},
                          {name: 'refs', show: true},
                          {name: 'extension', show: true, min_width: 150},
@@ -543,7 +543,7 @@ try {
 
     app.controller('models_controller', function($scope, $localStorage, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = '{{_("Models")}}';
+        $scope.title = 'Models';
         var model_fields = [
             {name: 'name', show: true, min_width: 100},
             {name: 'id', show: false, min_width: 200},
@@ -577,7 +577,7 @@ try {
 
     app.controller('pretrained_models_controller', function($scope, $localStorage, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = '{{_("Models")}}';
+        $scope.title = 'Models';
         $scope.fields = [{name: 'name', show: true, min_width: 0},
                          {name: 'framework', show: true, min_width: 0},
                          {name: 'username', show: true, min_width: 0},
