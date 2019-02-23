@@ -49,7 +49,7 @@ def resize_example():
             elif encoding == 'jpg':
                 PIL.Image.fromarray(image).save(s, format='JPEG', quality=90)
             else:
-                raise ValueError('unrecognized encoding "%s"' % encoding)
+                raise ValueError(_('unrecognized encoding "%(encoding)s"', encoding=encoding))
             s.seek(0)
             image = PIL.Image.open(s)
             length = len(s.getvalue())

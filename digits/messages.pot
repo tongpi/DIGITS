@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-22 15:54+0800\n"
+"POT-Creation-Date: 2019-02-23 09:09+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,6 +243,27 @@ msgstr ""
 msgid ""
 "Options for dealing with aspect ratio changes during resize. See examples"
 " below."
+msgstr ""
+
+#: dataset/images/job.py:31
+msgid "Crop"
+msgstr ""
+
+#: dataset/images/job.py:32
+msgid "Squash"
+msgstr ""
+
+#: dataset/images/job.py:33 static/js/PretrainedModel.js:35
+msgid "Fill"
+msgstr ""
+
+#: dataset/images/job.py:34
+msgid "Half crop, half fill"
+msgstr ""
+
+#: dataset/images/views.py:52
+#, python-format
+msgid "unrecognized encoding \"%(encoding)s\""
 msgstr ""
 
 #: dataset/images/views.py:63
@@ -1766,10 +1787,6 @@ msgstr ""
 
 #: pretrained_model/tasks/torch_upload.py:17
 msgid "Upload Pretrained Torch Model"
-msgstr ""
-
-#: static/js/PretrainedModel.js:35
-msgid "Fill"
 msgstr ""
 
 #: static/js/PretrainedModel.js:36

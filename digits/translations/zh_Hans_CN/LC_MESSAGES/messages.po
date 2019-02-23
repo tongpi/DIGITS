@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-22 15:54+0800\n"
+"POT-Creation-Date: 2019-02-23 09:09+0800\n"
 "PO-Revision-Date: 2019-02-16 11:51+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -245,6 +245,27 @@ msgid ""
 "Options for dealing with aspect ratio changes during resize. See examples"
 " below."
 msgstr "调整大小时处理宽高比的选项。 见下面的例子。"
+
+#: dataset/images/job.py:31
+msgid "Crop"
+msgstr "剪切"
+
+#: dataset/images/job.py:32
+msgid "Squash"
+msgstr "挤压"
+
+#: dataset/images/job.py:33 static/js/PretrainedModel.js:35
+msgid "Fill"
+msgstr "填充"
+
+#: dataset/images/job.py:34
+msgid "Half crop, half fill"
+msgstr "一半剪切，一半填充"
+
+#: dataset/images/views.py:52
+#, python-format
+msgid "unrecognized encoding \"%(encoding)s\""
+msgstr "无法识别的编码\"%(encoding)s\""
 
 #: dataset/images/views.py:63
 #, python-format
@@ -1797,10 +1818,6 @@ msgstr "上传预训练的Tensorflow模型"
 msgid "Upload Pretrained Torch Model"
 msgstr "上传预训练Torch模型"
 
-#: static/js/PretrainedModel.js:35
-msgid "Fill"
-msgstr "填充"
-
 #: static/js/PretrainedModel.js:36
 msgid "Half Crop, Half Fill"
 msgstr "一半剪切，一半填充"
@@ -2129,13 +2146,4 @@ msgstr "未识别的数据形状：%(data_shape)s"
 #: utils/routing.py:17
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
-
-#~ msgid "folder or URL"
-#~ msgstr ""
-
-#~ msgid "Invalid field name '%s'."
-#~ msgstr "无效字段名称"
-
-#~ msgid "Field must be greater than %s."
-#~ msgstr "字段必须大于%s。"
 
