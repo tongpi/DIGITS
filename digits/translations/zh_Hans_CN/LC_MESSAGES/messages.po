@@ -678,7 +678,7 @@ msgstr "所有标签图像必须使用相同的调色板"
 
 #: extensions/data/imageSegmentation/data.py:149
 msgid "Segmentation"
-msgstr ""
+msgstr "分割"
 
 #: extensions/data/imageSegmentation/data.py:177
 #, python-format
