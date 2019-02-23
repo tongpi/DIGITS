@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-23 09:09+0800\n"
+"POT-Creation-Date: 2019-02-23 10:52+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,8 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: pretrained_model/tasks/upload_pretrained.py:37 views.py:89
+#: pretrained_model/tasks/upload_pretrained.py:37
+#: static/js/PretrainedModel.js:150 views.py:89
 msgid "Upload Pretrained Model"
 msgstr ""
 
@@ -150,6 +151,7 @@ msgstr ""
 #: dataset/generic/forms.py:20 dataset/generic/forms.py:33
 #: dataset/images/classification/forms.py:40 dataset/images/forms.py:23
 #: extensions/data/imageProcessing/forms.py:93
+#: extensions/data/imageSegmentation/forms.py:110
 #: extensions/data/objectDetection/forms.py:109 model/images/forms.py:28
 #: model/images/forms.py:39 model/images/forms.py:51
 msgid "None"
@@ -245,11 +247,11 @@ msgid ""
 " below."
 msgstr ""
 
-#: dataset/images/job.py:31
+#: dataset/images/job.py:31 static/js/PretrainedModel.js:34
 msgid "Crop"
 msgstr ""
 
-#: dataset/images/job.py:32
+#: dataset/images/job.py:32 static/js/PretrainedModel.js:33
 msgid "Squash"
 msgstr ""
 
@@ -648,7 +650,8 @@ msgid "Channel conversion"
 msgstr ""
 
 #: extensions/data/imageProcessing/forms.py:92
-#: extensions/data/objectDetection/forms.py:108
+#: extensions/data/imageSegmentation/forms.py:109
+#: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:29
 msgid "Grayscale"
 msgstr ""
 
@@ -666,6 +669,10 @@ msgstr ""
 
 #: extensions/data/imageSegmentation/data.py:91
 msgid "All label images must use the same palette"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:149
+msgid "Segmentation"
 msgstr ""
 
 #: extensions/data/imageSegmentation/data.py:177
@@ -1789,8 +1796,36 @@ msgstr ""
 msgid "Upload Pretrained Torch Model"
 msgstr ""
 
+#: static/js/PretrainedModel.js:28
+msgid "Color"
+msgstr ""
+
 #: static/js/PretrainedModel.js:36
 msgid "Half Crop, Half Fill"
+msgstr ""
+
+#: static/js/PretrainedModel.js:113
+msgid "Upload Tar or Zip Archive"
+msgstr ""
+
+#: static/js/PretrainedModel.js:184 static/js/PretrainedModel.js:197
+msgid "Upload Model"
+msgstr ""
+
+#: static/js/PretrainedModel.js:209
+msgid "Uploading archive, one moment..."
+msgstr ""
+
+#: static/js/PretrainedModel.js:214
+msgid "Bad File Type"
+msgstr ""
+
+#: static/js/PretrainedModel.js:215 static/js/PretrainedModel.js:230
+msgid "Try Upload Again?"
+msgstr ""
+
+#: static/js/PretrainedModel.js:229
+msgid "Upload Failed"
 msgstr ""
 
 #: store/views.py:143

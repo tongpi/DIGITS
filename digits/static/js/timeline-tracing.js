@@ -8,7 +8,7 @@ var TimelineTrace = function(cont_id) {
     Polymer.dom(this.viewer).appendChild(container);
     this.viewer.id = 'trace-viewer';
     this.viewer.globalMode = false;
-    this.viewer.viewTitle = 'No Trace Selected';
+    this.viewer.viewTitle = '{{_("No Trace Selected")}}';
     Polymer.dom(document.getElementById(cont_id)).appendChild(this.viewer);
 };
 
@@ -24,7 +24,7 @@ TimelineTrace.prototype.onResult = function(step, result) {
     function onImportFail() {
         var overlay = new tr.ui.b.Overlay();
         overlay.textContent = tr.b.normalizeException(err).message;
-        overlay.title = 'Import error';
+        overlay.title = '{{_("Import error")}}';
         overlay.visible = true;
     }
     p.then(onModelLoaded, onImportFail);
