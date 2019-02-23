@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-23 11:12+0800\n"
+"POT-Creation-Date: 2019-02-23 14:55+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -254,7 +254,7 @@ msgstr ""
 msgid "Squash"
 msgstr ""
 
-#: dataset/images/job.py:33
+#: dataset/images/job.py:33 static/js/PretrainedModel.js:40
 msgid "Fill"
 msgstr ""
 
@@ -1793,6 +1793,14 @@ msgstr ""
 
 #: pretrained_model/tasks/torch_upload.py:17
 msgid "Upload Pretrained Torch Model"
+msgstr ""
+
+#: static/js/PretrainedModel.js:41
+msgid "Half Crop, Half Fill"
+msgstr ""
+
+#: static/js/PretrainedModel.js:121
+msgid "Upload Tar or Zip Archive"
 msgstr ""
 
 #: store/views.py:143

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-23 11:12+0800\n"
+"POT-Creation-Date: 2019-02-23 14:55+0800\n"
 "PO-Revision-Date: 2019-02-16 11:51+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -255,7 +255,7 @@ msgstr "剪切"
 msgid "Squash"
 msgstr "挤压"
 
-#: dataset/images/job.py:33
+#: dataset/images/job.py:33 static/js/PretrainedModel.js:40
 msgid "Fill"
 msgstr "填充"
 
@@ -1823,6 +1823,14 @@ msgstr "上传预训练的Tensorflow模型"
 #: pretrained_model/tasks/torch_upload.py:17
 msgid "Upload Pretrained Torch Model"
 msgstr "上传预训练Torch模型"
+
+#: static/js/PretrainedModel.js:41
+msgid "Half Crop, Half Fill"
+msgstr ""
+
+#: static/js/PretrainedModel.js:121
+msgid "Upload Tar or Zip Archive"
+msgstr "上传tar或zip存档"
 
 #: store/views.py:143
 msgid "Unable to find requested model"

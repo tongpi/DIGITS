@@ -1,4 +1,8 @@
 // Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
+var gt = new Gettext({domain: 'digits'});
+var _ = function(msgid) { return gt.gettext(msgid); };
+
+
 var PretrainedModel = function(params) {
   var props = _.extend({
     selector: '#pretrainedModelContent',
@@ -110,7 +114,7 @@ var PretrainedModel = function(params) {
 
   self.well = function(params) {
     var props = _.extend({
-      text: 'Upload Tar or Zip Archive',
+      text: _('Upload Tar or Zip Archive'),
       class: '',
       state: 'primary'
     },params);
