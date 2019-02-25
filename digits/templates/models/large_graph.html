@@ -3,7 +3,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-{{job.name()}} - Large graph
+{{job.name()}} - {{_('Large graph')}}
 {% endblock %}
 
 {% block head %}
@@ -28,7 +28,7 @@
                 drawCombinedGraph({% autoescape false %}{{combined_graph_data}}{% endautoescape %});
             </script>
             {% else %}
-            <i>No data.</i>
+            <i>{{_('No data.')}}</i>
             {% endif %}
 
         </div>

@@ -1,20 +1,20 @@
 {# Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved. #}
 
-<h1>Using Python layers</h1>
+<h1>{{_('Using Python layers')}}</h1>
 
 <p>
-    Caffe lets you define custom layers with Python.
-    Python layers are obviously much slower than their C++ counterparts, but are easy to write and test quickly since using them doesn't require recompilation.
-    DIGITS moves some files around for you so that you can specify different Python layers for each network.
+    {{_('Caffe lets you define custom layers with Python.
+    Python layers are obviously much slower than their C++ counterparts, but are easy to write and test quickly since using them doesn\'t require recompilation.
+    DIGITS moves some files around for you so that you can specify different Python layers for each network.')}}
 </p>
 <p>
-    The BVLC and DIGITS documentation online has detailed information and tutorials about how to use these layers.
-    Some of that information has been re-created here for your convenience.
+    {{_('The BVLC and DIGITS documentation online has detailed information and tutorials about how to use these layers.
+    Some of that information has been re-created here for your convenience.')}}
 </p>
 
 <p>
-    First, you'll need to create a Python file which defines one or more layers.
-    As an example, here is a layer which re-creates the functionality of the standard Accuracy layer using JSON-encoded parameters:
+    {{_('First, you\'ll need to create a Python file which defines one or more layers.
+    As an example, here is a layer which re-creates the functionality of the standard Accuracy layer using JSON-encoded parameters:')}}
 </p>
 <pre>
 import caffe
@@ -52,11 +52,11 @@ class AccuracyLayer(caffe.Layer):
 </pre>
 
 <p class="alert alert-warning">
-    <b>NOTE:</b> The uploaded file will be renamed to <b>digits_python_layers.py</b>, discarding the original filename.
+    <b>{{_('NOTE:')}}</b> {{_('The uploaded file will be renamed to')}} <b>digits_python_layers.py</b>, {{_('discarding the original filename.')}}
 </p>
 
 <p>
-    To add the layer to your network, include this prototxt snippet in your custom network definition:
+    {{_('To add the layer to your network, include this prototxt snippet in your custom network definition:')}}
 </p>
 <pre>
 layer {
