@@ -75,7 +75,7 @@ def new():
 
     # Is there a request to clone a job with ?clone=<job_id>
     fill_form_if_cloned(form)
-
+    print form
     return flask.render_template('models/images/classification/new.html',
                                  form=form,
                                  frameworks=frameworks.get_frameworks(),
