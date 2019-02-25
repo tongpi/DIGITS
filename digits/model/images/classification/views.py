@@ -76,6 +76,11 @@ def new():
     # Is there a request to clone a job with ?clone=<job_id>
     fill_form_if_cloned(form)
     print form
+    print frameworks.get_frameworks()
+    print prev_network_snapshots
+    print get_previous_networks_fulldetails()
+    print get_pretrained_networks_fulldetails()
+    print config_value('caffe')['multi_gpu']
     return flask.render_template('models/images/classification/new.html',
                                  form=form,
                                  frameworks=frameworks.get_frameworks(),
