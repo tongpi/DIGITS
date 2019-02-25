@@ -1826,7 +1826,7 @@ msgstr "上传预训练Torch模型"
 
 #: static/js/PretrainedModel.js:41
 msgid "Half Crop, Half Fill"
-msgstr ""
+msgstr "一半剪切，一半填充"
 
 #: static/js/PretrainedModel.js:121
 msgid "Upload Tar or Zip Archive"
