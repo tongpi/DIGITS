@@ -436,7 +436,7 @@ function customizeNetwork(network, snapshot_list, framework) {
 
     if (editor.getValue() != "") {
         bootbox.confirm(
-                'This will overwrite data in the Custom Network tab. Continue?',
+                '{{_("This will overwrite data in the Custom Network tab. Continue?")}}',
                 function(result) { if (result) fillCustomTab(network, snapshot_list, framework); }
                 );
     } else {

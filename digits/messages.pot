@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 08:56+0800\n"
+"POT-Creation-Date: 2019-02-25 15:36+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -986,6 +986,11 @@ msgstr ""
 msgid "Data Augmentations"
 msgstr ""
 
+#: templates/models/images/classification/new.html:439
+#: templates/models/images/generic/new.html:435
+msgid "This will overwrite data in the Custom Network tab. Continue?"
+msgstr ""
+
 #: templates/models/images/classification/new.html:525
 #: templates/models/images/generic/new.html:519
 msgid "Standard Networks"
@@ -1282,10 +1287,6 @@ msgstr ""
 #: templates/models/images/generic/new.html:10
 #: templates/models/images/generic/new.html:19
 msgid "Model"
-msgstr ""
-
-#: templates/models/images/generic/new.html:435
-msgid "This will overwrite data in the Custom Network tab. Continue?"
 msgstr ""
 
 #: templates/partials/home/datasets_pane.html:26
