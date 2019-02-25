@@ -114,28 +114,28 @@ function updateJobName() {
 }
                 </script>
                 <input name="job-name" class="form-control" value="{{job.name()}}"/>
-                <a href=# class="btn btn-primary" onClick="return updateJobName();">Update</a>
-                <a href=# class="btn btn-info" onClick="$('#edit-job-name').hide(); $('#show-job-name').show(); return false;">Cancel</a>
+                <a href=# class="btn btn-primary" onClick="return updateJobName();">{{_('Update')}}</a>
+                <a href=# class="btn btn-info" onClick="$('#edit-job-name').hide(); $('#show-job-name').show(); return false;">{{_('Cancel')}}</a>
             </div>
         </div>
         {% if job.username %}
-        <small>Owner: {{job.username}}</small>
+        <small>{{_('Owner:')}} {{job.username}}</small>
         {% endif %}
         <div class="pull-right">
             {% if job.form_data is defined %}
-            <a id="clone-job" class="btn btn-info" href="{{url_for('digits.views.clone_job', clone=job.id())}}">Clone Job</a>
+            <a id="clone-job" class="btn btn-info" href="{{url_for('digits.views.clone_job', clone=job.id())}}">{{_('Clone Job')}}</a>
             {% else %}
-            <a id="clone-job" class="btn btn-info" disabled>Clone Job</a>
+            <a id="clone-job" class="btn btn-info" disabled>{{_('Clone Job')}}</a>
             {% endif %}
-            <a id="abort-job" class="btn btn-warning {{ 'hidden' if not job.status.is_running() }} {{'disabled' if not (job | has_permission('abort'))}}">Abort Job</a>
-            <a id="delete-job" class="btn btn-danger {{'disabled' if not (job | has_permission('delete'))}}">Delete Job</a>
+            <a id="abort-job" class="btn btn-warning {{ 'hidden' if not job.status.is_running() }} {{'disabled' if not (job | has_permission('abort'))}}">{{_('Abort Job')}}</a>
+            <a id="delete-job" class="btn btn-danger {{'disabled' if not (job | has_permission('delete'))}}">{{_('Delete Job')}}</a>
         </div>
     </div>
     <script>
 $('#abort-job').on('click', function(event) {
         event.preventDefault();
         bootbox.confirm(
-            'Are you sure you want to abort this job?',
+            '{{_("Are you sure you want to abort this job?")}}',
             function(result) {
                 if (result)
                     $.ajax("{{url_for('digits.views.abort_job', job_id=job.id())}}",
@@ -150,7 +150,7 @@ $('#abort-job').on('click', function(event) {
 $('#delete-job').on('click', function(event) {
         event.preventDefault();
         bootbox.confirm(
-            'Are you sure you want to delete this job?<br><br>All related files will be permanently removed.',
+            '{{_("Are you sure you want to delete this job?<br><br>All related files will be permanently removed.")}}',
             function(result) {
                 if (result)
                     $.ajax("{{url_for('digits.views.delete_job', job_id=job.id())}}",
@@ -179,7 +179,7 @@ $('#delete-job').on('click', function(event) {
         <div id="job-statuses" class="panel panel-{{job.status.css}}">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    Job Status
+                    {{_('Job Status')}}
                     <small>{{job.status.name}}</small>
                 </h4>
             </div>
@@ -211,7 +211,7 @@ $('#delete-job').on('click', function(event) {
                                                     {{percentage}}%
                                                 </div>
                                             </div>
-                                            Estimated time remaining: <span class="task-eta">{{ task.est_done()|print_time_diff }}</span>
+                                            {{_('Estimated time remaining:')}} <span class="task-eta">{{ task.est_done()|print_time_diff }}</span>
                                             <br />
                                             <br />
                                         </div>
@@ -241,7 +241,7 @@ $('#delete-job').on('click', function(event) {
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h4 class="panel-title">
-                    Related jobs
+                    {{_('Related jobs')}}
                 </h4>
             </div>
             <div class="panel-collapse">
@@ -284,7 +284,7 @@ $('#delete-job').on('click', function(event) {
 
         <div id="notes-information" class="panel panel-default">
             <div class="panel-heading">
-                <h4>Notes</h4>
+                <h4>{{_('Notes')}}</h4>
             </div>
             <div class="panel-body">
                 <div id="show-job-notes" class="col-sm-12">
@@ -312,9 +312,9 @@ $('#delete-job').on('click', function(event) {
                         return false;
                     }
                     </script>
-                    <textarea name="job-notes" class="form-control" placeholder="Enter notes" rows="5">{% if job.notes() %}{{ job.notes() }}{% endif %}</textarea>
-                    <a href=# class="btn btn-primary" onClick="return updateJobNotes();">Update</a>
-                    <a href=# class="btn btn-info" onClick="$('#edit-job-notes').hide(); $('#show-job-notes').show(); return false;">Cancel</a>
+                    <textarea name="job-notes" class="form-control" placeholder="{{_('Enter notes')}}" rows="5">{% if job.notes() %}{{ job.notes() }}{% endif %}</textarea>
+                    <a href=# class="btn btn-primary" onClick="return updateJobNotes();">{{_('Update')}}</a>
+                    <a href=# class="btn btn-info" onClick="$('#edit-job-notes').hide(); $('#show-job-notes').show(); return false;">{{_('Cancel')}}</a>
                 </div>
             </div>
 

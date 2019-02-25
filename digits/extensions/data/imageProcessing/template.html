@@ -7,13 +7,13 @@
 <div class="form-group{{mark_errors([form.feature_folder])}}">
     {{ form.feature_folder.label }}
     {{ form.feature_folder.tooltip }}
-    {{ form.feature_folder(class='form-control autocomplete_path', placeholder='folder or URL')}}
+    {{ form.feature_folder(class='form-control autocomplete_path', placeholder=_('folder or URL'))}}
 </div>
 
 <div class="form-group{{mark_errors([form.label_folder])}}">
     {{ form.label_folder.label }}
     {{ form.label_folder.tooltip }}
-    {{ form.label_folder(class='form-control autocomplete_path', placeholder='folder or URL')}}
+    {{ form.label_folder(class='form-control autocomplete_path', placeholder=_('folder or URL'))}}
 </div>
 
 <div class="form-group{{mark_errors([form.folder_pct_val])}}">

@@ -8,7 +8,7 @@
 
 {% block nav %}
 <li><a href="{{url_for('digits.model.views.show', job_id=model_job.id())}}">{{model_job.name()}}</a></li>
-<li class="active"><a>Test Many</a></li>
+<li class="active"><a>{{_('Test Many')}}</a></li>
 {% endblock %}
 
 {% block job_content %}
@@ -23,7 +23,7 @@
 
 {% if not paths %}
 <div class="alert alert-danger">
-    <p>Inference failed, see job log</p>
+    <p>{{_('Inference failed, see job log')}}</p>
 </div>
 {% endif %}
 
@@ -33,7 +33,7 @@
 
 {% if header_html %}
 <div class="row">
-    <h3>Summary</h3>
+    <h3>{{_('Summary')}}</h3>
     {{header_html|safe}}
 </div>
 {% endif %}
@@ -44,13 +44,13 @@
 
 {% if paths %}
 <div class="row">
-    <h3>Visualizations</h3>
+    <h3>{{_('Visualizations')}}</h3>
     <div style="overflow:scroll; height:800px;">
         <table class="table">
             <tr>
                 <td></td>
-                <th>Image</th>
-                <th>Data</th>
+                <th>{{_('Image')}}</th>
+                <th>{{_('Data')}}</th>
             </tr>
             {% for path in paths %}
             <tr>

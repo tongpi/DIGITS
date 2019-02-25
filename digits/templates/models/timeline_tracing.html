@@ -3,7 +3,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-{{job.name()}} - Timeline Trace
+{{job.name()}} - {{_('Timeline Trace')}}
 {% endblock %}
 
 {% block head %}
@@ -20,7 +20,7 @@
 {% set task = job.train_task() %}
 
 <div class="page-header">
-    <h1>Timeline Trace</h1>
+    <h1>{{_('Timeline Trace')}}</h1>
 </div>
 
 <div class="container">
@@ -30,7 +30,7 @@
         </div>
         <div class="col-xs-2">
             <button class="btn btn-info" onclick="showTimeline()">
-                Show Timeline Trace
+                {{_('Show Timeline Trace')}}
             </button>
         </div>
     </div>

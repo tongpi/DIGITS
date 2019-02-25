@@ -47,9 +47,9 @@
             <li>
             <p class="navbar-text">
             {% if username %}
-            {{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">Logout</a>)
+            {{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">{{_('Logout')}}</a>)
             {% else %}
-            <a class="navbar-link" href="{{ url_for("digits.views.login") }}">Login</a>
+            <a class="navbar-link" href="{{ url_for("digits.views.login") }}">{{_('Login')}}</a>
             {% endif %}
             </p>
             </li>

@@ -50,13 +50,13 @@
 
 {% block content %}
 <div class="row" style="margin-bottom: 45px;">
-    <h1>Model Store</h1>
+    <h1>{{_('Model Store')}}</h1>
 </div>
 <div id="modelList" class="row" ng-app="modelStore" ng-controller="ModelListController">
-    <button type="button" class="btn btn-xs btn-primary" ng-click="get_model_list(1)">Update Model List</button>
+    <button type="button" class="btn btn-xs btn-primary" ng-click="get_model_list(1)">{{_('Update Model List')}}</button>
     <div ng-show="groups_length==0">
         <h4>
-            No models in Model Store
+            {{_('No models in Model Store')}}
         </h4>
     </div>
     <div ng-hide="groups_length==0" class="well">
@@ -67,7 +67,7 @@
                     <div class="form-group">
                         <div class="input-group">
                             <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-                            <input type="text" class="form-control" placeholder="Filter" ng-model="query">
+                            <input type="text" class="form-control" placeholder="{{_('Filter')}}" ng-model="query">
                         </div>
                     </div>
                 </form>
@@ -79,12 +79,12 @@
             <thead>
                 <tr>
                     <th style="width:24px"></th>
-                    <th>Name</th>
-                    <th>Contributor</th>
-                    <th>Affiliate</th>
-                    <th>Note</th>
-                    <th>Data sets</th>
-                    <th>License</th>
+                    <th>{{_('Name')}}</th>
+                    <th>{{_('Contributor')}}</th>
+                    <th>{{_('Affiliate')}}</th>
+                    <th>{{_('Note')}}</th>
+                    <th>{{_('Data sets')}}</th>
+                    <th>{{_('License')}}</th>
                 </tr>
             </thead>
             <tbody>
@@ -99,7 +99,7 @@
                 <tr ng-repeat="model in value.model_list | filter: query">
                     <td>
                         <span ng-click="download(model.id);"
-                              title="Import"
+                              title="{{_('Import')}}"
                               class="glyphicon glyphicon-import">
                         </span>
                     </td>
@@ -138,13 +138,13 @@
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                        <h4 class="modal-title">License</h4>
+                                        <h4 class="modal-title">{{_('License')}}</h4>
                                     </div>
                                     <div class="modal-body">
                                         <p> {[model.license_text]} </p>
                                     </div>
                                     <div class="modal-footer">
-                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">{{_('Close')}}</button>
                                     </div>
                                 </div>
                             </div>

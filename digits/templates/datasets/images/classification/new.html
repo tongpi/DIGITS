@@ -43,9 +43,9 @@
                           title="{{_('Input images will be resized to fit.')}}"
                           ></span>
                     <div class="input-group">
-                        {{ form.resize_width(size=4, placeholder='{{_("width")}}', class='form-control') }}
+                        {{ form.resize_width(size=4, placeholder=_('width'), class='form-control') }}
                         <span class="input-group-addon">x</span>
-                        {{ form.resize_height(size=4, placeholder='{{_("height")}}', class='form-control') }}
+                        {{ form.resize_height(size=4, placeholder=_('height'), class='form-control') }}
                     </div>
                 </div>
             </div>
@@ -102,7 +102,7 @@ function showResizeExample()
                     <div class="form-group{{mark_errors([form.folder_train])}}">
                         {{ form.folder_train.label }}
                         {{ form.folder_train.tooltip }}
-                        {{ form.folder_train(class='form-control autocomplete_path', placeholder='{{_("folder or URL")}}')}}
+                        {{ form.folder_train(class='form-control autocomplete_path', placeholder=_('folder or URL'))}}
                     </div>
                     <div class="row">
                         <div class="col-sm-10 col-sm-offset-1">
@@ -249,7 +249,7 @@ hasTestFolderChanged();
                                     {{ form.textfile_train_images(class='form-control') }}
                                 </td>
                                 <td class="form-group{{mark_errors([form.textfile_local_train_images])}} cl-local-files">
-                                    {{ form.textfile_local_train_images(class='form-control autocomplete_path',placeholder='{{_("enter path")}}') }}
+                                    {{ form.textfile_local_train_images(class='form-control autocomplete_path',placeholder=_('enter path')) }}
                                 </td>
                                 <td class="form-group{{mark_errors([form.textfile_train_folder])}}">
                                     {{ form.textfile_train_folder(class='form-control autocomplete_path') }}
@@ -266,7 +266,7 @@ hasTestFolderChanged();
                                     {{ form.textfile_val_images(class='form-control') }}
                                 </td>
                                 <td class="form-group{{mark_errors([form.textfile_local_val_images])}} cl-local-files">
-                                    {{ form.textfile_local_val_images(class='form-control autocomplete_path',placeholder='{{_("enter path")}}') }}
+                                    {{ form.textfile_local_val_images(class='form-control autocomplete_path',placeholder=_('enter path')) }}
                                 </td>
                                 <td class="form-group{{mark_errors([form.textfile_val_folder])}}">
                                     {{ form.textfile_val_folder(class='form-control autocomplete_path') }}
@@ -283,7 +283,7 @@ hasTestFolderChanged();
                                     {{ form.textfile_test_images(class='form-control') }}
                                 </td>
                                 <td class="form-group{{mark_errors([form.textfile_local_test_images])}} cl-local-files">
-                                    {{ form.textfile_local_test_images(class='form-control autocomplete_path',placeholder='{{_("enter path")}}') }}
+                                    {{ form.textfile_local_test_images(class='form-control autocomplete_path',placeholder=_('enter path')) }}
                                 </td>
                                 <td class="form-group{{mark_errors([form.textfile_test_folder])}}">
                                     {{ form.textfile_test_folder(class='form-control autocomplete_path') }}
@@ -306,7 +306,7 @@ hasTestFolderChanged();
                             <div class="form-group{{mark_errors([form.textfile_local_labels_file])}} cl-local-files">
                                 {{ form.textfile_local_labels_file.label }}
                                 {{ form.textfile_local_labels_file.tooltip }}
-                                {{ form.textfile_local_labels_file(class='form-control autocomplete_path',placeholder='{{_("enter path")}}') }}
+                                {{ form.textfile_local_labels_file(class='form-control autocomplete_path',placeholder=_('enter path')) }}
                             </div>
                         </div>
                     </div>

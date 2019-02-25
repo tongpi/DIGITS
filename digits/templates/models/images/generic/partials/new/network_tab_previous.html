@@ -6,8 +6,8 @@
     <div class="tab-pane{{' active' if loop.index==1}}" id="previous_networks-page-{{loop.index}}">
         <table class="table">
             <tr>
-                <th>Network</th>
-                <th>Pretrained Model</th>
+                <th>{{_('Network')}}</th>
+                <th>{{_('Pretrained Model')}}</th>
                 <th></th>
             </tr>
             {% for network in batch %}
@@ -17,7 +17,7 @@
                 <td>
                     {{network}}
                     {{network.label}}
-                    <a href="{{url_for('digits.model.views.show', job_id=network.data)}}" target="_blank">View</a>
+                    <a href="{{url_for('digits.model.views.show', job_id=network.data)}}" target="_blank">{{_('View')}}</a>
                     <span class="badge">{{previous_job.train_task().get_framework_id()}}</span>
                 </td>
                 <td>
@@ -30,11 +30,11 @@
                     </select>
                     {% endif %}
                 </td>
-                <td><a class="btn btn-sm" onClick="customizeNetwork('{{network.data}}', '{{network.data}}-snapshot', '{{previous_job.train_task().get_framework_id()}}');">Customize</a></td>
+                <td><a class="btn btn-sm" onClick="customizeNetwork('{{network.data}}', '{{network.data}}-snapshot', '{{previous_job.train_task().get_framework_id()}}');">{{_('Customize')}}</a></td>
             </tr>
             {% else %}
             <tr>
-                <td><i>None</i></td>
+                <td><i>{{_('None')}}</i></td>
             </tr>
             {% endfor %}
         </table>

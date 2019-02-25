@@ -247,15 +247,15 @@
                             style="padding:10px"
                             ng-click="$event.stopPropagation()">
                             <li>
-                                <small>Line Width {[storage.line_width]}</small>
+                                <small>{{_('Line Width')}} {[storage.line_width]}</small>
                                 <input type="range" min="1" max="4" ng-model="storage.line_width">
                             </li>
                             <li>
-                                <small>Desaturation {[storage.desaturation]}%</small>
+                                <small>{{_('Desaturation')}} {[storage.desaturation]}%</small>
                                 <input type="range" min="0" max="100" step="10" ng-model="storage.desaturation">
                             </li>
                             <li>
-                                <small>Opacity {[storage.opacity]}%</small>
+                                <small>{{_('Opacity')}} {[storage.opacity]}%</small>
                                 <input type="range" min="0" max="100" step="5" ng-model="storage.opacity">
                             </li>
                         </ul>
