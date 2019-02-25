@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 11:55+0800\n"
+"POT-Creation-Date: 2019-02-25 14:47+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,7 +60,8 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: pretrained_model/tasks/upload_pretrained.py:37 views.py:89
+#: pretrained_model/tasks/upload_pretrained.py:37
+#: static/js/PretrainedModel.js:154 views.py:89
 msgid "Upload Pretrained Model"
 msgstr ""
 
@@ -246,15 +247,15 @@ msgid ""
 " below."
 msgstr ""
 
-#: dataset/images/job.py:31
+#: dataset/images/job.py:31 static/js/PretrainedModel.js:35
 msgid "Crop"
 msgstr ""
 
-#: dataset/images/job.py:32
+#: dataset/images/job.py:32 static/js/PretrainedModel.js:34
 msgid "Squash"
 msgstr ""
 
-#: dataset/images/job.py:33
+#: dataset/images/job.py:33 static/js/PretrainedModel.js:36
 msgid "Fill"
 msgstr ""
 
@@ -650,7 +651,7 @@ msgstr ""
 
 #: extensions/data/imageProcessing/forms.py:92
 #: extensions/data/imageSegmentation/forms.py:109
-#: extensions/data/objectDetection/forms.py:108
+#: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:30
 msgid "Grayscale"
 msgstr ""
 
@@ -1793,6 +1794,114 @@ msgstr ""
 
 #: pretrained_model/tasks/torch_upload.py:17
 msgid "Upload Pretrained Torch Model"
+msgstr ""
+
+#: static/js/PretrainedModel.js:29
+msgid "Color"
+msgstr ""
+
+#: static/js/PretrainedModel.js:37
+msgid "Half Crop, Half Fill"
+msgstr ""
+
+#: static/js/PretrainedModel.js:117
+msgid "Upload Tar or Zip Archive"
+msgstr ""
+
+#: static/js/PretrainedModel.js:188 static/js/PretrainedModel.js:201
+msgid "Upload Model"
+msgstr ""
+
+#: static/js/PretrainedModel.js:213
+msgid "Uploading archive, one moment..."
+msgstr ""
+
+#: static/js/PretrainedModel.js:219
+msgid "Bad File Type"
+msgstr ""
+
+#: static/js/PretrainedModel.js:220 static/js/PretrainedModel.js:236
+msgid "Try Upload Again?"
+msgstr ""
+
+#: static/js/PretrainedModel.js:235
+msgid "Upload Failed"
+msgstr ""
+
+#: static/js/digits.js:7
+msgid "An error occurred!"
+msgstr ""
+
+#: static/js/digits.js:8
+msgid "<p class=\"text-danger\">The server may be down.</p>"
+msgstr ""
+
+#: static/js/home_app.js:406
+msgid "Are you sure you want to delete the selected "
+msgstr ""
+
+#: static/js/home_app.js:407 static/js/home_app.js:434
+msgid "job?"
+msgstr ""
+
+#: static/js/home_app.js:407 static/js/home_app.js:434
+msgid " jobs?"
+msgstr ""
+
+#: static/js/home_app.js:408
+msgid "<br><br>(All related files will be permanently removed.)"
+msgstr ""
+
+#: static/js/home_app.js:433
+msgid "Are you sure you want to abort the selected "
+msgstr ""
+
+#: static/js/home_app.js:462
+#, python-format
+msgid ""
+"Enter a group name for the %(n_job_string)s selected %(job_string)s. "
+"<br><small>Leave the name blank to ungroup the .</small> %(job_string)s "
+".</small>"
+msgstr ""
+
+#: static/js/home_app.js:537
+msgid "Running Jobs"
+msgstr ""
+
+#: static/js/home_app.js:547
+msgid "Datasets"
+msgstr ""
+
+#: static/js/home_app.js:559 static/js/home_app.js:593
+msgid "Models"
+msgstr ""
+
+#: static/js/model-graphs.js:17 static/js/model-graphs.js:81
+msgid "Epoch"
+msgstr ""
+
+#: static/js/model-graphs.js:31
+msgid "Loss"
+msgstr ""
+
+#: static/js/model-graphs.js:40
+msgid "Accuracy"
+msgstr ""
+
+#: static/js/model-graphs.js:95
+msgid "Learning Rate"
+msgstr ""
+
+#: static/js/timeline-tracing.js:12
+msgid "No Trace Selected"
+msgstr ""
+
+#: static/js/timeline-tracing.js:23
+msgid "Trace #"
+msgstr ""
+
+#: static/js/timeline-tracing.js:28
+msgid "Import error"
 msgstr ""
 
 #: store/views.py:143

@@ -388,9 +388,9 @@ try {
             var job_ids = $scope.get_selected_job_ids();
             if (job_ids.length == 0) return;
             bootbox.confirm(
-                ('Are you sure you want to delete the selected ' +
-                 (job_ids.length == 1 ? 'job?' : job_ids.length + ' jobs?') +
-                 '<br><br>All related files will be permanently removed.'),
+                (gettext('Are you sure you want to delete the selected ') +
+                 (job_ids.length == 1 ? gettext('job?') : job_ids.length + gettext(' jobs?')) +
+                 gettext('<br><br>(All related files will be permanently removed.)')),
                 function(result) {
                     if (result)
                         $.ajax(URL_PREFIX + '/jobs',
@@ -415,8 +415,8 @@ try {
             var job_ids = $scope.get_selected_job_ids();
             if (job_ids.length == 0) return;
             bootbox.confirm(
-                ('Are you sure you want to abort the selected ' +
-                 (job_ids.length == 1 ? 'job?' : job_ids.length + ' jobs?')),
+                (gettext('Are you sure you want to abort the selected ') +
+                 (job_ids.length == 1 ? gettext('job?') : job_ids.length + gettext(' jobs?'))),
                 function(result) {
                     if (result)
                         $.ajax(URL_PREFIX + '/abort_jobs',
@@ -444,12 +444,8 @@ try {
             var n_job_string = (job_ids.length == 1 ? '' : job_ids.length);
             var default_group_name = $scope.get_group_for_job(job_ids[0]);
             bootbox.prompt({
-                title: ('Enter a group name for the ' +
-                        n_job_string +
-                        ' selected ' +
-                        job_string + '.' +
-                        '<br><small>Leave the name blank to ungroup the ' +
-                        job_string + '.</small>'),
+                title: (gettext('Enter a group name for the %(n_job_string)s selected %(job_string)s. ' +
+                    '<br><small>Leave the name blank to ungroup the .</small> %(job_string)s .</small>', n_job_string=n_job_string,job_string=job_string)),
                 value: default_group_name,
                 callback: function(result) {
                     if (result !== null) {
@@ -521,7 +517,7 @@ try {
 
     app.controller('running_controller', function($scope, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = 'Running Jobs';
+        $scope.title = gettext('Running Jobs');
         $scope.fields = [{name: 'name', show: true, min_width: 100},
                          {name: 'submitted', show: true, min_width: 100},
                          {name: 'status', show: true, min_width: 120},
@@ -531,7 +527,7 @@ try {
 
     app.controller('datasets_controller', function($scope, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = 'Datasets';
+        $scope.title = gettext('Datasets');
         $scope.fields = [{name: 'name', show: true},
                          {name: 'refs', show: true},
                          {name: 'extension', show: true, min_width: 150},
@@ -543,7 +539,7 @@ try {
 
     app.controller('models_controller', function($scope, $localStorage, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = 'Models';
+        $scope.title = gettext('Models');
         var model_fields = [
             {name: 'name', show: true, min_width: 100},
             {name: 'id', show: false, min_width: 200},
@@ -577,7 +573,7 @@ try {
 
     app.controller('pretrained_models_controller', function($scope, $localStorage, $controller) {
         $controller('job_controller', {$scope: $scope});
-        $scope.title = 'Models';
+        $scope.title = gettext('Models');
         $scope.fields = [{name: 'name', show: true, min_width: 0},
                          {name: 'framework', show: true, min_width: 0},
                          {name: 'username', show: true, min_width: 0},

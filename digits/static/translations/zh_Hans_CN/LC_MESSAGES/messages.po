@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 11:55+0800\n"
-"PO-Revision-Date: 2019-02-25 11:55+0800\n"
+"POT-Creation-Date: 2019-02-25 14:47+0800\n"
+"PO-Revision-Date: 2019-02-25 13:49+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
@@ -61,7 +61,8 @@ msgstr "分类"
 msgid "Other"
 msgstr "其他"
 
-#: pretrained_model/tasks/upload_pretrained.py:37 views.py:89
+#: pretrained_model/tasks/upload_pretrained.py:37
+#: static/js/PretrainedModel.js:154 views.py:89
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
 
@@ -247,15 +248,15 @@ msgid ""
 " below."
 msgstr "调整大小时处理宽高比的选项。 见下面的例子。"
 
-#: dataset/images/job.py:31
+#: dataset/images/job.py:31 static/js/PretrainedModel.js:35
 msgid "Crop"
 msgstr "剪切"
 
-#: dataset/images/job.py:32
+#: dataset/images/job.py:32 static/js/PretrainedModel.js:34
 msgid "Squash"
 msgstr "挤压"
 
-#: dataset/images/job.py:33 static/js/PretrainedModel.js:40
+#: dataset/images/job.py:33 static/js/PretrainedModel.js:36
 msgid "Fill"
 msgstr "填充"
 
@@ -656,7 +657,7 @@ msgstr "通道转换"
 
 #: extensions/data/imageProcessing/forms.py:92
 #: extensions/data/imageSegmentation/forms.py:109
-#: extensions/data/objectDetection/forms.py:108
+#: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:30
 msgid "Grayscale"
 msgstr "灰度级"
 
@@ -1824,13 +1825,113 @@ msgstr "上传预训练的Tensorflow模型"
 msgid "Upload Pretrained Torch Model"
 msgstr "上传预训练Torch模型"
 
-#: static/js/PretrainedModel.js:41
+#: static/js/PretrainedModel.js:29
+msgid "Color"
+msgstr "彩色"
+
+#: static/js/PretrainedModel.js:37
 msgid "Half Crop, Half Fill"
 msgstr "一半剪切，一半填充"
 
-#: static/js/PretrainedModel.js:121
+#: static/js/PretrainedModel.js:117
 msgid "Upload Tar or Zip Archive"
 msgstr "上传tar或zip存档"
+
+#: static/js/PretrainedModel.js:188 static/js/PretrainedModel.js:201
+msgid "Upload Model"
+msgstr "上传模型"
+
+#: static/js/PretrainedModel.js:213
+msgid "Uploading archive, one moment..."
+msgstr "上传存档中，请稍等..."
+
+#: static/js/PretrainedModel.js:219
+msgid "Bad File Type"
+msgstr "错误的文件类型"
+
+#: static/js/PretrainedModel.js:220 static/js/PretrainedModel.js:236
+msgid "Try Upload Again?"
+msgstr "再试一次上传？"
+
+#: static/js/PretrainedModel.js:235
+msgid "Upload Failed"
+msgstr "上传失败"
+
+#: static/js/digits.js:7
+msgid "An error occurred!"
+msgstr "发生错误！"
+
+#: static/js/digits.js:8
+msgid "<p class=\"text-danger\">The server may be down.</p>"
+msgstr "<p class=\"text-danger\">服务器可能已关闭。</p>"
+
+#: static/js/home_app.js:406
+msgid "Are you sure you want to delete the selected "
+msgstr "您确定要删除选择的"
+
+#: static/js/home_app.js:407 static/js/home_app.js:434
+msgid "job?"
+msgstr "作业？"
+
+#: static/js/home_app.js:407 static/js/home_app.js:434
+msgid " jobs?"
+msgstr "作业？"
+
+#: static/js/home_app.js:408
+msgid "<br><br>(All related files will be permanently removed.)"
+msgstr "<br><br>(所有相关文件将被永久删除。)"
+
+#: static/js/home_app.js:433
+msgid "Are you sure you want to abort the selected "
+msgstr "您确定要中止所选"
+
+#: static/js/home_app.js:462
+#, python-format
+msgid ""
+"Enter a group name for the %(n_job_string)s selected %(job_string)s. "
+"<br><small>Leave the name blank to ungroup the .</small> %(job_string)s "
+".</small>"
+msgstr "输入%(n_job_string)s选定的%(job_string)s的组名。 <br> <small>将名称留空以取消组合。</small>%(job_string)s.</small>"
+
+#: static/js/home_app.js:537
+msgid "Running Jobs"
+msgstr "运行作业"
+
+#: static/js/home_app.js:547
+msgid "Datasets"
+msgstr "数据集"
+
+#: static/js/home_app.js:559 static/js/home_app.js:593
+msgid "Models"
+msgstr "模型"
+
+#: static/js/model-graphs.js:17 static/js/model-graphs.js:81
+msgid "Epoch"
+msgstr "回合"
+
+#: static/js/model-graphs.js:31
+msgid "Loss"
+msgstr "损失"
+
+#: static/js/model-graphs.js:40
+msgid "Accuracy"
+msgstr "累积"
+
+#: static/js/model-graphs.js:95
+msgid "Learning Rate"
+msgstr "学习率"
+
+#: static/js/timeline-tracing.js:12
+msgid "No Trace Selected"
+msgstr "没有选择跟踪"
+
+#: static/js/timeline-tracing.js:23
+msgid "Trace #"
+msgstr "跟踪 #"
+
+#: static/js/timeline-tracing.js:28
+msgid "Import error"
+msgstr "导入错误"
 
 #: store/views.py:143
 msgid "Unable to find requested model"
@@ -2156,28 +2257,4 @@ msgstr "未识别的数据形状：%(data_shape)s"
 #: utils/routing.py:17
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
-
-#~ msgid "Color"
-#~ msgstr "色彩"
-
-#~ msgid "Half Crop, Half Fill"
-#~ msgstr "一半剪切，一半填充"
-
-#~ msgid "Upload Tar or Zip Archive"
-#~ msgstr "上传tar或zip存档"
-
-#~ msgid "Upload Model"
-#~ msgstr "上传模型"
-
-#~ msgid "Uploading archive, one moment..."
-#~ msgstr "上传档案，稍等片刻......"
-
-#~ msgid "Bad File Type"
-#~ msgstr "错误的文件类型"
-
-#~ msgid "Try Upload Again?"
-#~ msgstr "再试一次上传？"
-
-#~ msgid "Upload Failed"
-#~ msgstr "上传失败"
 

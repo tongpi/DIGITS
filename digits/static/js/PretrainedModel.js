@@ -1,8 +1,4 @@
 // Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-// var gt = new Gettext({domain: 'digits'});
-// var gettext = function(msgid) { return gt.gettext(msgid); };
-
-
 var PretrainedModel = function(params) {
   var props = _.extend({
     selector: '#pretrainedModelContent',
@@ -29,13 +25,13 @@ var PretrainedModel = function(params) {
   ];
 
   self.resize_channels = [
-    {text: 'Color', value: 3},
-    {text: 'Grayscale', value: 1}
+    {text: gettext('Color'), value: 3},
+    {text: gettext('Grayscale'), value: 1}
   ];
 
   self.resize_modes = [
-    {text: 'Squash', value: 'squash'},
-    {text: 'Crop', value: 'crop'},
+    {text: gettext('Squash'), value: 'squash'},
+    {text: gettext('Crop'), value: 'crop'},
     {text: gettext('Fill'), value: 'fill'},
     {text: gettext('Half Crop, Half Fill'), value: 'half_crop'}
   ];
@@ -151,7 +147,7 @@ var PretrainedModel = function(params) {
 
   self.heading = function(params) {
     var props = _.extend({
-      text: 'Upload Pretrained Model',
+      text: gettext('Upload Pretrained Model'),
       classed: false
     },params);
 
@@ -185,7 +181,7 @@ var PretrainedModel = function(params) {
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html('Upload Model');
+      .html(gettext('Upload Model'));
   };
 
   self.torchForm = function(e) {
@@ -198,7 +194,7 @@ var PretrainedModel = function(params) {
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html('Upload Model');
+      .html(gettext('Upload Model'));
   };
 
 };
@@ -210,13 +206,13 @@ PretrainedModel.Actions = function(props) {
 
   self.uploadArchive = function(file) {
        var upload_url = URL_PREFIX + '/pretrained_models/upload_archive';
-       parent.heading({classed: false, text: 'Uploading archive, one moment...'});
+       parent.heading({classed: false, text: gettext('Uploading archive, one moment...')});
 
        var formData = new FormData();
        // Check file type.
        if (file.type.indexOf('zip') == -1) {
-         parent.heading({classed: true, text: 'Bad File Type'});
-         parent.well({class: '', text: 'Try Upload Again?', state: 'danger'});
+         parent.heading({classed: true, text: gettext('Bad File Type')});
+         parent.well({class: '', text: gettext('Try Upload Again?'), state: 'danger'});
          console.error('Bad File Type');
          return;
        }
@@ -230,8 +226,8 @@ PretrainedModel.Actions = function(props) {
             $('#pretrainedModelTab>a').click();
             parent.close();
           } else {
-            parent.heading({classed: true, text: 'Upload Failed'});
-            parent.well({class: '', text: 'Try Upload Again?', state: 'danger'});
+            parent.heading({classed: true, text: gettext('Upload Failed')});
+            parent.well({class: '', text: gettext('Try Upload Again?'), state: 'danger'});
             console.error('Failed to Upload File');
             console.error(xhr.responseText);
             var json = JSON.parse(xhr.responseText);

@@ -3,8 +3,8 @@
 function errorAlert(response) {
     var title, msg;
     if (response.status == 0) {
-        title = 'An error occurred!';
-        msg = '<p class="text-danger">The server may be down.</p>';
+        title = gettext('An error occurred!');
+        msg = gettext('<p class="text-danger">The server may be down.</p>');
     } else {
         title = response.status + ': ' + response.statusText;
         msg = response.responseText ? response.responseText : response.data;

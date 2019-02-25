@@ -113,6 +113,9 @@ window.onload = function () {
     $(".autocomplete_path").removeAttr("autocomplete");
 };
 
+var gt = new Gettext({domain: 'digits'});
+var gettext = function(msgid) { return gt.gettext(msgid); };
+
 </script>
 
 <style>
