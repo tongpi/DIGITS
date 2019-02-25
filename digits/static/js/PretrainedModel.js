@@ -124,7 +124,7 @@ var PretrainedModel = function(params) {
     well.append('div').attr('class', 'btn btn-sm btn-default')
       .style('margin', '3px')
       .attr('disabled', '')
-      .html('Manual Entry');
+      .html(gettext('Manual Entry'));
 
     var archive = self.archive;
 
@@ -171,30 +171,31 @@ var PretrainedModel = function(params) {
 
   };
 
+
   self.caffeForm = function() {
     self.innerContainer.html('');
+    inputs.file(self.innerContainer, gettext('Weights (**.caffemodel)'), 'weights_file');
+    inputs.file(self.innerContainer, gettext('Model Definition (original.prototxt)'), 'model_def_file');
+    inputs.file(self.innerContainer, gettext('Labels file: (labels.txt)'), 'labels_file');
 
-    inputs.file(self.innerContainer, 'Weights (**.caffemodel)', 'weights_file');
-    inputs.file(self.innerContainer, 'Model Definition (original.prototxt)', 'model_def_file');
-    inputs.file(self.innerContainer, 'Labels file: (labels.txt)', 'labels_file');
-
+    Upload_Model = gettext('Upload Model')
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html(gettext('Upload Model'));
+      .html(Upload_Model);
   };
 
   self.torchForm = function(e) {
     self.innerContainer.html('');
 
-    inputs.file(self.innerContainer, 'Weights (**.t7)', 'weights_file');
-    inputs.file(self.innerContainer, 'Model Definition: (model.lua)', 'model_def_file');
-    inputs.file(self.innerContainer, 'Labels file: (Optional)', 'labels_file');
-
+    inputs.file(self.innerContainer, gettext('Weights (**.t7)'), 'weights_file');
+    inputs.file(self.innerContainer, gettext('Model Definition: (model.lua)'), 'model_def_file');
+    inputs.file(self.innerContainer, gettext('Labels file: (Optional)'), 'labels_file');
+    Upload_Model = gettext('Upload Model')
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html(gettext('Upload Model'));
+      .html(Upload_Model);
   };
 
 };

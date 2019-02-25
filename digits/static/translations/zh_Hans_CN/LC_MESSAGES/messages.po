@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 14:47+0800\n"
+"POT-Creation-Date: 2019-02-25 15:13+0800\n"
 "PO-Revision-Date: 2019-02-25 13:49+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -1837,23 +1837,51 @@ msgstr "一半剪切，一半填充"
 msgid "Upload Tar or Zip Archive"
 msgstr "上传tar或zip存档"
 
-#: static/js/PretrainedModel.js:188 static/js/PretrainedModel.js:201
+#: static/js/PretrainedModel.js:131
+msgid "Manual Entry"
+msgstr "手动输入"
+
+#: static/js/PretrainedModel.js:181
+msgid "Weights (**.caffemodel)"
+msgstr "权重"
+
+#: static/js/PretrainedModel.js:182
+msgid "Model Definition (original.prototxt)"
+msgstr "模型定义(original.prototxt)"
+
+#: static/js/PretrainedModel.js:183
+msgid "Labels file: (labels.txt)"
+msgstr "标签文件：(labels.txt)"
+
+#: static/js/PretrainedModel.js:185 static/js/PretrainedModel.js:198
 msgid "Upload Model"
 msgstr "上传模型"
 
-#: static/js/PretrainedModel.js:213
+#: static/js/PretrainedModel.js:195
+msgid "Weights (**.t7)"
+msgstr "权重 (**.t7)"
+
+#: static/js/PretrainedModel.js:196
+msgid "Model Definition: (model.lua)"
+msgstr "模型定义: (model.lua)"
+
+#: static/js/PretrainedModel.js:197
+msgid "Labels file: (Optional)"
+msgstr "标签文件: (可选)"
+
+#: static/js/PretrainedModel.js:214
 msgid "Uploading archive, one moment..."
 msgstr "上传存档中，请稍等..."
 
-#: static/js/PretrainedModel.js:219
+#: static/js/PretrainedModel.js:220
 msgid "Bad File Type"
 msgstr "错误的文件类型"
 
-#: static/js/PretrainedModel.js:220 static/js/PretrainedModel.js:236
+#: static/js/PretrainedModel.js:221 static/js/PretrainedModel.js:237
 msgid "Try Upload Again?"
 msgstr "再试一次上传？"
 
-#: static/js/PretrainedModel.js:235
+#: static/js/PretrainedModel.js:236
 msgid "Upload Failed"
 msgstr "上传失败"
 
@@ -1891,7 +1919,9 @@ msgid ""
 "Enter a group name for the %(n_job_string)s selected %(job_string)s. "
 "<br><small>Leave the name blank to ungroup the .</small> %(job_string)s "
 ".</small>"
-msgstr "输入%(n_job_string)s选定的%(job_string)s的组名。 <br> <small>将名称留空以取消组合。</small>%(job_string)s.</small>"
+msgstr ""
+"输入%(n_job_string)s选定的%(job_string)s的组名。 <br> "
+"<small>将名称留空以取消组合。</small>%(job_string)s.</small>"
 
 #: static/js/home_app.js:537
 msgid "Running Jobs"
