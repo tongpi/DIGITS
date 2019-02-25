@@ -497,7 +497,7 @@ function setFramework(fwid)
         $("#data-transformation").show();
     else
         $("#data-transformation").hide();
-    
+
     if (frameworks[fwid].data_aug_types.length)
         $("#data-augmentation").show();
     else
@@ -637,7 +637,7 @@ function isChrome() {
         return true;
     } else if(isChromium !== null && isChromium !== undefined && vendorName === "Google Inc." && isOpera == false && isIEedge == false) {
         return true;
-    } else { 
+    } else {
         return false;
     }
 }
