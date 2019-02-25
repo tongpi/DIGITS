@@ -3,7 +3,7 @@
 
 {% block nav %}
 <li><a href="{{url_for('digits.model.views.show', job_id=model_job.id())}}">{{model_job.name()}}</a></li>
-<li class="active"><a>Classify Many</a></li>
+<li class="active"><a>{{_('Classify Many')}}</a></li>
 {% endblock %}
 
 {% block job_content %}
@@ -19,21 +19,21 @@
 
 {% if not classifications %}
 <div class="alert alert-danger">
-        <p>Classification failed, see job log</p>
+        <p>{{_('Classification failed, see job log')}}</p>
 </div>
 {% endif %}
 
 {% if show_ground_truth %}
 <div class="panel-heading">
-    <h4>Summary</h4>
+    <h4>{{_('Summary')}}</h4>
 </div>
 <div class="panel-body">
     <dl>
-        <dt>Top-1 accuracy</dt>
+        <dt>{{_('Top-1 accuracy')}}</dt>
         <dd>{{top1_accuracy}}%</dd>
     </dl>
     <dl>
-        <dt>Top-5 accuracy</dt>
+        <dt>{{_('Top-5 accuracy')}}</dt>
         <dd>{{top5_accuracy}}%</dd>
     </dl>
 </div>
@@ -46,7 +46,7 @@
 {% if classifications %}
     {% if show_ground_truth %}
     <div class="panel-heading">
-        <h4>Confusion matrix</h4>
+        <h4>{{_('Confusion matrix')}}</h4>
     </div>
     <table class="table">
         <tr>
@@ -54,7 +54,7 @@
             {% for label in labels %}
                 <th>{{label}}</th>
             {% endfor %}
-            <th>Per-class accuracy</th>
+            <th>{{_('Per-class accuracy')}}</th>
         </tr>
         {% for row in confusion_matrix %}
             {% set label_idx = loop.index0 %}
@@ -72,14 +72,14 @@
     </table>
     {% endif %}
 <div class="panel-heading">
-    <h4>All classifications</h4>
+    <h4>{{_('All classifications')}}</h4>
 </div>
 <table class="table">
     <tr>
         <td></td>
-        <th>Path</th>
-        {% if show_ground_truth %}<th>Ground truth</th>{% endif %}
-        <th colspan=10>Top predictions</th>
+        <th>{{_('Path')}}</th>
+        {% if show_ground_truth %}<th>{{_('Ground truth')}}</th>{% endif %}
+        <th colspan=10>{{_('Top predictions')}}</th>
     </tr>
     {% for path in paths %}
     {% set result = classifications[loop.index0] %}
