@@ -7,16 +7,16 @@
 {% extends "layout.html" %}
 
 {% block title %}
-{{_('New Image Dataset')}}
+New Image Dataset
 {% endblock %}
 
 {% block nav %}
-<li class="active"><a href="{{url_for('digits.dataset.images.generic.views.new')}}">{{_('New Dataset')}}</a></li>
+<li class="active"><a href="{{url_for('digits.dataset.images.generic.views.new')}}">New Dataset</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>{{_('New Image Dataset')}}</h1>
+    <h1>New Image Dataset</h1>
 </div>
 
 <form action="{{url_for('digits.dataset.images.generic.views.create')}}" enctype="multipart/form-data" method="post">
@@ -28,7 +28,7 @@
         <div class="col-sm-8 col-sm-offset-2">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" id="db-tabs" role="tablist">
-                <li><a href="#db-prebuilt" role="tab" data-toggle="tab">{{_('Use Prebuilt LMDBs')}}</a></li>
+                <li><a href="#db-prebuilt" role="tab" data-toggle="tab">Use Prebuilt LMDBs</a></li>
             </ul>
 
             <!-- Tab panes -->
@@ -39,11 +39,11 @@
                         <table class="table">
                             <tr>
                                 <td></td>
-                                <th>{{_('Images LMDB')}}</th>
-                                <th>{{_('Labels LMDB')}}</th>
+                                <th>Images LMDB</th>
+                                <th>Labels LMDB</th>
                             </tr>
                             <tr>
-                                <td><b>{{_('Training')}}</b></td>
+                                <td><b>Training</b></td>
                                 <td class="form-group{{mark_errors([form.prebuilt_train_images])}}">
                                     {{ form.prebuilt_train_images(class='form-control autocomplete_path') }}
                                 </td>
@@ -52,7 +52,7 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><b>{{_('Validation')}}</b></td>
+                                <td><b>Validation</b></td>
                                 <td class="form-group{{mark_errors([form.prebuilt_val_images])}}">
                                     {{ form.prebuilt_val_images(class='form-control autocomplete_path') }}
                                 </td>
@@ -106,7 +106,7 @@ $('#db-tabs a[href="#db-{{ form.method.data }}"]').tab('show');
                 {{ form.dataset_name.label }}
                 {{ form.dataset_name(class='form-control') }}
             </div>
-            <input type="submit" name="create-dataset" class="btn btn-primary" value="{{_('Create')}}">
+            <input type="submit" name="create-dataset" class="btn btn-primary" value="Create">
         </div>
     </div>
 

@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css', ver=dir_hash) }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', ver=dir_hash) }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/c3.min.css', ver=dir_hash) }}">
+    <link rel="gettext" type="application/x-po" href="{{ url_for('static', filename='translations/zh_Hans_CN/LC_MESSAGES/messages.po') }}">
     <title>{% block title %}DIGITS{% endblock %}</title>
 
     <script type="text/javascript">
@@ -30,6 +31,7 @@
     <script src="{{ url_for('static', filename='js/3rdparty/ace.mode-lua-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='js/3rdparty/ace.theme-chrome-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
     <script src="{{ url_for('static', filename='js/3rdparty/ace.ext-searchbox-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/Gettext.js') }}"></script>
     {% block head %}
     {% endblock %}
 </head>
@@ -47,9 +49,9 @@
             <li>
             <p class="navbar-text">
             {% if username %}
-            {{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">{{_('Logout')}}</a>)
+            {{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">Logout</a>)
             {% else %}
-            <a class="navbar-link" href="{{ url_for("digits.views.login") }}">{{_('Login')}}</a>
+            <a class="navbar-link" href="{{ url_for("digits.views.login") }}">Login</a>
             {% endif %}
             </p>
             </li>
@@ -111,6 +113,9 @@ window.onload = function () {
     $(".autocomplete_path").removeAttr("autocomplete");
 };
 
+var gt = new Gettext({domain: 'digits'});
+var gettext = function(msgid) { return gt.gettext(msgid); };
+
 </script>
 
 <style>
@@ -124,5 +129,4 @@ window.onload = function () {
      opacity: .75;
  }
 </style>
-
 </body>

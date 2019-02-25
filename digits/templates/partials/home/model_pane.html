@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="pull-right">
-                {{_('New Model')}}
+                New Model
                 <ul class="nav nav-pills">
                     {% for category in new_model_options.keys()|sort %}
                     {% set options = new_model_options[category] %}
@@ -23,7 +23,7 @@
                 </ul>
             </div>
             <div style="position:absolute; bottom:0">
-                <label>{{_('Group Jobs:')}}
+                <label>Group Jobs:
                     <input type="checkbox"
                            ng-model="jc.storage.show_groups">
                 </label>
@@ -62,7 +62,7 @@
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="glyphicon glyphicon-search"></i></div>
-                                    <input type="text" class="form-control" placeholder="{{_('Filter')}}" ng-model="search_text">
+                                    <input type="text" class="form-control" placeholder="Filter" ng-model="search_text">
                                 </div>
                             </div>
                         </form>
@@ -73,12 +73,12 @@
                     <a class="btn btn-xs btn-danger"
                        ng-disabled="!enabled"
                        ng-click="!enabled || delete_jobs();">
-                        {{_('Delete')}}
+                        Delete
                     </a>
                     <a class="btn btn-xs btn-primary"
                        ng-disabled="!group_enabled"
                        ng-click="!group_enabled || group_jobs();">
-                        {{_('Group')}}
+                        Group
                     </a>
                 </div>
             </div>
@@ -191,7 +191,7 @@
                     <tr>
                         <td colspan="{[colspan]}">
                             <h5>
-                                {{_('No Models')}}
+                                No Models
                             </h5>
                         </td>
                     </tr>
