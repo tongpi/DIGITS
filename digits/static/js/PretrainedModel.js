@@ -1,6 +1,6 @@
 // Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-var gt = new Gettext({domain: 'digits'});
-var get_text = function(msgid) { return gt.gettext(msgid); };
+// var gt = new Gettext({domain: 'digits'});
+// var gettext = function(msgid) { return gt.gettext(msgid); };
 
 
 var PretrainedModel = function(params) {
@@ -36,8 +36,8 @@ var PretrainedModel = function(params) {
   self.resize_modes = [
     {text: 'Squash', value: 'squash'},
     {text: 'Crop', value: 'crop'},
-    {text: get_text('Fill'), value: 'fill'},
-    {text: get_text('Half Crop, Half Fill'), value: 'half_crop'}
+    {text: gettext('Fill'), value: 'fill'},
+    {text: gettext('Half Crop, Half Fill'), value: 'half_crop'}
   ];
 
   self.frameworkChanged = function() {
@@ -114,7 +114,7 @@ var PretrainedModel = function(params) {
 
   self.well = function(params) {
     var props = _.extend({
-      text: get_text('Upload Tar or Zip Archive'),
+      text: gettext('Upload Tar or Zip Archive'),
       class: '',
       state: 'primary'
     },params);
