@@ -70,27 +70,27 @@ var PretrainedModel = function(params) {
 
     self.well();
     var row = self.newRow();
-    inputs.field(row.append('div').attr('class', 'col-xs-6'), 'text', 'Jobname', 'job_name');
+    inputs.field(row.append('div').attr('class', 'col-xs-6'), 'text', gettext('Jobname'), 'job_name');
 
     self.frameworkSelector = inputs.select(
-      row.append('div').attr('class', 'col-xs-6'), self.frameworks, 'Framework', 'framework'
+      row.append('div').attr('class', 'col-xs-6'), self.frameworks, gettext('Framework'), 'framework'
     );
     row = self.newRow();
     row.style('border-radius', '5px 5px 0px 0px');
     inputs.select(
       row.append('div').attr('class', 'col-xs-6'),
-        self.resize_channels, 'Image Type', 'image_type'
+        self.resize_channels, gettext('Image Type'), 'image_type'
     );
 
     inputs.select(
       row.append('div').attr('class', 'col-xs-6'),
-        self.resize_modes, 'Resize Mode', 'resize_mode'
+        self.resize_modes, gettext('Resize Mode'), 'resize_mode'
     );
 
     row = self.newRow();
     row.style('border-radius', '0px 0px 5px 5px');
-    inputs.field(row.append('div').attr('class', 'col-xs-6'), 'number', 'Width', 'width').attr('value', 256);
-    inputs.field(row.append('div').attr('class', 'col-xs-6'), 'number', 'Height', 'height').attr('value', 256);
+    inputs.field(row.append('div').attr('class', 'col-xs-6'), 'number', gettext('Width'), 'width').attr('value', 256);
+    inputs.field(row.append('div').attr('class', 'col-xs-6'), 'number', gettext('Height'), 'height').attr('value', 256);
 
     self.frameworkSelector.on('change', self.frameworkChanged);
     self.innerContainer = self.container.append('div');
@@ -178,11 +178,10 @@ var PretrainedModel = function(params) {
     inputs.file(self.innerContainer, gettext('Model Definition (original.prototxt)'), 'model_def_file');
     inputs.file(self.innerContainer, gettext('Labels file: (labels.txt)'), 'labels_file');
 
-    Upload_Model = gettext('Upload Model')
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html(Upload_Model);
+      .html(gettext('Upload Model'));
   };
 
   self.torchForm = function(e) {
@@ -191,11 +190,10 @@ var PretrainedModel = function(params) {
     inputs.file(self.innerContainer, gettext('Weights (**.t7)'), 'weights_file');
     inputs.file(self.innerContainer, gettext('Model Definition: (model.lua)'), 'model_def_file');
     inputs.file(self.innerContainer, gettext('Labels file: (Optional)'), 'labels_file');
-    Upload_Model = gettext('Upload Model')
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
       .on('click', self.submit)
       .style('background', 'white')
-      .html(Upload_Model);
+      .html(gettext('Upload Model'));
   };
 
 };

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 15:13+0800\n"
+"POT-Creation-Date: 2019-02-25 15:21+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -221,7 +221,7 @@ msgstr ""
 msgid "Image Encoding"
 msgstr ""
 
-#: dataset/images/forms.py:34
+#: dataset/images/forms.py:34 static/js/PretrainedModel.js:84
 msgid "Image Type"
 msgstr ""
 
@@ -1804,6 +1804,26 @@ msgstr ""
 msgid "Half Crop, Half Fill"
 msgstr ""
 
+#: static/js/PretrainedModel.js:75
+msgid "Jobname"
+msgstr ""
+
+#: static/js/PretrainedModel.js:78
+msgid "Framework"
+msgstr ""
+
+#: static/js/PretrainedModel.js:89
+msgid "Resize Mode"
+msgstr ""
+
+#: static/js/PretrainedModel.js:94
+msgid "Width"
+msgstr ""
+
+#: static/js/PretrainedModel.js:95
+msgid "Height"
+msgstr ""
+
 #: static/js/PretrainedModel.js:117
 msgid "Upload Tar or Zip Archive"
 msgstr ""
@@ -1824,35 +1844,35 @@ msgstr ""
 msgid "Labels file: (labels.txt)"
 msgstr ""
 
-#: static/js/PretrainedModel.js:185 static/js/PretrainedModel.js:198
+#: static/js/PretrainedModel.js:188 static/js/PretrainedModel.js:200
 msgid "Upload Model"
 msgstr ""
 
-#: static/js/PretrainedModel.js:195
+#: static/js/PretrainedModel.js:194
 msgid "Weights (**.t7)"
 msgstr ""
 
-#: static/js/PretrainedModel.js:196
+#: static/js/PretrainedModel.js:195
 msgid "Model Definition: (model.lua)"
 msgstr ""
 
-#: static/js/PretrainedModel.js:197
+#: static/js/PretrainedModel.js:196
 msgid "Labels file: (Optional)"
 msgstr ""
 
-#: static/js/PretrainedModel.js:214
+#: static/js/PretrainedModel.js:212
 msgid "Uploading archive, one moment..."
 msgstr ""
 
-#: static/js/PretrainedModel.js:220
+#: static/js/PretrainedModel.js:218
 msgid "Bad File Type"
 msgstr ""
 
-#: static/js/PretrainedModel.js:221 static/js/PretrainedModel.js:237
+#: static/js/PretrainedModel.js:219 static/js/PretrainedModel.js:235
 msgid "Try Upload Again?"
 msgstr ""
 
-#: static/js/PretrainedModel.js:236
+#: static/js/PretrainedModel.js:234
 msgid "Upload Failed"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 15:13+0800\n"
+"POT-Creation-Date: 2019-02-25 15:21+0800\n"
 "PO-Revision-Date: 2019-02-25 13:49+0800\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: zh_Hans_CN\n"
@@ -222,7 +222,7 @@ msgstr "预期的编码数据库"
 msgid "Image Encoding"
 msgstr "图像编码"
 
-#: dataset/images/forms.py:34
+#: dataset/images/forms.py:34 static/js/PretrainedModel.js:84
 msgid "Image Type"
 msgstr "图像类型"
 
@@ -1833,6 +1833,26 @@ msgstr "彩色"
 msgid "Half Crop, Half Fill"
 msgstr "一半剪切，一半填充"
 
+#: static/js/PretrainedModel.js:75
+msgid "Jobname"
+msgstr "作业名称"
+
+#: static/js/PretrainedModel.js:78
+msgid "Framework"
+msgstr "框架"
+
+#: static/js/PretrainedModel.js:89
+msgid "Resize Mode"
+msgstr "缩放模型"
+
+#: static/js/PretrainedModel.js:94
+msgid "Width"
+msgstr "宽度"
+
+#: static/js/PretrainedModel.js:95
+msgid "Height"
+msgstr "高度"
+
 #: static/js/PretrainedModel.js:117
 msgid "Upload Tar or Zip Archive"
 msgstr "上传tar或zip存档"
@@ -1853,35 +1873,35 @@ msgstr "模型定义(original.prototxt)"
 msgid "Labels file: (labels.txt)"
 msgstr "标签文件：(labels.txt)"
 
-#: static/js/PretrainedModel.js:185 static/js/PretrainedModel.js:198
+#: static/js/PretrainedModel.js:188 static/js/PretrainedModel.js:200
 msgid "Upload Model"
 msgstr "上传模型"
 
-#: static/js/PretrainedModel.js:195
+#: static/js/PretrainedModel.js:194
 msgid "Weights (**.t7)"
 msgstr "权重 (**.t7)"
 
-#: static/js/PretrainedModel.js:196
+#: static/js/PretrainedModel.js:195
 msgid "Model Definition: (model.lua)"
 msgstr "模型定义: (model.lua)"
 
-#: static/js/PretrainedModel.js:197
+#: static/js/PretrainedModel.js:196
 msgid "Labels file: (Optional)"
 msgstr "标签文件: (可选)"
 
-#: static/js/PretrainedModel.js:214
+#: static/js/PretrainedModel.js:212
 msgid "Uploading archive, one moment..."
 msgstr "上传存档中，请稍等..."
 
-#: static/js/PretrainedModel.js:220
+#: static/js/PretrainedModel.js:218
 msgid "Bad File Type"
 msgstr "错误的文件类型"
 
-#: static/js/PretrainedModel.js:221 static/js/PretrainedModel.js:237
+#: static/js/PretrainedModel.js:219 static/js/PretrainedModel.js:235
 msgid "Try Upload Again?"
 msgstr "再试一次上传？"
 
-#: static/js/PretrainedModel.js:236
+#: static/js/PretrainedModel.js:234
 msgid "Upload Failed"
 msgstr "上传失败"
 
