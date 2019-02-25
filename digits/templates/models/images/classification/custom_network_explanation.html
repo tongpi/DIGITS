@@ -1,47 +1,47 @@
 {# Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved. #}
 
-<h1>{{_('Specifying a custom Caffe network')}}</h1>
+<h1>Specifying a custom Caffe network</h1>
 
 <p>
-    {{_('Use this field to enter a Caffe network in .prototxt format.')}}
+    Use this field to enter a Caffe network in .prototxt format.
 </p>
 
 <p>
-    {{_('Classification are special in a few ways:')}}
+    Classification are special in a few ways:
 </p>
 <ul>
     <li>
-        {{_('The Deploy network')}} <b>{{_('must contain a Softmax layer')}}</b>.
-        {{_('This should produce the only network output.')}}
+        The Deploy network <b>must contain a Softmax layer</b>.
+        This should produce the only network output.
     </li>
     <li>
-        {{_('If any InnerProduct layers have left')}} <i>{{_('num_output')}}</i> {{_('unset, DIGITS will')}} <b>{{_('fill it in for you automatically')}}</b> {{_('with the number of classes in your dataset.')}}
+        If any InnerProduct layers have left <i>num_output</i> unset, DIGITS will <b>fill it in for you automatically</b> with the number of classes in your dataset.
     </li>
     <li>
-        {{_('If any Accuracy layer has a')}} <i>{{_('top_k')}}</i> {{_('value that is smaller than the number of classes in your dataset, then that layer is')}} <b>{{_('removed')}}</b>.
+        If any Accuracy layer has a <i>top_k</i> value that is smaller than the number of classes in your dataset, then that layer is <b>removed</b>.
     </li>
 </ul>
 
 <p>
-    {{_('The network should include the necessary layers for all computation states - Train, Val and Deploy.
-    When searching for layers, the network will be set to one of these three states:')}}
+    The network should include the necessary layers for all computation states - Train, Val and Deploy.
+    When searching for layers, the network will be set to one of these three states:
 </p>
 <ul>
-    <li>{{_('phase: TRAIN stage: "train"')}}</li>
-    <li>{{_('phase: TEST stage: "val"')}}</li>
-    <li>{{_('phase: TEST stage: "deploy"')}}</li>
+    <li>phase: TRAIN stage: "train"</li>
+    <li>phase: TEST stage: "val"</li>
+    <li>phase: TEST stage: "deploy"</li>
 </ul>
 <p>
-    {{_('Your layer\'s include and exclude rules should be set properly to be picked up by the desired computation state[s].
+    Your layer's include and exclude rules should be set properly to be picked up by the desired computation state[s].
     You can look at the standard networks for examples.
-    In addition, since there are many ways to specify the rules, here's a table that you may find useful:')}}
+    In addition, since there are many ways to specify the rules, here's a table that you may find useful:
 </p>
 <table class="table">
     <tr>
-        <th>{{_('Rule')}}</th>
-        <th>{{_('Train')}}</th>
-        <th>{{_('Val')}}</th>
-        <th>{{_('Deploy')}}</th>
+        <th>Rule</th>
+        <th>Train</th>
+        <th>Val</th>
+        <th>Deploy</th>
     </tr>
     <tr>
         <td><i>none</i></td>
@@ -95,20 +95,20 @@
     </tr>
 </table>
 <p>
-    {{_('You may notice that DIGITS still generates separate files for')}} <i>{{_('train_val')}}</i> {{_('and')}} <i>{{_('deploy')}}</i> {{_('networks, and that they each only use')}} <i>{{_('phase')}}</i> {{_('and not')}} <i>{{_('stage')}}</i>.
-    {{_('This is because Caffe doesn't fully support all-in-one networks yet.')}}
+    You may notice that DIGITS still generates separate files for <i>train_val</i> and <i>deploy</i> networks, and that they each only use <i>phase</i> and not <i>stage</i>.
+    This is because Caffe doesn't fully support all-in-one networks yet.
 </p>
 
-<h1>{{_('Specifying a custom Torch network')}}</h1>
+<h1>Specifying a custom Torch network</h1>
 
 <p>
-    {{_('Use this field to enter a Torch network using Lua code.
-    Refer to the documentation for more information.')}}
+    Use this field to enter a Torch network using Lua code.
+    Refer to the documentation for more information.
 </p>
 
-<h1>{{_('Specifying a custom Tensorflow network')}}</h1>
+<h1>Specifying a custom Tensorflow network</h1>
 
 <p>
-    {{_('Use this field to enter a Tensorflow network using python.
-    Refer to the documentation for more information.')}}
+    Use this field to enter a Tensorflow network using python.
+    Refer to the documentation for more information.
 </p>
