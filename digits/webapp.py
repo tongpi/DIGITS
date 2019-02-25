@@ -35,6 +35,7 @@ scheduler = digits.scheduler.Scheduler(config_value('gpu_list'), True)
 app.config['BABEL_DEFAULT_LOCALE'] = 'zh_Hans_CN'
 # use flask-babel
 babel = Babel(app)
+babel.translation_directories='static/translations'
 
 # Register filters and views
 
