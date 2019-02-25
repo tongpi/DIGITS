@@ -9,11 +9,11 @@
 </div>
 <div class="panel-body">
     <dl>
-        <dt>Database</dt>
+        <dt>{{_('Database')}}</dt>
         <dd>{{task.database}}</dd>
     </dl>
     <dl>
-        <dt>Image Count</dt>
+        <dt>{{_('Image Count')}}</dt>
         <dd>
         {% if task.image_count %}
         {{ task.image_count }}
@@ -21,16 +21,16 @@
         <i>?</i>
         {% endif %}
         </dd>
-        <dt>Image Dimensions</dt>
+        <dt>{{_('Image Dimensions')}}</dt>
         <dd>
         {% if task.image_width and task.image_height and task.image_channels %}
-        {{task.image_width}}x{{task.image_height}}x{{task.image_channels}} (Width x Height x Channels)
+        {{task.image_width}}x{{task.image_height}}x{{task.image_channels}} {{_('(Width x Height x Channels)')}}
         {% else %}
         <i>?</i>
         {% endif %}
         </dd>
         {% if task.analyze_db_log_file %}
-        <dt>DB analysis log file</dt>
+        <dt>{{_('DB analysis log file')}}</dt>
         <dd>{{serve_file(task, task.analyze_db_log_file)}}</dd>
         {% endif %}
     </dl>
@@ -43,13 +43,13 @@
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Job Information</h4>
+                <h4>{{_('Job Information')}}</h4>
             </div>
             <div class="panel-body">
                 <dl>
-                    <dt>Job Directory</dt>
+                    <dt>{{_('Job Directory')}}</dt>
                     <dd>{{job.dir()}}</dd>
-                    <dt>Dataset size</dt>
+                    <dt>{{_('Dataset size')}}</dt>
                     <dd>{{job.disk_size_fmt()}}</dd>
                 </dl>
             </div>

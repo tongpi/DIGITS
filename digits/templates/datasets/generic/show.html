@@ -9,45 +9,45 @@
 </div>
 <div class="panel-body">
     <dl>
-        <dt>Entry Count</dt>
+        <dt>{{_('Entry Count')}}</dt>
         <dd>
         {{ task.entry_count }}
         </dd>
         {% if task.entry_count > 0 %}
-            <dt>Feature shape
+            <dt>{{_('Feature shape')}}
                 <span class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body"
-                      title="Shown below is the shape of a sample entry in the database. Other entries might
-                             have a different shape if the dataset has variable entry shapes."></span>
+                      title="{{_('Shown below is the shape of a sample entry in the database. Other entries might
+                             have a different shape if the dataset has variable entry shapes.')}}"></span>
             </dt>
             <dd>
             {{ task.feature_shape }}
             </dd>
-            <dt>Label shape
+            <dt>{{_('Label shape')}}
                 <span class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body"
-                      title="Shown below is the shape of a sample entry in the database. Other entries might
-                             have a different shape if the dataset has variable entry shapes."></span>
+                      title="{{_('Shown below is the shape of a sample entry in the database. Other entries might
+                             have a different shape if the dataset has variable entry shapes.')}}"></span>
             </dt>
             <dd>
             {{ task.label_shape }}
             </dd>
             {% for name,path in task.dbs.iteritems() %}
-                <dt>{{ name }} DB</dt>
+                <dt>{{_('%(name)s DB', name=name)}}</dt>
                 <dd>{{ job.path(path) }}</dd>
                 <dd>
                     {% if task.status=='D' and task.get_encoding(name)!='none' %}
                     <div>
-                        <a href="{{url_for('digits.dataset.generic.views.explore', job_id=job.id(), db=path)}}" class="btn btn-primary">Explore the db</a>
+                        <a href="{{url_for('digits.dataset.generic.views.explore', job_id=job.id(), db=path)}}" class="btn btn-primary">{{_('Explore the db')}}</a>
                     </div>
                     {% endif %}
                 </dd>
             {% endfor %}
         {% endif %}
         {% if task.create_db_log_file %}
-        <dt>DB create log file</dt>
+        <dt>{{_('DB create log file')}}</dt>
         <dd>{{serve_file(task, task.create_db_log_file)}}</dd>
         {% endif %}
         {% if task.mean_file %}
-        <dt>Mean file</dt>
+        <dt>{{_('Mean file')}}</dt>
         <dd>{{serve_file(task, task.mean_file)}}</dd>
         {% endif %}
     </dl>
@@ -60,13 +60,13 @@
     <div class="col-sm-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                <h4>Job Information</h4>
+                <h4>{{_('Job Information')}}</h4>
             </div>
             <div class="panel-body">
                 <dl>
-                    <dt>Job Directory</dt>
+                    <dt>{{_('Job Directory')}}</dt>
                     <dd>{{job.dir()}}</dd>
-                    <dt>Dataset size</dt>
+                    <dt>{{_('Dataset size')}}</dt>
                     <dd>{{job.disk_size_fmt()}}</dd>
                 </dl>
             </div>
