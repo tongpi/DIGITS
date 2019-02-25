@@ -8,7 +8,7 @@ gevent>=1.0,<=1.1.0
 gevent-websocket==0.9.3
 Flask==0.10.1
 Flask-WTF>=0.11,<=0.12
-flask-babel>=2.3,<=2.6.0
+flask-babel==0.12.2
 wtforms>=2.0,<=2.1
 Flask-SocketIO==2.6
 setuptools>=3.3,<=20.7.0
