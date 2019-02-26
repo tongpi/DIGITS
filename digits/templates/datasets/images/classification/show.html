@@ -5,29 +5,29 @@
 
 {% macro print_job_information() %}
 <div class="panel-heading">
-    <h4>Job Information</h4>
+    <h4>{{_('Job Information')}}</h4>
 </div>
 <div class="panel-body">
     <dl>
-        <dt>Job Directory</dt>
+        <dt>{{_('Job Directory')}}</dt>
         <dd>{{ job.dir() }}</dd>
     </dl>
     <dl>
-        <dt>Image Dimensions</dt>
-        <dd>{{job.image_dims[1]}}x{{job.image_dims[0]}} (Width x Height)</dd>
-        <dt>Image Type</dt>
+        <dt>{{_('Image Dimensions')}}</dt>
+        <dd>{{job.image_dims[1]}}x{{job.image_dims[0]}} {{_('(Width x Height)')}}</dd>
+        <dt>{{_('Image Type')}}</dt>
         <dd>{{'Color' if job.image_dims[2] == 3 else 'Grayscale'}}</dd>
-        <dt>Resize Transformation</dt>
+        <dt>{{_('Resize Transformation')}}</dt>
         <dd>{{ job.resize_mode_name() }}</dd>
-        <dt>DB Backend</dt>
+        <dt>{{_('DB Backend')}}</dt>
         <dd>{{job.get_backend()}}</dd>
-        <dt>Image Encoding</dt>
+        <dt>{{_('Image Encoding')}}</dt>
         <dd>{{job.get_encoding()}}</dd>
-        <dt>DB Compression</dt>
+        <dt>{{_('DB Compression')}}</dt>
         <dd>{{job.get_compression()}}</dd>
     </dl>
     <dl>
-        <dt>Dataset size</dt>
+        <dt>{{_('Dataset size')}}</dt>
         <dd>{{job.disk_size_fmt()}}</dd>
     </dl>
 </div>
@@ -39,20 +39,20 @@
 </div>
 <div class="panel-body">
     <dl>
-        <dt>Folder</dt>
+        <dt>{{_('Folder')}}</dt>
         <dd>{{task.folder}}</dd>
     </dl>
     <dl>
         {% if task.label_count %}
-        <dt>Number of Categories</dt>
+        <dt>{{_('Number of Categories')}}</dt>
         <dd>{{task.label_count}}</dd>
         {% endif %}
         {% if task.train_count %}
-        <dt>Training Images</dt>
+        <dt>{{_('Training Images')}}</dt>
         <dd>{{task.train_count}}</dd>
         {% endif %}
         {% if task.val_count %}
-        <dt>Validation Images</dt>
+        <dt>{{_('Validation Images')}}</dt>
         <dd>
         {{task.val_count}}
         {% if task.percent_val != 0 and task.percent_val != 100 %}
@@ -61,7 +61,7 @@
         </dd>
         {% endif %}
         {% if task.test_count %}
-        <dt>Test images</dt>
+        <dt>{{_('Test images')}}</dt>
         <dd>
         {{task.test_count}}
         {% if task.percent_test != 0 and task.percent_test != 100 %}
@@ -79,14 +79,14 @@
 </div>
 <div class="panel-body">
     <dl>
-        <dt>Input File{{' (before shuffling)' if task.shuffle }}</dt>
+        <dt>{{_('Input File')}}{{' (before shuffling)' if task.shuffle }}</dt>
         <dd>{{serve_file(task, task.input_file)}}</dd>
         {% if task.create_db_log_file %}
-        <dt>DB Creation log file</dt>
+        <dt>{{_('DB Creation log file')}}</dt>
         <dd>{{serve_file(task, task.create_db_log_file)}}</dd>
         {% endif %}
         {% if task.entries_count %}
-        <dt>DB Entries</dt>
+        <dt>{{_('DB Entries')}}</dt>
         <dd>
         {{task.entries_count}}
         {% if task.entries_error %} ({{task.entries_error}} failed to load) {% endif %}
@@ -108,7 +108,7 @@
 
     {# Mean image #}
     <div class="mean-image" style="display:none;">
-        <b>Image Mean:</b>
+        <b>{{_('Image Mean:')}}</b>
         <img class="mean-image" />
     </div>
     {% if task.status=='D' and task.mean_file %}
@@ -121,7 +121,7 @@
     {# Exploration #}
     {% if task.backend=='lmdb' %}
         <div class="exploration" style="display:none;">
-            <a href="{{url_for('digits.dataset.images.classification.views.explore', job_id=job.id(), db=task.db_name.lower())}}" class="btn btn-primary">Explore the db</a>
+            <a href="{{url_for('digits.dataset.images.classification.views.explore', job_id=job.id(), db=task.db_name.lower())}}" class="btn btn-primary">{{_('Explore the db')}}</a>
         </div>
         {% if task.status=='D' %}
             <script>

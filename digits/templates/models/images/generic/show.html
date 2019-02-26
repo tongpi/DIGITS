@@ -13,30 +13,30 @@
     <div class="col-sm-6">
         <div class="well">
             <dl>
-                <dt>Job Directory</dt>
+                <dt>{{_('Job Directory')}}</dt>
                 <dd>{{ job.dir() }}</dd>
-                <dt>Disk Size</dt>
+                <dt>{{_('Disk Size')}}</dt>
                 <dd>{{job.disk_size_fmt()}}</dd>
                 {% for key,value in task.get_model_files().items() %}
                 <dt>{{key}}</dt>
                 <dd>{{serve_file(task, value)}}</dd>
                 {% endfor %}
                 {% if task.log_file %}
-                <dt>Raw {{task.get_framework_id()}} output</dt>
+                <dt>{{_('Raw %(tgfi)s output', tgfi=task.get_framework_id())}}</dt>
                 <dd>{{serve_file(task, task.log_file)}}</dd>
                 {% endif %}
                 {% if task.pretrained_model %}
-                <dt>Pretrained Model</dt>
+                <dt>{{_('Pretrained Model')}}</dt>
                 <dd>{{task.pretrained_model}}</dd>
                 {% endif %}
-                <dt>Visualizations</dt>
+                <dt>{{_('Visualizations')}}</dt>
                 <dd><a href="http://localhost:6006/" target="new">Tensorboard</a></dd>
             </dl>
         </div>
     </div>
     <div class="col-sm-6">
         <div class="well">
-            <h4 class='text-center'>Dataset</h4>
+            <h4 class='text-center'>{{_('Dataset')}}</h4>
             <div id="dataset-summary"></div>
             {% if job.dataset %}
             <script>
@@ -66,12 +66,12 @@
             <div class="pull-right combined-graph" style="display:none;">
                 <a class="btn btn-primary btn-sm" target="_blank"
                     href="{{url_for('digits.model.images.generic.views.large_graph', job_id=job.id())}}">
-                    View Large
+                    {{_('View Large')}}
                 </a>
                 {% if job.train_task().has_timeline_traces() %}
                 <a class="btn btn-primary btn-sm" target="_blank"
                     href="{{url_for('digits.model.images.classification.views.timeline_tracing', job_id=job.id())}}">
-                    View Timeline Traces
+                    {{_('View Timeline Traces')}}
                 </a>
                 {% endif %}
             </div>
@@ -103,10 +103,10 @@
                 style="display:none;"
                 {% endif %}
                 >
-                <h2>Trained Models</h2>
+                <h2>{{_('Trained Models')}}</h2>
                 <div class="row">
                     <div class="col-sm-12">
-                        <label for="snapshot_epoch">Select Model</label>
+                        <label for="snapshot_epoch">{{_('Select Model')}}</label>
                     </div>
                 </div>
                 <div class="row">
@@ -148,20 +148,20 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             formmethod="post"
                             formenctype="multipart/form-data"
                             class="btn btn-info">
-                            Download Model
+                            {{_('Download Model')}}
                         </button>
                         <button
                             formaction="{{url_for('digits.model.views.to_pretrained', job_id=job.id())}}"
                             formmethod="post"
                             formenctype="multipart/form-data"
                             class="btn btn-success">
-                            Make Pretrained Model
+                            {{_('Make Pretrained Model')}}
                         </button>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-6">
-                        <h3>Select Visualization Method</h3>
+                        <h3>{{_('Select Visualization Method')}}</h3>
                         <div class="form-group">
                             <select id="view_extension_id" name="view_extension_id" class="form-control">
                                 {% for key in view_extensions.keys()|sort %}
@@ -171,7 +171,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                         </div>
                     </div>
                     <div class="col-sm-6">
-                        <h3>Visualization Options</h3>
+                        <h3>{{_('Visualization Options')}}</h3>
                         <div id="view_extension-details">
                         </div>
                     </div>
@@ -198,19 +198,19 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
 
                 <div class="row">
                     <div class="col-sm-12">
-                        <h3>Inference Options</h3>
+                        <h3>{{_('Inference Options')}}</h3>
                     </div>
                     <div class="col-sm-12">
                         <div class="form-group">
                             <label for="dont_resize">
                                 <input id="dont_resize" name="dont_resize" type="checkbox" value="y">
-                                Do not resize input image(s)
+                                {{_('Do not resize input image(s)')}}
                             </label>
                             <span name="dont_resize_explanation"
                                 class="explanation-tooltip glyphicon glyphicon-question-sign"
                                 data-container="body"
-                                title="By default input images are resized to the dimensions of the images in the dataset. Check this box
-                                to skip this stage. This may be useful for models that can take inputs of various dimensions."
+                                title="{{_('By default input images are resized to the dimensions of the images in the dataset. Check this box
+                                to skip this stage. This may be useful for models that can take inputs of various dimensions.')}}"
                                 ></span>
                         </div>
                     </div>
@@ -219,7 +219,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                 <div class="row">
                     <div class="form-group">
                         <div class="col-sm-6">
-                            <h3>Select Inference form</h3>
+                            <h3>{{_('Select Inference form')}}</h3>
                             <div class="form-group">
                                 <select id="data_extension_id" name="data_extension_id" class="form-control">
                                     {% for key in data_extensions.keys()|sort %}
@@ -241,12 +241,12 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                         <div class="form-group">
                             <label for="show_visualizations">
                                 <input id="show_visualizations" name="show_visualizations" type="checkbox" value="y">
-                                Show visualizations and statistics
+                                {{_('Show visualizations and statistics')}}
                             </label>
                             <span name="show_visualizations_explanation"
                                 class="explanation-tooltip glyphicon glyphicon-question-sign"
                                 data-container="body"
-                                title="For each layer in the network, show statistics for the weights/activations and attempt to represent the data visually. Can delay classification considerably."
+                                title="{{_('For each layer in the network, show statistics for the weights/activations and attempt to represent the data visually. Can delay classification considerably.')}}"
                                 ></span>
                         </div>
 
@@ -258,30 +258,30 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             formenctype="multipart/form-data"
                             formtarget="_blank"
                             class="btn btn-primary">
-                            Test
+                            {{_('Test')}}
                         </button>
                     </div>
                 </div>
 
                 <div class="row" id="default-inference-form">
                     <div class="col-sm-6">
-                        <h3>Test a single image</h3>
+                        <h3>{{_('Test a single image')}}</h3>
                         <div class="form-group">
-                            <label for="image_path" class="control-label">Image Path</label>
+                            <label for="image_path" class="control-label">{{_('Image Path')}}</label>
                             <span name="image_path_explanation"
                                 class="explanation-tooltip glyphicon glyphicon-question-sign"
                                 data-container="body"
-                                title="Can be a path on the server's filesystem, or a URL."
+                                title="{{_('Can be a path on the server's filesystem, or a URL.')}}"
                                 ></span>
                             <input type="text" id="image_path" name="image_path" class="form-control autocomplete_path">
                         </div>
                         <div>
-                            <label for="image_file" class="control-label">Upload image</label>
+                            <label for="image_file" class="control-label">{{_('Upload image')}}</label>
                             <div class="form-group cl-upload-files">
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-info btn-file" %s>
-                                            Browse&hellip;
+                                            {{_('Browse')}}&hellip;
                                             <input class="form-control" type="file" id="image_file" name="image_file" >
                                         </span>
                                     </span>
@@ -297,12 +297,12 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                         <div class="form-group">
                             <label for="show_visualizations">
                                 <input id="show_visualizations" name="show_visualizations" type="checkbox" value="y">
-                                Show visualizations and statistics
+                                {{_('Show visualizations and statistics')}}
                             </label>
                             <span name="show_visualizations_explanation"
                                 class="explanation-tooltip glyphicon glyphicon-question-sign"
                                 data-container="body"
-                                title="For each layer in the network, show statistics for the weights/activations and attempt to represent the data visually. Can delay classification considerably."
+                                title="{{_('For each layer in the network, show statistics for the weights/activations and attempt to represent the data visually. Can delay classification considerably.')}}"
                                 ></span>
                         </div>
                         <button name="infer-one-btn"
@@ -311,13 +311,13 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             formenctype="multipart/form-data"
                             formtarget="_blank"
                             class="btn btn-primary">
-                            Test One
+                            {{_('Test One')}}
                         </button>
-                        <h3>Test a Database</h3>
+                        <h3>{{_('Test a Database')}}</h3>
                         <div class="form-group">
-                            <label for="db_path" class="control-label">LMDB path</label>
+                            <label for="db_path" class="control-label">{{_('LMDB path')}}</label>
                             <input type="text" id="db_path" name="db_path" class="form-control autocomplete_path">
-                            <small>Specify path to LMDB database on server</small>
+                            <small>{{_('Specify path to LMDB database on server')}}</small>
                         </div>
                         <button name="infer-db-btn"
                             formaction="{{url_for('digits.model.images.generic.views.infer_db', job_id=job.id())}}"
@@ -325,35 +325,35 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             formenctype="multipart/form-data"
                             formtarget="_blank"
                             class="btn btn-primary">
-                            Test DB
+                            {{_('Test DB')}}
                         </button>
                     </div>
                     <div class="col-sm-6">
-                        <h3>Test a list of images</h3>
+                        <h3>{{_('Test a list of images')}}</h3>
                         <div>
-                            <label for="image_list" class="control-label">Upload Image List</label>
+                            <label for="image_list" class="control-label">{{_('Upload Image List')}}</label>
                             <div class="form-group cl-upload-files">
                                 <div class="input-group">
                                     <span class="input-group-btn">
                                         <span class="btn btn-info btn-file" %s>
-                                            Browse&hellip;
+                                            {{_('Browse')}}&hellip;
                                             <input class="form-control" type="file" id="image_list" name="image_list" >
                                         </span>
                                     </span>
                                     <input class="form-control" type="text" readonly>
                                 </div>
-                                <small>Accepts a list of filenames or urls (you can use your val.txt file)</small>
+                                <small>{{_('Accepts a list of filenames or urls (you can use your val.txt file)')}}</small>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="image_folder" class="control-label">Image folder <i>(optional)</i></label>
+                            <label for="image_folder" class="control-label">{{_('Image folder')}} <i>{{_('(optional)')}}</i></label>
                             <input type="text" id="image_folder" name="image_folder" class="form-control autocomplete_path">
-                            <small>Relative paths in the text file will be prepended with this value before reading</small>
+                            <small>{{_('Relative paths in the text file will be prepended with this value before reading')}}</small>
                         </div>
                         <div class="form-group">
-                            <label for="num_test_images" class="control-label">Number of images use from the file</label>
-                            <input type="text" id="num_test_images" name="num_test_images" class="form-control" placeholder="All">
-                            <small>Leave blank to use all</small>
+                            <label for="num_test_images" class="control-label">{{_('Number of images use from the file')}}</label>
+                            <input type="text" id="num_test_images" name="num_test_images" class="form-control" placeholder="{{_('All')}}">
+                            <small>{{_('Leave blank to use all')}}</small>
                         </div>
                         <button name="infer-many-btn"
                             formaction="{{url_for('digits.model.images.generic.views.infer_many', job_id=job.id())}}"
@@ -361,12 +361,12 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             formenctype="multipart/form-data"
                             formtarget="_blank"
                             class="btn btn-primary">
-                            Test Many
+                            {{_('Test Many')}}
                         </button>
                         <span name="infer-many-explanation"
                             class="explanation-tooltip glyphicon glyphicon-question-sign"
                             data-container="body"
-                            title="Infer a list of images and show the network outputs."
+                            title="{{_('Infer a list of images and show the network outputs.')}}"
                             ></span>
                     </div>
                 </div>

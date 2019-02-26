@@ -7,16 +7,16 @@
 {% extends "layout.html" %}
 
 {% block title %}
-New {% if extension_title %}{{ extension_title }}{% else %}Image{% endif %} Model
+{{_('New')}} {% if extension_title %}{{ extension_title }}{% else %}{{_('Image')}}{% endif %} {{_('Model')}}
 {% endblock %}
 
 {% block nav %}
-<li class="active"><a href="{{url_for('digits.model.images.generic.views.new', extension_id=extension_id)}}">New Model</a></li>
+<li class="active"><a href="{{url_for('digits.model.images.generic.views.new', extension_id=extension_id)}}">{{_('New Model')}}</a></li>
 {% endblock %}
 
 {% block content %}
 <div class="page-header">
-    <h1>New {% if extension_title %}{{ extension_title }}{% else %}Image{% endif %} Model</h1>
+    <h1>{{_('New')}} {% if extension_title %}{{ extension_title }}{% else %}{{_('Image')}}{% endif %} {{_('Model')}}</h1>
 </div>
 
 <script>
@@ -43,7 +43,7 @@ function syncAceEditor(){
             </div>
             <div class="col" id="python-layers">
                 <div class="well">
-                    <h4 style="display:inline-block;">Python Layers</h4>
+                    <h4 style="display:inline-block;">{{_('Python Layers')}}</h4>
                     {{form.python_layer_from_client.explanation(file='/models/python_layer_explanation.html')}}
                     <br>
                     <div class="form-group{{' has-error' if form.python_layer_client_file.errors}} python-layer-client-side-file">
@@ -103,7 +103,7 @@ $("#dataset").change();
         </script>
         <div class="col-sm-4">
             <div class="well">
-                <h4>Solver Options</h4>
+                <h4>{{_('Solver Options')}}</h4>
 
                 <div class="form-group{{' has-error' if form.shuffle.errors}}" id="shuffle-data" style="display:none;">
                     <label for={{form.shuffle.name}}>
@@ -139,7 +139,7 @@ $("#dataset").change();
                 <div class="form-group{{mark_errors([form.random_seed])}}">
                     {{form.random_seed.label}}
                     {{form.random_seed.tooltip}}
-                    {{form.random_seed(class='form-control', placeholder='[none]')}}
+                    {{form.random_seed(class='form-control', placeholder=_('[none]'))}}
                 </div>
                 <div class="form-group{{mark_errors([form.batch_size])}}">
                     {{form.batch_size.label}}
@@ -147,7 +147,7 @@ $("#dataset").change();
                     <small class="pull-right">
                         {{form.batch_size.small_text}}
                     </small>
-                    {{form.batch_size(class='form-control', placeholder='[network defaults]')}}
+                    {{form.batch_size(class='form-control', placeholder=_('[network defaults]'))}}
                 </div>
                 <div class="form-group{{mark_errors([form.batch_accumulation])}}"
                     id="batch-accumulation-option" style="display:none;">
@@ -177,7 +177,7 @@ $("#dataset").change();
                 <p>
                 <label class="checkbox-inline">
                     <input id="show-advanced-lr-options" type="checkbox" />
-                    Show advanced learning rate options
+                    {{_('Show advanced learning rate options')}}
                 </label>
                 </p>
                 <script>
@@ -267,7 +267,7 @@ showHideSolverSpecificOptions();
                         {{form.lr_sigmoid_gamma.label}}
                         {{form.lr_sigmoid_gamma(class='form-control learning-rate-option')}}
                     </div>
-                    <a id="showLRGraphBtn" class="btn btn-info btn-sm" href="#" onClick="return getLRGraph();">Visualize LR</a>
+                    <a id="showLRGraphBtn" class="btn btn-info btn-sm" href="#" onClick="return getLRGraph();">{{_('Visualize LR')}}</a>
                     <div id="visualize-lr" style="display:none;">
                         <a class="close" onClick="$('#visualize-lr').hide();return false;">&times;</a>
                         <br>
@@ -372,7 +372,7 @@ showHideSolverSpecificOptions();
         </div>
         <div class="col-sm-4">
             <div class="well" id="data-transformation">
-                <h4>Data Transformations</h4>
+                <h4>{{_('Data Transformations')}}</h4>
                 <div class="form-group{{mark_errors([form.use_mean])}} data-transformation-input" id="MEAN_SUBTRACTION">
                     {{form.use_mean.label}}
                     {{form.use_mean.tooltip}}
@@ -381,11 +381,11 @@ showHideSolverSpecificOptions();
                 <div class="form-group{{mark_errors([form.crop_size])}} data-transformation-input" id="CROPPING">
                     {{form.crop_size.label}}
                     {{form.crop_size.tooltip}}
-                    {{form.crop_size(class='form-control', placeholder='none')}}
+                    {{form.crop_size(class='form-control', placeholder=_('none'))}}
                 </div>
             </div>
             <div class="well" id="data-augmentation" style="display:none;">
-                <h4>Data Augmentations</h4>
+                <h4>{{_('Data Augmentations')}}</h4>
                 {% include "/models/data_augmentation.html" %}
             </div>
         </div>
@@ -432,7 +432,7 @@ function customizeNetwork(network, snapshot_list, framework) {
 
     if (editor.getValue() != "") {
         bootbox.confirm(
-                'This will overwrite data in the Custom Network tab. Continue?',
+                '{{_("This will overwrite data in the Custom Network tab. Continue?")}}',
                 function(result) { if (result) fillCustomTab(network, snapshot_list, framework); }
                 );
     } else {
@@ -516,10 +516,10 @@ function setFramework(fwid)
             </script>
 
             <ul class="nav nav-tabs" id="network-tabs">
-                <li class="active"><a href="#network-tab-standard" data-toggle="tab">Standard Networks</a></li>
-                <li><a href="#network-tab-previous" data-toggle="tab">Previous Networks</a></li>
-                <li><a href="#network-tab-pretrained" data-toggle="tab">Pretrained Networks</a></li>
-                <li><a href="#network-tab-custom" data-toggle="tab">Custom Network</a></li>
+                <li class="active"><a href="#network-tab-standard" data-toggle="tab">{{_('Standard Networks')}}</a></li>
+                <li><a href="#network-tab-previous" data-toggle="tab">{{_('Previous Networks')}}</a></li>
+                <li><a href="#network-tab-pretrained" data-toggle="tab">{{_('Pretrained Networks')}}</a></li>
+                <li><a href="#network-tab-custom" data-toggle="tab">{{_('Custom Network')}}</a></li>
             </ul>
             <div class="tab-content well">
                 <div id="network-tab-standard" class="tab-pane active">
@@ -617,7 +617,7 @@ function visualizeNetwork() {
 
     if (is_tf) {
         if (!isChrome()) {
-            bootbox.alert({title: "Visualization Error", message: "Tensorflow network visualization is only available for Google Chrome"});
+            bootbox.alert({title: "{{_('Visualization Error')}}", message: "{{_('Tensorflow network visualization is only available for Google Chrome')}}"});
             return;
         }
     }
@@ -631,7 +631,7 @@ function visualizeNetwork() {
     }
     var bootboxClass = (is_tf ? "full-bootbox" : "wide-bootbox");
     syncAceEditor(); // Sync ace editor to custom_network editor
-    var bbox_content = $('<div class="text-center"><i class="glyphicon glyphicon-refresh glyphicon-spin"></i> Loading...</div>' );
+    var bbox_content = $('<div class="text-center"><i class="glyphicon glyphicon-refresh glyphicon-spin"></i> {{_("Loading...")}}</div>' );
     var bbox = bootbox.alert({
         message: bbox_content,
         animate: false,
@@ -667,7 +667,7 @@ function visualizeNetwork() {
                         {{form.custom_network.label}}
                         {{form.custom_network.explanation(file='/models/images/generic/custom_network_explanation.html')}}
                         <div style="display: none;">{{form.custom_network(class='form-control', rows=10)}}</div>
-                        <a href=# class="btn btn-info" onClick="return visualizeNetwork();">Visualize</a>
+                        <a href=# class="btn btn-info" onClick="return visualizeNetwork();">{{_('Visualize')}}</a>
                     </div>
                     <div id="ace-editor"></div>
                     <script>
@@ -748,7 +748,7 @@ setFramework("{{form.framework.data}}");
                 {{form.model_name.tooltip}}
                 {{form.model_name(class='form-control')}}
             </div>
-            <input type="submit" name="create-model" class="btn btn-primary" value="Create">
+            <input type="submit" name="create-model" class="btn btn-primary" value="{{_('Create')}}">
         </div>
     </div>
 

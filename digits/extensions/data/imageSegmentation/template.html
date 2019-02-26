@@ -7,13 +7,13 @@
 <div class="form-group{{mark_errors([form.feature_folder])}}">
     {{ form.feature_folder.label }}
     {{ form.feature_folder.tooltip }}
-    {{ form.feature_folder(class='form-control autocomplete_path', placeholder='folder')}}
+    {{ form.feature_folder(class='form-control autocomplete_path', placeholder=_('folder'))}}
 </div>
 
 <div class="form-group{{mark_errors([form.label_folder])}}">
     {{ form.label_folder.label }}
     {{ form.label_folder.tooltip }}
-    {{ form.label_folder(class='form-control autocomplete_path', placeholder='folder')}}
+    {{ form.label_folder(class='form-control autocomplete_path', placeholder=_('folder'))}}
 </div>
 
 <div class="form-group{{mark_errors([form.folder_pct_val])}}">
@@ -28,19 +28,19 @@
 <div style="display:none;" class="form-group{{mark_errors([form.validation_feature_folder])}} cl-separate-val-folder">
     {{ form.validation_feature_folder.label }}
     {{ form.validation_feature_folder.tooltip }}
-    {{ form.validation_feature_folder(class='form-control autocomplete_path', placeholder='folder') }}
+    {{ form.validation_feature_folder(class='form-control autocomplete_path', placeholder=_('folder')) }}
 </div>
 
 <div style="display:none;" class="form-group{{mark_errors([form.validation_label_folder])}} cl-separate-val-folder">
     {{ form.validation_label_folder.label }}
     {{ form.validation_label_folder.tooltip }}
-    {{ form.validation_label_folder(class='form-control autocomplete_path', placeholder='folder') }}
+    {{ form.validation_label_folder(class='form-control autocomplete_path', placeholder=_('folder')) }}
 </div>
 
 <div class="form-group{{mark_errors([form.class_labels_file])}}">
     {{ form.class_labels_file.label }}
     {{ form.class_labels_file.tooltip }}
-    {{ form.class_labels_file(class='form-control autocomplete_path', placeholder='file')}}
+    {{ form.class_labels_file(class='form-control autocomplete_path', placeholder=_('file'))}}
 </div>
 
 <div class="form-group{{mark_errors([form.colormap_method])}}">
@@ -52,7 +52,7 @@
 <div class="form-group{{mark_errors([form.colormap_text_file])}} cl-colormap-text-file">
     {{ form.colormap_text_file.label }}
     {{ form.colormap_text_file.tooltip }}
-    {{ form.colormap_text_file(class='form-control autocomplete_path', placeholder='file')}}
+    {{ form.colormap_text_file(class='form-control autocomplete_path', placeholder=_('file'))}}
 </div>
 
 <div class="form-group{{mark_errors([form.channel_conversion])}}">
@@ -96,5 +96,5 @@ hasColorMapMethodChanged();
 </script>
 
 <div>
-    Note: the recommended label encoding is PNG.
+    {{_('Note: the recommended label encoding is PNG.')}}
 </div>

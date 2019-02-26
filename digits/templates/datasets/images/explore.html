@@ -3,7 +3,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-{{job.name()}} - Explorer
+{{_('%(jn)s - Explorer', jn=job.name())}}
 {% endblock %}
 
 {% block head %}
@@ -15,21 +15,21 @@
 
 {% block content %}
     <div class="row">
-        <h2>Exploring {{job.name()}} ({{ db }}) images</h2>
+        <h2>{{_('Exploring %(jn)s (%(db)s) images', jn=job.name(), db=db)}}</h2>
     </div>
     <div class="row">
         <ul class="list-unstyled list-inline">
-            <li><a href="?job_id={{job.id()}}&page=0&size={{size}}&db={{db}}">Show all images</a></li>
+            <li><a href="?job_id={{job.id()}}&page=0&size={{size}}&db={{db}}">{{_('Show all images')}}</a></li>
         {% if labels %}
-            <li>or</li>
-            <li><h5>filter by class:</h5></li>
+            <li>{{_('or')}}</li>
+            <li><h5>{{_('filter by class:')}}</h5></li>
             {% for l in labels %}
                 <li><a {% if label==loop.index0 %}class="active"{% endif %} href="?job_id={{job.id()}}&page=0&size={{size}}&db={{db}}&label={{loop.index0}}">{{l}}</a></li>
             {% endfor %}
         {% endif %}
         </ul>
     </div>
-    <div class="row">Items per page: <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=10&label={{label}}" {% if size==10 %}class="active"{% endif %}>10</a> - <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=25&label={{label}}" {% if size==25 %}class="active"{% endif %}>25</a> - <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=50&label={{label}}" {% if size==50 %}class="active"{% endif %}>50</a> - <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=100&label={{label}}" {% if size==100 %}class="active"{% endif %}>100</a></div>
+    <div class="row">{{_('Items per page:')}} <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=10&label={{label}}" {% if size==10 %}class="active"{% endif %}>10</a> - <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=25&label={{label}}" {% if size==25 %}class="active"{% endif %}>25</a> - <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=50&label={{label}}" {% if size==50 %}class="active"{% endif %}>50</a> - <a href="?job_id={{job.id()}}&page=0&db={{db}}&size=100&label={{label}}" {% if size==100 %}class="active"{% endif %}>100</a></div>
     <div class="row">
     <ul class="pagination">
         <li {% if page == 0 %}class="disabled"{%endif%}>

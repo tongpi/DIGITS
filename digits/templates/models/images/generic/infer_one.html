@@ -8,7 +8,7 @@
 
 {% block nav %}
 <li><a href="{{url_for('digits.model.views.show', job_id=model_job.id())}}">{{model_job.name()}}</a></li>
-<li class="active"><a>Test One</a></li>
+<li class="active"><a>{{_('Test One')}}</a></li>
 {% endblock %}
 
 {% block job_content %}
@@ -36,17 +36,17 @@
 
 {% if image_src %}
 <div class="row">
-    <h3>Source image</h3>
+    <h3>{{_('Source image')}}</h3>
     <img src="{{image_src}}" style="max-width:100%;" />
 </div>
 <div class="row">
-    <h3>Inference visualization</h3>
+    <h3>{{_('Inference visualization')}}</h3>
     {{ inference_view_html|safe }}
 </div>
 {% else %}
 <div class="row">
     <div class="alert alert-danger">
-        <p>Inference failed, see job log</p>
+        <p>{{_('Inference failed, see job log')}}</p>
     </div>
 </div>
 {% endif %}
@@ -105,9 +105,9 @@
 {% if visualizations %}
 <table class="table">
     <tr>
-        <th>Description</th>
-        <th width="20%">Statistics</th>
-        <th>Visualization</th>
+        <th>{{_('Description')}}</th>
+        <th width="20%">{{_('Statistics')}}</th>
+        <th>{{_('Visualization')}}</th>
     </tr>
     {% for vis in visualizations %}
     <tr>
@@ -116,19 +116,19 @@
             <p>
             {{vis['vis_type']}}
             {% if 'layer_type' in vis %}
-            <small><i>({{vis['layer_type']}} layer)</i></small>
+            <small><i>({{vis['layer_type']}} {{_('layer')}})</i></small>
             {% endif %}
             </p>
             {% if 'param_count' in vis %}
             <p>
-            {{'{:,}'.format(vis['param_count'])}} learned parameters
+            {{'{:,}'.format(vis['param_count'])}} {{_('learned parameters')}}
             </p>
             {% endif %}
         </td>
         <td>
-            <b>Data shape:</b> {{vis['data_stats']['shape']}}<br>
-            <b>Mean:</b> {{vis['data_stats']['mean']}}<br>
-            <b>Std deviation:</b> {{vis['data_stats']['stddev']}}<br>
+            <b>{{_('Data shape:')}}</b> {{vis['data_stats']['shape']}}<br>
+            <b>{{_('Mean:')}}</b> {{vis['data_stats']['mean']}}<br>
+            <b>{{_('Std deviation:')}}</b> {{vis['data_stats']['stddev']}}<br>
             <div id="histogram-{{loop.index}}" class="histogram"></div>
             <script>
                 drawHistogram("#histogram-{{loop.index}}", {{vis['data_stats']['histogram']}});
@@ -143,15 +143,15 @@
                         scrollZoom: true, scrollZoomIncrement: 0.025});
             </script>
             {% else %}
-            <i>Not shown</i>
+            <i>{{_('Not shown')}}</i>
             {% endif %}
         </td>
     </tr>
     {% endfor %}
     <tr>
-        <td><i>Totals</i></td>
+        <td><i>{{_('Totals')}}</i></td>
         <td>
-            <b>Total learned parameters:</b>
+            <b>{{_('Total learned parameters:')}}</b>
             {{'{:,}'.format(total_parameters)}}
         </td>
     </tr>

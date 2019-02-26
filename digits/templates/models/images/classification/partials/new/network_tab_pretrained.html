@@ -45,7 +45,7 @@
 
         <table class="table">
             <tr>
-                <th>Pretrained Model</th>
+                <th>{{_('Pretrained Model')}}</th>
                 <th></th>
             </tr>
             {% for network in batch %}
@@ -57,12 +57,12 @@
                     {{network.label}}
                     <span class="badge">{{pretrained_job.framework}}</span>
                 </td>
-                <td><a class="btn btn-sm" onClick="customizePretrainedNetwork('{{pretrained_job.framework}}','{{network.data}}')">Customize</a></td>
+                <td><a class="btn btn-sm" onClick="customizePretrainedNetwork('{{pretrained_job.framework}}','{{network.data}}')">{{_('Customize')}}</a></td>
 
             </tr>
             {% else %}
             <tr>
-                <td><i>None</i></td>
+                <td><i>{{_('None')}}</i></td>
             </tr>
             {% endfor %}
         </table>
