@@ -8,14 +8,14 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-26 10:45+0800\n"
+"POT-Creation-Date: 2019-02-26 13:45+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Generated-By: Babel 2.6.0\n"
+"Generated-By: Babel 2.5.0\n"
 
 #: scheduler.py:223
 #, python-format
@@ -1877,6 +1877,7 @@ msgstr ""
 #: templates/models/images/classification/show.html:29
 #: templates/models/images/generic/partials/new/network_tab_pretrained.html:10
 #: templates/models/images/generic/partials/new/network_tab_previous.html:10
+#: templates/models/images/generic/show.html:29
 msgid "Pretrained Model"
 msgstr ""
 
@@ -2344,6 +2345,7 @@ msgstr ""
 #: templates/datasets/images/classification/show.html:12
 #: templates/datasets/images/generic/show.html:50
 #: templates/models/images/classification/show.html:16
+#: templates/models/images/generic/show.html:16
 msgid "Job Directory"
 msgstr ""
 
@@ -2430,11 +2432,13 @@ msgstr ""
 
 #: templates/datasets/images/classification/new.html:225
 #: templates/models/images/classification/show.html:236
+#: templates/models/images/generic/show.html:349
 msgid "Image folder"
 msgstr ""
 
 #: templates/datasets/images/classification/new.html:225
 #: templates/models/images/classification/show.html:236
+#: templates/models/images/generic/show.html:349
 msgid "(optional)"
 msgstr ""
 
@@ -2837,10 +2841,12 @@ msgid "Total learned parameters:"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:3
+#: templates/models/images/generic/custom_network_explanation.html:3
 msgid "Specifying a custom Caffe network"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:6
+#: templates/models/images/generic/custom_network_explanation.html:6
 msgid "Use this field to enter a Caffe network in .prototxt format."
 msgstr ""
 
@@ -2899,6 +2905,7 @@ msgid "removed"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:26
+#: templates/models/images/generic/custom_network_explanation.html:10
 msgid ""
 "The network should include the necessary layers for all computation "
 "states - Train, Val and Deploy.\n"
@@ -2907,18 +2914,22 @@ msgid ""
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:30
+#: templates/models/images/generic/custom_network_explanation.html:14
 msgid "phase: TRAIN stage: \"train\""
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:31
+#: templates/models/images/generic/custom_network_explanation.html:15
 msgid "phase: TEST stage: \"val\""
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:32
+#: templates/models/images/generic/custom_network_explanation.html:16
 msgid "phase: TEST stage: \"deploy\""
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:35
+#: templates/models/images/generic/custom_network_explanation.html:19
 msgid ""
 "Your layer's include and exclude rules should be set properly to be "
 "picked up by the desired computation state[s].\n"
@@ -2928,68 +2939,84 @@ msgid ""
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:41
+#: templates/models/images/generic/custom_network_explanation.html:25
 msgid "Rule"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:42
+#: templates/models/images/generic/custom_network_explanation.html:26
 msgid "Train"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:43
+#: templates/models/images/generic/custom_network_explanation.html:27
 msgid "Val"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:44
+#: templates/models/images/generic/custom_network_explanation.html:28
 msgid "Deploy"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "You may notice that DIGITS still generates separate files for"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "train_val"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "and"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "deploy"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "networks, and that they each only use"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "phase"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "and not"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
 msgid "stage"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:99
+#: templates/models/images/generic/custom_network_explanation.html:83
 msgid "This is because Caffe doesn't fully support all-in-one networks yet."
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:102
+#: templates/models/images/generic/custom_network_explanation.html:86
 msgid "Specifying a custom Torch network"
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:105
+#: templates/models/images/generic/custom_network_explanation.html:89
 msgid ""
 "Use this field to enter a Torch network using Lua code.\n"
 "    Refer to the documentation for more information."
 msgstr ""
 
 #: templates/models/images/classification/custom_network_explanation.html:109
+#: templates/models/images/generic/custom_network_explanation.html:93
 msgid "Specifying a custom Tensorflow network"
 msgstr ""
 
@@ -3000,15 +3027,18 @@ msgid ""
 msgstr ""
 
 #: templates/models/images/classification/show.html:18
+#: templates/models/images/generic/show.html:18
 msgid "Disk Size"
 msgstr ""
 
 #: templates/models/images/classification/show.html:25
+#: templates/models/images/generic/show.html:25
 #, python-format
 msgid "Raw %(tgfi)s output"
 msgstr ""
 
 #: templates/models/images/classification/show.html:37
+#: templates/models/images/generic/show.html:39
 msgid "Dataset"
 msgstr ""
 
@@ -3019,51 +3049,66 @@ msgid ""
 msgstr ""
 
 #: templates/models/images/classification/show.html:73
+#: templates/models/images/generic/show.html:69
 msgid "View Large"
 msgstr ""
 
 #: templates/models/images/classification/show.html:78
+#: templates/models/images/generic/show.html:74
 msgid "View Timeline Traces"
 msgstr ""
 
 #: templates/models/images/classification/show.html:110
+#: templates/models/images/generic/show.html:106
 msgid "Trained Models"
 msgstr ""
 
 #: templates/models/images/classification/show.html:113
+#: templates/models/images/generic/show.html:109
 msgid "Select Model"
 msgstr ""
 
 #: templates/models/images/classification/show.html:155
+#: templates/models/images/generic/show.html:151
 msgid "Download Model"
 msgstr ""
 
 #: templates/models/images/classification/show.html:162
+#: templates/models/images/generic/show.html:158
 msgid "Make Pretrained Model"
 msgstr ""
 
 #: templates/models/images/classification/show.html:169
+#: templates/models/images/generic/show.html:268
 msgid "Test a single image"
 msgstr ""
 
 #: templates/models/images/classification/show.html:171
+#: templates/models/images/generic/show.html:270
 msgid "Image Path"
 msgstr ""
 
 #: templates/models/images/classification/show.html:180
+#: templates/models/images/generic/show.html:279
 msgid "Upload image"
 msgstr ""
 
 #: templates/models/images/classification/show.html:185
 #: templates/models/images/classification/show.html:226
+#: templates/models/images/generic/show.html:284
+#: templates/models/images/generic/show.html:339
 msgid "Browse"
 msgstr ""
 
 #: templates/models/images/classification/show.html:201
+#: templates/models/images/generic/show.html:244
+#: templates/models/images/generic/show.html:300
 msgid "Show visualizations and statistics"
 msgstr ""
 
 #: templates/models/images/classification/show.html:206
+#: templates/models/images/generic/show.html:249
+#: templates/models/images/generic/show.html:305
 msgid ""
 "For each layer in the network, show statistics for the "
 "weights/activations and attempt to represent the data visually. Can delay"
@@ -3071,32 +3116,39 @@ msgid ""
 msgstr ""
 
 #: templates/models/images/classification/show.html:219
+#: templates/models/images/generic/show.html:332
 msgid "Test a list of images"
 msgstr ""
 
 #: templates/models/images/classification/show.html:221
+#: templates/models/images/generic/show.html:334
 msgid "Upload Image List"
 msgstr ""
 
 #: templates/models/images/classification/show.html:232
+#: templates/models/images/generic/show.html:345
 msgid "Accepts a list of filenames or urls (you can use your val.txt file)"
 msgstr ""
 
 #: templates/models/images/classification/show.html:238
+#: templates/models/images/generic/show.html:351
 msgid ""
 "Relative paths in the text file will be prepended with this value before "
 "reading"
 msgstr ""
 
 #: templates/models/images/classification/show.html:241
+#: templates/models/images/generic/show.html:354
 msgid "Number of images use from the file"
 msgstr ""
 
 #: templates/models/images/classification/show.html:242
+#: templates/models/images/generic/show.html:355
 msgid "All"
 msgstr ""
 
 #: templates/models/images/classification/show.html:243
+#: templates/models/images/generic/show.html:356
 msgid "Leave blank to use all"
 msgstr ""
 
@@ -3174,9 +3226,16 @@ msgstr ""
 msgid "28x28 (gray)"
 msgstr ""
 
+#: templates/models/images/generic/custom_network_explanation.html:96
+msgid ""
+"Use this field to enter a Tensorflow network using python.\n"
+"    Refer to the documentation for more information."
+msgstr ""
+
 #: templates/models/images/generic/infer_db.html:11
 #: templates/models/images/generic/infer_extension.html:11
 #: templates/models/images/generic/infer_many.html:11
+#: templates/models/images/generic/show.html:364
 msgid "Test Many"
 msgstr ""
 
@@ -3189,6 +3248,7 @@ msgstr ""
 
 #: templates/models/images/generic/infer_db.html:48
 #: templates/models/images/generic/infer_many.html:47
+#: templates/models/images/generic/show.html:32
 msgid "Visualizations"
 msgstr ""
 
@@ -3215,6 +3275,7 @@ msgid "layer"
 msgstr ""
 
 #: templates/models/images/generic/infer_one.html:11
+#: templates/models/images/generic/show.html:314
 msgid "Test One"
 msgstr ""
 
@@ -3295,6 +3356,62 @@ msgstr ""
 
 #: templates/models/images/generic/new.html:670
 msgid "Visualize"
+msgstr ""
+
+#: templates/models/images/generic/show.html:164
+msgid "Select Visualization Method"
+msgstr ""
+
+#: templates/models/images/generic/show.html:174
+msgid "Visualization Options"
+msgstr ""
+
+#: templates/models/images/generic/show.html:201
+msgid "Inference Options"
+msgstr ""
+
+#: templates/models/images/generic/show.html:207
+msgid "Do not resize input image(s)"
+msgstr ""
+
+#: templates/models/images/generic/show.html:212
+msgid ""
+"By default input images are resized to the dimensions of the images in "
+"the dataset. Check this box\n"
+"                                to skip this stage. This may be useful "
+"for models that can take inputs of various dimensions."
+msgstr ""
+
+#: templates/models/images/generic/show.html:222
+msgid "Select Inference form"
+msgstr ""
+
+#: templates/models/images/generic/show.html:261
+msgid "Test"
+msgstr ""
+
+#: templates/models/images/generic/show.html:274
+msgid "Can be a path on the server's filesystem, or a URL."
+msgstr ""
+
+#: templates/models/images/generic/show.html:316
+msgid "Test a Database"
+msgstr ""
+
+#: templates/models/images/generic/show.html:318
+msgid "LMDB path"
+msgstr ""
+
+#: templates/models/images/generic/show.html:320
+msgid "Specify path to LMDB database on server"
+msgstr ""
+
+#: templates/models/images/generic/show.html:328
+msgid "Test DB"
+msgstr ""
+
+#: templates/models/images/generic/show.html:369
+msgid "Infer a list of images and show the network outputs."
 msgstr ""
 
 #: templates/partials/home/datasets_pane.html:26
