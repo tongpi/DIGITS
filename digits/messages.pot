@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 15:36+0800\n"
+"POT-Creation-Date: 2019-02-26 10:01+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -928,6 +928,169 @@ msgstr ""
 #: templates/models/images/generic/infer_extension.html:164
 #: templates/models/images/generic/infer_one.html:154
 msgid "Total learned parameters:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:3
+msgid "Specifying a custom Caffe network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:6
+msgid "Use this field to enter a Caffe network in .prototxt format."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:10
+msgid "Classification are special in a few ways:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:14
+msgid "The Deploy network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:14
+msgid "must contain a Softmax layer"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:15
+msgid "This should produce the only network output."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "If any InnerProduct layers have left"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "num_output"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "unset, DIGITS will"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "fill it in for you automatically"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "with the number of classes in your dataset."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "If any Accuracy layer has a"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "top_k"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid ""
+"value that is smaller than the number of classes in your dataset, then "
+"that layer is"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "removed"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:26
+msgid ""
+"The network should include the necessary layers for all computation "
+"states - Train, Val and Deploy.\n"
+"    When searching for layers, the network will be set to one of these "
+"three states:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:30
+msgid "phase: TRAIN stage: \"train\""
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:31
+msgid "phase: TEST stage: \"val\""
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:32
+msgid "phase: TEST stage: \"deploy\""
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:35
+msgid ""
+"Your layer's include and exclude rules should be set properly to be "
+"picked up by the desired computation state[s].\n"
+"    You can look at the standard networks for examples.\n"
+"    In addition, since there are many ways to specify the rules, here's a"
+" table that you may find useful:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:41
+msgid "Rule"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:42
+msgid "Train"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:43
+msgid "Val"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:44
+msgid "Deploy"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "You may notice that DIGITS still generates separate files for"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "train_val"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "and"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "deploy"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "networks, and that they each only use"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "phase"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "and not"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "stage"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:99
+msgid "This is because Caffe doesn't fully support all-in-one networks yet."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:102
+msgid "Specifying a custom Torch network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:105
+msgid ""
+"Use this field to enter a Torch network using Lua code.\n"
+"    Refer to the documentation for more information."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:109
+msgid "Specifying a custom Tensorflow network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:112
+msgid ""
+"Use this field to enter a Tensorflow network using python.\n"
+"    Refer to the documentation for more information."
 msgstr ""
 
 #: templates/models/images/classification/new.html:10
