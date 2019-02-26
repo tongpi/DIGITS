@@ -7,16 +7,17 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-25 15:36+0800\n"
-"PO-Revision-Date: 2019-02-16 11:51+0800\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language: zh_Hans_CN\n"
+"POT-Creation-Date: 2019-02-26 10:01+0800\n"
+"PO-Revision-Date: 2019-02-26 10:24+0800\n"
+"Language: zh\n"
 "Language-Team: zh_Hans_CN <LL@li.org>\n"
-"Plural-Forms: nplurals=1; plural=0\n"
+"Plural-Forms: nplurals=1; plural=0;\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Generated-By: Babel 2.5.0\n"
+"Last-Translator: \n"
+"X-Generator: Poedit 2.0.6\n"
 
 #: views.py:59 views.py:74
 msgid "Classification"
@@ -57,16 +58,12 @@ msgid "Object Detection Dataset Options"
 msgstr "对象检测数据集选项"
 
 #: extensions/data/objectDetection/template.html:10
-msgid ""
-"Images can be stored in any of the supported file formats "
-"('.png','.jpg','.jpeg','.bmp','.ppm')."
+msgid "Images can be stored in any of the supported file formats ('.png','.jpg','.jpeg','.bmp','.ppm')."
 msgstr "图像可以以任何支持的文件格式存储（'.png'，'.jpg'，'.jpeg'，'.bmp'，'.ppm'）。"
 
 #: extensions/data/objectDetection/template.html:20
-msgid ""
-"Label files are expected to have the .txt extension.\n"
-"    For example if an image file is named foo.png the corresponding label"
-" file should be foo.txt."
+msgid "Label files are expected to have the .txt extension.\n"
+"    For example if an image file is named foo.png the corresponding label file should be foo.txt."
 msgstr "标签文件应具有.txt扩展名。例如，如果图像文件名为foo.png，则相应的标签文件应为foo.txt。"
 
 #: extensions/data/objectDetection/template.html:43
@@ -74,9 +71,7 @@ msgid "Pad image (Width x Height)"
 msgstr "填充图像（宽x高）"
 
 #: extensions/data/objectDetection/template.html:47
-msgid ""
-"If specified, input images will be padded to that dimension. Pad "
-"dimensions should be greater than those of input images."
+msgid "If specified, input images will be padded to that dimension. Pad dimensions should be greater than those of input images."
 msgstr "如果指定，输入图像将填充到该维度。 填充维度应大于输入图像的尺寸。"
 
 #: extensions/data/objectDetection/template.html:50
@@ -96,9 +91,7 @@ msgid "Resize image (Width x Height)"
 msgstr "调整图像大小（宽x高）"
 
 #: extensions/data/objectDetection/template.html:61
-msgid ""
-"If specified, input images will be squashed to that dimension after "
-"padding."
+msgid "If specified, input images will be squashed to that dimension after padding."
 msgstr "如果指定，填充后输入图像将被压缩到该维度。"
 
 #: extensions/view/boundingBox/app_begin_template.html:250
@@ -116,10 +109,7 @@ msgid "Opacity"
 msgstr "不透明度"
 
 #: extensions/view/boundingBox/config_template.html:7
-msgid ""
-"Draw a bounding box around a detected object. The expected network output"
-" is a dictionary, keyed by class, where the values are lists of bounding "
-"boxes for that image."
+msgid "Draw a bounding box around a detected object. The expected network output is a dictionary, keyed by class, where the values are lists of bounding boxes for that image."
 msgstr "在检测到的对象周围绘制一个边界框。 预期的网络输出是一个字典，字典的键是类别，值是该图像的边界框列表。"
 
 #: extensions/view/imageOutput/config_template.html:7
@@ -238,9 +228,7 @@ msgid "Are you sure you want to abort this job?"
 msgstr "你确定要中止这份作业吗？"
 
 #: templates/job.html:153
-msgid ""
-"Are you sure you want to delete this job?<br><br>All related files will "
-"be permanently removed."
+msgid "Are you sure you want to delete this job?<br><br>All related files will be permanently removed."
 msgstr "确实要删除此作业吗？<br><br>所有相关文件将被永久删除。"
 
 #: templates/job.html:182
@@ -276,9 +264,7 @@ msgid "Username"
 msgstr "用户名"
 
 #: templates/login.html:20
-msgid ""
-"Must begin with a letter and contain only lowercase letters, numbers, "
-"periods, dashes and underscores."
+msgid "Must begin with a letter and contain only lowercase letters, numbers, periods, dashes and underscores."
 msgstr "必须以字母开头，并且只包含小写字母，数字，句点，破折号和下划线。"
 
 #: templates/login.html:23
@@ -365,11 +351,8 @@ msgstr "特征形状"
 
 #: templates/datasets/generic/show.html:19
 #: templates/datasets/generic/show.html:27
-msgid ""
-"Shown below is the shape of a sample entry in the database. Other entries"
-" might\n"
-"                             have a different shape if the dataset has "
-"variable entry shapes."
+msgid "Shown below is the shape of a sample entry in the database. Other entries might\n"
+"                             have a different shape if the dataset has variable entry shapes."
 msgstr "下面显示的是数据库中样本条目的形状。如果数据集具有可变的条目形状，则其他条目可能具有不同的形状。"
 
 #: templates/datasets/generic/show.html:25
@@ -484,13 +467,8 @@ msgid "Text file"
 msgstr "文本文件"
 
 #: templates/datasets/images/classification/new.html:222
-msgid ""
-"Each line in the file should be formatted as '<PATH> <LABEL>' where "
-"<PATH> specifies image path either on the local filesystem or a URL, and "
-"the <LABEL> is a numeric label that matches the uploaded labels file"
-msgstr ""
-"文件中的每一行都应格式化为'<PATH> <LABEL>' "
-"<PATH>指定本地文件系统或URL上的图像路径，<LABEL>是与上载的标签文件匹配的数字标签"
+msgid "Each line in the file should be formatted as '<PATH> <LABEL>' where <PATH> specifies image path either on the local filesystem or a URL, and the <LABEL> is a numeric label that matches the uploaded labels file"
+msgstr "文件中的每一行都应格式化为'<PATH> <LABEL>' <PATH>指定本地文件系统或URL上的图像路径，<LABEL>是与上载的标签文件匹配的数字标签"
 
 #: templates/datasets/images/classification/new.html:225
 #: templates/models/images/classification/show.html:236
@@ -508,17 +486,13 @@ msgstr "在读取之前，文本文件中的路径将附加此值"
 
 #: templates/datasets/images/classification/new.html:235
 #, python-format
-msgid ""
-"%(form_tulf)s\n"
+msgid "%(form_tulf)s\n"
 "                                        Use local paths on server"
-msgstr ""
-"%(form_tulf)s\n"
+msgstr "%(form_tulf)s\n"
 "在服务器上使用本地路径"
 
 #: templates/datasets/images/classification/new.html:241
-msgid ""
-"Check to use local paths on server, uncheck to upload files from client "
-"machine"
+msgid "Check to use local paths on server, uncheck to upload files from client machine"
 msgstr "检查是否在服务器上使用本地路径，取消选中以从客户端计算机上载文件"
 
 #: templates/datasets/images/classification/new.html:247
@@ -535,20 +509,16 @@ msgstr "输入路径"
 
 #: templates/datasets/images/classification/new.html:261
 #, python-format
-msgid ""
-"%(from_tuv)s\n"
+msgid "%(from_tuv)s\n"
 "                                        Validation"
-msgstr ""
-"%(from_tuv)s\n"
+msgstr "%(from_tuv)s\n"
 "验证"
 
 #: templates/datasets/images/classification/new.html:278
 #, python-format
-msgid ""
-"%(form_tut)s\n"
+msgid "%(form_tut)s\n"
 "                                        Test"
-msgstr ""
-"%(form_tut)s\n"
+msgstr "%(form_tut)s\n"
 "测试"
 
 #: templates/datasets/images/classification/new.html:385
@@ -772,29 +742,19 @@ msgid "Using Python layers"
 msgstr "使用Python层"
 
 #: templates/models/python_layer_explanation.html:6
-msgid ""
-"Caffe lets you define custom layers with Python.\n"
-"    Python layers are obviously much slower than their C++ counterparts, "
-"but are easy to write and test quickly since using them doesn't require "
-"recompilation.\n"
-"    DIGITS moves some files around for you so that you can specify "
-"different Python layers for each network."
+msgid "Caffe lets you define custom layers with Python.\n"
+"    Python layers are obviously much slower than their C++ counterparts, but are easy to write and test quickly since using them doesn't require recompilation.\n"
+"    DIGITS moves some files around for you so that you can specify different Python layers for each network."
 msgstr "Caffe允许您使用Python定义自定义层.Python层显然比它们的C++版本慢得多，但是很容易编写和快速测试，因为使用它们不需要重新编译.DIGITS为您移动一些文件，以便您可以为每个网络指定不同的Python层。"
 
 #: templates/models/python_layer_explanation.html:11
-msgid ""
-"The BVLC and DIGITS documentation online has detailed information and "
-"tutorials about how to use these layers.\n"
-"    Some of that information has been re-created here for your "
-"convenience."
+msgid "The BVLC and DIGITS documentation online has detailed information and tutorials about how to use these layers.\n"
+"    Some of that information has been re-created here for your convenience."
 msgstr "在线BVLC和DIGITS文档包含有关如何使用这些层的详细信息和教程。为方便起见，这些信息已在此处重新创建。"
 
 #: templates/models/python_layer_explanation.html:16
-msgid ""
-"First, you'll need to create a Python file which defines one or more "
-"layers.\n"
-"    As an example, here is a layer which re-creates the functionality of "
-"the standard Accuracy layer using JSON-encoded parameters:"
+msgid "First, you'll need to create a Python file which defines one or more layers.\n"
+"    As an example, here is a layer which re-creates the functionality of the standard Accuracy layer using JSON-encoded parameters:"
 msgstr "首先，您需要创建一个定义一个或多个层的Python文件。例如，这是一个使用JSON编码参数重新创建标准Accuracy层功能的层："
 
 #: templates/models/python_layer_explanation.html:55
@@ -806,9 +766,7 @@ msgid "discarding the original filename."
 msgstr "丢弃原始文件名。"
 
 #: templates/models/python_layer_explanation.html:59
-msgid ""
-"To add the layer to your network, include this prototxt snippet in your "
-"custom network definition:"
+msgid "To add the layer to your network, include this prototxt snippet in your custom network definition:"
 msgstr "要将层添加到网络，请在自定义网络定义中包含此原型文本片段："
 
 #: templates/models/timeline_tracing.html:6
@@ -939,10 +897,163 @@ msgstr "汇总"
 msgid "Total learned parameters:"
 msgstr "学习参数总数："
 
+#: templates/models/images/classification/custom_network_explanation.html:3
+msgid "Specifying a custom Caffe network"
+msgstr "指定自定义Caffe网络"
+
+#: templates/models/images/classification/custom_network_explanation.html:6
+msgid "Use this field to enter a Caffe network in .prototxt format."
+msgstr "使用此字段在.prototxt格式文件输入Caffe网络。"
+
+#: templates/models/images/classification/custom_network_explanation.html:10
+msgid "Classification are special in a few ways:"
+msgstr "分类在以下几个方面是特殊的："
+
+#: templates/models/images/classification/custom_network_explanation.html:14
+msgid "The Deploy network"
+msgstr "部署网络"
+
+#: templates/models/images/classification/custom_network_explanation.html:14
+msgid "must contain a Softmax layer"
+msgstr "必须包含Softmax图层"
+
+#: templates/models/images/classification/custom_network_explanation.html:15
+msgid "This should produce the only network output."
+msgstr "这应该产生唯一的网络输出。"
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "If any InnerProduct layers have left"
+msgstr "如果任何内积层已经保留"
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "num_output"
+msgstr "num_output"
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "unset, DIGITS will"
+msgstr "未设置，DIGITS将"
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "fill it in for you automatically"
+msgstr "自动为您填写"
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "with the number of classes in your dataset."
+msgstr "数据集中的类数。"
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "If any Accuracy layer has a"
+msgstr "如果一个准确层有一个"
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "top_k"
+msgstr "top_k"
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "value that is smaller than the number of classes in your dataset, then that layer is"
+msgstr "值小于数据集中的类数，则该层被"
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "removed"
+msgstr "删除"
+
+#: templates/models/images/classification/custom_network_explanation.html:26
+msgid "The network should include the necessary layers for all computation states - Train, Val and Deploy.\n"
+"    When searching for layers, the network will be set to one of these three states:"
+msgstr "网络应包括所有计算状态（训练、验证和部署）所需的层。搜索层时，网络将设置为以下三种状态之一："
+
+#: templates/models/images/classification/custom_network_explanation.html:30
+msgid "phase: TRAIN stage: \"train\""
+msgstr "阶段: TRAIN stage: \"train\""
+
+#: templates/models/images/classification/custom_network_explanation.html:31
+msgid "phase: TEST stage: \"val\""
+msgstr "阶段: TEST stage: \"val\""
+
+#: templates/models/images/classification/custom_network_explanation.html:32
+msgid "phase: TEST stage: \"deploy\""
+msgstr "阶段: TEST stage: \"deploy\""
+
+#: templates/models/images/classification/custom_network_explanation.html:35
+msgid "Your layer's include and exclude rules should be set properly to be picked up by the desired computation state[s].\n"
+"    You can look at the standard networks for examples.\n"
+"    In addition, since there are many ways to specify the rules, here's a table that you may find useful:"
+msgstr "您的图层的包含和排除规则应该正确设置，以便通过所需的计算状态[s]进行选取。您可以查看标准网络中的示例。此外，由于有许多方法可以指定规则，这里有一个表格， 你可能会觉得有用："
+
+#: templates/models/images/classification/custom_network_explanation.html:41
+msgid "Rule"
+msgstr "规则"
+
+#: templates/models/images/classification/custom_network_explanation.html:42
+msgid "Train"
+msgstr "训练"
+
+#: templates/models/images/classification/custom_network_explanation.html:43
+msgid "Val"
+msgstr "验证"
+
+#: templates/models/images/classification/custom_network_explanation.html:44
+msgid "Deploy"
+msgstr "部署"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "You may notice that DIGITS still generates separate files for"
+msgstr "您可能会注意到DIGITS仍会为其生成单独的文件"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "train_val"
+msgstr "train_val"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "and"
+msgstr "和"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "deploy"
+msgstr "部署"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "networks, and that they each only use"
+msgstr "网络，他们每个人都只使用"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "phase"
+msgstr "阶段"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "and not"
+msgstr "并不是"
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+msgid "stage"
+msgstr "阶段"
+
+#: templates/models/images/classification/custom_network_explanation.html:99
+msgid "This is because Caffe doesn't fully support all-in-one networks yet."
+msgstr "这是因为Caffe尚未完全支持一体化网络。"
+
+#: templates/models/images/classification/custom_network_explanation.html:102
+msgid "Specifying a custom Torch network"
+msgstr "指定自定义Torch网络"
+
+#: templates/models/images/classification/custom_network_explanation.html:105
+msgid "Use this field to enter a Torch network using Lua code.\n"
+"    Refer to the documentation for more information."
+msgstr "使用此字段可以使用Lua代码输入Torch网络。有关详细信息，请参阅文档。"
+
+#: templates/models/images/classification/custom_network_explanation.html:109
+msgid "Specifying a custom Tensorflow network"
+msgstr "指定自定义TensorFlow网络"
+
+#: templates/models/images/classification/custom_network_explanation.html:112
+msgid "Use this field to enter a Tensorflow network using python.\n"
+"    Refer to the documentation for more information."
+msgstr "使用此字段可以使用python输入TensorFlow网络。有关详细信息，请参阅文档。"
+
 #: templates/models/images/classification/new.html:10
 #: templates/models/images/classification/new.html:19
 msgid "New Image Classification Model"
-msgstr ""
+msgstr "新的图像分类模型"
 
 #: templates/models/images/classification/new.html:14
 #: templates/models/images/generic/new.html:14
@@ -1062,9 +1173,7 @@ msgid "Dataset"
 msgstr "数据集"
 
 #: templates/models/images/classification/show.html:67
-msgid ""
-"Use bottom chart to select region of interest. Drag to pan left/right. "
-"Click outside of region to unselect."
+msgid "Use bottom chart to select region of interest. Drag to pan left/right. Click outside of region to unselect."
 msgstr "使用底部图表选择感兴趣的区域。 拖动以左/右平移。单击区域外部以取消选择。"
 
 #: templates/models/images/classification/show.html:73
@@ -1113,10 +1222,7 @@ msgid "Show visualizations and statistics"
 msgstr "显示可视化和统计信息"
 
 #: templates/models/images/classification/show.html:206
-msgid ""
-"For each layer in the network, show statistics for the "
-"weights/activations and attempt to represent the data visually. Can delay"
-" classification considerably."
+msgid "For each layer in the network, show statistics for the weights/activations and attempt to represent the data visually. Can delay classification considerably."
 msgstr "对于网络中的每个层，显示权重/激活的统计信息，并尝试直观地表示数据。 可以大大延迟分类。"
 
 #: templates/models/images/classification/show.html:219
@@ -1132,9 +1238,7 @@ msgid "Accepts a list of filenames or urls (you can use your val.txt file)"
 msgstr "接受文件名或URL列表（您可以使用val.txt文件）"
 
 #: templates/models/images/classification/show.html:238
-msgid ""
-"Relative paths in the text file will be prepended with this value before "
-"reading"
+msgid "Relative paths in the text file will be prepended with this value before reading"
 msgstr "在读取之前，文本文件中的相对路径将以此值为前缀"
 
 #: templates/models/images/classification/show.html:241
@@ -1150,9 +1254,7 @@ msgid "Leave blank to use all"
 msgstr "留空以使用全部"
 
 #: templates/models/images/classification/show.html:256
-msgid ""
-"Classify a list of images and show the top 5 category predictions for "
-"each."
+msgid "Classify a list of images and show the top 5 category predictions for each."
 msgstr "对图像列表进行分类，并显示每个图像的前5个类别预测。"
 
 #: templates/models/images/classification/show.html:259
@@ -1165,9 +1267,7 @@ msgid "Top N Predictions per Category"
 msgstr "每个类别的前N个预测"
 
 #: templates/models/images/classification/show.html:273
-msgid ""
-"Classify a list of images and show the top N results per category by "
-"confidence."
+msgid "Classify a list of images and show the top N results per category by confidence."
 msgstr "对图像列表进行分类，并自信地显示每个类别的前N个结果。"
 
 #: templates/models/images/classification/top_n.html:7
@@ -1403,4 +1503,3 @@ msgstr "数字%(data)s必须小于%(max)s。"
 
 #~ msgid "Infer a list of images and show the network outputs."
 #~ msgstr "推断图像列表并显示网络输出。"
-
