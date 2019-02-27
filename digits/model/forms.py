@@ -225,8 +225,8 @@ class ModelForm(Form):
     )
 
     lr_step_size = wtforms.FloatField(_('Step Size'), default=33)
-    lr_step_gamma = wtforms.FloatField('Gamma', default=0.1)
-    lr_multistep_values = wtforms.StringField('Step Values', default="50,85")
+    lr_step_gamma = wtforms.FloatField(_('Gamma'), default=0.1)
+    lr_multistep_values = wtforms.StringField(_('Step Values'), default="50,85")
 
     def validate_lr_multistep_values(form, field):
         if form.lr_policy.data == 'multistep':
@@ -236,13 +236,13 @@ class ModelForm(Form):
                 except ValueError:
                     raise validators.ValidationError(_('invalid value'))
 
-    lr_multistep_gamma = wtforms.FloatField('Gamma', default=0.5)
-    lr_exp_gamma = wtforms.FloatField('Gamma', default=0.95)
-    lr_inv_gamma = wtforms.FloatField('Gamma', default=0.1)
-    lr_inv_power = wtforms.FloatField('Power', default=0.5)
-    lr_poly_power = wtforms.FloatField('Power', default=3)
-    lr_sigmoid_step = wtforms.FloatField('Step', default=50)
-    lr_sigmoid_gamma = wtforms.FloatField('Gamma', default=0.1)
+    lr_multistep_gamma = wtforms.FloatField(_('Gamma'), default=0.5)
+    lr_exp_gamma = wtforms.FloatField(_('Gamma'), default=0.95)
+    lr_inv_gamma = wtforms.FloatField(_('Gamma'), default=0.1)
+    lr_inv_power = wtforms.FloatField(_('Power'), default=0.5)
+    lr_poly_power = wtforms.FloatField(_('Power'), default=3)
+    lr_sigmoid_step = wtforms.FloatField(_('Step'), default=50)
+    lr_sigmoid_gamma = wtforms.FloatField(_('Gamma'), default=0.1)
 
     # Network
 

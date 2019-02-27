@@ -7,6 +7,7 @@ from digits import utils
 from digits.utils import subclass
 from flask.ext.wtf import Form
 from wtforms import validators
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -27,41 +28,41 @@ class DatasetForm(Form):
                 return True
 
     image_folder = utils.forms.StringField(
-        u'Image folder',
+        _(u'Image folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
         ],
-        tooltip="Specify the path to the image folder"
+        tooltip=_("Specify the path to the image folder")
     )
 
     contour_folder = utils.forms.StringField(
-        u'Contour folder',
+        _(u'Contour folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
         ],
-        tooltip="Specify the path to the contour folder"
+        tooltip=_("Specify the path to the contour folder")
     )
 
     channel_conversion = utils.forms.SelectField(
-        'Channel conversion',
+        _('Channel conversion'),
         choices=[
-            ('RGB', 'RGB'),
-            ('L', 'Grayscale'),
+            ('RGB', _('RGB')),
+            ('L', _('Grayscale')),
         ],
         default='L',
-        tooltip="Perform selected channel conversion."
+        tooltip=_("Perform selected channel conversion.")
     )
 
     folder_pct_val = utils.forms.IntegerField(
-        u'% for validation',
+        _(u'% for validation'),
         default=10,
         validators=[
             validators.NumberRange(min=0, max=100)
         ],
-        tooltip="You can choose to set apart a certain percentage of images "
-                "from the training images for the validation set."
+        tooltip=_("You can choose to set apart a certain percentage of images "
+                  "from the training images for the validation set.")
     )
 
 
@@ -82,18 +83,18 @@ class InferenceForm(Form):
     A form used to perform inference on a text classification dataset
     """
     test_image_file = utils.forms.StringField(
-        u'Image file',
+        _(u'Image file'),
         validators=[
             validate_file_path,
         ],
-        tooltip="Provide the (server) path to an image."
+        tooltip=_("Provide the (server) path to an image.")
     )
 
     validation_record = utils.forms.SelectField(
-        'Record from validation set',
+        _('Record from validation set'),
         choices=[
             ('none', '- select record -'),
         ],
         default='none',
-        tooltip="Test a record from the validation set."
+        tooltip=_("Test a record from the validation set.")
     )

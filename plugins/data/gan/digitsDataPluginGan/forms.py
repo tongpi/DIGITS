@@ -8,6 +8,7 @@ from wtforms import HiddenField, TextAreaField, validators
 
 from digits import utils
 from digits.utils import subclass
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -39,35 +40,35 @@ class DatasetForm(Form):
                 return True
 
     file_list = utils.forms.StringField(
-        u'File list (with attributes) in CelebA format',
+        _(u'File list (with attributes) in CelebA format'),
         validators=[
             validate_file_path,
         ],
-        tooltip="Provide file list in CelebA format"
+        tooltip=_("Provide file list in CelebA format")
     )
 
     image_folder = utils.forms.StringField(
-        u'Image folder',
+        _(u'Image folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
             ],
-        tooltip="Specify the path to a folder of images."
+        tooltip=_("Specify the path to a folder of images.")
         )
 
     center_crop_size = utils.forms.IntegerField(
-        u'Center crop size',
+        _(u'Center crop size'),
         default=108,
         validators=[
             validators.NumberRange(min=0)
         ],
-        tooltip="Specify center crop."
+        tooltip=_("Specify center crop.")
     )
 
     resize = utils.forms.IntegerField(
-        u'Resize after crop',
+        _(u'Resize after crop'),
         default=64,
-        tooltip="Resize after crop."
+        tooltip=_("Resize after crop.")
     )
 
 
@@ -105,124 +106,124 @@ class InferenceForm(Form):
                 return True
 
     row_count = utils.forms.IntegerField(
-        u'Rows',
+        _(u'Rows'),
         default=10,
         validators=[
             validators.NumberRange(min=1)
         ],
-        tooltip="Rows to generate in output grid."
+        tooltip=_("Rows to generate in output grid.")
     )
 
     dataset_type = utils.forms.SelectField(
-        'Dataset',
+        _('Dataset'),
         choices=[
             ('mnist', 'MNIST'),
             ('celeba', 'CelebA'),
             ],
         default='celeba',
-        tooltip="Select a dataset."
+        tooltip=_("Select a dataset.")
         )
 
     task_id = utils.forms.SelectField(
-        'Task ID',
+        _('Task ID'),
         choices=[
-            ('class', 'MNIST - Class sweep'),
-            ('style', 'MNIST - Style sweep'),
-            ('genimg', 'Generate single image'),
-            ('attributes', 'CelebA - add/remove attributes'),
-            ('enclist', 'CelebA - Encode list of images'),
-            ('analogy', 'CelebA - Analogy'),
-            ('animation', 'CelebA - Animation'),
+            ('class', _('MNIST - Class sweep')),
+            ('style', _('MNIST - Style sweep')),
+            ('genimg', _('Generate single image')),
+            ('attributes', _('CelebA - add/remove attributes')),
+            ('enclist', _('CelebA - Encode list of images')),
+            ('analogy', _('CelebA - Analogy')),
+            ('animation', _('CelebA - Animation')),
             ],
         default='class',
-        tooltip="Select a task to execute."
+        tooltip=_("Select a task to execute.")
         )
 
     class_z_vector = utils.forms.StringField(
-        u'Z vector (leave blank for random)',
+        _(u'Z vector (leave blank for random)'),
     )
 
     style_z1_vector = utils.forms.StringField(
-        u'Z1 vector (leave blank for random)',
+        _(u'Z1 vector (leave blank for random)'),
     )
 
     style_z2_vector = utils.forms.StringField(
-        u'Z2 vector (leave blank for random)',
+        _(u'Z2 vector (leave blank for random)'),
     )
 
     genimg_z_vector = utils.forms.StringField(
-        u'Z vector (leave blank for random)',
+        _(u'Z vector (leave blank for random)'),
     )
 
     genimg_class_id = utils.forms.IntegerField(
-        u'Class ID',
+        _(u'Class ID'),
         default=0,
         validators=[
             validators.NumberRange(min=0, max=9)
         ],
-        tooltip="Class of image to generate (leave blank for CelebA)."
+        tooltip=_("Class of image to generate (leave blank for CelebA).")
     )
 
     attributes_z_vector = utils.forms.StringField(
-        u'Z vector (leave blank for random)',
+        _(u'Z vector (leave blank for random)'),
     )
 
     attributes_file = utils.forms.StringField(
-        u'Attributes vector file',
+        _(u'Attributes vector file'),
         validators=[
             validate_file_path,
             ],
-        tooltip="Specify the path to a file that contains attributes vectors."
+        tooltip=_("Specify the path to a file that contains attributes vectors.")
         )
 
     attributes_params = HiddenField()
 
     enc_file_list = utils.forms.StringField(
-        u'File list',
+        _(u'File list'),
         validators=[
             validate_file_path,
             ],
-        tooltip="Specify the path to a file that contains a list of files."
+        tooltip=_("Specify the path to a file that contains a list of files.")
         )
 
     enc_image_folder = utils.forms.StringField(
-        u'Image folder',
+        _(u'Image folder'),
         validators=[
             validate_folder_path,
             ],
-        tooltip="Specify the path to a folder of images."
+        tooltip=_("Specify the path to a folder of images.")
         )
 
     enc_num_images = utils.forms.IntegerField(
-        u'Number of images to encode',
+        _(u'Number of images to encode'),
         default=100,
         validators=[
             validators.NumberRange(min=0)
         ],
-        tooltip="Max number of images to encode."
+        tooltip=_("Max number of images to encode.")
     )
 
     attributes_z1_vector = utils.forms.StringField(
-        u'Source Z vector (leave blank for random)',
+        _(u'Source Z vector (leave blank for random)'),
     )
 
     attributes_z2_vector = utils.forms.StringField(
-        u'First Sink Z vector (leave blank for random)',
+        _(u'First Sink Z vector (leave blank for random)'),
     )
 
     attributes_z3_vector = utils.forms.StringField(
-        u'Second Sink Z vector (leave blank for random)',
+        _(u'Second Sink Z vector (leave blank for random)'),
     )
 
     animation_num_transitions = utils.forms.IntegerField(
-        u'Number of transitions per image',
+        _(u'Number of transitions per image'),
         default=10,
         validators=[
             validators.NumberRange(min=1, max=100)
         ],
-        tooltip="Number of transitions between each of the specified images"
+        tooltip=_("Number of transitions between each of the specified images")
     )
 
     animation_z_vectors = TextAreaField(
-        u'z vectors (one per line)',
+        _(u'z vectors (one per line)'),
     )

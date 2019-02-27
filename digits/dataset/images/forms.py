@@ -33,7 +33,7 @@ class ImageDatasetForm(DatasetForm):
     resize_channels = utils.forms.SelectField(
         _(u'Image Type'),
         default='3',
-        choices=[('1', 'Grayscale'), ('3', 'Color')],
+        choices=[('1', _('Grayscale')), ('3', _('Color'))],
         tooltip=_("Color is 3-channel RGB. Grayscale is single channel monochrome.")
     )
     resize_width = wtforms.IntegerField(

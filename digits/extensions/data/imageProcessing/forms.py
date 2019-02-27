@@ -60,7 +60,7 @@ class DatasetForm(Form):
                   "from the training images for the validation set.")
     )
 
-    has_val_folder = utils.forms.BooleanField('Separate validation images',
+    has_val_folder = utils.forms.BooleanField(_('Separate validation images'),
                                               default=False,
                                               )
 

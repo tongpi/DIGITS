@@ -54,11 +54,11 @@ function add_attributes_row() {
 }
 </script>
 
-<h3>GAN inference Options</h3>
+<h3>{{ _('GAN inference Options') }}</h3>
 
 <div class="form-group">
 
-    <h4>Choose a type of dataset</h4>
+    <h4>{{ _('Choose a type of dataset') }}</h4>
 
     <div class="form-group{{mark_errors([form.dataset_type])}}">
         {{ form.dataset_type.label }}
@@ -66,7 +66,7 @@ function add_attributes_row() {
         {{ form.dataset_type(class='form-control') }}
     </div>
 
-    <h4>Choose a task</h4>
+    <h4>{{ _('Choose a task') }}</h4>
 
     <div class="form-group{{mark_errors([form.task_id])}}">
         {{ form.task_id.label }}
@@ -75,9 +75,9 @@ function add_attributes_row() {
     </div>
 
     <div id="task_class">
-        <h4>MNIST Class sweep parameters</h4>
+        <h4>{{ _('MNIST Class sweep parameters') }}</h4>
 
-        <h5>Use with "GAN" visualization method (select "Grid" task).</h5>
+        <h5>{{ _('Use with "GAN" visualization method (select "Grid" task).') }}</h5>
 
         <div class="form-group{{mark_errors([form.class_z_vector])}}">
             {{ form.class_z_vector.label }}
@@ -87,9 +87,9 @@ function add_attributes_row() {
     </div>
 
     <div id="task_style">
-        <h4>MNIST Style sweep parameters</h4>
+        <h4>{{ _('MNIST Style sweep parameters') }}</h4>
 
-        <h5>Use with "GAN" visualization method (select "Grid" task).</h5>
+        <h5>{{ _('Use with "GAN" visualization method (select "Grid" task).') }}</h5>
 
         <div class="form-group{{mark_errors([form.style_z1_vector])}}">
             {{ form.style_z1_vector.label }}
@@ -105,9 +105,9 @@ function add_attributes_row() {
     </div>
 
     <div id="task_genimg">
-        <h4>Image generation parameters</h4>
+        <h4>{{ _('Image generation parameters') }}</h4>
 
-        <h5>Use with "Image Output" visualization method (select "HWC" data order)</h5>
+        <h5>{{ _('Use with "Image Output" visualization method (select "HWC" data order)') }}</h5>
 
         <div class="form-group{{mark_errors([form.genimg_z_vector])}}">
             {{ form.genimg_z_vector.label }}
@@ -123,9 +123,9 @@ function add_attributes_row() {
     </div>
 
     <div id="task_attributes">
-        <h4>CelebA Additive Attributes</h4>
+        <h4>{{ _('CelebA Additive Attributes') }}</h4>
 
-        <h5>Use with "Image Output" visualization method (HWC data order).</h5>
+        <h5>{{ _('Use with "Image Output" visualization method (HWC data order).') }}</h5>
 
         <div class="form-group{{mark_errors([form.attributes_file])}}">
             {{ form.attributes_file.label }}
@@ -139,8 +139,8 @@ function add_attributes_row() {
             {{ form.attributes_z_vector(class='form-control') }}
         </div>
 
-        <h5>Add or remove attributes by filling corresponding box with +1 or -1
-        (or any other multiplier).</h5>
+        <h5>{{ _('Add or remove attributes by filling corresponding box with +1 or -1
+        (or any other multiplier).') }}</h5>
 
         <div class="form-group{{mark_errors([form.attributes_params])}}">
             {{ form.attributes_params.label }}
@@ -164,9 +164,9 @@ function add_attributes_row() {
     </div>
 
     <div id="task_enclist">
-        <h4>Encode file list</h4>
+        <h4>{{ _('Encode file list') }}</h4>
 
-        <h5>Use with "GAN" visualization method (select "Encoder" task).</h5>
+        <h5>{{ _('Use with "GAN" visualization method (select "Encoder" task).') }}</h5>
 
         <div class="form-group{{mark_errors([form.enc_file_list])}}">
             {{ form.enc_file_list.label }}
@@ -188,9 +188,9 @@ function add_attributes_row() {
     </div>
 
     <div id="task_analogy">
-        <h4>Analogy</h4>
+        <h4>{{ _('Analogy') }}</h4>
 
-        <h5>Use with "GAN" visualization method</h5>
+        <h5>{{ _('Use with "GAN" visualization method') }}</h5>
 
         <div class="form-group{{mark_errors([form.attributes_z1_vector])}}">
             {{ form.attributes_z1_vector.label }}
@@ -212,9 +212,9 @@ function add_attributes_row() {
     </div>
 
     <div id="task_animation">
-        <h4>Animation</h4>
+        <h4>{{ _('Animation') }}</h4>
 
-        <h5>Use with "GAN" visualization method</h5>
+        <h5>{{ _('Use with "GAN" visualization method') }}</h5>
 
         <div class="form-group{{mark_errors([form.animation_num_transitions])}}">
             {{ form.animation_num_transitions.label }}

@@ -70,8 +70,8 @@ class GenericDatasetForm(DatasetForm):
     dsopts_force_same_shape = utils.forms.SelectField(
         _('Enforce same shape'),
         choices=[
-            (1, 'Yes'),
-            (0, 'No'),
+            (1, _('Yes')),
+            (0, _('No')),
         ],
         coerce=int,
         default=1,

@@ -22,7 +22,7 @@ class GenericImageDatasetForm(ImageDatasetForm):
     method = wtforms.SelectField(
         _(u'Dataset type'),
         choices=[
-            ('prebuilt', 'Prebuilt'),
+            ('prebuilt', _('Prebuilt')),
         ],
         default='prebuilt',
     )

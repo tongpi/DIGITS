@@ -6,7 +6,7 @@
 
 <div class="row">
     <div class="col-sm-6">
-        <h3>Test an image</h3>
+        <h3>{{ _('Test an image') }}</h3>
         <div class="form-group{{mark_errors([form.gradient_x])}}">
             {{ form.gradient_x.label }}
             {{ form.gradient_x.tooltip }}
@@ -21,7 +21,7 @@
     </div>
 
     <div class="col-sm-6">
-        <h3>Test a list of images</h3>
+        <h3>{{ _('Test a list of images') }}</h3>
         <div class="form-group">
             <div class="form-group{{mark_errors([form.test_image_count])}}">
                 {{ form.test_image_count.label }}

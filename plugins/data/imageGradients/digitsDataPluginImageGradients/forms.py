@@ -7,6 +7,7 @@ from digits.utils.forms import validate_required_iff
 from flask.ext.wtf import Form
 import wtforms
 from wtforms import validators
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -16,43 +17,43 @@ class DatasetForm(Form):
     """
 
     train_image_count = utils.forms.IntegerField(
-        'Train Image count',
+        _('Train Image count'),
         validators=[
             validators.DataRequired(),
             validators.NumberRange(min=1),
         ],
         default=1000,
-        tooltip="Number of images to create in training set"
+        tooltip=_("Number of images to create in training set")
     )
 
     val_image_count = utils.forms.IntegerField(
-        'Validation Image count',
+        _('Validation Image count'),
         validators=[
             validators.Optional(),
             validators.NumberRange(min=0),
         ],
         default=250,
-        tooltip="Number of images to create in validation set"
+        tooltip=_("Number of images to create in validation set")
     )
 
     test_image_count = utils.forms.IntegerField(
-        'Test Image count',
+        _('Test Image count'),
         validators=[
             validators.Optional(),
             validators.NumberRange(min=0),
         ],
         default=0,
-        tooltip="Number of images to create in validation set"
+        tooltip=_("Number of images to create in validation set")
     )
 
     image_width = wtforms.IntegerField(
-        u'Image Width',
+        _(u'Image Width'),
         default=50,
         validators=[validators.DataRequired()]
     )
 
     image_height = wtforms.IntegerField(
-        u'Image Height',
+        _(u'Image Height'),
         default=50,
         validators=[validators.DataRequired()]
     )
@@ -65,28 +66,28 @@ class InferenceForm(Form):
     """
 
     gradient_x = utils.forms.FloatField(
-        'Gradient (x)',
+        _('Gradient (x)'),
         validators=[
             validate_required_iff(test_image_count=None),
             validators.NumberRange(min=-0.5, max=0.5),
         ],
-        tooltip="Specify a number between -0.5 and 0.5"
+        tooltip=_("Specify a number between -0.5 and 0.5")
     )
 
     gradient_y = utils.forms.FloatField(
-        'Gradient (y)',
+        _('Gradient (y)'),
         validators=[
             validate_required_iff(test_image_count=None),
             validators.NumberRange(min=-0.5, max=0.5),
         ],
-        tooltip="Specify a number between -0.5 and 0.5"
+        tooltip=_("Specify a number between -0.5 and 0.5")
     )
 
     test_image_count = utils.forms.IntegerField(
-        'Test Image count',
+        _('Test Image count'),
         validators=[
             validators.Optional(),
             validators.NumberRange(min=0),
         ],
-        tooltip="Number of images to create in test set"
+        tooltip=_("Number of images to create in test set")
     )

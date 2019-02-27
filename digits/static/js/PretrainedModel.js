@@ -20,8 +20,8 @@ var PretrainedModel = function(params) {
   self.frameworkSelector = null;
 
   self.frameworks = [
-    {text: 'Caffe', value: 'caffe'},
-    {text: 'Torch', value: 'torch'}
+    {text: gettext('Caffe'), value: 'caffe'},
+    {text: gettext('Torch'), value: 'torch'}
   ];
 
   self.resize_channels = [
