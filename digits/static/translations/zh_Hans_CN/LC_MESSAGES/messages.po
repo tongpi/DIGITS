@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 09:21+0800\n"
+"POT-Creation-Date: 2019-02-28 10:16+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -199,7 +199,7 @@ msgstr "编码器线程数"
 msgid "Use specified number of encoder threads"
 msgstr "使用指定数量的编码器线程"
 
-#: dataset/generic/forms.py:63
+#: dataset/generic/forms.py:63 dataset/images/classification/forms.py:21
 #: templates/datasets/images/classification/summary.html:27
 msgid "DB backend"
 msgstr "DB后端"
@@ -1563,13 +1563,13 @@ msgstr "在批处理预处理期间将执行的均匀随机旋转角度。"
 
 #: model/images/forms.py:70
 msgid "Rescale (stddev)"
-msgstr ""
+msgstr "重新缩放（标准偏差）"
 
 #: model/images/forms.py:75
 msgid ""
 "Retaining image size, the image is rescaled with a +-stddev of this "
 "parameter. Suggested value is 0.07."
-msgstr "保留图像大小，图像使用此参数的+ -stddev重新缩放。 建议值为0.07。"
+msgstr "保留图像大小，图像使用此参数的+ -标准偏差重新缩放。 建议值为0.07。"
 
 #: model/images/forms.py:80
 msgid "Noise (stddev)"
@@ -3122,7 +3122,7 @@ msgstr "使用此字段可以使用python输入TensorFlow网络。有关更多�
 #: templates/models/images/classification/new.html:10
 #: templates/models/images/classification/new.html:19
 msgid "New Image Classification Model"
-msgstr ""
+msgstr "新的图像分类模型"
 
 #: templates/models/images/classification/new.html:14
 #: templates/models/images/generic/new.html:14
@@ -3139,6 +3139,13 @@ msgstr "Python层"
 #: templates/models/images/generic/new.html:106
 msgid "Solver Options"
 msgstr "求解器选项"
+
+#: templates/models/images/classification/new.html:142
+#: templates/models/images/classification/new.html:385
+#: templates/models/images/generic/new.html:142
+#: templates/models/images/generic/new.html:384
+msgid "[none]"
+msgstr "[无]"
 
 #: templates/models/images/classification/new.html:150
 #: templates/models/images/generic/new.html:150
@@ -3159,12 +3166,6 @@ msgstr "可视化LR"
 #: templates/models/images/generic/new.html:375
 msgid "Data Transformations"
 msgstr "数据转换"
-
-#: templates/models/images/classification/new.html:385
-#: templates/models/images/generic/new.html:142
-#: templates/models/images/generic/new.html:384
-msgid "[none]"
-msgstr "[无]"
 
 #: templates/models/images/classification/new.html:389
 #: templates/models/images/generic/new.html:388
@@ -3756,6 +3757,10 @@ msgstr "无效的字段名称'%(fieldname)s'。"
 #, python-format
 msgid "Field must be greater than %(fieldname)s."
 msgstr "字段必须大于%(fieldname)s。"
+
+#: utils/forms.py:233
+msgid "      Browse&hellip;"
+msgstr "浏览..."
 
 #: utils/forms.py:290 utils/forms.py:336
 msgid "multiples allowed"

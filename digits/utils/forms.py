@@ -230,7 +230,7 @@ class FileInput(object):
             ('<div class="input-group">' +
              '  <span class="input-group-btn">' +
              '    <span class="btn btn-info btn-file" %s>' +
-             '      Browse&hellip;' +
+             _('      Browse&hellip;') +
              '      <input %s>' +
              '    </span>' +
              '  </span>' +

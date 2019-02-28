@@ -18,7 +18,7 @@ class ImageClassificationDatasetForm(ImageDatasetForm):
     Defines the form used to create a new ImageClassificationDatasetJob
     """
 
-    backend = wtforms.SelectField('DB backend',
+    backend = wtforms.SelectField(_('DB backend'),
                                   choices=[
                                       ('lmdb', 'LMDB'),
                                       ('hdf5', 'HDF5')
@@ -96,7 +96,7 @@ class ImageClassificationDatasetForm(ImageDatasetForm):
     )
 
     folder_pct_val = utils.forms.IntegerField(
-        '% ' + _('for validation'),
+        '% ' + _(u'for validation'),
         default=25,
         validators=[
             validate_required_iff(method='folder'),
@@ -107,7 +107,7 @@ class ImageClassificationDatasetForm(ImageDatasetForm):
     )
 
     folder_pct_test = utils.forms.IntegerField(
-        '% ' + _('for testing'),
+        '% ' + _(u'for testing'),
         default=0,
         validators=[
             validate_required_iff(method='folder'),

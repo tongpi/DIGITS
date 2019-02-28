@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 09:21+0800\n"
+"POT-Creation-Date: 2019-02-28 10:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -198,7 +198,7 @@ msgstr ""
 msgid "Use specified number of encoder threads"
 msgstr ""
 
-#: dataset/generic/forms.py:63
+#: dataset/generic/forms.py:63 dataset/images/classification/forms.py:21
 #: templates/datasets/images/classification/summary.html:27
 msgid "DB backend"
 msgstr ""
@@ -3099,6 +3099,13 @@ msgstr ""
 msgid "Solver Options"
 msgstr ""
 
+#: templates/models/images/classification/new.html:142
+#: templates/models/images/classification/new.html:385
+#: templates/models/images/generic/new.html:142
+#: templates/models/images/generic/new.html:384
+msgid "[none]"
+msgstr ""
+
 #: templates/models/images/classification/new.html:150
 #: templates/models/images/generic/new.html:150
 msgid "[network defaults]"
@@ -3117,12 +3124,6 @@ msgstr ""
 #: templates/models/images/classification/new.html:376
 #: templates/models/images/generic/new.html:375
 msgid "Data Transformations"
-msgstr ""
-
-#: templates/models/images/classification/new.html:385
-#: templates/models/images/generic/new.html:142
-#: templates/models/images/generic/new.html:384
-msgid "[none]"
 msgstr ""
 
 #: templates/models/images/classification/new.html:389
@@ -3714,6 +3715,10 @@ msgstr ""
 #: utils/forms.py:79
 #, python-format
 msgid "Field must be greater than %(fieldname)s."
+msgstr ""
+
+#: utils/forms.py:233
+msgid "      Browse&hellip;"
 msgstr ""
 
 #: utils/forms.py:290 utils/forms.py:336
