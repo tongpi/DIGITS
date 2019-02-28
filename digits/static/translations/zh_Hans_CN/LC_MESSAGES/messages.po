@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 10:47+0800\n"
+"POT-Creation-Date: 2019-02-28 11:16+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -32,26 +32,6 @@ msgstr "调用%(type)s的删除作业"
 #, python-format
 msgid "Resource \"%(resourceType)s\" with identifier=\"%(identifier)s\" not found"
 msgstr "identifier=\"%(identifier)s\" 的资源 \"%(resourceType)s\" 未发现"
-
-#: status.py:62
-msgid "Waiting"
-msgstr "等待中"
-
-#: status.py:65
-msgid "Running"
-msgstr "正在运行中"
-
-#: status.py:68
-msgid "Done"
-msgstr "完成"
-
-#: status.py:71
-msgid "Aborted"
-msgstr "中止"
-
-#: status.py:74
-msgid "Error"
-msgstr "出错"
 
 #: views.py:59 views.py:74
 msgid "Classification"
@@ -4263,4 +4243,19 @@ msgstr "测试数据文件"
 #~ "to produce a single string of "
 #~ "characters, up to the specified limit"
 #~ msgstr ".csv格式的数据文件。 每行应该有一个样本。 在每一行上，第一个字段应该是数字类标签。 将连接所有后续字段以生成单个字符串，直到指定的限制。"
+
+#~ msgid "Waiting"
+#~ msgstr "等待中"
+
+#~ msgid "Running"
+#~ msgstr "正在运行中"
+
+#~ msgid "Done"
+#~ msgstr "完成"
+
+#~ msgid "Aborted"
+#~ msgstr "中止"
+
+#~ msgid "Error"
+#~ msgstr "出错"
 

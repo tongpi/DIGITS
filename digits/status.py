@@ -59,19 +59,19 @@ class Status():
             self.name = 'Initialized'
             self.css = 'warning'
         elif val == self.WAIT:
-            self.name = _('Waiting')
+            self.name = 'Waiting'
             self.css = 'warning'
         elif val == self.RUN:
-            self.name = _('Running')
+            self.name = 'Running'
             self.css = 'info'
         elif val == self.DONE:
-            self.name = _('Done')
+            self.name = 'Done'
             self.css = 'success'
         elif val == self.ABORT:
-            self.name = _('Aborted')
+            self.name = 'Aborted'
             self.css = 'warning'
         elif val == self.ERROR:
-            self.name = _('Error')
+            self.name = 'Error'
             self.css = 'danger'
         else:
             self.name = '?'

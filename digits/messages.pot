@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 10:47+0800\n"
+"POT-Creation-Date: 2019-02-28 11:16+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,26 +30,6 @@ msgstr ""
 #: scheduler.py:481
 #, python-format
 msgid "Resource \"%(resourceType)s\" with identifier=\"%(identifier)s\" not found"
-msgstr ""
-
-#: status.py:62
-msgid "Waiting"
-msgstr ""
-
-#: status.py:65
-msgid "Running"
-msgstr ""
-
-#: status.py:68
-msgid "Done"
-msgstr ""
-
-#: status.py:71
-msgid "Aborted"
-msgstr ""
-
-#: status.py:74
-msgid "Error"
 msgstr ""
 
 #: views.py:59 views.py:74
