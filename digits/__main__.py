@@ -5,6 +5,9 @@ import os.path
 import sys
 
 
+reload(sys)
+sys.setdefaultencoding('utf8')
+
 # Update PATH to include the local DIGITS directory
 PARENT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 found_parent_dir = False
