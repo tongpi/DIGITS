@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 13:35+0800\n"
+"POT-Creation-Date: 2019-02-28 14:03+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -1404,7 +1404,7 @@ msgstr "预训练网络"
 msgid "Custom network"
 msgstr "自定义网络"
 
-#: model/forms.py:264
+#: model/forms.py:264 static/js/home_app.js:547 static/js/home_app.js:578
 msgid "framework"
 msgstr "框架"
 
@@ -2153,41 +2153,65 @@ msgstr ""
 msgid "Running Jobs"
 msgstr "运行作业"
 
+#: static/js/home_app.js:521 static/js/home_app.js:531
+#: static/js/home_app.js:544 static/js/home_app.js:577
+msgid "name"
+msgstr "名称"
+
+#: static/js/home_app.js:522 static/js/home_app.js:537
+#: static/js/home_app.js:550 static/js/home_app.js:583
+msgid "submitted"
+msgstr "提交"
+
+#: static/js/home_app.js:523 static/js/home_app.js:535
+#: static/js/home_app.js:548 static/js/home_app.js:581
+msgid "status"
+msgstr "状态"
+
+#: static/js/home_app.js:524
+msgid "loss"
+msgstr "丢失"
+
+#: static/js/home_app.js:525
+msgid "progress"
+msgstr "进度"
+
 #: static/js/home_app.js:530 templates/home.html:214
 msgid "Datasets"
 msgstr "数据集"
-
-#: static/js/home_app.js:531
-msgid "name"
-msgstr "名称"
 
 #: static/js/home_app.js:532
 msgid "refs"
 msgstr ""
 
-#: static/js/home_app.js:533
+#: static/js/home_app.js:533 static/js/home_app.js:546
 msgid "extension"
-msgstr ""
+msgstr "延期"
 
 #: static/js/home_app.js:534
 msgid "backend"
 msgstr "后端"
 
-#: static/js/home_app.js:535
-msgid "status"
-msgstr "状态"
-
-#: static/js/home_app.js:536
+#: static/js/home_app.js:536 static/js/home_app.js:549
+#: static/js/home_app.js:582
 msgid "elapsed"
 msgstr "已用时间"
-
-#: static/js/home_app.js:537
-msgid "submitted"
-msgstr "提交"
 
 #: static/js/home_app.js:542 static/js/home_app.js:576 templates/home.html:224
 msgid "Models"
 msgstr "模型"
+
+#: static/js/home_app.js:545
+msgid "id"
+msgstr "ID"
+
+#: static/js/home_app.js:579
+msgid "username"
+msgstr "用户名"
+
+#: static/js/home_app.js:580
+msgid "has_labels"
+msgstr "有标签"
 
 #: static/js/model-graphs.js:13 static/js/model-graphs.js:75
 msgid "Epoch"

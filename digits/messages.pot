@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 13:35+0800\n"
+"POT-Creation-Date: 2019-02-28 14:03+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1383,7 +1383,7 @@ msgstr ""
 msgid "Custom network"
 msgstr ""
 
-#: model/forms.py:264
+#: model/forms.py:264 static/js/home_app.js:547 static/js/home_app.js:578
 msgid "framework"
 msgstr ""
 
@@ -2122,19 +2122,38 @@ msgstr ""
 msgid "Running Jobs"
 msgstr ""
 
-#: static/js/home_app.js:530 templates/home.html:214
-msgid "Datasets"
+#: static/js/home_app.js:521 static/js/home_app.js:531
+#: static/js/home_app.js:544 static/js/home_app.js:577
+msgid "name"
 msgstr ""
 
-#: static/js/home_app.js:531
-msgid "name"
+#: static/js/home_app.js:522 static/js/home_app.js:537
+#: static/js/home_app.js:550 static/js/home_app.js:583
+msgid "submitted"
+msgstr ""
+
+#: static/js/home_app.js:523 static/js/home_app.js:535
+#: static/js/home_app.js:548 static/js/home_app.js:581
+msgid "status"
+msgstr ""
+
+#: static/js/home_app.js:524
+msgid "loss"
+msgstr ""
+
+#: static/js/home_app.js:525
+msgid "progress"
+msgstr ""
+
+#: static/js/home_app.js:530 templates/home.html:214
+msgid "Datasets"
 msgstr ""
 
 #: static/js/home_app.js:532
 msgid "refs"
 msgstr ""
 
-#: static/js/home_app.js:533
+#: static/js/home_app.js:533 static/js/home_app.js:546
 msgid "extension"
 msgstr ""
 
@@ -2142,20 +2161,25 @@ msgstr ""
 msgid "backend"
 msgstr ""
 
-#: static/js/home_app.js:535
-msgid "status"
-msgstr ""
-
-#: static/js/home_app.js:536
+#: static/js/home_app.js:536 static/js/home_app.js:549
+#: static/js/home_app.js:582
 msgid "elapsed"
-msgstr ""
-
-#: static/js/home_app.js:537
-msgid "submitted"
 msgstr ""
 
 #: static/js/home_app.js:542 static/js/home_app.js:576 templates/home.html:224
 msgid "Models"
+msgstr ""
+
+#: static/js/home_app.js:545
+msgid "id"
+msgstr ""
+
+#: static/js/home_app.js:579
+msgid "username"
+msgstr ""
+
+#: static/js/home_app.js:580
+msgid "has_labels"
 msgstr ""
 
 #: static/js/model-graphs.js:13 static/js/model-graphs.js:75

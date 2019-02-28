@@ -518,11 +518,11 @@ try {
     app.controller('running_controller', function($scope, $controller) {
         $controller('job_controller', {$scope: $scope});
         $scope.title = gettext('Running Jobs');
-        $scope.fields = [{name: 'name', show: true, min_width: 100},
-                         {name: 'submitted', show: true, min_width: 100},
-                         {name: 'status', show: true, min_width: 120},
-                         {name: 'loss', show: true, min_width: 200},
-                         {name: 'progress', show: true, min_width: 200}];
+        $scope.fields = [{name: 'name', title:gettext('name'), show: true, min_width: 100},
+                         {name: 'submitted', title:gettext('submitted'), show: true, min_width: 100},
+                         {name: 'status', title:gettext('status'), show: true, min_width: 120},
+                         {name: 'loss', title:gettext('loss'), show: true, min_width: 200},
+                         {name: 'progress', title:gettext('progress'), show: true, min_width: 200}];
     });
 
     app.controller('datasets_controller', function($scope, $controller) {
@@ -541,13 +541,13 @@ try {
         $controller('job_controller', {$scope: $scope});
         $scope.title = gettext('Models');
         var model_fields = [
-            {name: 'name', show: true, min_width: 100},
-            {name: 'id', show: false, min_width: 200},
-            {name: 'extension', show: true, min_width: 150},
-            {name: 'framework', show: true, min_width: 50},
-            {name: 'status', show: true, min_width: 50},
-            {name: 'elapsed', show: true, min_width: 50},
-            {name: 'submitted', show: true, min_width: 50}
+            {name: 'name', title:gettext('name'), show: true, min_width: 100},
+            {name: 'id', title:gettext('id'), show: false, min_width: 200},
+            {name: 'extension', title:gettext('extension'), show: true, min_width: 150},
+            {name: 'framework', title:gettext('framework'), show: true, min_width: 50},
+            {name: 'status', title:gettext('status'), show: true, min_width: 50},
+            {name: 'elapsed', title:gettext('elapsed'), show: true, min_width: 50},
+            {name: 'submitted', title:gettext('submitted'), show: true, min_width: 50}
         ];
         if ($localStorage.model_fields) {
             for (var i = 0; i < model_fields.length; i++) {
@@ -574,13 +574,13 @@ try {
     app.controller('pretrained_models_controller', function($scope, $localStorage, $controller) {
         $controller('job_controller', {$scope: $scope});
         $scope.title = gettext('Models');
-        $scope.fields = [{name: 'name', show: true, min_width: 0},
-                         {name: 'framework', show: true, min_width: 0},
-                         {name: 'username', show: true, min_width: 0},
-                         {name: 'has_labels', show: true, min_width: 0},
-                         {name: 'status', show: true, min_width: 0},
-                         {name: 'elapsed', show: true, min_width: 0},
-                         {name: 'submitted', show: true, min_width: 0}];
+        $scope.fields = [{name: 'name', title:gettext('name'), show: true, min_width: 0},
+                         {name: 'framework', title:gettext('framework'), show: true, min_width: 0},
+                         {name: 'username', title:gettext('username'), show: true, min_width: 0},
+                         {name: 'has_labels', title:gettext('has_labels'), show: true, min_width: 0},
+                         {name: 'status', title:gettext('status'), show: true, min_width: 0},
+                         {name: 'elapsed', title:gettext('elapsed'), show: true, min_width: 0},
+                         {name: 'submitted', title:gettext('submitted'), show: true, min_width: 0}];
     });
 
     function precision(input, sigfigs) {
