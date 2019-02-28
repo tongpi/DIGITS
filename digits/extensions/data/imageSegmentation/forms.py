@@ -65,7 +65,7 @@ class DatasetForm(Form):
     )
 
     folder_pct_val = utils.forms.IntegerField(
-        '% ' + _(u'for validation'),
+        '% ' + _('for validation'),
         default=10,
         validators=[
             validators.NumberRange(min=0, max=100)
