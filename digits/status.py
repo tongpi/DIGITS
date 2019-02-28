@@ -58,24 +58,31 @@ class Status():
         if val == self.INIT:
             self.name = 'Initialized'
             self.css = 'warning'
+            self.text = _('Initialized')
         elif val == self.WAIT:
             self.name = 'Waiting'
             self.css = 'warning'
+            self.text = _('Waiting')
         elif val == self.RUN:
             self.name = 'Running'
             self.css = 'info'
+            self.text = _('Running')
         elif val == self.DONE:
             self.name = 'Done'
             self.css = 'success'
+            self.text = _('Done')
         elif val == self.ABORT:
             self.name = 'Aborted'
             self.css = 'warning'
+            self.text = _('Aborted')
         elif val == self.ERROR:
             self.name = 'Error'
             self.css = 'danger'
+            self.text = _('Error')
         else:
             self.name = '?'
             self.css = 'default'
+            self.text = _('?')
 
     def is_running(self):
         return self.val in (self.INIT, self.WAIT, self.RUN)

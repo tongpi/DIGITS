@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 
 import time
+from flask_babel import lazy_gettext as _
 
 
 def print_time(t, ref_time=None):
@@ -28,7 +29,7 @@ def print_time_diff(diff):
         return '?'
 
     if diff < 0:
-        return 'Negative Time'
+        return _('Negative Time')
 
     total_seconds = int(diff)
     days = total_seconds // (24 * 3600)
@@ -46,12 +47,12 @@ def print_time_diff(diff):
             return '%s' % plural(number1, name1)
 
     if days >= 1:
-        return pair(days, 'day', hours, 'hour')
+        return pair(days, _('day'), hours, _('hour'))
     elif hours >= 1:
-        return pair(hours, 'hour', minutes, 'minute')
+        return pair(hours, _('hour'), minutes, _('minute'))
     elif minutes >= 1:
-        return pair(minutes, 'minute', seconds, 'second')
-    return plural(seconds, 'second')
+        return pair(minutes, _('minute'), seconds, _('second'))
+    return plural(seconds, _('second'))
 
 
 def print_time_diff_nosuffixes(diff):
