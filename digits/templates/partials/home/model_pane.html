@@ -97,7 +97,7 @@
                         <th ng-repeat="field in storage.model_fields | filter:show(true)">
                             <div ng-click="change_sorting(field.name, $event)">
                                 <small>
-                                    {[ field.name ]}
+                                    {[ field.title ]}
                                 </small>
                                 <i class="glyphicon"
                                    ng-class="get_icon(field.name)" style="width:14px">
@@ -107,7 +107,7 @@
                         <th ng-repeat="field in storage.model_output_fields | filter:show(true)">
                             <div ng-click="change_sorting(field.name, $event)">
                                 <small>
-                                    {[ field.name ]}
+                                    {[ field.title ]}
                                 </small>
                                 <i class="glyphicon"
                                    ng-class="get_icon(field.name)" style="width:14px">
