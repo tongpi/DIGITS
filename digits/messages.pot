@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 13:04+0800\n"
+"POT-Creation-Date: 2019-02-28 13:35+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -566,6 +566,10 @@ msgstr ""
 
 #: dataset/images/generic/job.py:115
 msgid "Generic Image Dataset"
+msgstr ""
+
+#: dataset/tasks/analyze_db.py:63
+msgid "Analyze DB"
 msgstr ""
 
 #: dataset/tasks/create_db.py:285 dataset/tasks/create_db.py:286
@@ -2122,6 +2126,34 @@ msgstr ""
 msgid "Datasets"
 msgstr ""
 
+#: static/js/home_app.js:531
+msgid "name"
+msgstr ""
+
+#: static/js/home_app.js:532
+msgid "refs"
+msgstr ""
+
+#: static/js/home_app.js:533
+msgid "extension"
+msgstr ""
+
+#: static/js/home_app.js:534
+msgid "backend"
+msgstr ""
+
+#: static/js/home_app.js:535
+msgid "status"
+msgstr ""
+
+#: static/js/home_app.js:536
+msgid "elapsed"
+msgstr ""
+
+#: static/js/home_app.js:537
+msgid "submitted"
+msgstr ""
+
 #: static/js/home_app.js:542 static/js/home_app.js:576 templates/home.html:224
 msgid "Models"
 msgstr ""
@@ -2280,6 +2312,14 @@ msgstr ""
 
 #: templates/login.html:23
 msgid "Submit"
+msgstr ""
+
+#: templates/status_updates.html:7
+msgid "at"
+msgstr ""
+
+#: templates/status_updates.html:12
+msgid "Total"
 msgstr ""
 
 #: templates/status_updates.html:19

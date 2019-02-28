@@ -8,6 +8,8 @@ import sys
 import digits
 from digits.task import Task
 from digits.utils import subclass, override
+from flask_babel import lazy_gettext as _
+
 
 # NOTE: Increment this every time the pickled object
 PICKLE_VERSION = 1
@@ -58,7 +60,7 @@ class AnalyzeDbTask(Task):
 
     @override
     def name(self):
-        return 'Analyze DB (%s)' % (self.purpose)
+        return _('Analyze DB') + ' (%s)' % (self.purpose)
 
     @override
     def html_id(self):

@@ -528,13 +528,13 @@ try {
     app.controller('datasets_controller', function($scope, $controller) {
         $controller('job_controller', {$scope: $scope});
         $scope.title = gettext('Datasets');
-        $scope.fields = [{name: 'name', show: true},
-                         {name: 'refs', show: true},
-                         {name: 'extension', show: true, min_width: 150},
-                         {name: 'backend', show: true},
-                         {name: 'status', show: true},
-                         {name: 'elapsed', show: true},
-                         {name: 'submitted', show: true}];
+        $scope.fields = [{name: 'name', title:gettext('name'), show: true},
+                         {name: 'refs', title:gettext('refs'), show: true},
+                         {name: 'extension', title:gettext('extension'), show: true, min_width: 150},
+                         {name: 'backend', title:gettext('backend'), show: true},
+                         {name: 'status', title:gettext('status'), show: true},
+                         {name: 'elapsed', title:gettext('elapsed'), show: true},
+                         {name: 'submitted', title:gettext('submitted'), show: true}];
     });
 
     app.controller('models_controller', function($scope, $localStorage, $controller) {

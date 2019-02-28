@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 13:04+0800\n"
+"POT-Creation-Date: 2019-02-28 13:35+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -571,6 +571,10 @@ msgstr "服务器上.binaryproto文件的路径"
 #: dataset/images/generic/job.py:115
 msgid "Generic Image Dataset"
 msgstr "通用图像数据集"
+
+#: dataset/tasks/analyze_db.py:63
+msgid "Analyze DB"
+msgstr "分析 DB"
 
 #: dataset/tasks/create_db.py:285 dataset/tasks/create_db.py:286
 msgid "labels_file not set"
@@ -2153,6 +2157,34 @@ msgstr "运行作业"
 msgid "Datasets"
 msgstr "数据集"
 
+#: static/js/home_app.js:531
+msgid "name"
+msgstr "名称"
+
+#: static/js/home_app.js:532
+msgid "refs"
+msgstr ""
+
+#: static/js/home_app.js:533
+msgid "extension"
+msgstr ""
+
+#: static/js/home_app.js:534
+msgid "backend"
+msgstr "后端"
+
+#: static/js/home_app.js:535
+msgid "status"
+msgstr "状态"
+
+#: static/js/home_app.js:536
+msgid "elapsed"
+msgstr "已用时间"
+
+#: static/js/home_app.js:537
+msgid "submitted"
+msgstr "提交"
+
 #: static/js/home_app.js:542 static/js/home_app.js:576 templates/home.html:224
 msgid "Models"
 msgstr "模型"
@@ -2312,6 +2344,14 @@ msgstr "必须以字母开头，并且只包含小写字母，数字，句点，
 #: templates/login.html:23
 msgid "Submit"
 msgstr "提交"
+
+#: templates/status_updates.html:7
+msgid "at"
+msgstr "于"
+
+#: templates/status_updates.html:12
+msgid "Total"
+msgstr "总计"
 
 #: templates/status_updates.html:19
 msgid "ERROR:"
@@ -4278,3 +4318,4 @@ msgstr "测试片段"
 #: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
 msgid "Test a data file"
 msgstr "测试数据文件"
+
