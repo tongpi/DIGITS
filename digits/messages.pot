@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 11:16+0800\n"
+"POT-Creation-Date: 2019-02-28 13:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -30,6 +30,34 @@ msgstr ""
 #: scheduler.py:481
 #, python-format
 msgid "Resource \"%(resourceType)s\" with identifier=\"%(identifier)s\" not found"
+msgstr ""
+
+#: status.py:61
+msgid "Initialized"
+msgstr ""
+
+#: status.py:65
+msgid "Waiting"
+msgstr ""
+
+#: status.py:69
+msgid "Running"
+msgstr ""
+
+#: status.py:73
+msgid "Done"
+msgstr ""
+
+#: status.py:77
+msgid "Aborted"
+msgstr ""
+
+#: status.py:81
+msgid "Error"
+msgstr ""
+
+#: status.py:85
+msgid "?"
 msgstr ""
 
 #: views.py:59 views.py:74
@@ -3798,6 +3826,26 @@ msgstr ""
 
 #: utils/routing.py:17
 msgid "job_id is a required field"
+msgstr ""
+
+#: utils/time_filters.py:32
+msgid "Negative Time"
+msgstr ""
+
+#: utils/time_filters.py:50
+msgid "day"
+msgstr ""
+
+#: utils/time_filters.py:50 utils/time_filters.py:52
+msgid "hour"
+msgstr ""
+
+#: utils/time_filters.py:52 utils/time_filters.py:54
+msgid "minute"
+msgstr ""
+
+#: utils/time_filters.py:54 utils/time_filters.py:55
+msgid "second"
 msgstr ""
 
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:31

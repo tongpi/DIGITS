@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 11:16+0800\n"
+"POT-Creation-Date: 2019-02-28 13:04+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -32,6 +32,34 @@ msgstr "调用%(type)s的删除作业"
 #, python-format
 msgid "Resource \"%(resourceType)s\" with identifier=\"%(identifier)s\" not found"
 msgstr "identifier=\"%(identifier)s\" 的资源 \"%(resourceType)s\" 未发现"
+
+#: status.py:61
+msgid "Initialized"
+msgstr "初始化"
+
+#: status.py:65
+msgid "Waiting"
+msgstr "等待"
+
+#: status.py:69
+msgid "Running"
+msgstr "运行"
+
+#: status.py:73
+msgid "Done"
+msgstr "完成"
+
+#: status.py:77
+msgid "Aborted"
+msgstr "失败"
+
+#: status.py:81
+msgid "Error"
+msgstr "错误"
+
+#: status.py:85
+msgid "?"
+msgstr ""
 
 #: views.py:59 views.py:74
 msgid "Classification"
@@ -3841,6 +3869,26 @@ msgstr "未识别的数据形状：%(data_shape)s"
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
 
+#: utils/time_filters.py:32
+msgid "Negative Time"
+msgstr "负时间"
+
+#: utils/time_filters.py:50
+msgid "day"
+msgstr "天"
+
+#: utils/time_filters.py:50 utils/time_filters.py:52
+msgid "hour"
+msgstr "小时"
+
+#: utils/time_filters.py:52 utils/time_filters.py:54
+msgid "minute"
+msgstr "分钟"
+
+#: utils/time_filters.py:54 utils/time_filters.py:55
+msgid "second"
+msgstr "秒"
+
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:31
 msgid "Story folder"
 msgstr ""
@@ -4230,32 +4278,3 @@ msgstr "测试片段"
 #: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
 msgid "Test a data file"
 msgstr "测试数据文件"
-
-#~ msgid "Resize after crop"
-#~ msgstr ""
-
-#~ msgid ""
-#~ "Data file in .csv format. There "
-#~ "should be one sample per line. On"
-#~ " each line, the first field should"
-#~ " be the numerical class label. All"
-#~ " subsequent fields will be concatenated "
-#~ "to produce a single string of "
-#~ "characters, up to the specified limit"
-#~ msgstr ".csv格式的数据文件。 每行应该有一个样本。 在每一行上，第一个字段应该是数字类标签。 将连接所有后续字段以生成单个字符串，直到指定的限制。"
-
-#~ msgid "Waiting"
-#~ msgstr "等待中"
-
-#~ msgid "Running"
-#~ msgstr "正在运行中"
-
-#~ msgid "Done"
-#~ msgstr "完成"
-
-#~ msgid "Aborted"
-#~ msgstr "中止"
-
-#~ msgid "Error"
-#~ msgstr "出错"
-
