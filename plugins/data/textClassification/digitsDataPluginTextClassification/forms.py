@@ -38,7 +38,7 @@ class DatasetForm(Form):
                   "per line. On each line, the first field should be the "
                   "numerical class label. All subsequent fields will be "
                   "concatenated to produce a single string of characters, "
-                  "up to the specified limit")
+                  "up to the specified limit.")
     )
 
     val_data_file = utils.forms.StringField(
@@ -106,5 +106,5 @@ class InferenceForm(Form):
                   "per line. On each line, the first field should be the "
                   "numerical class label. All subsequent fields will be "
                   "concatenated to produce a single string of characters, "
-                  "up to the specified limit")
+                  "up to the specified limit.")
     )

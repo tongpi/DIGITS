@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-27 15:43+0800\n"
+"POT-Creation-Date: 2019-02-28 09:21+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -243,6 +243,7 @@ msgstr ""
 msgid "Image Type"
 msgstr ""
 
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:52
 #: dataset/images/forms.py:36 extensions/data/imageProcessing/forms.py:92
 #: extensions/data/imageSegmentation/forms.py:109
 #: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:29
@@ -357,12 +358,16 @@ msgid ""
 "holds. Can also be a URL for an apache/nginx auto-indexed folder."
 msgstr ""
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:71
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:59
 #: dataset/images/classification/forms.py:99
 #: extensions/data/imageProcessing/forms.py:54
 #: extensions/data/imageSegmentation/forms.py:68
 msgid "for validation"
 msgstr ""
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:76
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:64
 #: dataset/images/classification/forms.py:105
 #: extensions/data/imageProcessing/forms.py:59
 #: extensions/data/imageSegmentation/forms.py:73
@@ -488,6 +493,7 @@ msgstr ""
 msgid "Labels"
 msgstr ""
 
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:69
 #: dataset/images/classification/forms.py:356
 #: dataset/images/classification/forms.py:367
 #: extensions/data/imageSegmentation/forms.py:122
@@ -675,12 +681,14 @@ msgstr ""
 msgid "Validation label image folder"
 msgstr ""
 
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:49
 #: extensions/data/imageProcessing/forms.py:89
 #: extensions/data/imageSegmentation/forms.py:106
 #: extensions/data/objectDetection/forms.py:105
 msgid "Channel conversion"
 msgstr ""
 
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:55
 #: extensions/data/imageProcessing/forms.py:96
 #: extensions/data/objectDetection/forms.py:112
 msgid "Perform selected channel conversion."
@@ -2471,6 +2479,9 @@ msgid ""
 "the <LABEL> is a numeric label that matches the uploaded labels file"
 msgstr ""
 
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:51
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:190
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:31
 #: templates/datasets/images/classification/new.html:225
 #: templates/models/images/classification/show.html:236
 #: templates/models/images/generic/show.html:349
@@ -3135,6 +3146,7 @@ msgstr ""
 msgid "Raw %(tgfi)s output"
 msgstr ""
 
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:118
 #: templates/models/images/classification/show.html:37
 #: templates/models/images/generic/show.html:39
 msgid "Dataset"
@@ -3213,6 +3225,7 @@ msgid ""
 " classification considerably."
 msgstr ""
 
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:24
 #: templates/models/images/classification/show.html:219
 #: templates/models/images/generic/show.html:332
 msgid "Test a list of images"
@@ -3240,6 +3253,7 @@ msgstr ""
 msgid "Number of images use from the file"
 msgstr ""
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:43
 #: templates/models/images/classification/show.html:242
 #: templates/models/images/generic/show.html:355
 msgid "All"
@@ -3799,5 +3813,395 @@ msgstr ""
 
 #: utils/routing.py:17
 msgid "job_id is a required field"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:31
+msgid "Story folder"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:36
+msgid ""
+"Specify the path to a folder of stories - filenames are expected to have "
+"this format: qa[1-N]*[train|test].txt"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:41
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:128
+msgid "Task ID"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:66
+msgid "Select a task to train on or 'all' to train a joint model on all tasks."
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:98
+msgid "Story/Question"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:99
+msgid "Write all sentences there and end with a question"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/templates/inference_template.html:9
+msgid "Test a story/question"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:43
+msgid "File list (with attributes) in CelebA format"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:47
+msgid "Provide file list in CelebA format"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:56
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:194
+msgid "Specify the path to a folder of images."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:60
+msgid "Center crop size"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:65
+msgid "Specify center crop."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:69
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:71
+msgid "Resize after crop."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:109
+msgid "Rows"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:114
+msgid "Rows to generate in output grid."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:124
+msgid "Select a dataset."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:130
+msgid "MNIST - Class sweep"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:131
+msgid "MNIST - Style sweep"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:132
+msgid "Generate single image"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:133
+msgid "CelebA - add/remove attributes"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:134
+msgid "CelebA - Encode list of images"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:135
+msgid "CelebA - Analogy"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:136
+msgid "CelebA - Animation"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:139
+msgid "Select a task to execute."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:143
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:155
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:168
+msgid "Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:147
+msgid "Z1 vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:151
+msgid "Z2 vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:159
+msgid "Class ID"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:164
+msgid "Class of image to generate (leave blank for CelebA)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:172
+msgid "Attributes vector file"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:176
+msgid "Specify the path to a file that contains attributes vectors."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:182
+msgid "File list"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:186
+msgid "Specify the path to a file that contains a list of files."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:198
+msgid "Number of images to encode"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:203
+msgid "Max number of images to encode."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:207
+msgid "Source Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:211
+msgid "First Sink Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:215
+msgid "Second Sink Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:219
+msgid "Number of transitions per image"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:224
+msgid "Number of transitions between each of the specified images"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:228
+msgid "z vectors (one per line)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:57
+msgid "GAN inference Options"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:61
+msgid "Choose a type of dataset"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:69
+msgid "Choose a task"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:78
+msgid "MNIST Class sweep parameters"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:80
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:92
+msgid "Use with \"GAN\" visualization method (select \"Grid\" task)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:90
+msgid "MNIST Style sweep parameters"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:108
+msgid "Image generation parameters"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:110
+msgid "Use with \"Image Output\" visualization method (select \"HWC\" data order)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:126
+msgid "CelebA Additive Attributes"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:128
+msgid "Use with \"Image Output\" visualization method (HWC data order)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:142
+msgid ""
+"Add or remove attributes by filling corresponding box with +1 or -1\n"
+"        (or any other multiplier)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:167
+msgid "Encode file list"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:169
+msgid "Use with \"GAN\" visualization method (select \"Encoder\" task)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:191
+msgid "Analogy"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:193
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:217
+msgid "Use with \"GAN\" visualization method"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:215
+msgid "Animation"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:20
+msgid "Train Image count"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:26
+msgid "Number of images to create in training set"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:30
+msgid "Validation Image count"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:36
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:46
+msgid "Number of images to create in validation set"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:40
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:87
+msgid "Test Image count"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:50
+msgid "Image Width"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:56
+msgid "Image Height"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:69
+msgid "Gradient (x)"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:74
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:83
+msgid "Specify a number between -0.5 and 0.5"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:78
+msgid "Gradient (y)"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:92
+msgid "Number of images to create in test set"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:9
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:9
+msgid "Test an image"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:36
+msgid "Specify the path to the image folder"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:40
+msgid "Contour folder"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:45
+msgid "Specify the path to the contour folder"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:51
+msgid "RGB"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:86
+msgid "Image file"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:90
+msgid "Provide the (server) path to an image."
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:94
+msgid "Record from validation set"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:99
+msgid "Test a record from the validation set."
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:20
+msgid "Test a record from validation set"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:32
+msgid "Training data (.csv)"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:37
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:49
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:105
+msgid ""
+"Data file in .csv format. There should be one sample per line. On each "
+"line, the first field should be the numerical class label. All subsequent"
+" fields will be concatenated to produce a single string of characters, up"
+" to the specified limit."
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:45
+msgid "Validation data (.csv)"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:57
+msgid "Dictionary"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:59
+msgid ""
+"Alphabet to use when converting characters to IDs (1-based indexing). "
+"Unknown characters will be all be assigned the same next available ID. "
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:65
+msgid "Class labels"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:76
+msgid "Number of characters per sample"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:82
+msgid ""
+"Specify how many characters to retain per sample. Shorter samples will be"
+" padded. Longer samples will be truncated. Leave blank and disable "
+"'Enforce same shape' below to use sample size in data file "
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:96
+msgid "Snippet"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:97
+msgid "Test a single snippet"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:101
+msgid "Test data (.csv)"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:9
+msgid "Test a snippet"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
+msgid "Test a data file"
 msgstr ""
 

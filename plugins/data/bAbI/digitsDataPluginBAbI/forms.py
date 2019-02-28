@@ -68,7 +68,7 @@ class DatasetForm(Form):
         )
 
     pct_val = utils.forms.IntegerField(
-        _(u'% for validation'),
+        '%' + _(u'for validation'),
         default=10,
         validators=[
             validators.NumberRange(min=0, max=100)

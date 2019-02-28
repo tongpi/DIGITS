@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-27 15:43+0800\n"
+"POT-Creation-Date: 2019-02-28 09:21+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -244,6 +244,7 @@ msgstr "图像编码"
 msgid "Image Type"
 msgstr "图像类型"
 
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:52
 #: dataset/images/forms.py:36 extensions/data/imageProcessing/forms.py:92
 #: extensions/data/imageSegmentation/forms.py:109
 #: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:29
@@ -361,12 +362,16 @@ msgid ""
 "holds. Can also be a URL for an apache/nginx auto-indexed folder."
 msgstr "指示包含充满图像的子文件夹的文件夹。 应根据所包含图像的所需标签命名每个子文件夹。 也可以是apache / nginx自动索引文件夹的URL。"
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:71
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:59
 #: dataset/images/classification/forms.py:99
 #: extensions/data/imageProcessing/forms.py:54
 #: extensions/data/imageSegmentation/forms.py:68
 msgid "for validation"
 msgstr "用于校验"
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:76
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:64
 #: dataset/images/classification/forms.py:105
 #: extensions/data/imageProcessing/forms.py:59
 #: extensions/data/imageSegmentation/forms.py:73
@@ -492,6 +497,7 @@ msgstr "在创建数据库之前随机播放图像列表。"
 msgid "Labels"
 msgstr "标签"
 
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:69
 #: dataset/images/classification/forms.py:356
 #: dataset/images/classification/forms.py:367
 #: extensions/data/imageSegmentation/forms.py:122
@@ -669,7 +675,7 @@ msgstr ""
 #: extensions/data/imageProcessing/forms.py:63
 #: extensions/data/imageSegmentation/forms.py:77
 msgid "Separate validation images"
-msgstr ""
+msgstr "独立验证图片"
 
 #: extensions/data/imageProcessing/forms.py:68
 #: extensions/data/imageSegmentation/forms.py:82
@@ -681,12 +687,14 @@ msgstr "验证功能图像文件夹"
 msgid "Validation label image folder"
 msgstr "验证标签图像文件夹"
 
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:49
 #: extensions/data/imageProcessing/forms.py:89
 #: extensions/data/imageSegmentation/forms.py:106
 #: extensions/data/objectDetection/forms.py:105
 msgid "Channel conversion"
 msgstr "通道转换"
 
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:55
 #: extensions/data/imageProcessing/forms.py:96
 #: extensions/data/objectDetection/forms.py:112
 msgid "Perform selected channel conversion."
@@ -2504,6 +2512,9 @@ msgstr ""
 "文件中的每一行都应格式化为'<PATH> <LABEL>' "
 "<PATH>指定本地文件系统或URL上的图像路径，<LABEL>是与上载的标签文件匹配的数字标签"
 
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:51
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:190
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:31
 #: templates/datasets/images/classification/new.html:225
 #: templates/models/images/classification/show.html:236
 #: templates/models/images/generic/show.html:349
@@ -3176,6 +3187,7 @@ msgstr "磁盘大小"
 msgid "Raw %(tgfi)s output"
 msgstr "原始%(tgfi)s输出"
 
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:118
 #: templates/models/images/classification/show.html:37
 #: templates/models/images/generic/show.html:39
 msgid "Dataset"
@@ -3254,6 +3266,7 @@ msgid ""
 " classification considerably."
 msgstr "对于网络中的每个层，显示权重/激活的统计信息，并尝试直观地表示数据。 可以大大延迟分类。"
 
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:24
 #: templates/models/images/classification/show.html:219
 #: templates/models/images/generic/show.html:332
 msgid "Test a list of images"
@@ -3281,6 +3294,7 @@ msgstr "在读取之前，文本文件中的相对路径将以此值为前缀"
 msgid "Number of images use from the file"
 msgstr "从文件中使用的图像数量"
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:43
 #: templates/models/images/classification/show.html:242
 #: templates/models/images/generic/show.html:355
 msgid "All"
@@ -3841,3 +3855,407 @@ msgstr "未识别的数据形状：%(data_shape)s"
 #: utils/routing.py:17
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:31
+msgid "Story folder"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:36
+msgid ""
+"Specify the path to a folder of stories - filenames are expected to have "
+"this format: qa[1-N]*[train|test].txt"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:41
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:128
+msgid "Task ID"
+msgstr "任务ID"
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:66
+msgid "Select a task to train on or 'all' to train a joint model on all tasks."
+msgstr "选择要训练的任务或“全部”任务来训练所有任务的联合模型"
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:98
+msgid "Story/Question"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:99
+msgid "Write all sentences there and end with a question"
+msgstr "在那里写下所有句子并以问题结束"
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/templates/inference_template.html:9
+msgid "Test a story/question"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:43
+msgid "File list (with attributes) in CelebA format"
+msgstr "文件列表（带有属性）采用CelebA格式"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:47
+msgid "Provide file list in CelebA format"
+msgstr "提供CelebA格式的文件列表"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:56
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:194
+msgid "Specify the path to a folder of images."
+msgstr "指定图像文件夹的路径"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:60
+msgid "Center crop size"
+msgstr "中心裁剪尺寸"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:65
+msgid "Specify center crop."
+msgstr "指定中心裁剪"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:69
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:71
+msgid "Resize after crop."
+msgstr "调整后的裁剪"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:109
+msgid "Rows"
+msgstr "行"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:114
+msgid "Rows to generate in output grid."
+msgstr "在输出网格中生成的行"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:124
+msgid "Select a dataset."
+msgstr "选择一个数据集。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:130
+msgid "MNIST - Class sweep"
+msgstr "MNIST - 类扫描"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:131
+msgid "MNIST - Style sweep"
+msgstr "MNIST - 风格扫描"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:132
+msgid "Generate single image"
+msgstr "生成一张图片"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:133
+msgid "CelebA - add/remove attributes"
+msgstr "CelebA - 添加/删除属性"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:134
+msgid "CelebA - Encode list of images"
+msgstr "CelebA - 图像编码表"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:135
+msgid "CelebA - Analogy"
+msgstr "CelebA - 类比"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:136
+msgid "CelebA - Animation"
+msgstr "CelebA - 动画"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:139
+msgid "Select a task to execute."
+msgstr "选择要执行的任务。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:143
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:155
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:168
+msgid "Z vector (leave blank for random)"
+msgstr "Z矢量（随机留空）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:147
+msgid "Z1 vector (leave blank for random)"
+msgstr "Z1矢量（随机留空）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:151
+msgid "Z2 vector (leave blank for random)"
+msgstr "Z2矢量（随机留空）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:159
+msgid "Class ID"
+msgstr "类ID"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:164
+msgid "Class of image to generate (leave blank for CelebA)."
+msgstr "要生成的图像的类（为CelebA留空）。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:172
+msgid "Attributes vector file"
+msgstr "属性向量文件"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:176
+msgid "Specify the path to a file that contains attributes vectors."
+msgstr "指定包含属性向量的文件路径。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:182
+msgid "File list"
+msgstr "文件列表"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:186
+msgid "Specify the path to a file that contains a list of files."
+msgstr "指定包含文件列表的问文件路径。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:198
+msgid "Number of images to encode"
+msgstr "要编码的图像数量。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:203
+msgid "Max number of images to encode."
+msgstr "要编码的图像的最大数量。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:207
+msgid "Source Z vector (leave blank for random)"
+msgstr "基础Z矢量（随机留空）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:211
+msgid "First Sink Z vector (leave blank for random)"
+msgstr "第一接收Z矢量（随机留空）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:215
+msgid "Second Sink Z vector (leave blank for random)"
+msgstr "第二接收Z矢量（随机留空）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:219
+msgid "Number of transitions per image"
+msgstr "每个图像的转换次数"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:224
+msgid "Number of transitions between each of the specified images"
+msgstr "每个指定图像之间的转换次数"
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:228
+msgid "z vectors (one per line)"
+msgstr "Z矢量（一行一个）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:57
+msgid "GAN inference Options"
+msgstr "GAN 推理选项"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:61
+msgid "Choose a type of dataset"
+msgstr "选择一种数据集类型"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:69
+msgid "Choose a task"
+msgstr "选择一个任务"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:78
+msgid "MNIST Class sweep parameters"
+msgstr "MNIST类扫描参数"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:80
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:92
+msgid "Use with \"GAN\" visualization method (select \"Grid\" task)."
+msgstr "与GAN可视化方法一起使用（选择Grid任务）。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:90
+msgid "MNIST Style sweep parameters"
+msgstr "MNIST格式扫描参数"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:108
+msgid "Image generation parameters"
+msgstr "图像生成参数"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:110
+msgid "Use with \"Image Output\" visualization method (select \"HWC\" data order)"
+msgstr "与图像输出可视化方法一起使用（选择HWC数据顺序）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:126
+msgid "CelebA Additive Attributes"
+msgstr "CelebA添加属性"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:128
+msgid "Use with \"Image Output\" visualization method (HWC data order)."
+msgstr "使用图像输出可视化方法（HWC数据顺序）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:142
+msgid ""
+"Add or remove attributes by filling corresponding box with +1 or -1\n"
+"        (or any other multiplier)."
+msgstr "通过+1或-1填充相应的框来添加或删除属性。"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:167
+msgid "Encode file list"
+msgstr "编码文件列表"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:169
+msgid "Use with \"GAN\" visualization method (select \"Encoder\" task)."
+msgstr "与GAN可视化方法一起使用（选择Encoder任务）"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:191
+msgid "Analogy"
+msgstr "类比"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:193
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:217
+msgid "Use with \"GAN\" visualization method"
+msgstr "使用GAN可视化方法"
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:215
+msgid "Animation"
+msgstr "动画"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:20
+msgid "Train Image count"
+msgstr "训练图像数"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:26
+msgid "Number of images to create in training set"
+msgstr "要在训练集中创建的图像的数量"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:30
+msgid "Validation Image count"
+msgstr "验证图像数量"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:36
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:46
+msgid "Number of images to create in validation set"
+msgstr "要在验证集中创建的图像数量"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:40
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:87
+msgid "Test Image count"
+msgstr "测试图像数量"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:50
+msgid "Image Width"
+msgstr "图像宽度"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:56
+msgid "Image Height"
+msgstr "图像高度"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:69
+msgid "Gradient (x)"
+msgstr "梯度（x）"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:74
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:83
+msgid "Specify a number between -0.5 and 0.5"
+msgstr "指定一个介于 -0.5 到 0.5 之间的数"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:78
+msgid "Gradient (y)"
+msgstr "梯度（y）"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:92
+msgid "Number of images to create in test set"
+msgstr "在测试集中创建的图像数量"
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:9
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:9
+msgid "Test an image"
+msgstr "测试一个图像"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:36
+msgid "Specify the path to the image folder"
+msgstr "指定图像文件夹的路径"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:40
+msgid "Contour folder"
+msgstr "轮廓的文件夹"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:45
+msgid "Specify the path to the contour folder"
+msgstr "指定轮廓文件夹的路径"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:51
+msgid "RGB"
+msgstr "RGB"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:86
+msgid "Image file"
+msgstr "图像文件"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:90
+msgid "Provide the (server) path to an image."
+msgstr "提供图像的（服务器）路径"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:94
+msgid "Record from validation set"
+msgstr "验证集记录"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:99
+msgid "Test a record from the validation set."
+msgstr "测试验证集的记录"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:20
+msgid "Test a record from validation set"
+msgstr "从验证集测试一条记录"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:32
+msgid "Training data (.csv)"
+msgstr "训练数据（.csv）"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:37
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:49
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:105
+msgid ""
+"Data file in .csv format. There should be one sample per line. On each "
+"line, the first field should be the numerical class label. All subsequent"
+" fields will be concatenated to produce a single string of characters, up"
+" to the specified limit."
+msgstr ".csv格式的数据文件。 每行应该有一个样本。 在每一行上，第一个字段应该是数字类标签。 将连接所有后续字段以生成单个字符串，直到指定的限制。"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:45
+msgid "Validation data (.csv)"
+msgstr "验证数据（.csv）"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:57
+msgid "Dictionary"
+msgstr "字典"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:59
+msgid ""
+"Alphabet to use when converting characters to IDs (1-based indexing). "
+"Unknown characters will be all be assigned the same next available ID. "
+msgstr "将字符转换为id时使用字母表（基于1的索引）。未知字符将被分配到相同的下一个可用ID"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:65
+msgid "Class labels"
+msgstr "类标签"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:76
+msgid "Number of characters per sample"
+msgstr "每个样本的字符数目"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:82
+msgid ""
+"Specify how many characters to retain per sample. Shorter samples will be"
+" padded. Longer samples will be truncated. Leave blank and disable "
+"'Enforce same shape' below to use sample size in data file "
+msgstr "指定每个样本保留的字符数。 较短的样本将被填充。 较长的样本将被截断。留空并禁用下面的“强制执行相同形状”以在数据文件中使用样本大小"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:96
+msgid "Snippet"
+msgstr "片段"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:97
+msgid "Test a single snippet"
+msgstr "测试一个代码段"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:101
+msgid "Test data (.csv)"
+msgstr "测试数据（.csv）"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:9
+msgid "Test a snippet"
+msgstr "测试片段"
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
+msgid "Test a data file"
+msgstr "测试数据文件"
+
+#~ msgid "Resize after crop"
+#~ msgstr ""
+
+#~ msgid ""
+#~ "Data file in .csv format. There "
+#~ "should be one sample per line. On"
+#~ " each line, the first field should"
+#~ " be the numerical class label. All"
+#~ " subsequent fields will be concatenated "
+#~ "to produce a single string of "
+#~ "characters, up to the specified limit"
+#~ msgstr ".csv格式的数据文件。 每行应该有一个样本。 在每一行上，第一个字段应该是数字类标签。 将连接所有后续字段以生成单个字符串，直到指定的限制。"
+

@@ -66,7 +66,7 @@ class DatasetForm(Form):
     )
 
     resize = utils.forms.IntegerField(
-        _(u'Resize after crop'),
+        _(u'Resize after crop.'),
         default=64,
         tooltip=_("Resize after crop.")
     )
