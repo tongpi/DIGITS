@@ -21,12 +21,12 @@
 
 {% block content %}
 <div class="row">
-    {% if total_gpu_count %}
+    <!--{% if total_gpu_count %}-->
     <div id="gpus-available" class="pull-right" style="margin-top:20px">
         {{remaining_gpu_count}}/{{total_gpu_count}}
         GPU{{'s' if total_gpu_count != 1 }} {{_('available')}}
     </div>
-    {% endif %}
+    <!--{% endif %}-->
     <h1>{{ _('Home') }}</h1>
 </div>
 
