@@ -1,4 +1,8 @@
 // Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
+
+var gt = new Gettext({domain: 'digits'});
+var gettext = function(msgid) { return gt.gettext(msgid); };
+
 function drawCombinedGraph(data) {
     $('.combined-graph').show();
     // drawCombinedGraph.chart is a static variable that holds the graph state;
