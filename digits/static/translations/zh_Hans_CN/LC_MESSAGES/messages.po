@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-02-28 14:03+0800\n"
+"POT-Creation-Date: 2019-03-01 09:29+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -2182,7 +2182,7 @@ msgstr "数据集"
 
 #: static/js/home_app.js:532
 msgid "refs"
-msgstr ""
+msgstr "引用"
 
 #: static/js/home_app.js:533 static/js/home_app.js:546
 msgid "extension"

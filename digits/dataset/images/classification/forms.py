@@ -96,7 +96,7 @@ class ImageClassificationDatasetForm(ImageDatasetForm):
     )
 
     folder_pct_val = utils.forms.IntegerField(
-        '% ' + _('for validation'),
+        _('for validation'),
         default=25,
         validators=[
             validate_required_iff(method='folder'),
@@ -107,7 +107,7 @@ class ImageClassificationDatasetForm(ImageDatasetForm):
     )
 
     folder_pct_test = utils.forms.IntegerField(
-        '% ' + _('for testing'),
+        _('for testing'),
         default=0,
         validators=[
             validate_required_iff(method='folder'),
