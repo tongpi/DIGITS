@@ -460,9 +460,9 @@ def delete_job(job_id):
 
     try:
         if scheduler.delete_job(job_id):
-            return _('Job deleted.')
+            return 'Job deleted.'
         else:
-            raise werkzeug.exceptions.Forbidden(_('Job not deleted'))
+            raise werkzeug.exceptions.Forbidden('Job not deleted')
     except utils.errors.DeleteError as e:
         raise werkzeug.exceptions.Forbidden(str(e))
 
