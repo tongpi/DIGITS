@@ -126,7 +126,7 @@ class TensorflowTrainTask(TrainTask):
     # Task overrides
     @override
     def name(self):
-        return _('Train Tensorflow Model')
+        return 'Train Tensorflow Model'
 
     @override
     def before_run(self):
@@ -148,7 +148,7 @@ class TensorflowTrainTask(TrainTask):
         snapshot_pre = None
 
         if len(self.snapshots) == 0:
-            return _("no snapshots")
+            return "no snapshots"
 
         if epoch == -1 or not epoch:
             epoch = self.snapshots[-1][1]
@@ -190,7 +190,7 @@ class TensorflowTrainTask(TrainTask):
 
         if self.use_mean != 'none':
             mean_file = self.dataset.get_mean_file()
-            assert mean_file is not None, _('Failed to retrieve mean file.')
+            assert mean_file is not None, 'Failed to retrieve mean file.'
             args.append('--mean=%s' % self.dataset.path(mean_file))
 
         if hasattr(self.dataset, 'labels_file'):
@@ -557,7 +557,7 @@ class TensorflowTrainTask(TrainTask):
 
         if self.use_mean != 'none':
             mean_file = self.dataset.get_mean_file()
-            assert mean_file is not None, _('Failed to retrieve mean file.')
+            assert mean_file is not None, 'Failed to retrieve mean file.'
             args.append('--mean=%s' % self.dataset.path(mean_file))
 
         if self.use_mean == 'pixel':
@@ -762,7 +762,7 @@ class TensorflowTrainTask(TrainTask):
         if match:
             label = match.group(1)
             confidence = match.group(2)
-            assert not('inf' in confidence or 'nan' in confidence), _('Network reported %(label)s for confidence value. Please check image and network', label=label) # noqa
+            assert not('inf' in confidence or 'nan' in confidence), 'Network reported %s for confidence value. Please check image and network' % label  # noqa
             confidence = float(confidence)
             predictions.append((label, confidence))
             return True

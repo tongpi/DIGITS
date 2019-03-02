@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-01 09:29+0800\n"
+"POT-Creation-Date: 2019-03-02 15:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,13 +68,8 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
-#: pretrained_model/tasks/upload_pretrained.py:37
 #: static/js/PretrainedModel.js:150 views.py:89
 msgid "Upload Pretrained Model"
-msgstr ""
-
-#: views.py:95
-msgid "Retrieve from Model Store"
 msgstr ""
 
 #: model/views.py:37 model/views.py:73 model/views.py:274 utils/routing.py:21
@@ -98,14 +93,6 @@ msgstr ""
 
 #: views.py:436
 msgid "Job not found."
-msgstr ""
-
-#: views.py:463
-msgid "Job deleted."
-msgstr ""
-
-#: views.py:465
-msgid "Job not deleted"
 msgstr ""
 
 #: views.py:513
@@ -564,24 +551,8 @@ msgstr ""
 msgid "Path to a .binaryproto file on the server"
 msgstr ""
 
-#: dataset/images/generic/job.py:115
-msgid "Generic Image Dataset"
-msgstr ""
-
 #: dataset/tasks/analyze_db.py:63
 msgid "Analyze DB"
-msgstr ""
-
-#: dataset/tasks/create_db.py:285 dataset/tasks/create_db.py:286
-msgid "labels_file not set"
-msgstr ""
-
-#: dataset/tasks/create_db.py:287
-msgid "labels_file does not exist"
-msgstr ""
-
-#: dataset/tasks/create_db.py:296
-msgid "no labels in labels_file"
 msgstr ""
 
 #: dataset/tasks/create_generic_db.py:70
@@ -605,10 +576,6 @@ msgstr ""
 #: extensions/data/imageSegmentation/data.py:107
 #, python-format
 msgid "Unhandled number of channels: %(ndim)d"
-msgstr ""
-
-#: extensions/data/imageProcessing/data.py:107
-msgid "Processing"
 msgstr ""
 
 #: extensions/data/imageProcessing/data.py:126
@@ -721,10 +688,6 @@ msgstr ""
 
 #: extensions/data/imageSegmentation/data.py:91
 msgid "All label images must use the same palette"
-msgstr ""
-
-#: extensions/data/imageSegmentation/data.py:149
-msgid "Segmentation"
 msgstr ""
 
 #: extensions/data/imageSegmentation/data.py:177
@@ -844,10 +807,6 @@ msgstr ""
 #: extensions/data/objectDetection/data.py:103
 #, python-format
 msgid "Label key %(label_id)s not found in label folder"
-msgstr ""
-
-#: extensions/data/objectDetection/data.py:172
-msgid "Object Detection"
 msgstr ""
 
 #: extensions/data/objectDetection/forms.py:31
@@ -1114,22 +1073,9 @@ msgstr ""
 msgid "Not a valid NetParameter: %(e)s"
 msgstr ""
 
-#: frameworks/tensorflow_framework.py:113
-msgid "Make sure a dataset is selected to visualize this network."
-msgstr ""
-
-#: frameworks/tensorflow_framework.py:140 model/tasks/tensorflow_train.py:193
-#: model/tasks/tensorflow_train.py:560
-msgid "Failed to retrieve mean file."
-msgstr ""
-
 #: inference/job.py:33
 #, python-format
 msgid "The \"%(id)s\" framework cannot be found. Check your server configuration."
-msgstr ""
-
-#: inference/tasks/inference.py:56
-msgid "Infer Model"
 msgstr ""
 
 #: model/forms.py:28
@@ -1624,10 +1570,6 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
-#: model/images/classification/job.py:26
-msgid "Image Classification Model"
-msgstr ""
-
 #: model/images/generic/job.py:26
 msgid "Generic Image Model"
 msgstr ""
@@ -1657,24 +1599,6 @@ msgstr ""
 msgid "must provide image_path or image_file"
 msgstr ""
 
-#: model/images/generic/views.py:535
-msgid "db_path is a required field"
-msgstr ""
-
-#: model/images/generic/views.py:540
-#, python-format
-msgid "DB \"%(db_path)s\" does not exit"
-msgstr ""
-
-#: model/images/generic/views.py:622
-msgid "image_list is a required field"
-msgstr ""
-
-#: model/images/generic/views.py:627
-#, python-format
-msgid "image_folder \"%(image_folder)s\" does not exit"
-msgstr ""
-
 #: model/images/generic/views.py:797
 #, python-format
 msgid "Unknown extension '%(view_extension_id)s'"
@@ -1685,87 +1609,9 @@ msgstr ""
 msgid "Extension form validation failed with %(ext_form_error)s"
 msgstr ""
 
-#: model/tasks/caffe_train.py:213
-msgid "Train Caffe Model"
-msgstr ""
-
-#: model/tasks/caffe_train.py:258
-msgid "Bad data shape."
-msgstr ""
-
-#: model/tasks/caffe_train.py:335
-msgid "cannot specify two train data layers"
-msgstr ""
-
-#: model/tasks/caffe_train.py:338
-msgid "cannot specify two test data layers"
-msgstr ""
-
-#: model/tasks/caffe_train.py:342
-msgid "cannot specify a test data layer without a train data layer"
-msgstr ""
-
-#: model/tasks/caffe_train.py:349 model/tasks/caffe_train.py:373
-msgid "expecting a Data layer"
-msgstr ""
-
-#: model/tasks/caffe_train.py:351 model/tasks/caffe_train.py:375
-msgid "expecting an HDF5Data layer"
-msgstr ""
-
-#: model/tasks/caffe_train.py:353 model/tasks/caffe_train.py:377
-msgid "don't set the data_param.source"
-msgstr ""
-
-#: model/tasks/caffe_train.py:354 model/tasks/caffe_train.py:378
-msgid "don't set the data_param.backend"
-msgstr ""
-
-#: model/tasks/caffe_train.py:356 model/tasks/caffe_train.py:380
-msgid "don't set the hdf5_data_param.source"
-msgstr ""
-
-#: model/tasks/caffe_train.py:359 model/tasks/caffe_train.py:399
-msgid "HDF5Data layer does not support cropping"
-msgstr ""
-
-#: model/tasks/caffe_train.py:360 model/tasks/caffe_train.py:891
-msgid "crop_size is larger than the image size"
-msgstr ""
-
-#: model/tasks/caffe_train.py:426
-msgid "HDF5Data layer does not support mean subtraction"
-msgstr ""
-
-#: model/tasks/caffe_train.py:505
-msgid ""
-"Your deploy network is missing a Softmax layer! Read the documentation "
-"for custom networks and/or look at the standard networks for examples."
-msgstr ""
-
 #: model/tasks/caffe_train.py:585 model/tasks/caffe_train.py:814
 #, python-format
 msgid "Unknown lr_policy: \"%(policy)s\""
-msgstr ""
-
-#: model/tasks/caffe_train.py:626
-msgid "Training images are required"
-msgstr ""
-
-#: model/tasks/caffe_train.py:656
-msgid "cannot specify two train image data layers"
-msgstr ""
-
-#: model/tasks/caffe_train.py:660
-msgid "cannot specify two train label data layers"
-msgstr ""
-
-#: model/tasks/caffe_train.py:666
-msgid "cannot specify two val image data layers"
-msgstr ""
-
-#: model/tasks/caffe_train.py:670
-msgid "cannot specify two val label data layers"
 msgstr ""
 
 #: model/tasks/caffe_train.py:918
@@ -1777,18 +1623,6 @@ msgstr ""
 msgid "Unknown solver type %(solver_type)s."
 msgstr ""
 
-#: model/tasks/caffe_train.py:1020
-#, python-format
-msgid ""
-"Network outputted NaN for \"%(name)s\" (%(phase)s phase). Try decreasing "
-"your learning rate."
-msgstr ""
-
-#: model/tasks/caffe_train.py:1624
-#, python-format
-msgid "Unknown phase: %(phase)s"
-msgstr ""
-
 #: model/tasks/caffe_train.py:1651
 #, python-format
 msgid ""
@@ -1797,28 +1631,8 @@ msgid ""
 " include directive to limit the scope of this layer."
 msgstr ""
 
-#: model/tasks/caffe_train.py:1669 model/tasks/caffe_train.py:1700
-#, python-format
-msgid "Unsupported data layer type %(type)s"
-msgstr ""
-
-#: model/tasks/caffe_train.py:1709
-#, python-format
-msgid ""
-"Don't leave inner_product_param.num_output unset for generic networks "
-"(layer %(name)s)"
-msgstr ""
-
 #: model/tasks/tensorflow_train.py:49
 msgid "gpus should be a list"
-msgstr ""
-
-#: model/tasks/tensorflow_train.py:129
-msgid "Train Tensorflow Model"
-msgstr ""
-
-#: model/tasks/tensorflow_train.py:151 model/tasks/train.py:447
-msgid "no snapshots"
 msgstr ""
 
 #: model/tasks/tensorflow_train.py:162 model/tasks/train.py:458
@@ -1840,13 +1654,6 @@ msgstr ""
 #: model/tasks/tensorflow_train.py:635 model/tasks/torch_train.py:658
 #, python-format
 msgid "%(id)s classify one task failed with error code %(returncode)d"
-msgstr ""
-
-#: model/tasks/tensorflow_train.py:765 model/tasks/torch_train.py:787
-#, python-format
-msgid ""
-"Network reported %(label)s for confidence value. Please check image and "
-"network"
 msgstr ""
 
 #: model/tasks/tensorflow_train.py:795 model/tasks/torch_train.py:817
@@ -1873,25 +1680,8 @@ msgstr ""
 msgid "%(id)s classify many task failed with error code %(returncode)d"
 msgstr ""
 
-#: model/tasks/torch_train.py:122
-msgid "Train Torch Model"
-msgstr ""
-
-#: model/tasks/torch_train.py:142
-msgid ""
-"Mean subtraction required but dataset has no mean file in .binaryproto "
-"format"
-msgstr ""
-
 #: model/tasks/torch_train.py:278
 msgid "Torch does not support multiple pretrained model files"
-msgstr ""
-
-#: model/tasks/torch_train.py:345
-#, python-format
-msgid ""
-"Network reported %(l)s for training loss. Try decreasing your learning "
-"rate."
 msgstr ""
 
 #: model/tasks/torch_train.py:554
@@ -1912,10 +1702,6 @@ msgstr ""
 #: model/tasks/train.py:195
 #, python-format
 msgid "Failed to load gpu information for GPU #\"%(index)s\""
-msgstr ""
-
-#: model/tasks/train.py:358
-msgid "Received a new output without being told the new epoch"
 msgstr ""
 
 #: model/tasks/train.py:543
@@ -1961,41 +1747,8 @@ msgstr ""
 msgid "Model definition must be .lua file"
 msgstr ""
 
-#: pretrained_model/views.py:100
-msgid "Incorrect Archive Type"
-msgstr ""
-
-#: pretrained_model/views.py:115
-#, python-format
-msgid "Missing Key %(key)s in info.json"
-msgstr ""
-
-#: pretrained_model/views.py:125
-msgid "Missing model definition in info.json"
-msgstr ""
-
-#: pretrained_model/views.py:146
-msgid "success"
-msgstr ""
-
-#: pretrained_model/views.py:148
-msgid "Missing or Incorrect json file"
-msgstr ""
-
 #: pretrained_model/views.py:169 pretrained_model/views.py:171
 msgid "Missing job name"
-msgstr ""
-
-#: pretrained_model/tasks/caffe_upload.py:18
-msgid "Upload Pretrained Caffe Model"
-msgstr ""
-
-#: pretrained_model/tasks/tensorflow_upload.py:18
-msgid "Upload Pretrained Tensorflow Model"
-msgstr ""
-
-#: pretrained_model/tasks/torch_upload.py:17
-msgid "Upload Pretrained Torch Model"
 msgstr ""
 
 #: static/js/PretrainedModel.js:23
@@ -2182,19 +1935,19 @@ msgstr ""
 msgid "has_labels"
 msgstr ""
 
-#: static/js/model-graphs.js:13 static/js/model-graphs.js:75
+#: static/js/model-graphs.js:17 static/js/model-graphs.js:79
 msgid "Epoch"
 msgstr ""
 
-#: static/js/model-graphs.js:26
+#: static/js/model-graphs.js:30
 msgid "Loss"
 msgstr ""
 
-#: static/js/model-graphs.js:35
+#: static/js/model-graphs.js:39
 msgid "Accuracy"
 msgstr ""
 
-#: static/js/model-graphs.js:88
+#: static/js/model-graphs.js:92
 msgid "Learning Rate"
 msgstr ""
 

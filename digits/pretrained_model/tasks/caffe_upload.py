@@ -15,7 +15,7 @@ class CaffeUploadTask(UploadPretrainedModelTask):
 
     @override
     def name(self):
-        return _('Upload Pretrained Caffe Model')
+        return 'Upload Pretrained Caffe Model'
 
     @override
     def get_model_def_path(self):

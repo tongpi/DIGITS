@@ -23,7 +23,7 @@ class ImageClassificationModelJob(ImageModelJob):
 
     @override
     def job_type(self):
-        return _('Image Classification Model')
+        return 'Image Classification Model'
 
     @override
     def download_files(self, epoch=-1):

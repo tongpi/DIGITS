@@ -119,7 +119,7 @@ class TorchTrainTask(TrainTask):
 
     @override
     def name(self):
-        return _('Train Torch Model')
+        return 'Train Torch Model'
 
     @override
     def before_run(self):
@@ -139,7 +139,7 @@ class TorchTrainTask(TrainTask):
         if not os.path.exists(filename):
             mean_file = self.dataset.get_mean_file()
             assert mean_file is not None and mean_file.endswith('.binaryproto'), \
-                _('Mean subtraction required but dataset has no mean file in .binaryproto format')
+                'Mean subtraction required but dataset has no mean file in .binaryproto format'
             blob = caffe_pb2.BlobProto()
             with open(self.dataset.path(mean_file), 'rb') as infile:
                 blob.ParseFromString(infile.read())
@@ -342,7 +342,7 @@ class TorchTrainTask(TrainTask):
             index = float(match.group(1))
             l = match.group(2)
             assert not('inf' in l or 'nan' in l), \
-                _('Network reported %(l)s for training loss. Try decreasing your learning rate.', l=l)
+                'Network reported %s for training loss. Try decreasing your learning rate.' % l
             l = float(l)
             lr = match.group(4)
             lr = float(lr)
@@ -784,7 +784,7 @@ class TorchTrainTask(TrainTask):
             label = match.group(1)
             confidence = match.group(2)
             assert not('inf' in confidence or 'nan' in confidence), \
-                _('Network reported %(label)s for confidence value. Please check image and network', label=label)
+                'Network reported %s for confidence value. Please check image and network' % label
             confidence = float(confidence)
             predictions.append((label, confidence))
             return True

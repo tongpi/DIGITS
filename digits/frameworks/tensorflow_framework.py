@@ -110,7 +110,7 @@ class TensorflowFramework(Framework):
         crop_size = kwargs['crop_size']
         num_gpus = kwargs['num_gpus']
         if dataset is None:
-            raise NetworkVisualizationError(_('Make sure a dataset is selected to visualize this network.'))
+            raise NetworkVisualizationError('Make sure a dataset is selected to visualize this network.')
 
         # save network description to temporary file
         temp_network_handle, temp_network_path = tempfile.mkstemp(suffix='.py')
@@ -137,7 +137,7 @@ class TensorflowFramework(Framework):
 
             if use_mean and use_mean != 'none':
                 mean_file = dataset.get_mean_file()
-                assert mean_file is not None, _('Failed to retrieve mean file.')
+                assert mean_file is not None, 'Failed to retrieve mean file.'
                 args.append('--subtractMean=%s' % use_mean)
                 args.append('--mean=%s' % dataset.path(mean_file))
 

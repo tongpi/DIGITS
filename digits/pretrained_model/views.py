@@ -97,7 +97,7 @@ def upload_archive():
         archive = zipfile.ZipFile(archive_file, 'r')
         names = archive.namelist()
     else:
-        return flask.jsonify({"status": _("Incorrect Archive Type")}), 500
+        return flask.jsonify({"status": "Incorrect Archive Type"}), 500
 
     if "info.json" in names:
 
@@ -112,7 +112,7 @@ def upload_archive():
         valid, key = validate_archive_keys(info)
 
         if valid is False:
-            return flask.jsonify({"status": _("Missing Key %(key)s in info.json", key=key)}), 500
+            return flask.jsonify({"status": "Missing Key '" + key + "' in info.json"}), 500
 
         # Get path to files needed to be uploaded in directory
         weights_file = os.path.join(tempdir, info["snapshot file"])
@@ -122,7 +122,7 @@ def upload_archive():
         elif "network file" in info:
             model_file = os.path.join(tempdir, info["network file"])
         else:
-            return flask.jsonify({"status": _("Missing model definition in info.json")}), 500
+            return flask.jsonify({"status": "Missing model definition in info.json"}), 500
 
         if "labels file" in info:
             labels_file = os.path.join(tempdir, info["labels file"])
@@ -143,9 +143,9 @@ def upload_archive():
         # Delete temp directory
         shutil.rmtree(tempdir, ignore_errors=True)
 
-        return flask.jsonify({"status": _("success")}), 200
+        return flask.jsonify({"status": "success"}), 200
     else:
-        return flask.jsonify({"status": _("Missing or Incorrect json file")}), 500
+        return flask.jsonify({"status": "Missing or Incorrect json file"}), 500
 
 
 @utils.auth.requires_login

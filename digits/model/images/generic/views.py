@@ -532,12 +532,12 @@ def infer_db():
     model_job = job_from_request()
 
     if 'db_path' not in flask.request.form or flask.request.form['db_path'] is None:
-        raise werkzeug.exceptions.BadRequest(_('db_path is a required field'))
+        raise werkzeug.exceptions.BadRequest('db_path is a required field')
 
     db_path = flask.request.form['db_path']
 
     if not os.path.exists(db_path):
-        raise werkzeug.exceptions.BadRequest(_('DB "%(db_path)s" does not exit', db_path=db_path))
+        raise werkzeug.exceptions.BadRequest('DB "%s" does not exit' % db_path)
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -619,12 +619,12 @@ def infer_many():
 
     image_list = flask.request.files.get('image_list')
     if not image_list:
-        raise werkzeug.exceptions.BadRequest(_('image_list is a required field'))
+        raise werkzeug.exceptions.BadRequest('image_list is a required field')
 
     if 'image_folder' in flask.request.form and flask.request.form['image_folder'].strip():
         image_folder = flask.request.form['image_folder']
         if not os.path.exists(image_folder):
-            raise werkzeug.exceptions.BadRequest(_('image_folder "%(image_folder)s" does not exit', image_folder=image_folder))
+            raise werkzeug.exceptions.BadRequest('image_folder "%s" does not exit' % image_folder)
     else:
         image_folder = None
 

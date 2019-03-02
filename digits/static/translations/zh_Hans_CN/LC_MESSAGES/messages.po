@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-01 09:29+0800\n"
+"POT-Creation-Date: 2019-03-02 15:46+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -69,14 +69,9 @@ msgstr "分类"
 msgid "Other"
 msgstr "其他"
 
-#: pretrained_model/tasks/upload_pretrained.py:37
 #: static/js/PretrainedModel.js:150 views.py:89
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
-
-#: views.py:95
-msgid "Retrieve from Model Store"
-msgstr "从模型商店获取"
 
 #: model/views.py:37 model/views.py:73 model/views.py:274 utils/routing.py:21
 #: views.py:255 views.py:373 views.py:393 views.py:456 views.py:572
@@ -100,14 +95,6 @@ msgstr "名称不能为空"
 #: views.py:436
 msgid "Job not found."
 msgstr "未发现作业。"
-
-#: views.py:463
-msgid "Job deleted."
-msgstr "作业已删除。"
-
-#: views.py:465
-msgid "Job not deleted"
-msgstr "作业未删除"
 
 #: views.py:513
 msgid "Jobs deleted."
@@ -568,25 +555,9 @@ msgstr "平均图像"
 msgid "Path to a .binaryproto file on the server"
 msgstr "服务器上.binaryproto文件的路径"
 
-#: dataset/images/generic/job.py:115
-msgid "Generic Image Dataset"
-msgstr "通用图像数据集"
-
 #: dataset/tasks/analyze_db.py:63
 msgid "Analyze DB"
 msgstr "分析 DB"
-
-#: dataset/tasks/create_db.py:285 dataset/tasks/create_db.py:286
-msgid "labels_file not set"
-msgstr "标签文件未设置"
-
-#: dataset/tasks/create_db.py:287
-msgid "labels_file does not exist"
-msgstr "标签文件不存在"
-
-#: dataset/tasks/create_db.py:296
-msgid "no labels in labels_file"
-msgstr "标签文件中没有标签"
 
 #: dataset/tasks/create_generic_db.py:70
 #, python-format
@@ -610,10 +581,6 @@ msgstr "百分比和百分比测试的总和不得超过100"
 #, python-format
 msgid "Unhandled number of channels: %(ndim)d"
 msgstr "未处理的通道数：%(ndim)d"
-
-#: extensions/data/imageProcessing/data.py:107
-msgid "Processing"
-msgstr "处理"
 
 #: extensions/data/imageProcessing/data.py:126
 #: extensions/data/imageSegmentation/data.py:169
@@ -728,10 +695,6 @@ msgstr "您的颜色映射文件似乎格式错误：'%(val)s'不是整数"
 #: extensions/data/imageSegmentation/data.py:91
 msgid "All label images must use the same palette"
 msgstr "所有标签图像必须使用相同的调色板"
-
-#: extensions/data/imageSegmentation/data.py:149
-msgid "Segmentation"
-msgstr "分割"
 
 #: extensions/data/imageSegmentation/data.py:177
 #, python-format
@@ -862,10 +825,6 @@ msgstr "不支持的图像形状：%(shape)s"
 #, python-format
 msgid "Label key %(label_id)s not found in label folder"
 msgstr "标签文件夹中找不到标签键%(label_id)s"
-
-#: extensions/data/objectDetection/data.py:172
-msgid "Object Detection"
-msgstr "对象检测"
 
 #: extensions/data/objectDetection/forms.py:31
 msgid "Training image folder"
@@ -1135,23 +1094,10 @@ msgstr "未知的特点。 仅支持NVIDIA和BVLC风格。"
 msgid "Not a valid NetParameter: %(e)s"
 msgstr "不是有效的网络参数: %(e)s"
 
-#: frameworks/tensorflow_framework.py:113
-msgid "Make sure a dataset is selected to visualize this network."
-msgstr "确保选择了一个数据集来可视化这个网络。"
-
-#: frameworks/tensorflow_framework.py:140 model/tasks/tensorflow_train.py:193
-#: model/tasks/tensorflow_train.py:560
-msgid "Failed to retrieve mean file."
-msgstr "无法检索平均文件。"
-
 #: inference/job.py:33
 #, python-format
 msgid "The \"%(id)s\" framework cannot be found. Check your server configuration."
 msgstr "无法找到\"%(id)s\"框架。 检查您的服务器配置。"
-
-#: inference/tasks/inference.py:56
-msgid "Infer Model"
-msgstr "推断模型"
 
 #: model/forms.py:28
 msgid "Selected job doesn't exist. Maybe it was deleted by another user."
@@ -1647,10 +1593,6 @@ msgstr "饱和"
 msgid "Value"
 msgstr "值"
 
-#: model/images/classification/job.py:26
-msgid "Image Classification Model"
-msgstr "图像分类模型"
-
 #: model/images/generic/job.py:26
 msgid "Generic Image Model"
 msgstr "通用图像模型"
@@ -1680,24 +1622,6 @@ msgstr "学习率策略无效"
 msgid "must provide image_path or image_file"
 msgstr "必须提供图像路径或图像文件"
 
-#: model/images/generic/views.py:535
-msgid "db_path is a required field"
-msgstr "数据库路径是必填字段"
-
-#: model/images/generic/views.py:540
-#, python-format
-msgid "DB \"%(db_path)s\" does not exit"
-msgstr "数据库路径\"%(db_path)s\"不存在"
-
-#: model/images/generic/views.py:622
-msgid "image_list is a required field"
-msgstr "图像列表是必填字段"
-
-#: model/images/generic/views.py:627
-#, python-format
-msgid "image_folder \"%(image_folder)s\" does not exit"
-msgstr "图像文件夹\"%(image_folder)s\"不存在"
-
 #: model/images/generic/views.py:797
 #, python-format
 msgid "Unknown extension '%(view_extension_id)s'"
@@ -1708,88 +1632,10 @@ msgstr "未知扩展名'%(view_extension_id)s'"
 msgid "Extension form validation failed with %(ext_form_error)s"
 msgstr "使用%(ext_form_error)s扩展表单验证失败"
 
-#: model/tasks/caffe_train.py:213
-msgid "Train Caffe Model"
-msgstr "训练Caffe模型"
-
-#: model/tasks/caffe_train.py:258
-msgid "Bad data shape."
-msgstr "数据形状不好。"
-
-#: model/tasks/caffe_train.py:335
-msgid "cannot specify two train data layers"
-msgstr "不能指定两个训练数据层"
-
-#: model/tasks/caffe_train.py:338
-msgid "cannot specify two test data layers"
-msgstr "不能指定两个测试数据层"
-
-#: model/tasks/caffe_train.py:342
-msgid "cannot specify a test data layer without a train data layer"
-msgstr "没有训练数据层时，无法指定测试数据层"
-
-#: model/tasks/caffe_train.py:349 model/tasks/caffe_train.py:373
-msgid "expecting a Data layer"
-msgstr "期待数据层"
-
-#: model/tasks/caffe_train.py:351 model/tasks/caffe_train.py:375
-msgid "expecting an HDF5Data layer"
-msgstr "期待HDF5Data层"
-
-#: model/tasks/caffe_train.py:353 model/tasks/caffe_train.py:377
-msgid "don't set the data_param.source"
-msgstr "不要设置data_param.source"
-
-#: model/tasks/caffe_train.py:354 model/tasks/caffe_train.py:378
-msgid "don't set the data_param.backend"
-msgstr "不要设置data_param.backend"
-
-#: model/tasks/caffe_train.py:356 model/tasks/caffe_train.py:380
-msgid "don't set the hdf5_data_param.source"
-msgstr "不要设置hdf5_data_param.source"
-
-#: model/tasks/caffe_train.py:359 model/tasks/caffe_train.py:399
-msgid "HDF5Data layer does not support cropping"
-msgstr "HDF5Data图层不支持裁剪"
-
-#: model/tasks/caffe_train.py:360 model/tasks/caffe_train.py:891
-msgid "crop_size is larger than the image size"
-msgstr "裁剪尺寸大于图像尺寸"
-
-#: model/tasks/caffe_train.py:426
-msgid "HDF5Data layer does not support mean subtraction"
-msgstr "HDF5Data层不支持平均减法"
-
-#: model/tasks/caffe_train.py:505
-msgid ""
-"Your deploy network is missing a Softmax layer! Read the documentation "
-"for custom networks and/or look at the standard networks for examples."
-msgstr "您的部署网络缺少Softmax层！ 阅读自定义网络的文档和/或查看标准网络以获取示例。"
-
 #: model/tasks/caffe_train.py:585 model/tasks/caffe_train.py:814
 #, python-format
 msgid "Unknown lr_policy: \"%(policy)s\""
 msgstr "未知lr_policy: \"%(policy)s\""
-
-#: model/tasks/caffe_train.py:626
-msgid "Training images are required"
-msgstr "需要训练图像"
-
-#: model/tasks/caffe_train.py:656
-msgid "cannot specify two train image data layers"
-msgstr "不能指定两个训练图像数据层"
-
-#: model/tasks/caffe_train.py:660
-msgid "cannot specify two train label data layers"
-msgstr "不能指定两个训练标签数据层"
-
-#: model/tasks/caffe_train.py:666
-msgid "cannot specify two val image data layers"
-msgstr "不能指定两个val图像数据层"
-
-#: model/tasks/caffe_train.py:670
-msgid "cannot specify two val label data layers"
-msgstr "不能指定两个val标签数据层"
 
 #: model/tasks/caffe_train.py:918
 msgid "Please select single GPU when running in Windows with Python layer."
@@ -1799,18 +1645,6 @@ msgstr "在带有Python层的Windows中运行时，请选择单GPU。"
 #, python-format
 msgid "Unknown solver type %(solver_type)s."
 msgstr "未知的求解器类型%(solver_type)s。"
-
-#: model/tasks/caffe_train.py:1020
-#, python-format
-msgid ""
-"Network outputted NaN for \"%(name)s\" (%(phase)s phase). Try decreasing "
-"your learning rate."
-msgstr "网络输出NaN为\"%(name)s\"（%(phase)s阶段）。 尝试降低学习率。"
-
-#: model/tasks/caffe_train.py:1624
-#, python-format
-msgid "Unknown phase: %(phase)s"
-msgstr "未知阶段：%(phase)s"
 
 #: model/tasks/caffe_train.py:1651
 #, python-format
@@ -1822,29 +1656,9 @@ msgstr ""
 "层'%(name)s'在%(status)s阶段引用底部'%(bottom)s'但是该阶段不包括此blob。 "
 "请考虑使用include指令来限制此层的范围。"
 
-#: model/tasks/caffe_train.py:1669 model/tasks/caffe_train.py:1700
-#, python-format
-msgid "Unsupported data layer type %(type)s"
-msgstr "不支持的数据层类型%(type)s"
-
-#: model/tasks/caffe_train.py:1709
-#, python-format
-msgid ""
-"Don't leave inner_product_param.num_output unset for generic networks "
-"(layer %(name)s)"
-msgstr "不要为通用网络取消设置inner_product_param.num_output(layer %(name)s)"
-
 #: model/tasks/tensorflow_train.py:49
 msgid "gpus should be a list"
 msgstr "gpus应该是一个列表"
-
-#: model/tasks/tensorflow_train.py:129
-msgid "Train Tensorflow Model"
-msgstr "训练张量流模型"
-
-#: model/tasks/tensorflow_train.py:151 model/tasks/train.py:447
-msgid "no snapshots"
-msgstr "没有快照"
 
 #: model/tasks/tensorflow_train.py:162 model/tasks/train.py:458
 msgid "Invalid epoch"
@@ -1868,13 +1682,6 @@ msgstr ""
 #, python-format
 msgid "%(id)s classify one task failed with error code %(returncode)d"
 msgstr "%(id)s将一个任务分类失败，错误代码为%(returncode)d"
-
-#: model/tasks/tensorflow_train.py:765 model/tasks/torch_train.py:787
-#, python-format
-msgid ""
-"Network reported %(label)s for confidence value. Please check image and "
-"network"
-msgstr "网络报告%(label)s的置信度值。 请检查图像和网络"
 
 #: model/tasks/tensorflow_train.py:795 model/tasks/torch_train.py:817
 #, python-format
@@ -1902,26 +1709,9 @@ msgstr ""
 msgid "%(id)s classify many task failed with error code %(returncode)d"
 msgstr "%(id)s 将许多任务分类失败，错误代码为%(returncode)d"
 
-#: model/tasks/torch_train.py:122
-msgid "Train Torch Model"
-msgstr "训练Torch模型"
-
-#: model/tasks/torch_train.py:142
-msgid ""
-"Mean subtraction required but dataset has no mean file in .binaryproto "
-"format"
-msgstr "需要平均减法但数据集没有.binaryproto格式的平均文件"
-
 #: model/tasks/torch_train.py:278
 msgid "Torch does not support multiple pretrained model files"
 msgstr "Torch不支持多个预训练模型文件"
-
-#: model/tasks/torch_train.py:345
-#, python-format
-msgid ""
-"Network reported %(l)s for training loss. Try decreasing your learning "
-"rate."
-msgstr "网络报告%(l)s用于训练损失。 尝试降低学习率。"
 
 #: model/tasks/torch_train.py:554
 #, python-format
@@ -1942,10 +1732,6 @@ msgstr "%(id)s分类许多任务被中止。 错误代码 - %(returncode)d"
 #, python-format
 msgid "Failed to load gpu information for GPU #\"%(index)s\""
 msgstr "无法加载GPU#\"%(index)s\"的gpu信息"
-
-#: model/tasks/train.py:358
-msgid "Received a new output without being told the new epoch"
-msgstr "在没有被告知新回合的情况下收到了新的输出"
 
 #: model/tasks/train.py:543
 msgid "Requested timeline not found in timeline list"
@@ -1990,42 +1776,9 @@ msgstr "权重必须是.t7文件"
 msgid "Model definition must be .lua file"
 msgstr "模型定义必须是.lua文件"
 
-#: pretrained_model/views.py:100
-msgid "Incorrect Archive Type"
-msgstr "存档类型不正确"
-
-#: pretrained_model/views.py:115
-#, python-format
-msgid "Missing Key %(key)s in info.json"
-msgstr "在info.json中缺少键%(key)s"
-
-#: pretrained_model/views.py:125
-msgid "Missing model definition in info.json"
-msgstr "在info.json中缺少模型定义"
-
-#: pretrained_model/views.py:146
-msgid "success"
-msgstr "成功"
-
-#: pretrained_model/views.py:148
-msgid "Missing or Incorrect json file"
-msgstr "缺少或错误的json文件"
-
 #: pretrained_model/views.py:169 pretrained_model/views.py:171
 msgid "Missing job name"
 msgstr "缺少工作名称"
-
-#: pretrained_model/tasks/caffe_upload.py:18
-msgid "Upload Pretrained Caffe Model"
-msgstr "上传预训练的Caffe模型"
-
-#: pretrained_model/tasks/tensorflow_upload.py:18
-msgid "Upload Pretrained Tensorflow Model"
-msgstr "上传预训练的Tensorflow模型"
-
-#: pretrained_model/tasks/torch_upload.py:17
-msgid "Upload Pretrained Torch Model"
-msgstr "上传预训练Torch模型"
 
 #: static/js/PretrainedModel.js:23
 msgid "Caffe"
@@ -2213,19 +1966,19 @@ msgstr "用户名"
 msgid "has_labels"
 msgstr "有标签"
 
-#: static/js/model-graphs.js:13 static/js/model-graphs.js:75
+#: static/js/model-graphs.js:17 static/js/model-graphs.js:79
 msgid "Epoch"
 msgstr "回合"
 
-#: static/js/model-graphs.js:26
+#: static/js/model-graphs.js:30
 msgid "Loss"
 msgstr "损失"
 
-#: static/js/model-graphs.js:35
+#: static/js/model-graphs.js:39
 msgid "Accuracy"
 msgstr "累积"
 
-#: static/js/model-graphs.js:88
+#: static/js/model-graphs.js:92
 msgid "Learning Rate"
 msgstr "学习率"
 
@@ -4342,4 +4095,188 @@ msgstr "测试片段"
 #: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
 msgid "Test a data file"
 msgstr "测试数据文件"
+
+#~ msgid "Retrieve from Model Store"
+#~ msgstr "从模型商店获取"
+
+#~ msgid "Job deleted."
+#~ msgstr "作业已删除。"
+
+#~ msgid "Job not deleted"
+#~ msgstr "作业未删除"
+
+#~ msgid "Generic Image Dataset"
+#~ msgstr "通用图像数据集"
+
+#~ msgid "labels_file not set"
+#~ msgstr "标签文件未设置"
+
+#~ msgid "labels_file does not exist"
+#~ msgstr "标签文件不存在"
+
+#~ msgid "no labels in labels_file"
+#~ msgstr "标签文件中没有标签"
+
+#~ msgid "Processing"
+#~ msgstr "处理"
+
+#~ msgid "Segmentation"
+#~ msgstr "分割"
+
+#~ msgid "Object Detection"
+#~ msgstr "对象检测"
+
+#~ msgid "Make sure a dataset is selected to visualize this network."
+#~ msgstr "确保选择了一个数据集来可视化这个网络。"
+
+#~ msgid "Failed to retrieve mean file."
+#~ msgstr "无法检索平均文件。"
+
+#~ msgid "Infer Model"
+#~ msgstr "推断模型"
+
+#~ msgid "Image Classification Model"
+#~ msgstr "图像分类模型"
+
+#~ msgid "db_path is a required field"
+#~ msgstr "数据库路径是必填字段"
+
+#~ msgid "DB \"%(db_path)s\" does not exit"
+#~ msgstr "数据库路径\"%(db_path)s\"不存在"
+
+#~ msgid "image_list is a required field"
+#~ msgstr "图像列表是必填字段"
+
+#~ msgid "image_folder \"%(image_folder)s\" does not exit"
+#~ msgstr "图像文件夹\"%(image_folder)s\"不存在"
+
+#~ msgid "Train Caffe Model"
+#~ msgstr "训练Caffe模型"
+
+#~ msgid "Bad data shape."
+#~ msgstr "数据形状不好。"
+
+#~ msgid "cannot specify two train data layers"
+#~ msgstr "不能指定两个训练数据层"
+
+#~ msgid "cannot specify two test data layers"
+#~ msgstr "不能指定两个测试数据层"
+
+#~ msgid "cannot specify a test data layer without a train data layer"
+#~ msgstr "没有训练数据层时，无法指定测试数据层"
+
+#~ msgid "expecting a Data layer"
+#~ msgstr "期待数据层"
+
+#~ msgid "expecting an HDF5Data layer"
+#~ msgstr "期待HDF5Data层"
+
+#~ msgid "don't set the data_param.source"
+#~ msgstr "不要设置data_param.source"
+
+#~ msgid "don't set the data_param.backend"
+#~ msgstr "不要设置data_param.backend"
+
+#~ msgid "don't set the hdf5_data_param.source"
+#~ msgstr "不要设置hdf5_data_param.source"
+
+#~ msgid "HDF5Data layer does not support cropping"
+#~ msgstr "HDF5Data图层不支持裁剪"
+
+#~ msgid "crop_size is larger than the image size"
+#~ msgstr "裁剪尺寸大于图像尺寸"
+
+#~ msgid "HDF5Data layer does not support mean subtraction"
+#~ msgstr "HDF5Data层不支持平均减法"
+
+#~ msgid ""
+#~ "Your deploy network is missing a "
+#~ "Softmax layer! Read the documentation "
+#~ "for custom networks and/or look at "
+#~ "the standard networks for examples."
+#~ msgstr "您的部署网络缺少Softmax层！ 阅读自定义网络的文档和/或查看标准网络以获取示例。"
+
+#~ msgid "Training images are required"
+#~ msgstr "需要训练图像"
+
+#~ msgid "cannot specify two train image data layers"
+#~ msgstr "不能指定两个训练图像数据层"
+
+#~ msgid "cannot specify two train label data layers"
+#~ msgstr "不能指定两个训练标签数据层"
+
+#~ msgid "cannot specify two val image data layers"
+#~ msgstr "不能指定两个val图像数据层"
+
+#~ msgid "cannot specify two val label data layers"
+#~ msgstr "不能指定两个val标签数据层"
+
+#~ msgid ""
+#~ "Network outputted NaN for \"%(name)s\" "
+#~ "(%(phase)s phase). Try decreasing your "
+#~ "learning rate."
+#~ msgstr "网络输出NaN为\"%(name)s\"（%(phase)s阶段）。 尝试降低学习率。"
+
+#~ msgid "Unknown phase: %(phase)s"
+#~ msgstr "未知阶段：%(phase)s"
+
+#~ msgid "Unsupported data layer type %(type)s"
+#~ msgstr "不支持的数据层类型%(type)s"
+
+#~ msgid ""
+#~ "Don't leave inner_product_param.num_output unset "
+#~ "for generic networks (layer %(name)s)"
+#~ msgstr "不要为通用网络取消设置inner_product_param.num_output(layer %(name)s)"
+
+#~ msgid "Train Tensorflow Model"
+#~ msgstr "训练张量流模型"
+
+#~ msgid "no snapshots"
+#~ msgstr "没有快照"
+
+#~ msgid ""
+#~ "Network reported %(label)s for confidence "
+#~ "value. Please check image and network"
+#~ msgstr "网络报告%(label)s的置信度值。 请检查图像和网络"
+
+#~ msgid "Train Torch Model"
+#~ msgstr "训练Torch模型"
+
+#~ msgid ""
+#~ "Mean subtraction required but dataset "
+#~ "has no mean file in .binaryproto "
+#~ "format"
+#~ msgstr "需要平均减法但数据集没有.binaryproto格式的平均文件"
+
+#~ msgid ""
+#~ "Network reported %(l)s for training "
+#~ "loss. Try decreasing your learning rate."
+#~ msgstr "网络报告%(l)s用于训练损失。 尝试降低学习率。"
+
+#~ msgid "Received a new output without being told the new epoch"
+#~ msgstr "在没有被告知新回合的情况下收到了新的输出"
+
+#~ msgid "Incorrect Archive Type"
+#~ msgstr "存档类型不正确"
+
+#~ msgid "Missing Key %(key)s in info.json"
+#~ msgstr "在info.json中缺少键%(key)s"
+
+#~ msgid "Missing model definition in info.json"
+#~ msgstr "在info.json中缺少模型定义"
+
+#~ msgid "success"
+#~ msgstr "成功"
+
+#~ msgid "Missing or Incorrect json file"
+#~ msgstr "缺少或错误的json文件"
+
+#~ msgid "Upload Pretrained Caffe Model"
+#~ msgstr "上传预训练的Caffe模型"
+
+#~ msgid "Upload Pretrained Tensorflow Model"
+#~ msgstr "上传预训练的Tensorflow模型"
+
+#~ msgid "Upload Pretrained Torch Model"
+#~ msgstr "上传预训练Torch模型"
 

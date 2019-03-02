@@ -355,7 +355,7 @@ class TrainTask(Task):
 
         # save to back of d[name]
         if name_len > epoch_len:
-            raise Exception(_('Received a new output without being told the new epoch'))
+            raise Exception('Received a new output without being told the new epoch')
         elif name_len == epoch_len:
             # already exists
             if isinstance(d[name].data[-1], list):
@@ -444,7 +444,7 @@ class TrainTask(Task):
         snapshot_filename = None
 
         if len(self.snapshots) == 0:
-            return _("no snapshots")
+            return "no snapshots"
 
         if epoch == -1 or not epoch:
             epoch = self.snapshots[-1][1]

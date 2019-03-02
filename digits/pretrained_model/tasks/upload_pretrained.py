@@ -34,7 +34,7 @@ class UploadPretrainedModelTask(Task):
 
     @override
     def name(self):
-        return _('Upload Pretrained Model')
+        return 'Upload Pretrained Model'
 
     @override
     def __setstate__(self, state):

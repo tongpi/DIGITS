@@ -282,9 +282,9 @@ class CreateDbTask(Task):
         if hasattr(self, '_labels') and self._labels and len(self._labels) > 0:
             return self._labels
 
-        assert hasattr(self, 'labels_file'), _('labels_file not set')
-        assert self.labels_file, _('labels_file not set')
-        assert os.path.exists(self.path(self.labels_file)), _('labels_file does not exist')
+        assert hasattr(self, 'labels_file'), 'labels_file not set'
+        assert self.labels_file, 'labels_file not set'
+        assert os.path.exists(self.path(self.labels_file)), 'labels_file does not exist'
 
         labels = []
         with open(self.path(self.labels_file)) as infile:
@@ -293,7 +293,7 @@ class CreateDbTask(Task):
                 if label:
                     labels.append(label)
 
-        assert len(labels) > 0, _('no labels in labels_file')
+        assert len(labels) > 0, 'no labels in labels_file'
 
         self._labels = labels
         return self._labels
