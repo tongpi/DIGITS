@@ -370,6 +370,8 @@ def login():
             error = '错误的用户名或密码！'
 
         return render_template('login.html', error=error)
+    if request.method == 'GET':
+        return render_template('login.html')
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
