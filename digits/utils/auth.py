@@ -11,7 +11,7 @@ from flask_babel import lazy_gettext as _
 
 def get_username():
     return get_request_arg('username') or \
-        flask.request.cookies.get('username', None)
+        flask.session.get('username', None)
 
 
 def validate_username(username):

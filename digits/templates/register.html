@@ -1,0 +1,39 @@
+{# Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved. #}
+
+{% from "helper.html" import print_flashes %}
+
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="page-header">
+    <h1>{{_('register')}}</h1>
+</div>
+
+<div class="row">
+    <div class="col-sm-4 col-sm-offset-4 well">
+        {{ print_flashes() }}
+
+        <form method="POST">
+            <div class="form-group">
+                <input name="next" type="hidden" value="{{ next }}" />
+                <label for="username">{{_('Username')}}</label>
+                <span name="username_explanation" class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body" title="{{_('Must begin with a letter and contain only lowercase letters, numbers, periods, dashes and underscores.')}}"></span>
+                <input class="form-control" id="username" name="username" autofocus />
+            </div>
+            <div class="form-group">
+                <input name="next" type="hidden" value="{{ next }}" />
+                <label>{{ _('Password') }}</label>
+                <span name="password_explanation" class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body" title="{{_('Must begin with a letter and contain only lowercase letters, numbers, periods, dashes and underscores.')}}"></span>
+                <input class="form-control" id="password" name="password" type="password" autofocus />
+                <label>{{ _('Repeat Password') }}</label>
+                <input class="form-control" id="repeat_pwd" name="repeat_pwd" type="password" autofocus/>
+            </div>
+            <div class="form-group">
+            </div>
+            <input type="submit" name="login-button" class="btn btn-primary" value='{{_("register")}}' />
+        </form>
+    </div>
+</div>
+
+{% endblock %}
+

@@ -4,8 +4,11 @@ from __future__ import absolute_import
 import os
 
 import flask
+from flask import session
 from flask.ext.socketio import SocketIO
 from gevent import monkey
+from flask_sqlalchemy import SQLAlchemy
+from flask_babel import Babel
 monkey.patch_all()
 
 from .config import config_value  # noqa
@@ -13,7 +16,7 @@ from digits import utils  # noqa
 from digits.utils import filesystem as fs  # noqa
 from digits.utils.store import StoreCache  # noqa
 import digits.scheduler  # noqa
-from flask_babel import Babel
+
 
 # Create Flask, Scheduler and SocketIO objects
 
@@ -37,6 +40,10 @@ app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'static/translations'
 # use flask-babel
 babel = Babel(app)
 
+# db
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@192.168.1.143/digits'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+db = SQLAlchemy(app)
 # Register filters and views
 
 app.jinja_env.globals['server_name'] = config_value('server_name')
@@ -97,7 +104,7 @@ def username_decorator(f):
 
     @wraps(f)
     def decorated(*args, **kwargs):
-        this_username = flask.request.cookies.get('username', None)
+        this_username = session.get('username', None)
         app.jinja_env.globals['username'] = this_username
         return f(*args, **kwargs)
     return decorated
