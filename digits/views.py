@@ -325,33 +325,33 @@ def group():
 # Authentication/login
 
 
-@blueprint.route('/login', methods=['GET', 'POST'])
-def login():
-    """
-    Ask for a username (no password required)
-    Sets a cookie
-    """
-    # Get the URL to redirect to after logging in
-    next_url = utils.routing.get_request_arg('next') or \
-        flask.request.referrer or flask.url_for('.home')
-
-    if flask.request.method == 'GET':
-        return flask.render_template('login.html', next=next_url)
-
-    # Validate username
-    username = utils.routing.get_request_arg('username').strip()
-    try:
-        utils.auth.validate_username(username)
-    except ValueError as e:
-        # Invalid username
-        flask.flash(e.message, 'danger')
-        return flask.render_template('login.html', next=next_url)
-
-    # Valid username
-    response = flask.make_response(flask.redirect(next_url))
-    response.set_cookie('username', username)
-    response.set_session()
-    return response
+# @blueprint.route('/login', methods=['GET', 'POST'])
+# def login():
+#     """
+#     Ask for a username (no password required)
+#     Sets a cookie
+#     """
+#     # Get the URL to redirect to after logging in
+#     next_url = utils.routing.get_request_arg('next') or \
+#         flask.request.referrer or flask.url_for('.home')
+#
+#     if flask.request.method == 'GET':
+#         return flask.render_template('login.html', next=next_url)
+#
+#     # Validate username
+#     username = utils.routing.get_request_arg('username').strip()
+#     try:
+#         utils.auth.validate_username(username)
+#     except ValueError as e:
+#         # Invalid username
+#         flask.flash(e.message, 'danger')
+#         return flask.render_template('login.html', next=next_url)
+#
+#     # Valid username
+#     response = flask.make_response(flask.redirect(next_url))
+#     response.set_cookie('username', username)
+#     response.set_session()
+#     return response
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
