@@ -53,5 +53,5 @@ def verify_pwd(pwd, repeat_pwd):
     first_pwd = hashlib.md5(pwd.encode()).hexdigest()
     repeat_pwd = hashlib.md5(repeat_pwd.encode()).hexdigest()
     if first_pwd == repeat_pwd:
-        return True
-    return False
+        return False
+    return True
