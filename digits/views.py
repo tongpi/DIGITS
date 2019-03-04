@@ -364,7 +364,7 @@ def login():
         if valid_login(request.form['username'], request.form['password']):
             flash("成功登录！")
             session['username'] = request.form.get('username')
-            return redirect(url_for('home'))
+            return render_template('home.html')
         else:
             error = '错误的用户名或密码！'
 
@@ -390,7 +390,7 @@ def register():
 
             flash("成功注册！")
             session['username'] = request.form['username']
-            return redirect(url_for('/'))
+            return render_template('home.html')
         else:
             error = '该用户名已被注册！'
 
