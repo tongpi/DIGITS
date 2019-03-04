@@ -4,6 +4,7 @@ import os
 from digits.utils import subclass, override
 from digits.status import Status
 from digits.pretrained_model.tasks import UploadPretrainedModelTask
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -14,7 +15,7 @@ class TensorflowUploadTask(UploadPretrainedModelTask):
 
     @override
     def name(self):
-        return 'Upload Pretrained Tensorflow Model'
+        return _('Upload Pretrained Tensorflow Model')
 
     @override
     def get_model_def_path(self):

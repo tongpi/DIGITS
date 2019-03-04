@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-02 15:46+0800\n"
+"POT-Creation-Date: 2019-03-04 09:04+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -69,6 +69,7 @@ msgstr "分类"
 msgid "Other"
 msgstr "其他"
 
+#: pretrained_model/tasks/upload_pretrained.py:37
 #: static/js/PretrainedModel.js:150 views.py:89
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
@@ -218,6 +219,10 @@ msgid ""
 "Check that each entry in the database has the same shape.Disabling this "
 "will also disable mean image computation."
 msgstr "检查数据库中的每个条目是否具有相同的形状。禁用此选项也将禁用平均图像计算。"
+
+#: dataset/generic/job.py:114
+msgid "Generic Dataset"
+msgstr "通用数据集"
 
 #: dataset/generic/views.py:45
 #, python-format
@@ -554,6 +559,10 @@ msgstr "平均图像"
 #: dataset/images/generic/forms.py:96
 msgid "Path to a .binaryproto file on the server"
 msgstr "服务器上.binaryproto文件的路径"
+
+#: dataset/images/generic/job.py:115
+msgid "Generic Image Dataset"
+msgstr "通用图像数据集"
 
 #: dataset/tasks/analyze_db.py:63
 msgid "Analyze DB"
@@ -1099,6 +1108,14 @@ msgstr "不是有效的网络参数: %(e)s"
 msgid "The \"%(id)s\" framework cannot be found. Check your server configuration."
 msgstr "无法找到\"%(id)s\"框架。 检查您的服务器配置。"
 
+#: inference/images/job.py:17
+msgid "Image Inference"
+msgstr "图像推断"
+
+#: inference/tasks/inference.py:56
+msgid "Infer Model"
+msgstr "推断模型"
+
 #: model/forms.py:28
 msgid "Selected job doesn't exist. Maybe it was deleted by another user."
 msgstr "选定的工作不存在。 也许它已被其他用户删除。"
@@ -1593,6 +1610,10 @@ msgstr "饱和"
 msgid "Value"
 msgstr "值"
 
+#: model/images/classification/job.py:26
+msgid "Image Classification Model"
+msgstr "图像分类模型"
+
 #: model/images/generic/job.py:26
 msgid "Generic Image Model"
 msgstr "通用图像模型"
@@ -1632,6 +1653,10 @@ msgstr "未知扩展名'%(view_extension_id)s'"
 msgid "Extension form validation failed with %(ext_form_error)s"
 msgstr "使用%(ext_form_error)s扩展表单验证失败"
 
+#: model/tasks/caffe_train.py:213
+msgid "Train Caffe Model"
+msgstr "Train Caffe模型"
+
 #: model/tasks/caffe_train.py:585 model/tasks/caffe_train.py:814
 #, python-format
 msgid "Unknown lr_policy: \"%(policy)s\""
@@ -1659,6 +1684,10 @@ msgstr ""
 #: model/tasks/tensorflow_train.py:49
 msgid "gpus should be a list"
 msgstr "gpus应该是一个列表"
+
+#: model/tasks/tensorflow_train.py:129
+msgid "Train Tensorflow Model"
+msgstr "Train Tensorflow模型"
 
 #: model/tasks/tensorflow_train.py:162 model/tasks/train.py:458
 msgid "Invalid epoch"
@@ -1708,6 +1737,10 @@ msgstr ""
 #, python-format
 msgid "%(id)s classify many task failed with error code %(returncode)d"
 msgstr "%(id)s 将许多任务分类失败，错误代码为%(returncode)d"
+
+#: model/tasks/torch_train.py:122
+msgid "Train Torch Model"
+msgstr "Train Torch模型"
 
 #: model/tasks/torch_train.py:278
 msgid "Torch does not support multiple pretrained model files"
@@ -1779,6 +1812,18 @@ msgstr "模型定义必须是.lua文件"
 #: pretrained_model/views.py:169 pretrained_model/views.py:171
 msgid "Missing job name"
 msgstr "缺少工作名称"
+
+#: pretrained_model/tasks/caffe_upload.py:18
+msgid "Upload Pretrained Caffe Model"
+msgstr "上传预先训练好的Caffe模型"
+
+#: pretrained_model/tasks/tensorflow_upload.py:18
+msgid "Upload Pretrained Tensorflow Model"
+msgstr "上传预先训练好的Tensorflow模型"
+
+#: pretrained_model/tasks/torch_upload.py:18
+msgid "Upload Pretrained Torch Model"
+msgstr "上传预先训练好的Torch模型"
 
 #: static/js/PretrainedModel.js:23
 msgid "Caffe"

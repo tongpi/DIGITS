@@ -210,7 +210,7 @@ class CaffeTrainTask(TrainTask):
 
     @override
     def name(self):
-        return 'Train Caffe Model'
+        return _('Train Caffe Model')
 
     @override
     def before_run(self):

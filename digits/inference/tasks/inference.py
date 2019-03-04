@@ -53,7 +53,7 @@ class InferenceTask(Task):
 
     @override
     def name(self):
-        return 'Infer Model'
+        return _('Infer Model')
 
     @override
     def __getstate__(self):

@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 from ..job import InferenceJob
 from digits.utils import subclass, override
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -13,4 +14,4 @@ class ImageInferenceJob(InferenceJob):
 
     @override
     def job_type(self):
-        return 'Image Inference'
+        return _('Image Inference')

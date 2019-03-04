@@ -126,7 +126,7 @@ class TensorflowTrainTask(TrainTask):
     # Task overrides
     @override
     def name(self):
-        return 'Train Tensorflow Model'
+        return _('Train Tensorflow Model')
 
     @override
     def before_run(self):

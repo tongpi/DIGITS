@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-02 15:46+0800\n"
+"POT-Creation-Date: 2019-03-04 09:04+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -68,6 +68,7 @@ msgstr ""
 msgid "Other"
 msgstr ""
 
+#: pretrained_model/tasks/upload_pretrained.py:37
 #: static/js/PretrainedModel.js:150 views.py:89
 msgid "Upload Pretrained Model"
 msgstr ""
@@ -216,6 +217,10 @@ msgstr ""
 msgid ""
 "Check that each entry in the database has the same shape.Disabling this "
 "will also disable mean image computation."
+msgstr ""
+
+#: dataset/generic/job.py:114
+msgid "Generic Dataset"
 msgstr ""
 
 #: dataset/generic/views.py:45
@@ -549,6 +554,10 @@ msgstr ""
 
 #: dataset/images/generic/forms.py:96
 msgid "Path to a .binaryproto file on the server"
+msgstr ""
+
+#: dataset/images/generic/job.py:115
+msgid "Generic Image Dataset"
 msgstr ""
 
 #: dataset/tasks/analyze_db.py:63
@@ -1078,6 +1087,14 @@ msgstr ""
 msgid "The \"%(id)s\" framework cannot be found. Check your server configuration."
 msgstr ""
 
+#: inference/images/job.py:17
+msgid "Image Inference"
+msgstr ""
+
+#: inference/tasks/inference.py:56
+msgid "Infer Model"
+msgstr ""
+
 #: model/forms.py:28
 msgid "Selected job doesn't exist. Maybe it was deleted by another user."
 msgstr ""
@@ -1570,6 +1587,10 @@ msgstr ""
 msgid "Value"
 msgstr ""
 
+#: model/images/classification/job.py:26
+msgid "Image Classification Model"
+msgstr ""
+
 #: model/images/generic/job.py:26
 msgid "Generic Image Model"
 msgstr ""
@@ -1609,6 +1630,10 @@ msgstr ""
 msgid "Extension form validation failed with %(ext_form_error)s"
 msgstr ""
 
+#: model/tasks/caffe_train.py:213
+msgid "Train Caffe Model"
+msgstr ""
+
 #: model/tasks/caffe_train.py:585 model/tasks/caffe_train.py:814
 #, python-format
 msgid "Unknown lr_policy: \"%(policy)s\""
@@ -1633,6 +1658,10 @@ msgstr ""
 
 #: model/tasks/tensorflow_train.py:49
 msgid "gpus should be a list"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:129
+msgid "Train Tensorflow Model"
 msgstr ""
 
 #: model/tasks/tensorflow_train.py:162 model/tasks/train.py:458
@@ -1678,6 +1707,10 @@ msgstr ""
 #: model/tasks/tensorflow_train.py:929 model/tasks/torch_train.py:963
 #, python-format
 msgid "%(id)s classify many task failed with error code %(returncode)d"
+msgstr ""
+
+#: model/tasks/torch_train.py:122
+msgid "Train Torch Model"
 msgstr ""
 
 #: model/tasks/torch_train.py:278
@@ -1749,6 +1782,18 @@ msgstr ""
 
 #: pretrained_model/views.py:169 pretrained_model/views.py:171
 msgid "Missing job name"
+msgstr ""
+
+#: pretrained_model/tasks/caffe_upload.py:18
+msgid "Upload Pretrained Caffe Model"
+msgstr ""
+
+#: pretrained_model/tasks/tensorflow_upload.py:18
+msgid "Upload Pretrained Tensorflow Model"
+msgstr ""
+
+#: pretrained_model/tasks/torch_upload.py:18
+msgid "Upload Pretrained Torch Model"
 msgstr ""
 
 #: static/js/PretrainedModel.js:23

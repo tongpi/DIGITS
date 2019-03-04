@@ -119,7 +119,7 @@ class TorchTrainTask(TrainTask):
 
     @override
     def name(self):
-        return 'Train Torch Model'
+        return _('Train Torch Model')
 
     @override
     def before_run(self):

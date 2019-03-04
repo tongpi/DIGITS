@@ -112,4 +112,4 @@ class GenericImageDatasetJob(ImageDatasetJob):
 
     @override
     def job_type(self):
-        return 'Generic Image Dataset'
+        return _('Generic Image Dataset')
