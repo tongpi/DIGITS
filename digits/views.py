@@ -390,30 +390,24 @@ def register():
 
             flash("成功注册！")
             session['username'] = request.form['username']
-            return redirect(url_for('home'))
+            return redirect(url_for('/'))
         else:
             error = '该用户名已被注册！'
 
     return render_template('register.html', error=error)
 
 
-# @blueprint.route('/logout', methods=['GET', 'POST'])
-# def logout():
-#     """
-#     Unset the username cookie
-#     """
-#     next_url = utils.routing.get_request_arg('next') or \
-#         flask.request.referrer or flask.url_for('.home')
-#
-#     response = flask.make_response(flask.redirect(next_url))
-#     response.set_cookie('username', '', expires=0)
-#     return response
-
-
 @blueprint.route('/logout', methods=['GET', 'POST'])
 def logout():
-    session.pop('username', None)
-    return redirect(url_for('home'))
+    """
+    Unset the username cookie
+    """
+    next_url = utils.routing.get_request_arg('next') or \
+        flask.request.referrer or flask.url_for('.home')
+
+    response = flask.make_response(flask.redirect(next_url))
+    response.set_session('username', '', expires=0)
+    return response
 
 
 # Jobs routes

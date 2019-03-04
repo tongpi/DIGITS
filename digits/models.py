@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .webapp import db
+from .webapp import db, app
 from sqlalchemy import and_
 from functools import wraps
 from flask import redirect, url_for, session, request
@@ -55,3 +55,10 @@ def verify_pwd(pwd, repeat_pwd):
     if first_pwd == repeat_pwd:
         return False
     return True
+
+
+@app.before_first_request
+def create_db():
+    db.create_all()
+    admin = User(username='admin', password=hashlib.md5('root'.encode()).hexdigest())
+    db.session.add(admin)
