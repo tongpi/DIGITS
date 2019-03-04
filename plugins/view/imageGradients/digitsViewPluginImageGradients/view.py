@@ -76,7 +76,7 @@ class Visualization(VisualizationInterface):
 
     @staticmethod
     def get_title():
-        return "Gradients"
+        return _("Gradients")
 
     @override
     def get_view_template(self, data):

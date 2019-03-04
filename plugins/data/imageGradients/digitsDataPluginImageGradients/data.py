@@ -92,7 +92,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return "Gradients"
+        return _("Gradients")
 
     @override
     def itemize_entries(self, stage):

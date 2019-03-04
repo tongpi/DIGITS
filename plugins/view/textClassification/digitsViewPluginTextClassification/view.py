@@ -74,7 +74,7 @@ class Visualization(VisualizationInterface):
 
     @staticmethod
     def get_title():
-        return "Text Classification"
+        return _("Text Classification")
 
     @override
     def get_view_template(self, data):

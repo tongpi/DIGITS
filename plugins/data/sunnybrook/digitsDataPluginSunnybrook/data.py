@@ -201,7 +201,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return "Sunnybrook LV Segmentation"
+        return _("Sunnybrook LV Segmentation")
 
     @override
     def itemize_entries(self, stage):

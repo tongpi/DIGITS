@@ -169,7 +169,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return "Object Detection"
+        return _("Object Detection")
 
     @override
     def itemize_entries(self, stage):

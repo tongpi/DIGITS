@@ -119,7 +119,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return "Classification"
+        return _("Classification")
 
     @override
     def itemize_entries(self, stage):

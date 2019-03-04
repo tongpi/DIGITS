@@ -146,7 +146,7 @@ class Visualization(VisualizationInterface):
     @staticmethod
     def get_title():
         """returns: name string to display in html."""
-        return 'Image Segmentation'
+        return _('Image Segmentation')
 
     @staticmethod
     def get_dirname():

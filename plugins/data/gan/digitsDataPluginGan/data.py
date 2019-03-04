@@ -166,7 +166,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return "GAN"
+        return _("GAN")
 
     @override
     def itemize_entries(self, stage):

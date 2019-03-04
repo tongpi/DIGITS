@@ -61,7 +61,7 @@ class Visualization(VisualizationInterface):
 
     @staticmethod
     def get_title():
-        return 'Image output'
+        return _('Image output')
 
     @override
     def get_view_template(self, data):

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-04 09:04+0800\n"
+"POT-Creation-Date: 2019-03-04 16:51+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,55 +60,56 @@ msgstr ""
 msgid "?"
 msgstr ""
 
-#: views.py:59 views.py:74
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:122
+#: views.py:64 views.py:79
 msgid "Classification"
 msgstr ""
 
-#: views.py:64 views.py:79
+#: views.py:69 views.py:84
 msgid "Other"
 msgstr ""
 
 #: pretrained_model/tasks/upload_pretrained.py:37
-#: static/js/PretrainedModel.js:150 views.py:89
+#: static/js/PretrainedModel.js:150 views.py:94
 msgid "Upload Pretrained Model"
 msgstr ""
 
 #: model/views.py:37 model/views.py:73 model/views.py:274 utils/routing.py:21
-#: views.py:255 views.py:373 views.py:393 views.py:456 views.py:572
-#: views.py:591
+#: views.py:260 views.py:422 views.py:442 views.py:505 views.py:621
+#: views.py:640
 msgid "Job not found"
 msgstr ""
 
-#: views.py:318
+#: views.py:323
 msgid "Jobs regrouped."
 msgstr ""
 
-#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:382
-#: views.py:605
+#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:431
+#: views.py:654
 msgid "Invalid job type"
 msgstr ""
 
-#: views.py:402
+#: views.py:451
 msgid "name cannot be blank"
 msgstr ""
 
-#: views.py:436
+#: views.py:485
 msgid "Job not found."
 msgstr ""
 
-#: views.py:513
+#: views.py:562
 msgid "Jobs deleted."
 msgstr ""
 
-#: views.py:559
+#: views.py:608
 msgid "Jobs aborted."
 msgstr ""
 
-#: views.py:577
+#: views.py:626
 msgid "Job not aborted"
 msgstr ""
 
-#: model/views.py:123 views.py:711
+#: model/views.py:123 views.py:760
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
 msgstr ""
@@ -587,6 +588,10 @@ msgstr ""
 msgid "Unhandled number of channels: %(ndim)d"
 msgstr ""
 
+#: extensions/data/imageProcessing/data.py:107
+msgid "Processing"
+msgstr ""
+
 #: extensions/data/imageProcessing/data.py:126
 #: extensions/data/imageSegmentation/data.py:169
 #, python-format
@@ -697,6 +702,10 @@ msgstr ""
 
 #: extensions/data/imageSegmentation/data.py:91
 msgid "All label images must use the same palette"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:149
+msgid "Segmentation"
 msgstr ""
 
 #: extensions/data/imageSegmentation/data.py:177
@@ -816,6 +825,10 @@ msgstr ""
 #: extensions/data/objectDetection/data.py:103
 #, python-format
 msgid "Label key %(label_id)s not found in label folder"
+msgstr ""
+
+#: extensions/data/objectDetection/data.py:172
+msgid "Object Detection"
 msgstr ""
 
 #: extensions/data/objectDetection/forms.py:31
@@ -966,6 +979,10 @@ msgid ""
 "boxes for that image."
 msgstr ""
 
+#: extensions/view/boundingBox/view.py:85
+msgid "Bounding boxes"
+msgstr ""
+
 #: extensions/view/imageOutput/config_template.html:7
 msgid "Display network output as an image."
 msgstr ""
@@ -1009,6 +1026,10 @@ msgstr ""
 #: extensions/view/imageOutput/forms.py:49
 #: extensions/view/imageOutput/forms.py:55
 msgid "Show input as image"
+msgstr ""
+
+#: extensions/view/imageOutput/view.py:64
+msgid "Image output"
 msgstr ""
 
 #: extensions/view/imageOutput/view.py:123
@@ -1068,8 +1089,16 @@ msgstr ""
 msgid "Unknown color map option: %(colormap)s"
 msgstr ""
 
+#: extensions/view/imageSegmentation/view.py:149
+msgid "Image Segmentation"
+msgstr ""
+
 #: extensions/view/rawData/config_template.html:7
 msgid "This visualization has no configuration options"
+msgstr ""
+
+#: extensions/view/rawData/view.py:55
+msgid "Raw Data"
 msgstr ""
 
 #: frameworks/caffe_framework.py:50 frameworks/caffe_framework.py:158
@@ -2122,18 +2151,35 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: templates/login.html:19
+#: templates/layout.html:55
+msgid "Register"
+msgstr ""
+
+#: templates/login.html:19 templates/register.html:19
 msgid "Username"
 msgstr ""
 
-#: templates/login.html:20
+#: templates/login.html:20 templates/login.html:26 templates/register.html:20
+#: templates/register.html:26
 msgid ""
 "Must begin with a letter and contain only lowercase letters, numbers, "
 "periods, dashes and underscores."
 msgstr ""
 
-#: templates/login.html:23
+#: templates/login.html:25 templates/register.html:25
+msgid "Password"
+msgstr ""
+
+#: templates/login.html:29
 msgid "Submit"
+msgstr ""
+
+#: templates/register.html:9 templates/register.html:33
+msgid "register"
+msgstr ""
+
+#: templates/register.html:28
+msgid "Repeat Password"
 msgstr ""
 
 #: templates/status_updates.html:7
@@ -3710,6 +3756,10 @@ msgstr ""
 msgid "second"
 msgstr ""
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:96
+msgid "bAbI"
+msgstr ""
+
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:31
 msgid "Story folder"
 msgstr ""
@@ -3739,6 +3789,11 @@ msgstr ""
 
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/templates/inference_template.html:9
 msgid "Test a story/question"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/data.py:169
+#: ../plugins/view/gan/digitsViewPluginGan/view.py:115
+msgid "GAN"
 msgstr ""
 
 #: ../plugins/data/gan/digitsDataPluginGan/forms.py:43
@@ -3949,6 +4004,11 @@ msgstr ""
 msgid "Animation"
 msgstr ""
 
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/data.py:95
+#: ../plugins/view/imageGradients/digitsViewPluginImageGradients/view.py:79
+msgid "Gradients"
+msgstr ""
+
 #: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:20
 msgid "Train Image count"
 msgstr ""
@@ -3999,6 +4059,10 @@ msgstr ""
 #: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:9
 #: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:9
 msgid "Test an image"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/data.py:204
+msgid "Sunnybrook LV Segmentation"
 msgstr ""
 
 #: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:36
@@ -4098,5 +4162,9 @@ msgstr ""
 
 #: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
 msgid "Test a data file"
+msgstr ""
+
+#: ../plugins/view/textClassification/digitsViewPluginTextClassification/view.py:77
+msgid "Text Classification"
 msgstr ""
 

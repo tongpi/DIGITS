@@ -104,7 +104,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return "Processing"
+        return _("Processing")
 
     @override
     def itemize_entries(self, stage):

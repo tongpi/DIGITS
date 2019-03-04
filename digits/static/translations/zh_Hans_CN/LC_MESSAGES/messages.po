@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-04 09:04+0800\n"
+"POT-Creation-Date: 2019-03-04 16:51+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -61,55 +61,56 @@ msgstr "错误"
 msgid "?"
 msgstr ""
 
-#: views.py:59 views.py:74
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:122
+#: views.py:64 views.py:79
 msgid "Classification"
 msgstr "分类"
 
-#: views.py:64 views.py:79
+#: views.py:69 views.py:84
 msgid "Other"
 msgstr "其他"
 
 #: pretrained_model/tasks/upload_pretrained.py:37
-#: static/js/PretrainedModel.js:150 views.py:89
+#: static/js/PretrainedModel.js:150 views.py:94
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
 
 #: model/views.py:37 model/views.py:73 model/views.py:274 utils/routing.py:21
-#: views.py:255 views.py:373 views.py:393 views.py:456 views.py:572
-#: views.py:591
+#: views.py:260 views.py:422 views.py:442 views.py:505 views.py:621
+#: views.py:640
 msgid "Job not found"
 msgstr "未发现作业"
 
-#: views.py:318
+#: views.py:323
 msgid "Jobs regrouped."
 msgstr "作业重组。"
 
-#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:382
-#: views.py:605
+#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:431
+#: views.py:654
 msgid "Invalid job type"
 msgstr "无效作业类型"
 
-#: views.py:402
+#: views.py:451
 msgid "name cannot be blank"
 msgstr "名称不能为空"
 
-#: views.py:436
+#: views.py:485
 msgid "Job not found."
 msgstr "未发现作业。"
 
-#: views.py:513
+#: views.py:562
 msgid "Jobs deleted."
 msgstr "作业已删除。"
 
-#: views.py:559
+#: views.py:608
 msgid "Jobs aborted."
 msgstr "作业中止。"
 
-#: views.py:577
+#: views.py:626
 msgid "Job not aborted"
 msgstr "作业未中止"
 
-#: model/views.py:123 views.py:711
+#: model/views.py:123 views.py:760
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
 msgstr "未知的扩展'%(extension_id)s'"
@@ -591,6 +592,10 @@ msgstr "百分比和百分比测试的总和不得超过100"
 msgid "Unhandled number of channels: %(ndim)d"
 msgstr "未处理的通道数：%(ndim)d"
 
+#: extensions/data/imageProcessing/data.py:107
+msgid "Processing"
+msgstr "处理"
+
 #: extensions/data/imageProcessing/data.py:126
 #: extensions/data/imageSegmentation/data.py:169
 #, python-format
@@ -704,6 +709,10 @@ msgstr "您的颜色映射文件似乎格式错误：'%(val)s'不是整数"
 #: extensions/data/imageSegmentation/data.py:91
 msgid "All label images must use the same palette"
 msgstr "所有标签图像必须使用相同的调色板"
+
+#: extensions/data/imageSegmentation/data.py:149
+msgid "Segmentation"
+msgstr "分割"
 
 #: extensions/data/imageSegmentation/data.py:177
 #, python-format
@@ -834,6 +843,10 @@ msgstr "不支持的图像形状：%(shape)s"
 #, python-format
 msgid "Label key %(label_id)s not found in label folder"
 msgstr "标签文件夹中找不到标签键%(label_id)s"
+
+#: extensions/data/objectDetection/data.py:172
+msgid "Object Detection"
+msgstr "对象检测"
 
 #: extensions/data/objectDetection/forms.py:31
 msgid "Training image folder"
@@ -985,6 +998,10 @@ msgid ""
 "boxes for that image."
 msgstr "在检测到的对象周围绘制一个边界框。 预期的网络输出是一个字典，字典的键是类别，值是该图像的边界框列表。"
 
+#: extensions/view/boundingBox/view.py:85
+msgid "Bounding boxes"
+msgstr "边界区域"
+
 #: extensions/view/imageOutput/config_template.html:7
 msgid "Display network output as an image."
 msgstr "将网络输出显示为图像。"
@@ -1031,6 +1048,10 @@ msgstr "选择将像素值转换为目标位范围的方法"
 #: extensions/view/imageOutput/forms.py:55
 msgid "Show input as image"
 msgstr "将输入显示为图像"
+
+#: extensions/view/imageOutput/view.py:64
+msgid "Image output"
+msgstr "图像输出"
 
 #: extensions/view/imageOutput/view.py:123
 #, python-format
@@ -1089,9 +1110,17 @@ msgstr "在数据集中找不到调色板 - 选择其他颜色图"
 msgid "Unknown color map option: %(colormap)s"
 msgstr "未知的颜色映射选项：%(colormap)s"
 
+#: extensions/view/imageSegmentation/view.py:149
+msgid "Image Segmentation"
+msgstr "图像分割"
+
 #: extensions/view/rawData/config_template.html:7
 msgid "This visualization has no configuration options"
 msgstr "此可视化没有配置选项"
+
+#: extensions/view/rawData/view.py:55
+msgid "Raw Data"
+msgstr "原始数据"
 
 #: frameworks/caffe_framework.py:50 frameworks/caffe_framework.py:158
 #: model/tasks/caffe_train.py:947
@@ -2153,19 +2182,36 @@ msgstr "注销"
 msgid "Login"
 msgstr "登录"
 
-#: templates/login.html:19
+#: templates/layout.html:55
+msgid "Register"
+msgstr "注册"
+
+#: templates/login.html:19 templates/register.html:19
 msgid "Username"
 msgstr "用户名"
 
-#: templates/login.html:20
+#: templates/login.html:20 templates/login.html:26 templates/register.html:20
+#: templates/register.html:26
 msgid ""
 "Must begin with a letter and contain only lowercase letters, numbers, "
 "periods, dashes and underscores."
 msgstr "必须以字母开头，并且只包含小写字母，数字，句点，破折号和下划线。"
 
-#: templates/login.html:23
+#: templates/login.html:25 templates/register.html:25
+msgid "Password"
+msgstr ""
+
+#: templates/login.html:29
 msgid "Submit"
 msgstr "提交"
+
+#: templates/register.html:9 templates/register.html:33
+msgid "register"
+msgstr "注册"
+
+#: templates/register.html:28
+msgid "Repeat Password"
+msgstr "确认密码"
 
 #: templates/status_updates.html:7
 msgid "at"
@@ -3751,6 +3797,10 @@ msgstr "分钟"
 msgid "second"
 msgstr "秒"
 
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:96
+msgid "bAbI"
+msgstr ""
+
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:31
 msgid "Story folder"
 msgstr ""
@@ -3780,6 +3830,11 @@ msgstr "在那里写下所有句子并以问题结束"
 
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/templates/inference_template.html:9
 msgid "Test a story/question"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/data.py:169
+#: ../plugins/view/gan/digitsViewPluginGan/view.py:115
+msgid "GAN"
 msgstr ""
 
 #: ../plugins/data/gan/digitsDataPluginGan/forms.py:43
@@ -3990,6 +4045,11 @@ msgstr "使用GAN可视化方法"
 msgid "Animation"
 msgstr "动画"
 
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/data.py:95
+#: ../plugins/view/imageGradients/digitsViewPluginImageGradients/view.py:79
+msgid "Gradients"
+msgstr "渐变"
+
 #: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:20
 msgid "Train Image count"
 msgstr "训练图像数"
@@ -4041,6 +4101,10 @@ msgstr "在测试集中创建的图像数量"
 #: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:9
 msgid "Test an image"
 msgstr "测试一个图像"
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/data.py:204
+msgid "Sunnybrook LV Segmentation"
+msgstr "Sunnybrook分割"
 
 #: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:36
 msgid "Specify the path to the image folder"
@@ -4140,6 +4204,10 @@ msgstr "测试片段"
 #: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
 msgid "Test a data file"
 msgstr "测试数据文件"
+
+#: ../plugins/view/textClassification/digitsViewPluginTextClassification/view.py:77
+msgid "Text Classification"
+msgstr "文本分类"
 
 #~ msgid "Retrieve from Model Store"
 #~ msgstr "从模型商店获取"

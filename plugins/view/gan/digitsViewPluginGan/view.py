@@ -112,7 +112,7 @@ class Visualization(VisualizationInterface):
 
     @staticmethod
     def get_title():
-        return "GAN"
+        return _("GAN")
 
     def get_image_html(self, image):
         # assume 8-bit
