@@ -1,4 +1,4 @@
-Pillow>=2.3.0,<=3.1.2
+Pillow>=2.3.0,<=3.1.1
 numpy>=1.8.1,<=1.11.0
 scipy>=0.13.3,<=0.17.0
 protobuf>=2.5.0,<=3.2.0
@@ -22,3 +22,4 @@ python-magic>=0.2
 
 flask_sqlalchemy==2.3.2
 sqlalchemy==1.2.7
+psycopg2==2.7.7

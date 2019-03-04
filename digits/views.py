@@ -22,14 +22,13 @@ from digits import dataset, extensions, model, utils, pretrained_model
 from digits.log import logger
 from digits.utils.routing import request_wants_json
 from flask_babel import lazy_gettext as _
-from .models import valid_login, valid_regist, User, verify_pwd, login_required
+from .models import valid_login, valid_regist, User, verify_pwd
 
 blueprint = flask.Blueprint(__name__, __name__)
 
 
 @blueprint.route('/index.json', methods=['GET'])
 @blueprint.route('/', methods=['GET'])
-@login_required
 def home(tab=2):
     """
     DIGITS home page
@@ -273,7 +272,6 @@ def get_job_list(cls, running):
 
 
 @blueprint.route('/group', methods=['GET', 'POST'])
-@login_required
 def group():
     """
     Assign the group for the listed jobs
@@ -327,32 +325,33 @@ def group():
 # Authentication/login
 
 
-# @blueprint.route('/login', methods=['GET', 'POST'])
-# def login():
-#     """
-#     Ask for a username (no password required)
-#     Sets a cookie
-#     """
-#     # Get the URL to redirect to after logging in
-#     next_url = utils.routing.get_request_arg('next') or \
-#         flask.request.referrer or flask.url_for('.home')
-#
-#     if flask.request.method == 'GET':
-#         return flask.render_template('login.html', next=next_url)
-#
-#     # Validate username
-#     username = utils.routing.get_request_arg('username').strip()
-#     try:
-#         utils.auth.validate_username(username)
-#     except ValueError as e:
-#         # Invalid username
-#         flask.flash(e.message, 'danger')
-#         return flask.render_template('login.html', next=next_url)
-#
-#     # Valid username
-#     response = flask.make_response(flask.redirect(next_url))
-#     response.set_cookie('username', username)
-#     return response
+@blueprint.route('/login', methods=['GET', 'POST'])
+def login():
+    """
+    Ask for a username (no password required)
+    Sets a cookie
+    """
+    # Get the URL to redirect to after logging in
+    next_url = utils.routing.get_request_arg('next') or \
+        flask.request.referrer or flask.url_for('.home')
+
+    if flask.request.method == 'GET':
+        return flask.render_template('login.html', next=next_url)
+
+    # Validate username
+    username = utils.routing.get_request_arg('username').strip()
+    try:
+        utils.auth.validate_username(username)
+    except ValueError as e:
+        # Invalid username
+        flask.flash(e.message, 'danger')
+        return flask.render_template('login.html', next=next_url)
+
+    # Valid username
+    response = flask.make_response(flask.redirect(next_url))
+    response.set_cookie('username', username)
+    response.set_session()
+    return response
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
@@ -482,7 +481,6 @@ def edit_job(job_id):
 @blueprint.route('/datasets/<job_id>/status', methods=['GET'])
 @blueprint.route('/models/<job_id>/status', methods=['GET'])
 @blueprint.route('/jobs/<job_id>/status', methods=['GET'])
-@login_required
 def job_status(job_id):
     """
     Returns a JSON objecting representing the status of a job
@@ -504,7 +502,6 @@ def job_status(job_id):
 @blueprint.route('/models/<job_id>', methods=['DELETE'])
 @blueprint.route('/jobs/<job_id>', methods=['DELETE'])
 @utils.auth.requires_login(redirect=False)
-@login_required
 def delete_job(job_id):
     """
     Deletes a job
@@ -527,7 +524,6 @@ def delete_job(job_id):
 
 @blueprint.route('/jobs', methods=['DELETE'])
 @utils.auth.requires_login(redirect=False)
-@login_required
 def delete_jobs():
     """
     Deletes a list of jobs
@@ -574,7 +570,6 @@ def delete_jobs():
 
 @blueprint.route('/abort_jobs', methods=['POST'])
 @utils.auth.requires_login(redirect=False)
-@login_required
 def abort_jobs():
     """
     Aborts a list of jobs
@@ -623,7 +618,6 @@ def abort_jobs():
 @blueprint.route('/models/<job_id>/abort', methods=['POST'])
 @blueprint.route('/jobs/<job_id>/abort', methods=['POST'])
 @utils.auth.requires_login(redirect=False)
-@login_required
 def abort_job(job_id):
     """
     Aborts a running job
@@ -640,7 +634,6 @@ def abort_job(job_id):
 
 @blueprint.route('/clone/<clone>', methods=['POST', 'GET'])
 @utils.auth.requires_login
-@login_required
 def clone_job(clone):
     """
     Clones a job with the id <clone>, populating the creation page with data saved in <clone>
