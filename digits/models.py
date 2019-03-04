@@ -60,5 +60,5 @@ def verify_pwd(pwd, repeat_pwd):
 @app.before_first_request
 def create_db():
     db.create_all()
-    admin = User(username='admin', password=hashlib.md5('root'.encode()).hexdigest())
+    admin = User(username='admin', password_hash=hashlib.md5('root'.encode()).hexdigest())
     db.session.add(admin)
