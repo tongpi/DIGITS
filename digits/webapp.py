@@ -44,6 +44,8 @@ babel = Babel(app)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres@192.168.1.143/digits'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
+db.drop_all()
+db.create_all()
 # Register filters and views
 
 app.jinja_env.globals['server_name'] = config_value('server_name')
