@@ -409,7 +409,7 @@ def register():
 #     return response
 
 
-@blueprint.route('/logout', method=['GET', 'POST'])
+@blueprint.route('/logout', methods=['GET', 'POST'])
 def logout():
     session.pop('username', None)
     return redirect(url_for('home'))
