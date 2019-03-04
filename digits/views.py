@@ -364,7 +364,7 @@ def login():
         if valid_login(request.form['username'], request.form['password']):
             flash("成功登录！")
             session['username'] = request.form.get('username')
-            return render_template('home.html')
+            return redirect('/')
         else:
             error = '错误的用户名或密码！'
 
@@ -390,7 +390,7 @@ def register():
 
             flash("成功注册！")
             session['username'] = request.form['username']
-            return render_template('home.html')
+            return redirect('/')
         else:
             error = '该用户名已被注册！'
 
@@ -406,7 +406,7 @@ def logout():
         flask.request.referrer or flask.url_for('.home')
 
     response = flask.make_response(flask.redirect(next_url))
-    response.set_session('username', '', expires=0)
+    session['username'] = ''
     return response
 
 
