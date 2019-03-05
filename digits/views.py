@@ -22,13 +22,14 @@ from digits import dataset, extensions, model, utils, pretrained_model
 from digits.log import logger
 from digits.utils.routing import request_wants_json
 from flask_babel import lazy_gettext as _
-from .models import valid_login, valid_regist, User, verify_pwd
+from .models import valid_login, valid_regist, User, verify_pwd, login_required
 
 blueprint = flask.Blueprint(__name__, __name__)
 
 
 @blueprint.route('/index.json', methods=['GET'])
-@blueprint.route('/', methods=['GET'])
+@blueprint.route('/home', methods=['GET'])
+@login_required
 def home(tab=2):
     """
     DIGITS home page
@@ -355,6 +356,7 @@ def group():
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
+@blueprint.route('/', methods=['GET'])
 def login():
     """
     user login
@@ -364,7 +366,7 @@ def login():
         if valid_login(request.form['username'], request.form['password']):
             flash("成功登录！")
             session['username'] = request.form.get('username')
-            return redirect('/')
+            return redirect(url_for('home'))
         else:
             error = '错误的用户名或密码！'
 
@@ -390,7 +392,7 @@ def register():
 
             flash("成功注册！")
             session['username'] = request.form['username']
-            return redirect('/')
+            return redirect(url_for('home'))
         else:
             error = '该用户名已被注册！'
 
@@ -403,7 +405,7 @@ def logout():
     Unset the username cookie
     """
     next_url = utils.routing.get_request_arg('next') or \
-        flask.request.referrer or flask.url_for('.home')
+        flask.request.referrer or url_for('login')
 
     response = flask.make_response(flask.redirect(next_url))
     session['username'] = ''

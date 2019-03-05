@@ -332,7 +332,7 @@ def create():
         return flask.jsonify(jobs=[j.json_dict() for j in jobs])
 
     # If there are multiple jobs launched, go to the home page.
-    return flask.redirect('/')
+    return flask.redirect(flask.url_for('home'))
 
 
 def show(job, related_jobs=None):
