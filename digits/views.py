@@ -356,7 +356,7 @@ def group():
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
-@blueprint.route('/', methods=['GET'])
+@blueprint.route('/', methods=['GET', 'POST'])
 def login():
     """
     user login
