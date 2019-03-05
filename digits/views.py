@@ -373,10 +373,7 @@ def logout():
     """
     Unset the username cookie
     """
-    next_url = utils.routing.get_request_arg('next') or \
-        flask.request.referrer or url_for('digits.views.login')
-
-    response = flask.make_response(flask.redirect(next_url))
+    response = flask.make_response(flask.redirect(url_for('digits.views.login')))
     session.pop('username', None)
     return response
 
