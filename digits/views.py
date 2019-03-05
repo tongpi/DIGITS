@@ -330,6 +330,8 @@ def login():
     """
     user login
     """
+    if session.get('username'):
+        return redirect(url_for('digits.views.home'))
     error = None
     if request.method == 'POST':
         if valid_login(request.form['username'], request.form['password']):
