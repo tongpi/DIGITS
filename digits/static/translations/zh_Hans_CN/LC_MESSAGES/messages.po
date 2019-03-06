@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-06 09:08+0800\n"
+"POT-Creation-Date: 2019-03-06 13:24+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -585,6 +585,11 @@ msgstr "百分比测试不得超过100"
 #: dataset/tasks/parse_folder.py:65
 msgid "the sum of percent_val and percent_test must not exceed 100"
 msgstr "百分比和百分比测试的总和不得超过100"
+
+#: dataset/tasks/parse_folder.py:95
+#, python-format
+msgid "Parse Folder %(name)s"
+msgstr "解析文件夹%(name)s"
 
 #: extensions/data/imageProcessing/data.py:65
 #: extensions/data/imageSegmentation/data.py:107
@@ -2178,29 +2183,29 @@ msgstr "输入注释"
 msgid "Logout"
 msgstr "注销"
 
-#: templates/layout.html:54 templates/login.html:9
+#: templates/layout.html:54 templates/login.html:19
 msgid "Login"
 msgstr "登录"
 
-#: templates/layout.html:55 templates/login.html:29
+#: templates/layout.html:55 templates/login.html:39
 msgid "Register"
 msgstr "注册"
 
-#: templates/login.html:19 templates/register.html:19
+#: templates/login.html:29 templates/register.html:19
 msgid "Username"
 msgstr "用户名"
 
-#: templates/login.html:20 templates/register.html:20
+#: templates/login.html:30 templates/register.html:20
 msgid ""
 "Must begin with a letter and contain only lowercase letters, numbers, "
 "periods, dashes and underscores."
 msgstr "必须以字母开头，并且只包含小写字母，数字，句点，破折号和下划线。"
 
-#: templates/login.html:25 templates/register.html:25
+#: templates/login.html:35 templates/register.html:25
 msgid "Password"
 msgstr "密码"
 
-#: templates/login.html:28
+#: templates/login.html:38
 msgid "Submit"
 msgstr "提交"
 

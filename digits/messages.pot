@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-06 09:08+0800\n"
+"POT-Creation-Date: 2019-03-06 13:24+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -580,6 +580,11 @@ msgstr ""
 
 #: dataset/tasks/parse_folder.py:65
 msgid "the sum of percent_val and percent_test must not exceed 100"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:95
+#, python-format
+msgid "Parse Folder %(name)s"
 msgstr ""
 
 #: extensions/data/imageProcessing/data.py:65
@@ -2147,29 +2152,29 @@ msgstr ""
 msgid "Logout"
 msgstr ""
 
-#: templates/layout.html:54 templates/login.html:9
+#: templates/layout.html:54 templates/login.html:19
 msgid "Login"
 msgstr ""
 
-#: templates/layout.html:55 templates/login.html:29
+#: templates/layout.html:55 templates/login.html:39
 msgid "Register"
 msgstr ""
 
-#: templates/login.html:19 templates/register.html:19
+#: templates/login.html:29 templates/register.html:19
 msgid "Username"
 msgstr ""
 
-#: templates/login.html:20 templates/register.html:20
+#: templates/login.html:30 templates/register.html:20
 msgid ""
 "Must begin with a letter and contain only lowercase letters, numbers, "
 "periods, dashes and underscores."
 msgstr ""
 
-#: templates/login.html:25 templates/register.html:25
+#: templates/login.html:35 templates/register.html:25
 msgid "Password"
 msgstr ""
 
-#: templates/login.html:28
+#: templates/login.html:38
 msgid "Submit"
 msgstr ""
 
