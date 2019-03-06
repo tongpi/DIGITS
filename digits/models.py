@@ -1,8 +1,6 @@
 # -*- coding: utf-8 -*-
 from .webapp import db, app
 from sqlalchemy import and_
-from functools import wraps
-from flask import redirect, url_for, session, request
 import hashlib
 
 
@@ -35,17 +33,6 @@ def valid_regist(username):
         return False
     else:
         return True
-
-
-# 需要登录状态
-def login_required(func):
-    @wraps(func)
-    def wrapper(*args, **kwargs):
-        if session.get('username'):
-            return func(*args, **kwargs)
-        else:
-            return redirect(url_for('digits.views.login', next=request.url))
-    return wrapper
 
 
 # 两次密码验证

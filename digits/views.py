@@ -22,14 +22,14 @@ from digits import dataset, extensions, model, utils, pretrained_model
 from digits.log import logger
 from digits.utils.routing import request_wants_json
 from flask_babel import lazy_gettext as _
-from .models import valid_login, valid_regist, User, verify_pwd, login_required
+from .models import valid_login, valid_regist, User, verify_pwd
 
 blueprint = flask.Blueprint(__name__, __name__)
 
 
 @blueprint.route('/index.json', methods=['GET'])
 @blueprint.route('/home', methods=['GET'])
-@login_required
+@utils.auth.requires_login
 def home(tab=2):
     """
     DIGITS home page
@@ -273,7 +273,7 @@ def get_job_list(cls, running):
 
 
 @blueprint.route('/group', methods=['GET', 'POST'])
-@login_required
+@utils.auth.requires_login
 def group():
     """
     Assign the group for the listed jobs
@@ -384,7 +384,7 @@ def logout():
 # Jobs routes
 
 @blueprint.route('/jobs/<job_id>', methods=['GET'])
-@login_required
+@utils.auth.requires_login
 def show_job(job_id):
     """
     Redirects to the appropriate /datasets/ or /models/ page
@@ -447,7 +447,7 @@ def edit_job(job_id):
 @blueprint.route('/datasets/<job_id>/status', methods=['GET'])
 @blueprint.route('/models/<job_id>/status', methods=['GET'])
 @blueprint.route('/jobs/<job_id>/status', methods=['GET'])
-@login_required
+@utils.auth.requires_login
 def job_status(job_id):
     """
     Returns a JSON objecting representing the status of a job

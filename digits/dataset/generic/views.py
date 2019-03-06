@@ -3,8 +3,6 @@ from __future__ import absolute_import
 
 import os
 # Find the best implementation available
-from digits.models import login_required
-
 try:
     from cStringIO import StringIO
 except ImportError:

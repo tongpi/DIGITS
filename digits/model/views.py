@@ -11,7 +11,6 @@ import zipfile
 import flask
 import werkzeug.exceptions
 
-from digits.models import login_required
 from . import images as model_images
 from . import ModelJob
 from digits.pretrained_model.job import PretrainedModelJob
@@ -26,7 +25,7 @@ blueprint = flask.Blueprint(__name__, __name__)
 
 @blueprint.route('/<job_id>.json', methods=['GET'])
 @blueprint.route('/<job_id>', methods=['GET'])
-@login_required
+@utils.auth.requires_login
 def show(job_id):
     """
     Show a ModelJob
