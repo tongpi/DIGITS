@@ -4,6 +4,15 @@
 
 {% extends "layout.html" %}
 
+{% block head %}
+    <style type="text/css">
+        .btn-register > a:hover,
+        .btn-register > a{
+            color: #fff;
+        }
+    </style>
+{% endblock %}
+
 {% block content %}
 <div class="page-header">
     <h1>{{_('Login')}}</h1>
@@ -26,7 +35,7 @@
                 <input class="form-control" id="password" name="password" type="password" autofocus />
             </div>
             <input type="submit" name="login-button" class="btn btn-primary" value='{{_("Submit")}}' />
-            <button class="btn btn-primary"><a href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a></button>
+            <button class="btn btn-primary btn-register"><a href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a></button>
         </form>
         {% if error %}
             <p>{{ error }}</p>
