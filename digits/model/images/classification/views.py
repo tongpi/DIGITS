@@ -403,7 +403,7 @@ def classify_one():
     # create inference job
     inference_job = ImageInferenceJob(
         username=utils.auth.get_username(),
-        name="Classify One Image",
+        name=lazy_gettext("Classify One Image"),
         model=model_job,
         images=[image_path],
         epoch=epoch,
@@ -497,7 +497,7 @@ def classify_many():
     # create inference job
     inference_job = ImageInferenceJob(
         username=utils.auth.get_username(),
-        name="Classify Many Images",
+        name=lazy_gettext("Classify Many Images"),
         model=model_job,
         images=paths,
         epoch=epoch,
@@ -653,7 +653,7 @@ def top_n():
     # create inference job
     inference_job = ImageInferenceJob(
         username=utils.auth.get_username(),
-        name="TopN Image Classification",
+        name=lazy_gettext("TopN Image Classification"),
         model=model_job,
         images=paths,
         epoch=epoch,

@@ -23,11 +23,10 @@
             <div class="form-group">
                 <input name="next" type="hidden" value="{{ next }}" />
                 <label for="password">{{ _('Password') }}</label>
-                <span name="password_explanation" class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body" title="{{_('Must begin with a letter and contain only lowercase letters, numbers, periods, dashes and underscores.')}}"></span>
                 <input class="form-control" id="password" name="password" type="password" autofocus />
             </div>
             <input type="submit" name="login-button" class="btn btn-primary" value='{{_("Submit")}}' />
-            <button class="btn btn-primary"><a class="navbar-link" href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a></button>
+            <button class="btn btn-primary"><a href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a></button>
         </form>
         {% if error %}
             <p>{{ error }}</p>

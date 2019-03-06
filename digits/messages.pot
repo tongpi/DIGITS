@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-04 16:51+0800\n"
+"POT-Creation-Date: 2019-03-06 09:08+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -61,55 +61,55 @@ msgid "?"
 msgstr ""
 
 #: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:122
-#: views.py:64 views.py:79
+#: views.py:65 views.py:80
 msgid "Classification"
 msgstr ""
 
-#: views.py:69 views.py:84
+#: views.py:70 views.py:85
 msgid "Other"
 msgstr ""
 
 #: pretrained_model/tasks/upload_pretrained.py:37
-#: static/js/PretrainedModel.js:150 views.py:94
+#: static/js/PretrainedModel.js:150 views.py:95
 msgid "Upload Pretrained Model"
 msgstr ""
 
 #: model/views.py:37 model/views.py:73 model/views.py:274 utils/routing.py:21
-#: views.py:260 views.py:422 views.py:442 views.py:505 views.py:621
-#: views.py:640
+#: views.py:261 views.py:392 views.py:412 views.py:475 views.py:591
+#: views.py:610
 msgid "Job not found"
 msgstr ""
 
-#: views.py:323
+#: views.py:324
 msgid "Jobs regrouped."
 msgstr ""
 
-#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:431
-#: views.py:654
+#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:401
+#: views.py:624
 msgid "Invalid job type"
 msgstr ""
 
-#: views.py:451
+#: views.py:421
 msgid "name cannot be blank"
 msgstr ""
 
-#: views.py:485
+#: views.py:455
 msgid "Job not found."
 msgstr ""
 
-#: views.py:562
+#: views.py:532
 msgid "Jobs deleted."
 msgstr ""
 
-#: views.py:608
+#: views.py:578
 msgid "Jobs aborted."
 msgstr ""
 
-#: views.py:626
+#: views.py:596
 msgid "Job not aborted"
 msgstr ""
 
-#: model/views.py:123 views.py:760
+#: model/views.py:123 views.py:730
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
 msgstr ""
@@ -2151,7 +2151,7 @@ msgstr ""
 msgid "Login"
 msgstr ""
 
-#: templates/layout.html:55
+#: templates/layout.html:55 templates/login.html:29
 msgid "Register"
 msgstr ""
 
@@ -2159,8 +2159,7 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: templates/login.html:20 templates/login.html:26 templates/register.html:20
-#: templates/register.html:26
+#: templates/login.html:20 templates/register.html:20
 msgid ""
 "Must begin with a letter and contain only lowercase letters, numbers, "
 "periods, dashes and underscores."
@@ -2170,15 +2169,15 @@ msgstr ""
 msgid "Password"
 msgstr ""
 
-#: templates/login.html:29
+#: templates/login.html:28
 msgid "Submit"
 msgstr ""
 
-#: templates/register.html:9 templates/register.html:33
+#: templates/register.html:9 templates/register.html:32
 msgid "register"
 msgstr ""
 
-#: templates/register.html:28
+#: templates/register.html:27
 msgid "Repeat Password"
 msgstr ""
 
