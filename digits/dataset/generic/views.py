@@ -143,7 +143,7 @@ def create(extension_id):
 
 
 @blueprint.route('/explore', methods=['GET'])
-@login_required
+@utils.auth.requires_login
 def explore():
     """
     Returns a gallery consisting of the images of one of the dbs

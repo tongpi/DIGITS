@@ -353,6 +353,7 @@ def summary(job):
 
 
 @blueprint.route('/explore', methods=['GET'])
+@utils.auth.requires_login
 def explore():
     """
     Returns a gallery consisting of the images of one of the dbs
