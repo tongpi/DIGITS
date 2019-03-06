@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-06 14:22+0800\n"
+"POT-Creation-Date: 2019-03-06 14:31+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -568,23 +568,6 @@ msgstr "通用图像数据集"
 #: dataset/tasks/analyze_db.py:63
 msgid "Analyze DB"
 msgstr "分析 DB"
-
-#: dataset/tasks/create_db.py:115
-msgid "Create DB (train)"
-msgstr "创建数据库（训练）"
-
-#: dataset/tasks/create_db.py:117
-msgid "Create DB (val)"
-msgstr "创建数据库（验证）"
-
-#: dataset/tasks/create_db.py:119
-msgid "Create DB (test)"
-msgstr "创建数据库（测试）"
-
-#: dataset/tasks/create_db.py:121
-#, python-format
-msgid "Create DB (%(db_name)s)"
-msgstr "创建数据库 (%(db_name)s)"
 
 #: dataset/tasks/create_generic_db.py:70
 #, python-format
@@ -4416,4 +4399,16 @@ msgstr "文本分类"
 
 #~ msgid "Parse Folder %(name)s"
 #~ msgstr "解析文件夹%(name)s"
+
+#~ msgid "Create DB (train)"
+#~ msgstr "创建数据库（训练）"
+
+#~ msgid "Create DB (val)"
+#~ msgstr "创建数据库（验证）"
+
+#~ msgid "Create DB (test)"
+#~ msgstr "创建数据库（测试）"
+
+#~ msgid "Create DB (%(db_name)s)"
+#~ msgstr "创建数据库 (%(db_name)s)"
 
