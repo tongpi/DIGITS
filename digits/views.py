@@ -225,6 +225,7 @@ def json_dict(job, model_output_fields):
 
 
 @blueprint.route('/completed_jobs.json', methods=['GET'])
+@login_required
 def completed_jobs():
     """
     Returns JSON
@@ -252,6 +253,7 @@ def completed_jobs():
 
 
 @blueprint.route('/jobs/<job_id>/table_data.json', methods=['GET'])
+@login_required
 def job_table_data(job_id):
     """
     Get the job data for the front page tables
@@ -273,6 +275,7 @@ def get_job_list(cls, running):
 
 
 @blueprint.route('/group', methods=['GET', 'POST'])
+@login_required
 def group():
     """
     Assign the group for the listed jobs
@@ -383,6 +386,7 @@ def logout():
 # Jobs routes
 
 @blueprint.route('/jobs/<job_id>', methods=['GET'])
+@login_required
 def show_job(job_id):
     """
     Redirects to the appropriate /datasets/ or /models/ page
@@ -445,6 +449,7 @@ def edit_job(job_id):
 @blueprint.route('/datasets/<job_id>/status', methods=['GET'])
 @blueprint.route('/models/<job_id>/status', methods=['GET'])
 @blueprint.route('/jobs/<job_id>/status', methods=['GET'])
+@login_required
 def job_status(job_id):
     """
     Returns a JSON objecting representing the status of a job
