@@ -92,7 +92,7 @@ class ParseFolderTask(Task):
         if self.percent_test > 0:
             sets.append('test')
 
-        return _('Parse Folder %(name)s', name=('/'.join(sets)))
+        return _('Parse Folder (%(name)s)', name=('/'.join(sets)))
 
     @override
     def html_id(self):

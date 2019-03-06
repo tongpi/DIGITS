@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-06 13:24+0800\n"
+"POT-Creation-Date: 2019-03-06 13:27+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -588,8 +588,8 @@ msgstr "百分比和百分比测试的总和不得超过100"
 
 #: dataset/tasks/parse_folder.py:95
 #, python-format
-msgid "Parse Folder %(name)s"
-msgstr "解析文件夹%(name)s"
+msgid "Parse Folder (%(name)s)"
+msgstr "解析文件夹 (%(name)s)"
 
 #: extensions/data/imageProcessing/data.py:65
 #: extensions/data/imageSegmentation/data.py:107
@@ -4396,4 +4396,7 @@ msgstr "文本分类"
 
 #~ msgid "Upload Pretrained Torch Model"
 #~ msgstr "上传预训练Torch模型"
+
+#~ msgid "Parse Folder %(name)s"
+#~ msgstr "解析文件夹%(name)s"
 
