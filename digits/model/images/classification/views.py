@@ -9,6 +9,7 @@ import flask
 import numpy as np
 import werkzeug.exceptions
 
+from digits.models import login_required
 from .forms import ImageClassificationModelForm
 from .job import ImageClassificationModelJob
 from digits import frameworks
@@ -372,6 +373,7 @@ def large_graph():
 
 @blueprint.route('/classify_one.json', methods=['POST'])
 @blueprint.route('/classify_one', methods=['POST', 'GET'])
+@login_required
 def classify_one():
     """
     Classify one image and return the top 5 classifications

@@ -225,7 +225,6 @@ def json_dict(job, model_output_fields):
 
 
 @blueprint.route('/completed_jobs.json', methods=['GET'])
-@login_required
 def completed_jobs():
     """
     Returns JSON
@@ -253,7 +252,6 @@ def completed_jobs():
 
 
 @blueprint.route('/jobs/<job_id>/table_data.json', methods=['GET'])
-@login_required
 def job_table_data(job_id):
     """
     Get the job data for the front page tables

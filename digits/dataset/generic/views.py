@@ -3,6 +3,8 @@ from __future__ import absolute_import
 
 import os
 # Find the best implementation available
+from digits.models import login_required
+
 try:
     from cStringIO import StringIO
 except ImportError:
@@ -141,6 +143,7 @@ def create(extension_id):
 
 
 @blueprint.route('/explore', methods=['GET'])
+@login_required
 def explore():
     """
     Returns a gallery consisting of the images of one of the dbs
