@@ -14,7 +14,7 @@ import werkzeug.exceptions
 from . import images as model_images
 from . import ModelJob
 from digits.pretrained_model.job import PretrainedModelJob
-from digits import frameworks, extensions
+from digits import frameworks, extensions, utils
 from digits.utils import auth
 from digits.utils.routing import request_wants_json, job_from_request, get_request_arg
 from digits.webapp import scheduler
