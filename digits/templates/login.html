@@ -36,6 +36,7 @@
                 <input class="form-control" id="password" name="password" type="password" autofocus />
             </div>
             <input type="submit" name="login-button" class="btn btn-primary" value='{{_("Submit")}}' />
+            <button class="btn btn-primary btn-register"><a href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a></button>
         </form>
         {% if error %}
             <p>{{ error }}</p>
