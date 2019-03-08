@@ -39,7 +39,7 @@
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="{{ url_for("digits.views.home") }}">DIGITS</a>
+            <a class="navbar-brand" href="{{ url_for("digits.views.home") }}">人工智能服务平台</a>
         </div>
         <ul class="nav navbar-nav">
             {% block nav %}
@@ -52,7 +52,7 @@
             {{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">{{_('Logout')}}</a>)
             {% else %}
             <a class="navbar-link" href="{{ url_for("digits.views.login") }}">{{_('Login')}}</a>
-            <a class="navbar-link" href="/register">{{_('Register')}}</a>
+            <a class="navbar-link" href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a>
             {% endif %}
             </p>
             </li>
