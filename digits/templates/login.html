@@ -5,44 +5,42 @@
 {% extends "layout.html" %}
 
 {% block head %}
-    <style type="text/css">
-        .btn-register > a:hover,
-        .btn-register > a{
-            color: #fff;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gds_style.css', ver=dir_hash) }}">
 {% endblock %}
 
 {% block content %}
-<div class="page-header">
-    <h1>{{_('Login')}}</h1>
-</div>
+    <div class="gds-login-div">
+        <div class="page-header">
+            <h1>{{ _('Login') }}</h1>
+        </div>
 
-<div class="row">
-    <div class="col-sm-4 col-sm-offset-4 well">
-        {{ print_flashes() }}
+        <div class="row">
+            <div class="col-sm-4 col-sm-offset-4 well">
+                {{ print_flashes() }}
 
-        <form method="POST">
-            <div class="form-group">
-                <input name="next" type="hidden" value="{{ next }}" />
-                <label for="username">{{_('Username')}}</label>
-                <span name="username_explanation" class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body" title="{{_('Must begin with a letter and contain only lowercase letters, numbers, periods, dashes and underscores.')}}"></span>
-                <input class="form-control" id="username" name="username" autofocus />
+                <form method="POST">
+                    <div class="form-group">
+                        <input name="next" type="hidden" value="{{ next }}"/>
+                        <label for="username">{{ _('Username') }}</label>
+                        <span name="username_explanation" class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body"
+                              title="{{ _('Must begin with a letter and contain only lowercase letters, numbers, periods, dashes and underscores.') }}"></span>
+                        <input class="form-control" id="username" name="username" autofocus/>
+                    </div>
+                    <div class="form-group">
+                        <input name="next" type="hidden" value="{{ next }}"/>
+                        <label for="password">{{ _('Password') }}</label>
+                        <input class="form-control" id="password" name="password" type="password" autofocus/>
+                    </div>
+                    <input type="submit" name="login-button" class="btn btn-primary" value='{{ _("Submit") }}'/>
+                    <button class="btn btn-primary btn-register"><a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a></button>
+                </form>
+                {% if error %}
+                    <p>{{ error }}</p>
+                {% endif %}
             </div>
-            <div class="form-group">
-                <input name="next" type="hidden" value="{{ next }}" />
-                <label for="password">{{ _('Password') }}</label>
-                <input class="form-control" id="password" name="password" type="password" autofocus />
-            </div>
-            <input type="submit" name="login-button" class="btn btn-primary" value='{{_("Submit")}}' />
-            <button class="btn btn-primary btn-register"><a href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a></button>
-        </form>
-        {% if error %}
-            <p>{{ error }}</p>
-        {% endif %}
+        </div>
     </div>
-</div>
+
 
 {% endblock %}
 

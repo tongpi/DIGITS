@@ -1,0 +1,12 @@
+.btn-register > a:hover,
+.btn-register > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.gds-login-div .page-header{
+    background-color: #EEF3F7;
+}
+.gds-login-div h1{
+    text-align: center;
+}
