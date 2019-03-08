@@ -52,7 +52,6 @@
             {{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">{{_('Logout')}}</a>)
             {% else %}
             <a class="navbar-link" href="{{ url_for("digits.views.login") }}">{{_('Login')}}</a>
-            <!--<a class="navbar-link" href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a>-->
             {% endif %}
             </p>
             </li>
