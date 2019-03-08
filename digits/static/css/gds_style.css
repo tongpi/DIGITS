@@ -15,7 +15,12 @@
     height: 545px!important;
     background-color: #EEF3F7;
 }
+.gds-login-div .row{
+    margin: 0;
+}
 .gds-login-form{
-    float:right;
+    float: right;
     width: 450px;
+    margin: 15px 15px 0 0;
+    background-color: #fff;
 }
