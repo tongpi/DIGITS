@@ -171,7 +171,8 @@ body {
 }
 
 .navbar-inverse .navbar-nav>.active>a,
-.navbar-inverse .navbar-nav>.open>a{
+.navbar-inverse .navbar-nav>.open>a,
+.navbar-inverse .navbar-nav>.active>a:hover{
     background-color:#003e7b;
     border-color:#003e7b;
     background-image: none;
