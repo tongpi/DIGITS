@@ -24,7 +24,7 @@
 .gds-login{
     width: 1100px!important;
     height: 545px!important;
-    margin:0 auto;
+    margin:150px auto;
     background:  url(../images/cont_box.png) no-repeat;
 }
 .login-box {
@@ -35,7 +35,7 @@
 }
 .login-title{
     margin: 0;
-    padding: 0;
+    padding:0;
     height: 115px;
     background: #eef3f7;
     line-height: 115px;
@@ -45,11 +45,12 @@
     text-indent: 45px;
 }
 .login-logo{
+    display:inline-block;
     width: 37px;
     height: 34px;
-    margin-top: 40px;
+    padding-top:40px;
     margin-right: 8px;
-     background:  url(../images/login-logo.png) no-repeat;
+    background:  url(../images/login-logo.png) no-repeat;
 }
 .login-content{
     margin-top: 30px;
@@ -64,10 +65,14 @@
 }
 .input-box{
     width:300px;
-    height:54px;
+    height:42px;
     margin:0 auto;
+    padding-left:40px;
 }
 .icon{
+    position: absolute;
+    top: 9px;
+    left: 75px;
     display:inline-block;
     width:24px;
     height:24px;
@@ -85,7 +90,12 @@
 }
 .login-btn{
     display:block;
+    width:300px;
+    height:36px;
+    margin:0 auto;
     color: #fff!important;
+    background-image:none;
+    border-width:0px;
     background-color: #00adf9!important;
     font-size: 20px;
     letter-spacing: 30px;
