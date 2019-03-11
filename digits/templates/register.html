@@ -4,6 +4,10 @@
 
 {% extends "layout.html" %}
 
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gds_style.css', ver=dir_hash) }}">
+{% endblock %}
+
 {% block content %}
     <div class="gds-login-div">
         <div class="gds-login">
