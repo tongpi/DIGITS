@@ -164,8 +164,14 @@ div.exploration {
 body {
     background: #e7e8eb!important;
 }
-.navbar-inverse,
-.navbar-inverse .container>ul>li>a{
+.navbar-inverse{
+    background-color:#003e7b;
+    border-color:#003e7b;
+    background-image: none;
+}
+
+.navbar-inverse .navbar-nav>.active>a,
+.navbar-inverse .navbar-nav>.open>a{
     background-color:#003e7b;
     border-color:#003e7b;
     background-image: none;
