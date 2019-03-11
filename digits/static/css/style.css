@@ -166,10 +166,13 @@ body {
     border-color:#003e7b;
 }
 .navbar-inverse .navbar-brand,
-.navbar-inverse .navbar-link{
+.navbar-inverse .navbar-link,
+.navbar-inverse .navbar-text{
     color: #fff!important;
 }
-.container{
-    width:100%;
-    margin:0px;
+.navbar-inverse .logo{
+    width:300px;
+    height:50px;
+    padding-left:40px;
+    background:  url(../images/login-logo.png) no-repeat left center;
 }
