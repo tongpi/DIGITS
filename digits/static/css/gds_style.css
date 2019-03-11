@@ -11,16 +11,85 @@
     text-align: center;
 }
 .gds-login-div{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    width: 100%!important;
+    height: 100%!important;
+    background: url(../images/login-body-bg.jpg) no-repeat;
+    z-index:9999;
+}
+.gds-login{
     width: 1100px!important;
     height: 545px!important;
-    background-color: #EEF3F7;
+    margin:0 auto;
+    background:  url(../images/cont_box.png) no-repeat;
 }
-.gds-login-div .row{
-    margin: 0;
-}
-.gds-login-form{
-    float: right;
+.login-box {
     width: 450px;
-    margin: 15px 15px 0 0;
-    background-color: #fff;
+    background: #fff;
+    margin-left: 650px;
+    height: 545px;
+}
+.login-title{
+    margin: 0;
+    padding: 0;
+    height: 115px;
+    background: #eef3f7;
+    line-height: 115px;
+    font-size: 20px;
+    color: #454545;
+    padding-left: 65px;
+    text-indent: 45px;
+}
+.login-logo{
+    width: 37px;
+    height: 34px;
+    margin-top: 40px;
+    margin-right: 8px;
+     background:  url(../images/login-logo.png) no-repeat;
+}
+.login-content{
+    margin-top: 30px;
+    padding: 8px;
+    color:#333;
+}
+.infor-box{
+    height:50px;
+}
+.login-content .form-group{
+    position:relative;
+}
+.input-box{
+    width:300px;
+    height:54px;
+    margin:0 auto;
+}
+.icon{
+    display:inline-block;
+    width:24px;
+    height:24px;
+}
+.register-text{
+    width:300px;
+    height:50px;
+    margin:0 auto;
+    padding-right:25px;
+    text-align:right;
+}
+.register-text a{
+     line-height:50px;
+    color:#333;
+}
+.login-btn{
+    display:block;
+    color: #fff!important;
+    background-color: #00adf9!important;
+    font-size: 20px;
+    letter-spacing: 30px;
+    text-align: center;
+    text-indent: 30px;
+    border-radius: 2px;
 }
