@@ -16,20 +16,19 @@
                         <span class="login-logo"></span>人工智能服务平台
                  </div>
                 <form method="POST">
-                    <div class="login-content">
+                    <div class="login-content register-box">
                         <div class="infor-box"> {{ print_flashes() }}</div>
-                    <div class="form-group">
+                    <div class="form-group form-inline">
                         <input name="next" type="hidden" value="{{ next }}" />
                         <label for="username">{{_('Username')}}</label>
-                        <span name="username_explanation" class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body" title="{{_('Must begin with a letter and contain only lowercase letters, numbers, periods, dashes and underscores.')}}"></span>
                         <input class="form-control" id="username" name="username" autofocus />
                     </div>
-                    <div class="form-group">
+                    <div class="form-group form-inline">
                         <input name="next" type="hidden" value="{{ next }}" />
                         <label>{{ _('Password') }}</label>
                         <input class="form-control" id="password" name="password" type="password" autofocus />
                     </div>
-                     <div class="form-group">
+                     <div class="form-group form-inline">
                          <label>{{ _('Repeat Password') }}</label>
                         <input class="form-control" id="repeat_pwd" name="repeat_pwd" type="password" autofocus/>
                      </div>

@@ -101,6 +101,10 @@
     text-indent: 30px;
     border-radius: 4px;
 }
+.register-box .form-group{
+    width:300px;
+    margin:0 auto;
+}
 body {
     background: #e7e8eb!important;
 }
