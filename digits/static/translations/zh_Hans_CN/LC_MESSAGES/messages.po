@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-06 14:31+0800\n"
+"POT-Creation-Date: 2019-03-11 13:52+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -75,42 +75,42 @@ msgstr "其他"
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
 
-#: model/views.py:37 model/views.py:73 model/views.py:274 utils/routing.py:21
-#: views.py:261 views.py:392 views.py:412 views.py:475 views.py:591
-#: views.py:610
+#: model/views.py:38 model/views.py:74 model/views.py:275 utils/routing.py:21
+#: views.py:261 views.py:394 views.py:414 views.py:478 views.py:594
+#: views.py:613
 msgid "Job not found"
 msgstr "未发现作业"
 
-#: views.py:324
+#: views.py:325
 msgid "Jobs regrouped."
 msgstr "作业重组。"
 
-#: dataset/views.py:42 dataset/views.py:58 model/views.py:50 views.py:401
-#: views.py:624
+#: dataset/views.py:43 dataset/views.py:60 model/views.py:51 views.py:403
+#: views.py:627
 msgid "Invalid job type"
 msgstr "无效作业类型"
 
-#: views.py:421
+#: views.py:423
 msgid "name cannot be blank"
 msgstr "名称不能为空"
 
-#: views.py:455
+#: views.py:458
 msgid "Job not found."
 msgstr "未发现作业。"
 
-#: views.py:532
+#: views.py:535
 msgid "Jobs deleted."
 msgstr "作业已删除。"
 
-#: views.py:578
+#: views.py:581
 msgid "Jobs aborted."
 msgstr "作业中止。"
 
-#: views.py:596
+#: views.py:599
 msgid "Job not aborted"
 msgstr "作业未中止"
 
-#: model/views.py:123 views.py:730
+#: model/views.py:124 views.py:733
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
 msgstr "未知的扩展'%(extension_id)s'"
@@ -137,7 +137,7 @@ msgstr "在主页上组织一个可选的组名。"
 msgid "Please implement me"
 msgstr "请执行我"
 
-#: dataset/views.py:71
+#: dataset/views.py:74
 #, python-format
 msgid "Unable to find data extension with ID=%(id)s"
 msgstr "未发现ID=%(id)s的数据扩展名"
@@ -230,7 +230,7 @@ msgstr "通用数据集"
 msgid "Unknown extension '%(id)s'"
 msgstr "未知的扩展名'%(id)s'"
 
-#: dataset/generic/views.py:184
+#: dataset/generic/views.py:185
 msgid "Expected encoded database"
 msgstr "预期的编码数据库"
 
@@ -516,17 +516,17 @@ msgstr "图像分类数据集"
 msgid "method not supported"
 msgstr "方法不受支持"
 
-#: dataset/images/classification/views.py:370
+#: dataset/images/classification/views.py:371
 #, python-format
 msgid "No create_db task for %(db)s"
 msgstr "没有创建数据库任务%(db)s"
 
-#: dataset/images/classification/views.py:372
+#: dataset/images/classification/views.py:373
 #, python-format
 msgid "This create_db task's status should be 'D' but is '%(status)s'"
 msgstr "此创建数据任务的状态应为'D'，但为'%(status)s'"
 
-#: dataset/images/classification/views.py:374
+#: dataset/images/classification/views.py:375
 #, python-format
 msgid "Backend is %(backend)s while expected backend is lmdb"
 msgstr "后端是%(backend)s，而预期的后端是lmdb"
@@ -1476,19 +1476,19 @@ msgstr "随机训练数据"
 msgid "For every epoch, shuffle the data before training."
 msgstr "对于每个回合，在训练之前对数据进行洗牌。"
 
-#: model/views.py:61
+#: model/views.py:62
 msgid "network not provided"
 msgstr "没有提供网络"
 
-#: model/views.py:112
+#: model/views.py:113
 msgid "step is a required field"
 msgstr "步骤是必填字段"
 
-#: model/views.py:136
+#: model/views.py:137
 msgid "framework not provided"
 msgstr "没有提供框架"
 
-#: model/views.py:312
+#: model/views.py:313
 msgid "Invalid extension"
 msgstr "扩展名无效"
 
@@ -1648,34 +1648,71 @@ msgstr "值"
 msgid "Image Classification Model"
 msgstr "图像分类模型"
 
-#: model/images/generic/job.py:26
-msgid "Generic Image Model"
-msgstr "通用图像模型"
-
-#: model/images/generic/views.py:100
+#: model/images/classification/views.py:127 model/images/generic/views.py:100
 #, python-format
 msgid "Unknown dataset job_id \"%(data)s\""
 msgstr "未知数据集作业id \"%(data)s\""
 
-#: model/images/generic/views.py:170
+#: model/images/classification/views.py:176
+#, python-format
+msgid "Unknown standard model \"%(data)s\""
+msgstr "未知标准模型 \"%(data)s\""
+
+#: model/images/classification/views.py:181
+#, python-format
+msgid "Job not found: %(data)s"
+msgstr "任务未找到: %(data)s"
+
+#: model/images/classification/views.py:198
+#, python-format
+msgid ""
+"For the job %(data)s, selected pretrained_model for epoch %(epoch)d is "
+"invalid!"
+msgstr ""
+
+#: model/images/classification/views.py:205 model/images/generic/views.py:170
 msgid ""
 "Pretrained_model for the selected epoch doesn't exist. May be deleted by "
 "another user/process. Please restart the server to load the correct "
 "pretrained_model details."
 msgstr "所选时期的预训练模型不存在。 可能被其他用户/进程删除。 请重新启动服务器以加载正确的预训模型详细信息。"
 
-#: model/images/generic/views.py:189
+#: model/images/classification/views.py:225 model/images/generic/views.py:189
 #, python-format
 msgid "Unrecognized method: \"%(data)s\""
 msgstr "无法识别的方法: \"%(data)s\""
 
-#: model/images/generic/views.py:212
+#: model/images/classification/views.py:248 model/images/generic/views.py:212
 msgid "Invalid learning rate policy"
 msgstr "学习率策略无效"
 
-#: model/images/generic/views.py:353
+#: model/images/classification/views.py:394 model/images/generic/views.py:353
 msgid "must provide image_path or image_file"
 msgstr "必须提供图像路径或图像文件"
+
+#: model/images/classification/views.py:403
+msgid "Classify One Image"
+msgstr "单个图像分类"
+
+#: model/images/classification/views.py:498
+msgid "Classify Many Images"
+msgstr "多个图像分类"
+
+#: model/images/classification/views.py:547
+msgid "Unable to classify any image from the file"
+msgstr "无法从文件中进行图像分类"
+
+#: model/images/classification/views.py:658
+msgid "TopN Image Classification"
+msgstr "TopN 图像分类"
+
+#: model/images/classification/views.py:684
+msgid "An error occurred while processing the images"
+msgstr "处理图像时发生错误"
+
+#: model/images/generic/job.py:26
+msgid "Generic Image Model"
+msgstr "通用图像模型"
 
 #: model/images/generic/views.py:797
 #, python-format
@@ -2183,39 +2220,29 @@ msgstr "输入注释"
 msgid "Logout"
 msgstr "注销"
 
-#: templates/layout.html:54 templates/login.html:19
+#: templates/layout.html:54 templates/login.html:32 templates/register.html:35
 msgid "Login"
 msgstr "登录"
 
-#: templates/layout.html:55 templates/login.html:39
+#: templates/layout.html:55 templates/login.html:31
 msgid "Register"
 msgstr "注册"
 
-#: templates/login.html:29 templates/register.html:19
+#: templates/register.html:23
 msgid "Username"
 msgstr "用户名"
 
-#: templates/login.html:30 templates/register.html:20
-msgid ""
-"Must begin with a letter and contain only lowercase letters, numbers, "
-"periods, dashes and underscores."
-msgstr "必须以字母开头，并且只包含小写字母，数字，句点，破折号和下划线。"
-
-#: templates/login.html:35 templates/register.html:25
+#: templates/register.html:28
 msgid "Password"
 msgstr "密码"
 
-#: templates/login.html:38
-msgid "Submit"
-msgstr "提交"
-
-#: templates/register.html:9 templates/register.html:32
-msgid "register"
-msgstr "注册"
-
-#: templates/register.html:27
+#: templates/register.html:32
 msgid "Repeat Password"
 msgstr "确认密码"
+
+#: templates/register.html:36
+msgid "register"
+msgstr "注册"
 
 #: templates/status_updates.html:7
 msgid "at"
@@ -4411,4 +4438,13 @@ msgstr "文本分类"
 
 #~ msgid "Create DB (%(db_name)s)"
 #~ msgstr "创建数据库 (%(db_name)s)"
+
+#~ msgid ""
+#~ "Must begin with a letter and "
+#~ "contain only lowercase letters, numbers, "
+#~ "periods, dashes and underscores."
+#~ msgstr "必须以字母开头，并且只包含小写字母，数字，句点，破折号和下划线。"
+
+#~ msgid "Submit"
+#~ msgstr "提交"
 
