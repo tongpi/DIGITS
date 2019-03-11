@@ -48,12 +48,11 @@
     display:inline-block;
     width: 37px;
     height: 34px;
-    padding-top:40px;
     margin-right: 8px;
+    vertical-align: middle;
     background:  url(../images/login-logo.png) no-repeat;
 }
 .login-content{
-    margin-top: 30px;
     padding: 8px;
     color:#333;
 }
@@ -81,7 +80,6 @@
     width:300px;
     height:50px;
     margin:0 auto;
-    padding-right:25px;
     text-align:right;
 }
 .register-text a{
@@ -101,5 +99,20 @@
     letter-spacing: 30px;
     text-align: center;
     text-indent: 30px;
-    border-radius: 2px;
+    border-radius: 4px;
+}
+body {
+    background: #e7e8eb!important;
+}
+.navbar-inverse{
+    background-color:#003e7b;
+    border-color:#003e7b;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-link{
+    color: #fff!important;
+}
+.container{
+    width:100%;
+    margin:0px;
 }
