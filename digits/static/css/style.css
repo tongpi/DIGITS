@@ -158,3 +158,18 @@ ul.inline li {
 div.exploration {
     margin-top: 10px;
 }
+body {
+    background: #e7e8eb!important;
+}
+.navbar-inverse{
+    background-color:#003e7b;
+    border-color:#003e7b;
+}
+.navbar-inverse .navbar-brand,
+.navbar-inverse .navbar-link{
+    color: #fff!important;
+}
+.container{
+    width:100%;
+    margin:0px;
+}
