@@ -28,14 +28,18 @@
                         <i class="icon icon-password"></i>
                         <input class="form-control input-box" id="password" name="password" type="password" autofocus/>
                     </div>
-                    <div class="register-text"><a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a></div>
+                    <div class="register-text">
+                        <a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a>
+                        {% if error %}
+                            <p class="form-error-text">
+                                {{ error }}
+                            </p>
+                        {% endif %}
+                    </div>
                     <input type="submit" name="login-button" class="login-btn" value='{{ _("Login") }}'/>
 
                     </div>
                 </form>
-                {% if error %}
-                    <p>{{ error }}</p>
-                {% endif %}
             </div>
         </div>
     </div>
