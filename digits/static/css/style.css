@@ -165,7 +165,7 @@ body {
     background: #e7e8eb!important;
 }
 .navbar-inverse,
-.navbar-inverse ul li a{
+.navbar-inverse .container>ul>li>a{
     background-color:#003e7b;
     border-color:#003e7b;
     background-image: none;
