@@ -24,6 +24,7 @@
 .gds-login{
     width: 1100px!important;
     height: 545px!important;
+    margin:auto;
     background:  url(../images/cont_box.png) no-repeat;
 }
 .login-box {
