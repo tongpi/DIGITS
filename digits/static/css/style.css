@@ -158,10 +158,14 @@ ul.inline li {
 div.exploration {
     margin-top: 10px;
 }
+
+
+/* 太平风格 */
 body {
     background: #e7e8eb!important;
 }
-.navbar-inverse{
+.navbar-inverse,
+.navbar-inverse ul li a{
     background-color:#003e7b;
     border-color:#003e7b;
     background-image: none;
