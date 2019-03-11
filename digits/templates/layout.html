@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', ver=dir_hash) }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/c3.min.css', ver=dir_hash) }}">
     <link rel="gettext" type="application/x-po" href="{{ url_for('static', filename='translations/zh_Hans_CN/LC_MESSAGES/messages.po') }}">
-    <title>{% block title %}DIGITS{% endblock %}</title>
+    <title>{% block title %}人工智能服务平台{% endblock %}</title>
 
     <script type="text/javascript">
         var URL_PREFIX = "{{config['URL_PREFIX']}}";
@@ -49,7 +49,7 @@
             <li>
             <p class="navbar-text">
             {% if username %}
-            {{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">{{_('Logout')}}</a>)
+            欢迎您，{{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">{{_('Logout')}}</a>)
             {% else %}
             <a class="navbar-link" href="{{ url_for("digits.views.login") }}">{{_('Login')}}</a>
             <a class="navbar-link" href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a>

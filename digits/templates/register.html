@@ -32,6 +32,7 @@
                          <label>{{ _('Repeat Password') }}</label>
                         <input class="form-control" id="repeat_pwd" name="repeat_pwd" type="password" autofocus/>
                      </div>
+                     <div class="register-text"><a href="{{ url_for("digits.views.login") }}">{{ _('Login') }}</a></div>
                      <input type="submit" name="login-button" class="login-btn" value='{{_("register")}}' />
                     </div>
                 </form>

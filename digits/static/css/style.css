@@ -164,6 +164,7 @@ body {
 .navbar-inverse{
     background-color:#003e7b;
     border-color:#003e7b;
+    background-image: none;
 }
 .navbar-inverse .navbar-brand,
 .navbar-inverse .navbar-link,
