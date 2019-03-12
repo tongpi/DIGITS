@@ -7,6 +7,7 @@ from digits.utils import subclass, override, constants
 from digits.extensions.data.interface import DataIngestionInterface
 from .forms import DatasetForm, InferenceForm
 from . import utils
+from flask_babel import lazy_gettext as _
 
 
 DATASET_TEMPLATE = "templates/dataset_template.html"
