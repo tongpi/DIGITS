@@ -62,8 +62,8 @@ class ModelForm(Form):
 
         (root, ext) = os.path.splitext(filename)
         if ext != '.py' and ext != '.pyc':
-            raise validators.ValidationError(lgt('Python file, %(filename)s, needs .py or .pyc extension.'
-                                                 , filename=filename))
+            raise validators.ValidationError(lgt('Python file, %(filename)s, needs .py or .pyc extension.',
+                                                 filename=filename))
 
     # Fields
 

@@ -495,7 +495,7 @@ def classify_many():
 
     paths, ground_truths = read_image_list(image_list, image_folder, num_test_images)
 
-    job_name = _("Classify Many Images")
+    job_name = lgt("Classify Many Images")
     # create inference job
     inference_job = ImageInferenceJob(
         username=utils.auth.get_username(),
