@@ -322,7 +322,7 @@ def group():
         error = ' '.join(error)
         raise werkzeug.exceptions.BadRequest(error)
 
-    return _('Jobs regrouped.')
+    return 'Jobs regrouped.'
 
 
 @blueprint.route('/login', methods=['GET', 'POST'])
@@ -341,10 +341,7 @@ def login():
             return redirect(url_for('digits.views.home'))
         else:
             error = '错误的用户名或密码！'
-
-        return render_template('login.html', error=error)
-    if request.method == 'GET':
-        return render_template('login.html')
+    return render_template('login.html', error=error)
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
