@@ -372,7 +372,6 @@ def large_graph():
 
 @blueprint.route('/classify_one.json', methods=['POST'])
 @blueprint.route('/classify_one', methods=['POST', 'GET'])
-@utils.auth.requires_login
 def classify_one():
     """
     Classify one image and return the top 5 classifications
