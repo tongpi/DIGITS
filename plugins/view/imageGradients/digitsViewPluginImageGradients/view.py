@@ -10,6 +10,7 @@ import digits
 from digits.utils import subclass, override
 from digits.extensions.view.interface import VisualizationInterface
 from .forms import ConfigForm
+from flask_babel import lazy_gettext as _
 
 
 CONFIG_TEMPLATE = "templates/config_template.html"
