@@ -9,7 +9,6 @@ import digits
 from digits import utils
 from digits.task import Task
 from digits.utils import subclass, override
-from flask_babel import lazy_gettext as _
 
 # NOTE: Increment this every time the pickled version changes
 PICKLE_VERSION = 3

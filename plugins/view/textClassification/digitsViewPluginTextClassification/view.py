@@ -8,7 +8,7 @@ import numpy as np
 from digits.utils import subclass, override
 from digits.extensions.view.interface import VisualizationInterface
 from .forms import ConfigForm
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 CONFIG_TEMPLATE = "templates/config_template.html"
@@ -75,7 +75,7 @@ class Visualization(VisualizationInterface):
 
     @staticmethod
     def get_title():
-        return _("Text Classification")
+        return lgt("Text Classification")
 
     @override
     def get_view_template(self, data):

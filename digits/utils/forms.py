@@ -8,7 +8,7 @@ from wtforms import validators
 from wtforms.compat import string_types
 
 from digits.utils.routing import get_request_arg
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 def validate_required_iff(**kwargs):
@@ -30,7 +30,7 @@ def validate_required_iff(**kwargs):
             if field.data is None \
                     or (isinstance(field.data, (str, unicode)) and not field.data.strip()) \
                     or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
-                raise validators.ValidationError(_('This field is required.'))
+                raise validators.ValidationError(lgt('This field is required.'))
         else:
             # This field is not required, ignore other errors
             field.errors[:] = []
@@ -54,7 +54,7 @@ def validate_required_if_set(other_field, **kwargs):
             if field.data is None or \
                     (isinstance(field.data, (str, unicode)) and not field.data.strip()) \
                     or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
-                raise validators.ValidationError(_('This field is required if %(other_field)s is set.', other_field=other_field))
+                raise validators.ValidationError(lgt('This field is required if %(other_field)s is set.', other_field=other_field))
         else:
             # This field is not required, ignore other errors
             field.errors[:] = []
@@ -74,9 +74,9 @@ def validate_greater_than(fieldname):
         try:
             other = form[fieldname]
         except KeyError:
-            raise validators.ValidationError(field.gettext(_(u"Invalid field name '%(fieldname)s'.", fieldname=fieldname)))
+            raise validators.ValidationError(field.gettext(lgt(u"Invalid field name '%(fieldname)s'.", fieldname=fieldname)))
         if field.data != '' and field.data < other.data:
-            message = field.gettext(_(u'Field must be greater than %(fieldname)s.', fieldname=fieldname))
+            message = field.gettext(lgt(u'Field must be greater than %(fieldname)s.', fieldname=fieldname))
             raise validators.ValidationError(message)
     return _validator
 
@@ -230,7 +230,7 @@ class FileInput(object):
             ('<div class="input-group">' +
              '  <span class="input-group-btn">' +
              '    <span class="btn btn-info btn-file" %s>' +
-             _('      Browse&hellip;') +
+             lgt('      Browse&hellip;') +
              '      <input %s>' +
              '    </span>' +
              '  </span>' +
@@ -287,7 +287,7 @@ class MultiIntegerField(wtforms.Field):
         super(MultiIntegerField, self).__init__(label, validators, **kwargs)
         self.tooltip = Tooltip(self.id, self.short_name, tooltip + ' (accepts comma separated list)')
         self.explanation = Explanation(self.id, self.short_name, explanation_file)
-        self.small_text = _('multiples allowed')
+        self.small_text = lgt('multiples allowed')
 
     def __setattr__(self, name, value):
         if name == 'data':
@@ -312,7 +312,7 @@ class MultiIntegerField(wtforms.Field):
                 self.data = [int(float(datum)) for datum in valuelist[0]]
             except ValueError:
                 self.data = [None]
-                raise ValueError(self.gettext(_('Not a valid integer value')))
+                raise ValueError(self.gettext(lgt('Not a valid integer value')))
 
 
 class MultiFloatField(wtforms.Field):
@@ -333,7 +333,7 @@ class MultiFloatField(wtforms.Field):
         super(MultiFloatField, self).__init__(label, validators, **kwargs)
         self.tooltip = Tooltip(self.id, self.short_name, tooltip + ' (accepts comma separated list)')
         self.explanation = Explanation(self.id, self.short_name, explanation_file)
-        self.small_text = _('multiples allowed')
+        self.small_text = lgt('multiples allowed')
 
     def __setattr__(self, name, value):
         if name == 'data':
@@ -358,7 +358,7 @@ class MultiFloatField(wtforms.Field):
                 self.data = [float(datum) for datum in valuelist[0]]
             except ValueError:
                 self.data = [None]
-                raise ValueError(self.gettext(_('Not a valid float value')))
+                raise ValueError(self.gettext(lgt('Not a valid float value')))
 
     def data_array(self):
         if isinstance(self.data, (list, tuple)):
@@ -408,15 +408,15 @@ class MultiNumberRange(object):
                     # we use %(min)s interpolation to support floats, None, and
                     # Decimals without throwing a formatting exception.
                     if flags & 1 << 0:
-                        message = field.gettext(_('No data.'))
+                        message = field.gettext(lgt('No data.'))
                     elif flags & 1 << 1:
-                        message = field.gettext(_('Number %(data)s must be at least %(min)s.'))
+                        message = field.gettext(lgt('Number %(data)s must be at least %(min)s.'))
                     elif flags & 1 << 2:
-                        message = field.gettext(_('Number %(data)s must be at most %(max)s.'))
+                        message = field.gettext(lgt('Number %(data)s must be at most %(max)s.'))
                     elif flags & 1 << 3:
-                        message = field.gettext(_('Number %(data)s must be greater than %(min)s.'))
+                        message = field.gettext(lgt('Number %(data)s must be greater than %(min)s.'))
                     elif flags & 1 << 4:
-                        message = field.gettext(_('Number %(data)s must be less than %(max)s.'))
+                        message = field.gettext(lgt('Number %(data)s must be less than %(max)s.'))
 
                 raise validators.ValidationError(message % dict(data=data, min=self.min, max=self.max))
 

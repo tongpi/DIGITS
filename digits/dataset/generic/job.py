@@ -4,7 +4,7 @@ from __future__ import absolute_import
 from ..job import DatasetJob
 from digits.dataset import tasks
 from digits.utils import subclass, override, constants
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 1
@@ -111,7 +111,7 @@ class GenericDatasetJob(DatasetJob):
 
     @override
     def job_type(self):
-        return _('Generic Dataset')
+        return lgt('Generic Dataset')
 
     @override
     def json_dict(self, verbose=False):

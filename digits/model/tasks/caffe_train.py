@@ -22,7 +22,7 @@ from digits.config import config_value
 from digits.status import Status
 from digits.utils import subclass, override, constants
 from digits.utils.filesystem import tail
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 # Must import after importing digit.config
@@ -210,7 +210,7 @@ class CaffeTrainTask(TrainTask):
 
     @override
     def name(self):
-        return _('Train Caffe Model')
+        return lgt('Train Caffe Model')
 
     @override
     def before_run(self):
@@ -582,7 +582,7 @@ class CaffeTrainTask(TrainTask):
             # stepsize = stepsize * scale
             solver.stepsize = int(math.ceil(float(self.lr_policy['stepsize']) * scale))
         else:
-            raise Exception(_('Unknown lr_policy: "%(policy)s"', policy=solver.lr_policy))
+            raise Exception(lgt('Unknown lr_policy: "%(policy)s"', policy=solver.lr_policy))
 
         # These solver types don't support momentum
         unsupported = [solver.ADAGRAD]
@@ -811,7 +811,7 @@ class CaffeTrainTask(TrainTask):
             # stepsize = stepsize * scale
             solver.stepsize = int(math.ceil(float(self.lr_policy['stepsize']) * scale))
         else:
-            raise Exception(_('Unknown lr_policy: "%(policy)s"', policy=solver.lr_policy))
+            raise Exception(lgt('Unknown lr_policy: "%(policy)s"', policy=solver.lr_policy))
 
         # These solver types don't support momentum
         unsupported = [solver.ADAGRAD]
@@ -915,7 +915,7 @@ class CaffeTrainTask(TrainTask):
                 if 'gpus' in resources:
                     n_gpus = len(resources['gpus'])
                     if n_gpus > 1:
-                        raise Exception(_('Please select single GPU when running in Windows with Python layer.'))
+                        raise Exception(lgt('Please select single GPU when running in Windows with Python layer.'))
                     elif n_gpus == 1:
                         win_python_layer_gpu_id = resources['gpus'][0][0]
                 # We know which GPU to use, call helper to create the script
@@ -944,7 +944,7 @@ class CaffeTrainTask(TrainTask):
                 elif config_value('caffe')['flavor'] == 'BVLC':
                     args.append('--gpu=%s' % ','.join(identifiers))
                 else:
-                    raise ValueError(_('Unknown flavor.  Support NVIDIA and BVLC flavors only.'))
+                    raise ValueError(lgt('Unknown flavor.  Support NVIDIA and BVLC flavors only.'))
         if self.pretrained_model:
             args.append('--weights=%s' % ','.join(map(lambda x: self.path(x),
                                                       self.pretrained_model.split(os.path.pathsep))))
@@ -970,7 +970,7 @@ class CaffeTrainTask(TrainTask):
         try:
             solver_type = solver_type_mapping[self.solver_type]
         except KeyError:
-            raise ValueError(_("Unknown solver type %(solver_type)s.", solver_type=self.solver_type))
+            raise ValueError(lgt("Unknown solver type %(solver_type)s.", solver_type=self.solver_type))
         if gpu_id is not None:
             gpu_script = "caffe.set_device({id});caffe.set_mode_gpu();".format(id=gpu_id)
         else:
@@ -1648,10 +1648,10 @@ class CaffeTrainTask(TrainTask):
             for bottom in layer.bottom:
                 if bottom not in tops:
                     raise CaffeTrainSanityCheckError(
-                        _("Layer '%(name)s' references bottom '%(bottom)s' at the %(status)s stage however "
+                        lgt("Layer '%(name)s' references bottom '%(bottom)s' at the %(status)s stage however "
                           "this blob is not included at that stage. Please consider "
                           "using an include directive to limit the scope of this layer."
-                          , name=layer.name, bottom=bottom, status="TRAIN" if phase == caffe_pb2.TRAIN else "TEST")
+                            , name=layer.name, bottom=bottom, status="TRAIN" if phase == caffe_pb2.TRAIN else "TEST")
                     )
 
 

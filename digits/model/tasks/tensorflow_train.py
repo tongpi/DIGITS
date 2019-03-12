@@ -18,7 +18,7 @@ import digits
 from digits import utils
 from digits.utils import subclass, override, constants
 import tensorflow as tf
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 # NOTE: Increment this everytime the pickled object changes
 PICKLE_VERSION = 1
@@ -46,7 +46,7 @@ def subprocess_visible_devices(gpus):
     Calculates CUDA_VISIBLE_DEVICES for a subprocess
     """
     if not isinstance(gpus, list):
-        raise ValueError(_('gpus should be a list'))
+        raise ValueError(lgt('gpus should be a list'))
     gpus = [int(g) for g in gpus]
 
     old_cvd = os.environ.get('CUDA_VISIBLE_DEVICES', None)
@@ -126,7 +126,7 @@ class TensorflowTrainTask(TrainTask):
     # Task overrides
     @override
     def name(self):
-        return _('Train Tensorflow Model')
+        return lgt('Train Tensorflow Model')
 
     @override
     def before_run(self):
@@ -159,7 +159,7 @@ class TensorflowTrainTask(TrainTask):
                     snapshot_pre = f
                     break
         if not snapshot_pre:
-            raise ValueError(_('Invalid epoch'))
+            raise ValueError(lgt('Invalid epoch'))
         if download:
             snapshot_file = snapshot_pre + ".data-00000-of-00001"
             meta_file = snapshot_pre + ".meta"
@@ -601,7 +601,7 @@ class TensorflowTrainTask(TrainTask):
                 for line in utils.nonblocking_readlines(p.stdout):
                     if self.aborted.is_set():
                         p.terminate()
-                        raise digits.inference.errors.InferenceError(_('%(id)s classify one task got aborted. error code - %(returncode)d', id=self.get_framework_id(), returncode=p.returncode))  # noqa
+                        raise digits.inference.errors.InferenceError(lgt('%(id)s classify one task got aborted. error code - %(returncode)d', id=self.get_framework_id(), returncode=p.returncode))  # noqa
 
                     if line is not None and len(line) > 1:
                         if not self.process_test_output(line, predictions, 'one'):
@@ -619,8 +619,8 @@ class TensorflowTrainTask(TrainTask):
             else:
                 error_message_log = '%s classify one task failed with error code %d \n %s' % (
                     self.get_framework_id(), p.returncode, str(e))
-                error_message = _('%(id)s classify one task failed with error code %(returncode)d \n %(str_e)s',
-                                  id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
+                error_message = lgt('%(id)s classify one task failed with error code %(returncode)d \n %(str_e)s',
+                                    id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
             self.logger.error(error_message_log)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
@@ -632,7 +632,7 @@ class TensorflowTrainTask(TrainTask):
 
         if p.returncode != 0:
             error_message_log = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
-            error_message = _('%(id)s classify one task failed with error code %(returncode)d', id=self.get_framework_id(), returncode=p.returncode)
+            error_message = lgt('%(id)s classify one task failed with error code %(returncode)d', id=self.get_framework_id(), returncode=p.returncode)
             self.logger.error(error_message_log)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
@@ -791,8 +791,8 @@ class TensorflowTrainTask(TrainTask):
             return True
 
         if level in ['error', 'critical']:
-            raise digits.inference.errors.InferenceError(_('%(id)s classify %(test_category)s task failed with error message - %(message)s',
-                id=self.get_framework_id(), test_category=test_category, message=message))
+            raise digits.inference.errors.InferenceError(lgt('%(id)s classify %(test_category)s task failed with error message - %(message)s',
+                                                             id=self.get_framework_id(), test_category=test_category, message=message))
 
         return False  # control should never reach this line.
 
@@ -895,9 +895,9 @@ class TensorflowTrainTask(TrainTask):
                     for line in utils.nonblocking_readlines(p.stdout):
                         if self.aborted.is_set():
                             p.terminate()
-                            raise digits.inference.errors.InferenceError(_('%(id)s classify many task got aborted.'
+                            raise digits.inference.errors.InferenceError(lgt('%(id)s classify many task got aborted.'
                                                                          'error code - %(returncode)d', id=self.get_framework_id(),
-                                                                           returncode=p.returncode))
+                                                                             returncode=p.returncode))
 
                         if line is not None and len(line) > 1:
                             if not self.process_test_output(line, predictions, 'many'):
@@ -915,8 +915,8 @@ class TensorflowTrainTask(TrainTask):
                 else:
                     error_message_log = '%s classify many task failed with error code %d \n %s' % (
                         self.get_framework_id(), p.returncode, str(e))
-                    error_message = _('%(id)s classify many task failed with error code %(returncode)d \n %(str_e)s',
-                        id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
+                    error_message = lgt('%(id)s classify many task failed with error code %(returncode)d \n %(str_e)s',
+                                        id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
                 self.logger.error(error_message_log)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
@@ -926,8 +926,8 @@ class TensorflowTrainTask(TrainTask):
             if p.returncode != 0:
                 error_message_log = '%s classify many task failed with error code %d' % (self.get_framework_id(),
                                                                                      p.returncode)
-                error_message = _('%(id)s classify many task failed with error code %(returncode)d', id=self.get_framework_id(),
-                                  returncode=p.returncode)
+                error_message = lgt('%(id)s classify many task failed with error code %(returncode)d', id=self.get_framework_id(),
+                                    returncode=p.returncode)
                 self.logger.error(error_message_log)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)

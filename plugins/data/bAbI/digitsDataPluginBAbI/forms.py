@@ -7,7 +7,7 @@ from digits import utils
 from digits.utils import subclass
 from flask.ext.wtf import Form
 from wtforms import validators
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 @subclass
@@ -28,19 +28,19 @@ class DatasetForm(Form):
                 return True
 
     story_folder = utils.forms.StringField(
-        _(u'Story folder'),
+        lgt(u'Story folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
             ],
-        tooltip=_("Specify the path to a folder of stories - filenames are "
+        tooltip=lgt("Specify the path to a folder of stories - filenames are "
                   "expected to have this format: qa[1-N]*[train|test].txt")
         )
 
     task_id = utils.forms.SelectField(
-        _('Task ID'),
+        lgt('Task ID'),
         choices=[
-            ('all', _('All')),
+            ('all', lgt('All')),
             ('1', '1'),
             ('2', '2'),
             ('3', '3'),
@@ -63,17 +63,17 @@ class DatasetForm(Form):
             ('20', '20'),
             ],
         default='1',
-        tooltip=_("Select a task to train on or 'all' to train a joint model "
+        tooltip=lgt("Select a task to train on or 'all' to train a joint model "
                   "on all tasks.")
         )
 
     pct_val = utils.forms.IntegerField(
-        _('for validation'),
+        lgt('for validation'),
         default=10,
         validators=[
             validators.NumberRange(min=0, max=100)
             ],
-        tooltip=_("You can choose to set apart a certain percentage of images "
+        tooltip=lgt("You can choose to set apart a certain percentage of images "
                   "from the training images for the validation set.")
         )
 
@@ -95,6 +95,6 @@ class InferenceForm(Form):
     A form used to perform inference on a text classification dataset
     """
     snippet = utils.forms.TextAreaField(
-        _(u'Story/Question'),
-        tooltip=_("Write all sentences there and end with a question")
+        lgt(u'Story/Question'),
+        tooltip=lgt("Write all sentences there and end with a question")
     )

@@ -13,7 +13,6 @@ import digits
 from digits import utils
 from digits.model.tasks import TensorflowTrainTask
 from digits.utils import subclass, override, constants
-from flask_babel import lazy_gettext as _
 
 
 @subclass

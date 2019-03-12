@@ -18,7 +18,7 @@ from digits import frameworks, extensions, utils
 from digits.utils import auth
 from digits.utils.routing import request_wants_json, job_from_request, get_request_arg
 from digits.webapp import scheduler
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -35,7 +35,7 @@ def show(job_id):
     """
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     related_jobs = scheduler.get_related_jobs(job)
 
@@ -48,7 +48,7 @@ def show(job_id):
             return model_images.generic.views.show(job, related_jobs=related_jobs)
         else:
             raise werkzeug.exceptions.BadRequest(
-                _('Invalid job type'))
+                lgt('Invalid job type'))
 
 
 @blueprint.route('/customize', methods=['POST'])
@@ -59,7 +59,7 @@ def customize():
     network = flask.request.args['network']
     framework = flask.request.args.get('framework')
     if not network:
-        raise werkzeug.exceptions.BadRequest(_('network not provided'))
+        raise werkzeug.exceptions.BadRequest(lgt('network not provided'))
 
     fw = frameworks.get_framework_by_id(framework)
 
@@ -71,7 +71,7 @@ def customize():
     # not found in standard networks, looking for matching job
     job = scheduler.get_job(network)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     snapshot = None
     epoch = float(flask.request.form.get('snapshot_epoch', 0))
@@ -110,7 +110,7 @@ def timeline_trace_data():
     job = job_from_request()
     step = get_request_arg('step')
     if step is None:
-        raise werkzeug.exceptions.BadRequest(_('step is a required field'))
+        raise werkzeug.exceptions.BadRequest(lgt('step is a required field'))
     return job.train_task().timeline_trace(int(step))
 
 
@@ -121,7 +121,7 @@ def view_config(extension_id):
     """
     extension = extensions.view.get_extension(extension_id)
     if extension is None:
-        raise ValueError(_("Unknown extension '%(extension_id)s'", extension_id=extension_id))
+        raise ValueError(lgt("Unknown extension '%(extension_id)s'", extension_id=extension_id))
     config_form = extension.get_config_form()
     template, context = extension.get_config_template(config_form)
     return flask.render_template_string(template, **context)
@@ -134,7 +134,7 @@ def visualize_network():
     """
     framework = flask.request.args.get('framework')
     if not framework:
-        raise werkzeug.exceptions.BadRequest(_('framework not provided'))
+        raise werkzeug.exceptions.BadRequest(lgt('framework not provided'))
 
     dataset = None
     if 'dataset_id' in flask.request.form:
@@ -272,7 +272,7 @@ def download(job_id, extension):
     job = scheduler.get_job(job_id)
 
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     epoch = -1
     # GET ?epoch=n
@@ -310,7 +310,7 @@ def download(job_id, extension):
                 zf.write(path, arcname=name)
             zf.writestr("info.json", info_io.getvalue())
     else:
-        raise werkzeug.exceptions.BadRequest(_('Invalid extension'))
+        raise werkzeug.exceptions.BadRequest(lgt('Invalid extension'))
 
     response = flask.make_response(b.getvalue())
     response.headers['Content-Disposition'] = 'attachment; filename=%s_epoch_%s.%s' % (job.id(), epoch, extension)

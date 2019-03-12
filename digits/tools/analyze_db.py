@@ -18,7 +18,7 @@ except ImportError:
 import lmdb
 import numpy as np
 import PIL.Image
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 # Add path for DIGITS package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -67,11 +67,11 @@ def validate_database_path(database):
     """
     p = os.path.abspath(database)
     if not os.path.exists(p):
-        raise ValueError(_('No such file or directory'))
+        raise ValueError(lgt('No such file or directory'))
     if os.path.isfile(p):
         p = os.path.dirname(p)
     if not os.path.isdir(p):
-        raise ValueError(_('Not a directory'))
+        raise ValueError(lgt('Not a directory'))
     return p
 
 
@@ -145,7 +145,7 @@ def analyze_db(database,
                     channels = '?'
             else:
                 errstrlog = 'Shape is not set and datum is not encoded'
-                errstr = _('Shape is not set and datum is not encoded')
+                errstr = lgt('Shape is not set and datum is not encoded')
                 logger.error(errstrlog)
                 raise ValueError(errstr)
         else:

@@ -21,7 +21,7 @@ import digits
 from digits import dataset, extensions, model, utils, pretrained_model
 from digits.log import logger
 from digits.utils.routing import request_wants_json
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 from .models import valid_login, valid_regist, User, verify_pwd
 
 blueprint = flask.Blueprint(__name__, __name__)
@@ -62,12 +62,12 @@ def home(tab=2):
         new_dataset_options = {
             'Images': {
                 'image-classification': {
-                    'title': _('Classification'),
+                    'title': lgt('Classification'),
                     'url': flask.url_for(
                         'digits.dataset.images.classification.views.new'),
                 },
                 'image-other': {
-                    'title': _('Other'),
+                    'title': lgt('Other'),
                     'url': flask.url_for(
                         'digits.dataset.images.generic.views.new'),
                 },
@@ -77,12 +77,12 @@ def home(tab=2):
         new_model_options = {
             'Images': {
                 'image-classification': {
-                    'title': _('Classification'),
+                    'title': lgt('Classification'),
                     'url': flask.url_for(
                         'digits.model.images.classification.views.new'),
                 },
                 'image-other': {
-                    'title': _('Other'),
+                    'title': lgt('Other'),
                     'url': flask.url_for(
                         'digits.model.images.generic.views.new'),
                 },
@@ -92,7 +92,7 @@ def home(tab=2):
         load_model_options = {
             'Images': {
                 'pretrained-model': {
-                    'title': _('Upload Pretrained Model'),
+                    'title': lgt('Upload Pretrained Model'),
                     'id': 'uploadPretrainedModel',
                     'url': flask.url_for(
                         'digits.pretrained_model.views.new'),
@@ -258,7 +258,7 @@ def job_table_data(job_id):
     """
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     model_output_fields = set()
     return flask.jsonify({'job': json_dict(job, model_output_fields)})
@@ -388,7 +388,7 @@ def show_job(job_id):
     """
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     if isinstance(job, dataset.DatasetJob):
         return flask.redirect(flask.url_for('digits.dataset.views.show', job_id=job_id))
@@ -397,7 +397,7 @@ def show_job(job_id):
     if isinstance(job, pretrained_model.PretrainedModelJob):
         return flask.redirect(flask.url_for('digits.pretrained_model.views.show', job_id=job_id))
     else:
-        raise werkzeug.exceptions.BadRequest(_('Invalid job type'))
+        raise werkzeug.exceptions.BadRequest(lgt('Invalid job type'))
 
 
 @blueprint.route('/jobs/<job_id>', methods=['PUT'])
@@ -408,7 +408,7 @@ def edit_job(job_id):
     """
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     if not utils.auth.has_permission(job, 'edit'):
         raise werkzeug.exceptions.Forbidden()
@@ -417,7 +417,7 @@ def edit_job(job_id):
     if 'job_name' in flask.request.form:
         name = flask.request.form['job_name'].strip()
         if not name:
-            raise werkzeug.exceptions.BadRequest(_('name cannot be blank'))
+            raise werkzeug.exceptions.BadRequest(lgt('name cannot be blank'))
         job._name = name
         job.emit_attribute_changed('name', job.name())
         # update form data so updated name gets used when cloning job
@@ -452,7 +452,7 @@ def job_status(job_id):
     job = scheduler.get_job(job_id)
     result = {}
     if job is None:
-        result['error'] = _('Job not found.')
+        result['error'] = lgt('Job not found.')
     else:
         result['error'] = None
         result['status'] = job.status.name
@@ -472,7 +472,7 @@ def delete_job(job_id):
     """
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     if not utils.auth.has_permission(job, 'delete'):
         raise werkzeug.exceptions.Forbidden()
@@ -529,7 +529,7 @@ def delete_jobs():
         error = ' '.join(error)
         raise werkzeug.exceptions.BadRequest(error)
 
-    return _('Jobs deleted.')
+    return lgt('Jobs deleted.')
 
 
 @blueprint.route('/abort_jobs', methods=['POST'])
@@ -575,7 +575,7 @@ def abort_jobs():
     if len(errors) > 0:
         raise werkzeug.exceptions.BadRequest(' '.join(errors))
 
-    return _('Jobs aborted.')
+    return lgt('Jobs aborted.')
 
 
 @blueprint.route('/datasets/<job_id>/abort', methods=['POST'])
@@ -588,12 +588,12 @@ def abort_job(job_id):
     """
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     if scheduler.abort_job(job_id):
         return 'Job aborted.'
     else:
-        raise werkzeug.exceptions.Forbidden(_('Job not aborted'))
+        raise werkzeug.exceptions.Forbidden(lgt('Job not aborted'))
 
 
 @blueprint.route('/clone/<clone>', methods=['POST', 'GET'])
@@ -607,7 +607,7 @@ def clone_job(clone):
 
     job = scheduler.get_job(clone)
     if job is None:
-        raise werkzeug.exceptions.NotFound(_('Job not found'))
+        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
 
     if isinstance(job, dataset.GenericDatasetJob):
         return flask.redirect(
@@ -621,7 +621,7 @@ def clone_job(clone):
     if isinstance(job, model.GenericImageModelJob):
         return flask.redirect(flask.url_for('digits.model.images.generic.views.new') + '?clone=' + clone)
     else:
-        raise werkzeug.exceptions.BadRequest(_('Invalid job type'))
+        raise werkzeug.exceptions.BadRequest(lgt('Invalid job type'))
 
 # Error handling
 
@@ -727,7 +727,7 @@ def extension_static(extension_type, extension_id, filename):
         extension = extensions.data.get_extension(extension_id)
 
     if extension is None:
-        raise ValueError(_("Unknown extension '%(extension_id)s'", extension_id=extension_id))
+        raise ValueError(lgt("Unknown extension '%(extension_id)s'", extension_id=extension_id))
 
     digits_root = os.path.dirname(os.path.abspath(digits.__file__))
     rootdir = os.path.join(digits_root, *['extensions', 'view', extension.get_dirname(), 'static'])

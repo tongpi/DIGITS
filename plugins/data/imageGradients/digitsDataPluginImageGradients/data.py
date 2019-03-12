@@ -4,7 +4,7 @@ from __future__ import absolute_import
 from digits.utils import subclass, override, constants
 from digits.extensions.data.interface import DataIngestionInterface
 from .forms import DatasetForm, InferenceForm
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 import numpy as np
 import os
@@ -93,7 +93,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return _("Gradients")
+        return lgt("Gradients")
 
     @override
     def itemize_entries(self, stage):

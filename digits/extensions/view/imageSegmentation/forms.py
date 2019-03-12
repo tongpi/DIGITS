@@ -5,7 +5,7 @@ from flask.ext.wtf import Form
 
 from digits import utils
 from digits.utils import subclass
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 @subclass
@@ -14,12 +14,12 @@ class ConfigForm(Form):
     A form used to display the network output as an image
     """
     colormap = utils.forms.SelectField(
-        _('Colormap'),
+        lgt('Colormap'),
         choices=[
-            ('dataset', _('From dataset')),
-            ('paired', _('Paired (matplotlib)')),
-            ('none', _('None (grayscale)')),
+            ('dataset', lgt('From dataset')),
+            ('paired', lgt('Paired (matplotlib)')),
+            ('none', lgt('None (grayscale)')),
         ],
         default='dataset',
-        tooltip=_('Set color map to use when displaying segmented image')
+        tooltip=lgt('Set color map to use when displaying segmented image')
     )

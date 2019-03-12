@@ -8,7 +8,7 @@ import sys
 import digits
 from digits.task import Task
 from digits.utils import subclass, override
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 # NOTE: Increment this every time the pickled version changes
 PICKLE_VERSION = 1
@@ -67,7 +67,7 @@ class CreateGenericDbTask(Task):
         elif name == 'labels':
             return self.job.label_encoding
         else:
-            raise ValueError(_("Unknown db: %(name)s", name=name))
+            raise ValueError(lgt("Unknown db: %(name)s", name=name))
 
     @override
     def process_output(self, line):

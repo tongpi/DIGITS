@@ -13,7 +13,7 @@ from digits import utils
 from digits.utils import sizeof_fmt
 from digits.utils.forms import validate_required_iff
 from digits import frameworks
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 class ModelForm(Form):
 
@@ -25,7 +25,7 @@ class ModelForm(Form):
             if choice[0] == field.data:
                 found = True
         if not found:
-            raise validators.ValidationError(_("Selected job doesn't exist. Maybe it was deleted by another user."))
+            raise validators.ValidationError(lgt("Selected job doesn't exist. Maybe it was deleted by another user."))
 
     def validate_NetParameter(form, field):
         fw = frameworks.get_framework_by_id(form['framework'].data)
@@ -33,7 +33,7 @@ class ModelForm(Form):
             # below function raises a BadNetworkException in case of validation error
             fw.validate_network(field.data)
         except frameworks.errors.BadNetworkError as e:
-            raise validators.ValidationError(_('Bad network: %(message)s', message=e.message))
+            raise validators.ValidationError(lgt('Bad network: %(message)s', message=e.message))
 
     def validate_file_exists(form, field):
         from_client = bool(form.python_layer_from_client.data)
@@ -46,7 +46,7 @@ class ModelForm(Form):
             return
 
         if not os.path.isfile(filename):
-            raise validators.ValidationError(_('Server side file, %(filename)s, does not exist.', filename=filename))
+            raise validators.ValidationError(lgt('Server side file, %(filename)s, does not exist.', filename=filename))
 
     def validate_py_ext(form, field):
         from_client = bool(form.python_layer_from_client.data)
@@ -62,121 +62,121 @@ class ModelForm(Form):
 
         (root, ext) = os.path.splitext(filename)
         if ext != '.py' and ext != '.pyc':
-            raise validators.ValidationError(_('Python file, %(filename)s, needs .py or .pyc extension.'
-                                               , filename=filename))
+            raise validators.ValidationError(lgt('Python file, %(filename)s, needs .py or .pyc extension.'
+                                                 , filename=filename))
 
     # Fields
 
     # The options for this get set in the view (since they are dynamic)
     dataset = utils.forms.SelectField(
-        _('Select Dataset'),
+        lgt('Select Dataset'),
         choices=[],
-        tooltip=_("Choose the dataset to use for this model.")
+        tooltip=lgt("Choose the dataset to use for this model.")
     )
 
     python_layer_from_client = utils.forms.BooleanField(
-        _(u'Use client-side file'),
+        lgt(u'Use client-side file'),
         default=False,
     )
 
     python_layer_client_file = utils.forms.FileField(
-        _(u'Client-side file'),
+        lgt(u'Client-side file'),
         validators=[
             validate_py_ext
         ],
-        tooltip=_("Choose a Python file on the client containing layer definitions.")
+        tooltip=lgt("Choose a Python file on the client containing layer definitions.")
     )
     python_layer_server_file = utils.forms.StringField(
-        _(u'Server-side file'),
+        lgt(u'Server-side file'),
         validators=[
             validate_file_exists,
             validate_py_ext
         ],
-        tooltip=_("Choose a Python file on the server containing layer definitions.")
+        tooltip=lgt("Choose a Python file on the server containing layer definitions.")
     )
 
     train_epochs = utils.forms.IntegerField(
-        _('Training epochs'),
+        lgt('Training epochs'),
         validators=[
             validators.NumberRange(min=1)
         ],
         default=30,
-        tooltip=_("How many passes through the training data?")
+        tooltip=lgt("How many passes through the training data?")
     )
 
     snapshot_interval = utils.forms.FloatField(
-        _('Snapshot interval (in epochs)'),
+        lgt('Snapshot interval (in epochs)'),
         default=1,
         validators=[
             validators.NumberRange(min=0),
         ],
-        tooltip=_("How many epochs of training between taking a snapshot?")
+        tooltip=lgt("How many epochs of training between taking a snapshot?")
     )
 
     val_interval = utils.forms.FloatField(
-        _('Validation interval (in epochs)'),
+        lgt('Validation interval (in epochs)'),
         default=1,
         validators=[
             validators.NumberRange(min=0)
         ],
-        tooltip=_("How many epochs of training between running through one pass of the validation data?")
+        tooltip=lgt("How many epochs of training between running through one pass of the validation data?")
     )
 
     traces_interval = utils.forms.IntegerField(
-        _('Tracing Interval (in steps)'),
+        lgt('Tracing Interval (in steps)'),
         validators=[
             validators.NumberRange(min=0)
         ],
         default=0,
-        tooltip=_("Generation of a timeline trace every few steps")
+        tooltip=lgt("Generation of a timeline trace every few steps")
     )
 
     random_seed = utils.forms.IntegerField(
-        _('Random seed'),
+        lgt('Random seed'),
         validators=[
             validators.NumberRange(min=0),
             validators.Optional(),
         ],
-        tooltip=_('If you provide a random seed, then back-to-back runs with '
+        tooltip=lgt('If you provide a random seed, then back-to-back runs with '
                   'the same model and dataset should give identical results.')
     )
 
     batch_size = utils.forms.MultiIntegerField(
-        _('Batch size'),
+        lgt('Batch size'),
         validators=[
             utils.forms.MultiNumberRange(min=1),
             utils.forms.MultiOptional(),
         ],
-        tooltip=_("How many images to process at once. If blank, values are used from the network definition.")
+        tooltip=lgt("How many images to process at once. If blank, values are used from the network definition.")
     )
 
     batch_accumulation = utils.forms.IntegerField(
-        _('Batch Accumulation'),
+        lgt('Batch Accumulation'),
         validators=[
             validators.NumberRange(min=1),
             validators.Optional(),
         ],
-        tooltip=_("Accumulate gradients over multiple batches (useful when you "
+        tooltip=lgt("Accumulate gradients over multiple batches (useful when you "
                   "need a bigger batch size for training but it doesn't fit in memory).")
     )
 
     # Solver types
 
     solver_type = utils.forms.SelectField(
-        _('Solver type'),
+        lgt('Solver type'),
         choices=[
-            ('SGD', _('SGD (Stochastic Gradient Descent)')),
-            ('MOMENTUM', _('Momentum')),
-            ('NESTEROV', _("NAG (Nesterov's accelerated gradient)")),
-            ('ADAGRAD', _('AdaGrad (Adaptive Gradient)')),
-            ('ADAGRADDA', _('AdaGradDA (AdaGrad Dual Averaging)')),
-            ('ADADELTA', _('AdaDelta')),
-            ('ADAM', _('Adam (Adaptive Moment Estimation)')),
-            ('RMSPROP', _('RMSprop')),
-            ('FTRL', _('FTRL (Follow-The-Regularized-Leader)')),
+            ('SGD', lgt('SGD (Stochastic Gradient Descent)')),
+            ('MOMENTUM', lgt('Momentum')),
+            ('NESTEROV', lgt("NAG (Nesterov's accelerated gradient)")),
+            ('ADAGRAD', lgt('AdaGrad (Adaptive Gradient)')),
+            ('ADAGRADDA', lgt('AdaGradDA (AdaGrad Dual Averaging)')),
+            ('ADADELTA', lgt('AdaDelta')),
+            ('ADAM', lgt('Adam (Adaptive Moment Estimation)')),
+            ('RMSPROP', lgt('RMSprop')),
+            ('FTRL', lgt('FTRL (Follow-The-Regularized-Leader)')),
         ],
         default='SGD',
-        tooltip=_("What type of solver will be used?"),
+        tooltip=lgt("What type of solver will be used?"),
     )
 
     def validate_solver_type(form, field):
@@ -184,49 +184,49 @@ class ModelForm(Form):
         if fw is not None:
             if not fw.supports_solver_type(field.data):
                 raise validators.ValidationError(
-                    _('Solver type not supported by this framework'))
+                    lgt('Solver type not supported by this framework'))
 
     # Additional settings specific to selected solver
 
     rms_decay = utils.forms.FloatField(
-        _('RMS decay value'),
+        lgt('RMS decay value'),
         default=0.99,
         validators=[
             validators.NumberRange(min=0),
         ],
-        tooltip=_("If the gradient updates results in oscillations the gradient is reduced "
+        tooltip=lgt("If the gradient updates results in oscillations the gradient is reduced "
                   "by times 1-rms_decay. Otherwise it will be increased by rms_decay.")
     )
 
     # Learning rate
 
     learning_rate = utils.forms.MultiFloatField(
-        _('Base Learning Rate'),
+        lgt('Base Learning Rate'),
         default=0.01,
         validators=[
             utils.forms.MultiNumberRange(min=0),
         ],
-        tooltip=_("Affects how quickly the network learns. If you are getting "
+        tooltip=lgt("Affects how quickly the network learns. If you are getting "
                  "NaN for your loss, you probably need to lower this value.")
     )
 
     lr_policy = wtforms.SelectField(
-        _('Policy'),
+        lgt('Policy'),
         choices=[
-            ('fixed', _('Fixed')),
-            ('step', _('Step Down')),
-            ('multistep', _('Step Down (arbitrary steps)')),
-            ('exp', _('Exponential Decay')),
-            ('inv', _('Inverse Decay')),
-            ('poly', _('Polynomial Decay')),
-            ('sigmoid', _('Sigmoid Decay')),
+            ('fixed', lgt('Fixed')),
+            ('step', lgt('Step Down')),
+            ('multistep', lgt('Step Down (arbitrary steps)')),
+            ('exp', lgt('Exponential Decay')),
+            ('inv', lgt('Inverse Decay')),
+            ('poly', lgt('Polynomial Decay')),
+            ('sigmoid', lgt('Sigmoid Decay')),
         ],
         default='step'
     )
 
-    lr_step_size = wtforms.FloatField(_('Step Size'), default=33)
-    lr_step_gamma = wtforms.FloatField(_('Gamma'), default=0.1)
-    lr_multistep_values = wtforms.StringField(_('Step Values'), default="50,85")
+    lr_step_size = wtforms.FloatField(lgt('Step Size'), default=33)
+    lr_step_gamma = wtforms.FloatField(lgt('Gamma'), default=0.1)
+    lr_multistep_values = wtforms.StringField(lgt('Step Values'), default="50,85")
 
     def validate_lr_multistep_values(form, field):
         if form.lr_policy.data == 'multistep':
@@ -234,38 +234,38 @@ class ModelForm(Form):
                 try:
                     float(value)
                 except ValueError:
-                    raise validators.ValidationError(_('invalid value'))
+                    raise validators.ValidationError(lgt('invalid value'))
 
-    lr_multistep_gamma = wtforms.FloatField(_('Gamma'), default=0.5)
-    lr_exp_gamma = wtforms.FloatField(_('Gamma'), default=0.95)
-    lr_inv_gamma = wtforms.FloatField(_('Gamma'), default=0.1)
-    lr_inv_power = wtforms.FloatField(_('Power'), default=0.5)
-    lr_poly_power = wtforms.FloatField(_('Power'), default=3)
-    lr_sigmoid_step = wtforms.FloatField(_('Step'), default=50)
-    lr_sigmoid_gamma = wtforms.FloatField(_('Gamma'), default=0.1)
+    lr_multistep_gamma = wtforms.FloatField(lgt('Gamma'), default=0.5)
+    lr_exp_gamma = wtforms.FloatField(lgt('Gamma'), default=0.95)
+    lr_inv_gamma = wtforms.FloatField(lgt('Gamma'), default=0.1)
+    lr_inv_power = wtforms.FloatField(lgt('Power'), default=0.5)
+    lr_poly_power = wtforms.FloatField(lgt('Power'), default=3)
+    lr_sigmoid_step = wtforms.FloatField(lgt('Step'), default=50)
+    lr_sigmoid_gamma = wtforms.FloatField(lgt('Gamma'), default=0.1)
 
     # Network
 
     # Use a SelectField instead of a HiddenField so that the default value
     # is used when nothing is provided (through the REST API)
     method = wtforms.SelectField(
-        _(u'Network type'),
+        lgt(u'Network type'),
         choices=[
-            ('standard', _('Standard network')),
-            ('previous', _('Previous network')),
-            ('pretrained', _('Pretrained network')),
-            ('custom', _('Custom network')),
+            ('standard', lgt('Standard network')),
+            ('previous', lgt('Previous network')),
+            ('pretrained', lgt('Pretrained network')),
+            ('custom', lgt('Custom network')),
         ],
         default='standard',
     )
 
     # framework - hidden field, set by Javascript to the selected framework ID
     framework = wtforms.HiddenField(
-        _('framework'),
+        lgt('framework'),
         validators=[
             validators.AnyOf(
                 [fw.get_id() for fw in frameworks.get_frameworks()],
-                message=_('The framework you choose is not currently supported.')
+                message=lgt('The framework you choose is not currently supported.')
             )
         ],
         default=frameworks.get_frameworks()[0].get_id()
@@ -273,14 +273,14 @@ class ModelForm(Form):
 
     # The options for this get set in the view (since they are dependent on the data type)
     standard_networks = wtforms.RadioField(
-        _('Standard Networks'),
+        lgt('Standard Networks'),
         validators=[
             validate_required_iff(method='standard'),
         ],
     )
 
     previous_networks = wtforms.RadioField(
-        _('Previous Networks'),
+        lgt('Previous Networks'),
         choices=[],
         validators=[
             validate_required_iff(method='previous'),
@@ -289,7 +289,7 @@ class ModelForm(Form):
     )
 
     pretrained_networks = wtforms.RadioField(
-        _('Pretrained Networks'),
+        lgt('Pretrained Networks'),
         choices=[],
         validators=[
             validate_required_iff(method='pretrained'),
@@ -298,7 +298,7 @@ class ModelForm(Form):
     )
 
     custom_network = utils.forms.TextAreaField(
-        _('Custom Network'),
+        lgt('Custom Network'),
         validators=[
             validate_required_iff(method='custom'),
             validate_NetParameter,
@@ -306,8 +306,8 @@ class ModelForm(Form):
     )
 
     custom_network_snapshot = utils.forms.TextField(
-        _('Pretrained model(s)'),
-        tooltip=_("Paths to pretrained model files, separated by '%(pathsep)s'. "
+        lgt('Pretrained model(s)'),
+        tooltip=lgt("Paths to pretrained model files, separated by '%(pathsep)s'. "
                   "Only edit this field if you understand how fine-tuning "
                   "works in caffe or torch.", pathsep=os.path.pathsep)
     )
@@ -321,7 +321,7 @@ class ModelForm(Form):
 
     # Select one of several GPUs
     select_gpu = wtforms.RadioField(
-        _('Select which GPU you would like to use'),
+        lgt('Select which GPU you would like to use'),
         choices=[('next', 'Next available')] + [(
             index,
             '#%s - %s (%s memory)' % (
@@ -338,7 +338,7 @@ class ModelForm(Form):
 
     # Select N of several GPUs
     select_gpus = utils.forms.SelectMultipleField(
-        _('Select which GPU[s] you would like to use'),
+        lgt('Select which GPU[s] you would like to use'),
         choices=[(
             index,
             '#%s - %s (%s memory)' % (
@@ -350,19 +350,19 @@ class ModelForm(Form):
                     else get_device(index).totalGlobalMem)
             ),
         ) for index in config_value('gpu_list').split(',') if index],
-        tooltip=_("The job won't start until all of the chosen GPUs are available.")
+        tooltip=lgt("The job won't start until all of the chosen GPUs are available.")
     )
 
     # XXX For testing
     # The Flask test framework can't handle SelectMultipleFields correctly
-    select_gpus_list = wtforms.StringField(_('Select which GPU[s] you would like to use (comma separated)'))
+    select_gpus_list = wtforms.StringField(lgt('Select which GPU[s] you would like to use (comma separated)'))
 
     def validate_select_gpus(form, field):
         if form.select_gpus_list.data:
             field.data = form.select_gpus_list.data.split(',')
 
     # Use next available N GPUs
-    select_gpu_count = wtforms.IntegerField(_('Use this many GPUs (next available)'),
+    select_gpu_count = wtforms.IntegerField(lgt('Use this many GPUs (next available)'),
                                             validators=[
                                                 validators.NumberRange(min=1, max=len(
                                                     config_value('gpu_list').split(',')))
@@ -377,20 +377,20 @@ class ModelForm(Form):
                 field.errors[:] = []
                 raise validators.StopValidation()
 
-    model_name = utils.forms.StringField(_('Model Name'),
+    model_name = utils.forms.StringField(lgt('Model Name'),
                                          validators=[
                                              validators.DataRequired()
                                          ],
-                                         tooltip=_("An identifier, later used to refer to this model in the Application.")
+                                         tooltip=lgt("An identifier, later used to refer to this model in the Application.")
                                          )
 
-    group_name = utils.forms.StringField(_('Group Name'),
-                                         tooltip=_("An optional group name for organization on the main page.")
+    group_name = utils.forms.StringField(lgt('Group Name'),
+                                         tooltip=lgt("An optional group name for organization on the main page.")
                                          )
 
     # allows shuffling data during training (for frameworks that support this, as indicated by
     # their Framework.can_shuffle_data() method)
-    shuffle = utils.forms.BooleanField(_('Shuffle Train Data'),
+    shuffle = utils.forms.BooleanField(lgt('Shuffle Train Data'),
                                        default=True,
-                                       tooltip=_('For every epoch, shuffle the data before training.')
+                                       tooltip=lgt('For every epoch, shuffle the data before training.')
                                        )

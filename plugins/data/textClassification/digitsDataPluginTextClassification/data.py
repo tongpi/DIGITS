@@ -10,7 +10,7 @@ import numpy as np
 from digits.utils import subclass, override, constants
 from digits.extensions.data.interface import DataIngestionInterface
 from .forms import DatasetForm, InferenceForm
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 DATASET_TEMPLATE = "templates/dataset_template.html"
@@ -120,7 +120,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return _("Classification")
+        return lgt("Classification")
 
     @override
     def itemize_entries(self, stage):

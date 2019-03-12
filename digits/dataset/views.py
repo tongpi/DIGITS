@@ -9,7 +9,7 @@ from . import generic
 from digits import extensions, utils
 from digits.utils.routing import job_from_request, request_wants_json
 from digits.webapp import scheduler
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -40,7 +40,7 @@ def show(job_id):
         elif isinstance(job, generic.GenericDatasetJob):
             return generic.views.show(job, related_jobs=related_jobs)
         else:
-            raise werkzeug.exceptions.BadRequest(_('Invalid job type'))
+            raise werkzeug.exceptions.BadRequest(lgt('Invalid job type'))
 
 
 @blueprint.route('/summary', methods=['GET'])
@@ -57,7 +57,7 @@ def summary():
     elif isinstance(job, generic.GenericDatasetJob):
         return generic.views.summary(job)
     else:
-        raise werkzeug.exceptions.BadRequest(_('Invalid job type'))
+        raise werkzeug.exceptions.BadRequest(lgt('Invalid job type'))
 
 
 @blueprint.route('/inference-form/<extension_id>/<job_id>', methods=['GET'])
@@ -71,7 +71,7 @@ def inference_form(extension_id, job_id):
     if extension_id != "all-default":
         extension_class = extensions.data.get_extension(extension_id)
         if not extension_class:
-            raise RuntimeError(_("Unable to find data extension with ID=%(id)s", id=job_id.dataset.extension_id))
+            raise RuntimeError(lgt("Unable to find data extension with ID=%(id)s", id=job_id.dataset.extension_id))
         job = scheduler.get_job(job_id)
         if hasattr(job, 'extension_userdata'):
             extension_userdata = job.extension_userdata

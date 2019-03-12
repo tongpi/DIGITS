@@ -8,7 +8,7 @@ import sys
 import digits
 from digits.task import Task
 from digits.utils import subclass, override
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 # NOTE: Increment this every time the pickled object
@@ -60,7 +60,7 @@ class AnalyzeDbTask(Task):
 
     @override
     def name(self):
-        return _('Analyze DB') + ' (%s)' % (self.purpose)
+        return lgt('Analyze DB') + ' (%s)' % (self.purpose)
 
     @override
     def html_id(self):

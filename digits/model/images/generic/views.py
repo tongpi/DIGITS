@@ -21,7 +21,7 @@ from digits.utils import constants
 from digits.utils.forms import fill_form_if_cloned, save_form_to_job
 from digits.utils.routing import request_wants_json, job_from_request
 from digits.webapp import scheduler
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -97,7 +97,7 @@ def create(extension_id=None):
     datasetJob = scheduler.get_job(form.dataset.data)
     if not datasetJob:
         raise werkzeug.exceptions.BadRequest(
-            _('Unknown dataset job_id "%(data)s"', data=form.dataset.data))
+            lgt('Unknown dataset job_id "%(data)s"', data=form.dataset.data))
 
     # sweeps will be a list of the the permutations of swept fields
     # Get swept learning_rate
@@ -167,7 +167,7 @@ def create(extension_id=None):
 
                             if not (os.path.exists(pretrained_model)):
                                 raise werkzeug.exceptions.BadRequest(
-                                    _("Pretrained_model for the selected epoch doesn't exist. "
+                                    lgt("Pretrained_model for the selected epoch doesn't exist. "
                                       "May be deleted by another user/process. "
                                       "Please restart the server to load the correct pretrained_model details."))
                             # get logical path
@@ -186,7 +186,7 @@ def create(extension_id=None):
                 pretrained_model = form.custom_network_snapshot.data.strip()
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    _('Unrecognized method: "%(data)s"', data=form.method.data))
+                    lgt('Unrecognized method: "%(data)s"', data=form.method.data))
 
             policy = {'policy': form.lr_policy.data}
             if form.lr_policy.data == 'fixed':
@@ -209,7 +209,7 @@ def create(extension_id=None):
                 policy['gamma'] = form.lr_sigmoid_gamma.data
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    _('Invalid learning rate policy'))
+                    lgt('Invalid learning rate policy'))
 
             if config_value('caffe')['multi_gpu']:
                 if form.select_gpu_count.data:
@@ -350,7 +350,7 @@ def infer_one():
         os.close(outfile[0])
         remove_image_path = True
     else:
-        raise werkzeug.exceptions.BadRequest(_('must provide image_path or image_file'))
+        raise werkzeug.exceptions.BadRequest(lgt('must provide image_path or image_file'))
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -794,7 +794,7 @@ def get_inference_visualizations(dataset, inputs, outputs):
         view_extension_id = flask.request.form['view_extension_id']
         extension_class = extensions.view.get_extension(view_extension_id)
         if extension_class is None:
-            raise ValueError(_("Unknown extension '%(view_extension_id)s'", view_extension_id=view_extension_id))
+            raise ValueError(lgt("Unknown extension '%(view_extension_id)s'", view_extension_id=view_extension_id))
     else:
         # no view extension specified, use default
         extension_class = extensions.view.get_default_extension()
@@ -803,7 +803,7 @@ def get_inference_visualizations(dataset, inputs, outputs):
     # validate form
     extension_form_valid = extension_form.validate_on_submit()
     if not extension_form_valid:
-        raise ValueError(_("Extension form validation failed with %(ext_form_error)s", ext_form_error=repr(extension_form.errors)))
+        raise ValueError(lgt("Extension form validation failed with %(ext_form_error)s", ext_form_error=repr(extension_form.errors)))
 
     # create instance of extension class
     extension = extension_class(dataset, **extension_form.data)

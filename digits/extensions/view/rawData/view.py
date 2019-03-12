@@ -6,7 +6,7 @@ import os
 from digits.utils import subclass, override
 from .forms import ConfigForm
 from ..interface import VisualizationInterface
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 CONFIG_TEMPLATE = "config_template.html"
@@ -52,7 +52,7 @@ class Visualization(VisualizationInterface):
 
     @staticmethod
     def get_title():
-        return _('Raw Data')
+        return lgt('Raw Data')
 
     @override
     def get_view_template(self, data):

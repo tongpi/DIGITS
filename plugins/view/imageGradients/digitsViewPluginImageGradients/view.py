@@ -10,7 +10,7 @@ import digits
 from digits.utils import subclass, override
 from digits.extensions.view.interface import VisualizationInterface
 from .forms import ConfigForm
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 CONFIG_TEMPLATE = "templates/config_template.html"
@@ -77,7 +77,7 @@ class Visualization(VisualizationInterface):
 
     @staticmethod
     def get_title():
-        return _("Gradients")
+        return lgt("Gradients")
 
     @override
     def get_view_template(self, data):

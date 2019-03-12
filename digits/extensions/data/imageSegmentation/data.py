@@ -13,7 +13,7 @@ from digits.utils import image, subclass, override, constants
 from digits.utils.constants import COLOR_PALETTE_ATTRIBUTE
 from ..interface import DataIngestionInterface
 from .forms import DatasetForm
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 TEMPLATE = "template.html"
 
@@ -59,7 +59,7 @@ class DataIngestion(DataIngestionInterface):
                         try:
                             palette.append(int(val))
                         except:
-                            raise ValueError(_("Your color map file seems to be badly formatted:"
+                            raise ValueError(lgt("Your color map file seems to be badly formatted:"
                                                " '%(val)s' is not an integer", val=val))
                 # fill rest with zeros
                 palette = palette + [0] * (256 * 3 - len(palette))
@@ -88,7 +88,7 @@ class DataIngestion(DataIngestionInterface):
         # label image
         label_image = self.load_label(label_image_file)
         if label_image.getpalette() != self.userdata[COLOR_PALETTE_ATTRIBUTE]:
-            raise ValueError(_("All label images must use the same palette"))
+            raise ValueError(lgt("All label images must use the same palette"))
         label_image = self.encode_PIL_Image(label_image)
 
         return feature_image, label_image
@@ -104,7 +104,7 @@ class DataIngestion(DataIngestionInterface):
         if image.ndim == 2:
             image = image[..., np.newaxis]
         elif image.ndim != 3:
-            raise ValueError(_("Unhandled number of channels: %(ndim)d", ndim=image.ndim))
+            raise ValueError(lgt("Unhandled number of channels: %(ndim)d", ndim=image.ndim))
         # transpose to CHW
         image = image.transpose(2, 0, 1)
         return image
@@ -146,7 +146,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return _("Segmentation")
+        return lgt("Segmentation")
 
     @override
     def itemize_entries(self, stage):
@@ -165,7 +165,7 @@ class DataIngestion(DataIngestionInterface):
         # make sure filenames match
         if len(feature_image_list) != len(label_image_list):
             raise ValueError(
-                _("Expect same number of images in feature and label folders"
+                lgt("Expect same number of images in feature and label folders"
                   " (%(flist)d!=%(llist)d)", flist=len(feature_image_list), llist=len(label_image_list)))
 
         for idx in range(len(feature_image_list)):
@@ -174,7 +174,7 @@ class DataIngestion(DataIngestionInterface):
             label_name = os.path.splitext(
                 os.path.split(label_image_list[idx])[1])[0]
             if feature_name != label_name:
-                raise ValueError(_("No corresponding feature/label pair found for (%(fname)s,%(lname)s)", fname=feature_name, lname=label_name))
+                raise ValueError(lgt("No corresponding feature/label pair found for (%(fname)s,%(lname)s)", fname=feature_name, lname=label_name))
 
         # split lists if there is no val folder
         if not self.has_val_folder:
@@ -192,13 +192,13 @@ class DataIngestion(DataIngestionInterface):
         image = PIL.Image.open(filename)
         if self.userdata['colormap_method'] == "label":
             if image.mode not in ['P', 'L', '1']:
-                raise ValueError(_("Labels are expected to be single-channel (paletted or "
+                raise ValueError(lgt("Labels are expected to be single-channel (paletted or "
                                    " grayscale) images - %(filename)s mode is '%(image_mode)s'. If your labels are "
                                    "RGB images then set the 'Color Map Specification' field "
                                    "to 'from text file' and provide a color map text file.", filename=filename, image_mode=image.mode))
         else:
             if image.mode not in ['RGB']:
-                raise ValueError(_("Labels are expected to be RGB images - %(filename)s mode is '%(image_mode)s'. "
+                raise ValueError(lgt("Labels are expected to be RGB images - %(filename)s mode is '%(image_mode)s'. "
                                  "If your labels are palette or grayscale images then set "
                                    "the 'Color Map Specification' field to 'from label image'.", filename=filename, image_mode=image.mode))
             image = image.quantize(palette=self.palette_img)
@@ -212,7 +212,7 @@ class DataIngestion(DataIngestionInterface):
                 if filename.lower().endswith(image.SUPPORTED_EXTENSIONS):
                     image_files.append('%s' % os.path.join(dirpath, filename))
         if len(image_files) == 0:
-            raise ValueError(_("Unable to find supported images in %(floder)s", floder=folder))
+            raise ValueError(lgt("Unable to find supported images in %(floder)s", floder=folder))
         return sorted(image_files)
 
     def split_image_list(self, filelist, stage):
@@ -221,7 +221,7 @@ class DataIngestion(DataIngestionInterface):
             random.shuffle(self.random_indices)
         elif len(filelist) != len(self.random_indices):
             raise ValueError(
-                _("Expect same number of images in folders (%(flist)d!=%(random_indices)d)", flist=len(filelist), random_indices=len(self.random_indices)))
+                lgt("Expect same number of images in folders (%(flist)d!=%(random_indices)d)", flist=len(filelist), random_indices=len(self.random_indices)))
         filelist = [filelist[idx] for idx in self.random_indices]
         pct_val = int(self.folder_pct_val)
         n_val_entries = int(math.floor(len(filelist) * pct_val / 100))
@@ -230,4 +230,4 @@ class DataIngestion(DataIngestionInterface):
         elif stage == constants.TRAIN_DB:
             return filelist[n_val_entries:]
         else:
-            raise ValueError(_("Unknown stage: %(stage)s", stage=stage))
+            raise ValueError(lgt("Unknown stage: %(stage)s", stage=stage))

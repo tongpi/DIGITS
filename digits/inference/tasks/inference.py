@@ -13,7 +13,7 @@ import digits
 from digits.task import Task
 from digits.utils import subclass, override
 from digits.utils.image import embed_image_html
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 
 @subclass
@@ -53,7 +53,7 @@ class InferenceTask(Task):
 
     @override
     def name(self):
-        return _('Infer Model')
+        return lgt('Infer Model')
 
     @override
     def __getstate__(self):

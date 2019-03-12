@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 
 from ..job import DatasetJob
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 1
@@ -28,10 +28,10 @@ class ImageDatasetJob(DatasetJob):
     @staticmethod
     def resize_mode_choices():
         return [
-            ('crop', _('Crop')),
-            ('squash', _('Squash')),
-            ('fill', _('Fill')),
-            ('half_crop', _('Half crop, half fill')),
+            ('crop', lgt('Crop')),
+            ('squash', lgt('Squash')),
+            ('fill', lgt('Fill')),
+            ('half_crop', lgt('Half crop, half fill')),
         ]
 
     def resize_mode_name(self):

@@ -1,6 +1,6 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 import time
 
 
@@ -58,31 +58,31 @@ class Status():
         if val == self.INIT:
             self.name = 'Initialized'
             self.css = 'warning'
-            self.text = _('Initialized')
+            self.text = lgt('Initialized')
         elif val == self.WAIT:
             self.name = 'Waiting'
             self.css = 'warning'
-            self.text = _('Waiting')
+            self.text = lgt('Waiting')
         elif val == self.RUN:
             self.name = 'Running'
             self.css = 'info'
-            self.text = _('Running')
+            self.text = lgt('Running')
         elif val == self.DONE:
             self.name = 'Done'
             self.css = 'success'
-            self.text = _('Done')
+            self.text = lgt('Done')
         elif val == self.ABORT:
             self.name = 'Aborted'
             self.css = 'warning'
-            self.text = _('Aborted')
+            self.text = lgt('Aborted')
         elif val == self.ERROR:
             self.name = 'Error'
             self.css = 'danger'
-            self.text = _('Error')
+            self.text = lgt('Error')
         else:
             self.name = '?'
             self.css = 'default'
-            self.text = _('?')
+            self.text = lgt('?')
 
     def is_running(self):
         return self.val in (self.INIT, self.WAIT, self.RUN)

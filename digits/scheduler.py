@@ -21,7 +21,7 @@ from .model import ModelJob
 from .pretrained_model import PretrainedModelJob
 from .status import Status
 from digits.utils import errors
-from flask_babel import lazy_gettext as _
+from flask_babel import lazy_gettext as lgt
 
 """
 This constant configures how long to wait before automatically
@@ -220,7 +220,7 @@ class Scheduler:
         elif isinstance(job, DatasetJob):
             datajob = job
         else:
-            raise ValueError(_("Unhandled job type %(job_type)s", job_type=job.job_type()))
+            raise ValueError(lgt("Unhandled job type %(job_type)s", job_type=job.job_type()))
 
         for j in self.jobs.values():
             # Any model that shares (this/the same) dataset should be added too:
@@ -253,7 +253,7 @@ class Scheduler:
         elif isinstance(job, Job):
             job_id = job.id()
         else:
-            raise ValueError(_('called delete_job with a %(type)s', type=type(job)))
+            raise ValueError(lgt('called delete_job with a %(type)s', type=type(job)))
         dependent_jobs = []
         # try to find the job
         job = self.jobs.get(job_id, None)
@@ -478,8 +478,8 @@ class Scheduler:
                             found = True
                             break
                     if not found:
-                        raise RuntimeError(_('Resource "%(resourceType)s" with identifier="%(identifier)s" not found',
-                                             resourceType=resource_type, identifier=identifier))
+                        raise RuntimeError(lgt('Resource "%(resourceType)s" with identifier="%(identifier)s" not found',
+                                               resourceType=resource_type, identifier=identifier))
             task.current_resources = resources
             return True
         except Exception as e:
