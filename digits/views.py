@@ -27,23 +27,23 @@ from .models import valid_login, valid_regist, User, verify_pwd
 blueprint = flask.Blueprint(__name__, __name__)
 
 
-# @blueprint.route('/model.json', methods=['GET'])
-# def model_json():
-#     """
-#     Returns JSON when requested:
-#         {
-#             datasets: [{id, name, status},...],
-#             models: [{id, name, status},...]
-#         }
-#     """
-#     running_models = get_job_list(model.ModelJob, True)
-#     completed_models = get_job_list(model.ModelJob, False)
-#
-#     data = {
-#         'models': [j.json_dict()
-#                    for j in running_models + completed_models],
-#     }
-#     return flask.jsonify(data)
+@blueprint.route('/model.json', methods=['GET'])
+def model_json():
+    """
+    Returns JSON when requested:
+        {
+            datasets: [{id, name, status},...],
+            models: [{id, name, status},...]
+        }
+    """
+    running_models = get_job_list(model.ModelJob, True)
+    completed_models = get_job_list(model.ModelJob, False)
+
+    data = {
+        'models': [j.json_dict()
+                   for j in running_models + completed_models],
+    }
+    return flask.jsonify(data)
 
 
 @blueprint.route('/index.json', methods=['GET'])
