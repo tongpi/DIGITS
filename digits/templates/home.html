@@ -48,7 +48,7 @@
      ng-controller="all_jobs_controller as jc"
      ng-click="deselect_all()"
      ng-cloak>
-    {[jc.running_jobs = (jobs | filter:is_running);'']}
+    {[jc.running_jobs = (jobs | filter:is_running | filter:is_classify_one);'']}
     {[jc.dataset_jobs = (jobs | filter:is_dataset);'']}
     {[jc.model_jobs = (jobs | filter:is_model);'']}
     {[jc.pretrained_model_jobs = (jobs | filter:is_pretrained_model);'']}
