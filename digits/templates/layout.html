@@ -94,6 +94,9 @@
     {% endblock %}
 </div>
 <script>
+
+bootbox.setDefaults("locale","zh_CN");
+
 $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
 
 $(".explanation-tooltip").tooltip();
