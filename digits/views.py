@@ -277,7 +277,9 @@ def job_table_data(job_id):
     """
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
+        scheduler.add_job(job_id)
+        # raise werkzeug.exceptions.NotFound(lgt('Job not found'))
+        job = scheduler.get_job(job_id)
 
     model_output_fields = set()
     return flask.jsonify({'job': json_dict(job, model_output_fields)})
