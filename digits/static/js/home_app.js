@@ -130,10 +130,6 @@ try {
             return (!$scope.is_running(job) && job.type == 'model');
         };
 
-        $scope.is_classify_one = function(job) {
-            return (!$scope.is_running(job) && job.type != 'classify_one')
-        };
-
         $scope.is_pretrained_model = function(job) {
             return (!$scope.is_running(job) && job.type == 'pretrained_model');
         };
