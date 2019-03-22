@@ -45,7 +45,7 @@ socket.on('task update', function (msg) {
             } else {
                 $(status_selector+" .task-progress").hide();
             }
-            $(status_selector+" .panel-title small").html(msg['status']);
+            $(status_selector+" .panel-title small").html(gettext(msg['status']));
             setPanelClass(status_selector, msg['css']);
             $(status_selector+" .task-statuses").html(msg['html']);
         }
