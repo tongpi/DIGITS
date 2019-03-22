@@ -55,6 +55,7 @@ app.jinja_env.globals['dir_hash'] = fs.dir_hash(
 app.jinja_env.filters['print_time'] = utils.time_filters.print_time
 app.jinja_env.filters['print_time_local'] = utils.time_filters.print_time_local
 app.jinja_env.filters['print_time_diff'] = utils.time_filters.print_time_diff
+app.jinja_env.filters['print_time_diff_local'] = utils.time_filters.print_time_diff_local
 app.jinja_env.filters['print_time_since'] = utils.time_filters.print_time_since
 app.jinja_env.filters['sizeof_fmt'] = utils.sizeof_fmt
 app.jinja_env.filters['has_permission'] = utils.auth.has_permission

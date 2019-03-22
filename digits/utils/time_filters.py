@@ -34,13 +34,44 @@ def print_time_local(t, ref_time=None):
         now = time.localtime(ref_time)
 
     if lt.tm_year != now.tm_year:
-        return time.strftime('%Y-%m-%d %I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%Y年%m月%d日 %H:%M:%S', lt).decode('utf-8')
     elif lt.tm_mon != now.tm_mon:
-        return time.strftime('%m-%d, %I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%m月%d日, %H:%M:%S', lt).decode('utf-8')
     elif lt.tm_mday != now.tm_mday:
-        return time.strftime('%a %m-%d, %I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%m月%d日, %H:%M:%S', lt).decode('utf-8')
     else:
-        return time.strftime('%I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%H:%M:%S', lt).decode('utf-8')
+
+
+def print_time_diff_local(diff):
+    if diff is None:
+        return '?'
+
+    if diff < 0:
+        return lgt('负时间')
+
+    total_seconds = int(diff)
+    days = total_seconds // (24 * 3600)
+    hours = (total_seconds % (24 * 3600)) // 3600
+    minutes = (total_seconds % 3600) // 60
+    seconds = total_seconds % 60
+
+    def plural(number, name):
+        return '%d %s%s' % (number, name, '' if number == 1 else '')
+
+    def pair(number1, name1, number2, name2):
+        if number2 > 0:
+            return '%s, %s' % (plural(number1, name1), plural(number2, name2))
+        else:
+            return '%s' % plural(number1, name1)
+
+    if days >= 1:
+        return pair(days, lgt('天'), hours, lgt('小时'))
+    elif hours >= 1:
+        return pair(hours, lgt('小时'), minutes, lgt('分'))
+    elif minutes >= 1:
+        return pair(minutes, lgt('分'), seconds, lgt('秒'))
+    return plural(seconds, lgt('秒'))
 
 
 def print_time_diff(diff):
@@ -72,6 +103,7 @@ def print_time_diff(diff):
     elif minutes >= 1:
         return pair(minutes, lgt('minute'), seconds, lgt('second'))
     return plural(seconds, lgt('second'))
+
 
 
 def print_time_diff_nosuffixes(diff):

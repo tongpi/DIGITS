@@ -4,12 +4,12 @@
     {% for i in range(updates|length) %}
     <li>
         <span class="text-{{updates[i][0].css}}">{{updates[i][0].text}}</span>
-        {{ _('at') }} {{ updates[i][1]|print_time}}{{ updates[i][1]|print_time_local}}
+        {{ _('at') }} {{ updates[i][1]|print_time_local}}
         {% if i+1 < updates|length %}
-            <small>({{(updates[i+1][1]-updates[i][1])|print_time_diff}})</small>
+            <small>({{(updates[i+1][1]-updates[i][1])|print_time_diff_local}})</small>
         {% elif not updates[i][0].is_running() %}
             <br>
-            <small>({{ _('Total') }} - {{(updates[i][1]-updates[0][1])|print_time_diff}})</small>
+            <small>({{ _('Total') }} - {{(updates[i][1]-updates[0][1])|print_time_diff_local}})</small>
         {% endif %}
     </li>
     {% endfor %}
