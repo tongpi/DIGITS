@@ -24,6 +24,25 @@ def print_time(t, ref_time=None):
         return time.strftime('%I:%M:%S %p', lt).decode('utf-8')
 
 
+def print_time_local(t, ref_time=None):
+    lt = time.localtime(t)
+
+    # ref_time is for testing
+    if ref_time is None:
+        now = time.localtime()
+    else:
+        now = time.localtime(ref_time)
+
+    if lt.tm_year != now.tm_year:
+        return time.strftime('%Y-%m-%d %I:%M:%S %p', lt).decode('utf-8')
+    elif lt.tm_mon != now.tm_mon:
+        return time.strftime('%m-%d, %I:%M:%S %p', lt).decode('utf-8')
+    elif lt.tm_mday != now.tm_mday:
+        return time.strftime('%a %m-%d, %I:%M:%S %p', lt).decode('utf-8')
+    else:
+        return time.strftime('%I:%M:%S %p', lt).decode('utf-8')
+
+
 def print_time_diff(diff):
     if diff is None:
         return '?'

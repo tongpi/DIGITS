@@ -60,14 +60,10 @@ def home(tab=2):
             models: [{id, name, status},...]
         }
     """
-    # running_datasets = get_job_list(dataset.DatasetJob, True)
-    # completed_datasets = get_job_list(dataset.DatasetJob, False)
-    # running_models = get_job_list(model.ModelJob, True)
-    # completed_models = get_job_list(model.ModelJob, False)
-    running_datasets = []
-    completed_datasets = []
-    running_models = []
-    completed_models = []
+    running_datasets = get_job_list(dataset.DatasetJob, True)
+    completed_datasets = get_job_list(dataset.DatasetJob, False)
+    running_models = get_job_list(model.ModelJob, True)
+    completed_models = get_job_list(model.ModelJob, False)
 
     if request_wants_json():
         data = {

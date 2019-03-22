@@ -53,6 +53,7 @@ app.jinja_env.globals['caffe_flavor'] = config_value('caffe')['flavor']
 app.jinja_env.globals['dir_hash'] = fs.dir_hash(
     os.path.join(os.path.dirname(digits.__file__), 'static'))
 app.jinja_env.filters['print_time'] = utils.time_filters.print_time
+app.jinja_env.filters['print_time_local'] = utils.time_filters.print_time_local
 app.jinja_env.filters['print_time_diff'] = utils.time_filters.print_time_diff
 app.jinja_env.filters['print_time_since'] = utils.time_filters.print_time_since
 app.jinja_env.filters['sizeof_fmt'] = utils.sizeof_fmt
