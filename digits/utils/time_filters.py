@@ -6,7 +6,6 @@ from flask_babel import lazy_gettext as lgt
 
 
 def print_time(t, ref_time=None):
-    print(t)
     lt = time.localtime(t)
 
     # ref_time is for testing
