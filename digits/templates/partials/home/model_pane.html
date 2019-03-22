@@ -44,13 +44,13 @@
                             <li data-ng-repeat='field in storage.model_fields'>
                                 <label style="font-weight: normal !important;">
                                     <input type="checkbox" ng-model='field.show'>
-                                    {{ _([ field.title ])}}
+                                    {[ field.title ]}
                                 </label>
                             </li>
                             <li data-ng-repeat='field in storage.model_output_fields'>
                                 <label style="font-weight: normal !important;">
                                     <input type="checkbox" ng-model='field.show'>
-                                    {{ _([ field.name ])}}
+                                    {[ field.name ]}
                                 </label>
                             </li>
                         </ul>
