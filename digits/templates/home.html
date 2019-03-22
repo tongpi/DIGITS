@@ -11,7 +11,6 @@
 <script type="text/javascript" src="{{ url_for('static', filename='js/3rdparty/ngStorage-0.3.10.min.js', ver=dir_hash) }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/3rdparty/jquery.sparkline-2.1.2.min.js', ver=dir_hash) }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename='js/home_app.js', ver=dir_hash) }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename='js/angular-locale_zh.js', ver=dir_hash) }}"></script>
 <link rel="stylesheet" href="{{ url_for('static', filename='css/table_selection.css', ver=dir_hash) }}">
 
 {% with namespace = "/jobs" %}
@@ -109,7 +108,7 @@
                                     <th ng-repeat="field in fields">
                                         <div ng-click="change_sorting(field.name, $event)">
                                             <small>
-                                                {[ field.title ]}
+                                                {[ field.name ]}
                                             </small>
                                             <i class="glyphicon"
                                                ng-class="get_icon(field.name)" style="width:14px">
@@ -155,7 +154,7 @@
                                     </td>
                                     <td start="{[job.submitted]}">
                                         <small ng-if="!is_today(job.submitted)" title="{[ job.submitted * 1000 | date:'medium' ]}">
-                                            {[ job.submitted * 1000 | date:'medium' ]}
+                                            {[ job.submitted * 1000 | date:'MMM d, yy' ]}
                                         </small>
                                         <small ng-if="is_today(job.submitted)" title="{[ job.submitted * 1000 | date:'medium' ]}">
                                             {[ job.submitted * 1000 | date:'h:mm a' ]}
