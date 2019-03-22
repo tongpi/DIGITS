@@ -6,10 +6,10 @@
     </a>
 </h4>
 <p>
-<span class="text-{{dataset.status.css}}">{{dataset.status.name}}</span>
+<span class="text-{{dataset.status.css}}">{{_(dataset.status.name)}}</span>
 {% if not dataset.status.is_running() %}
 <small>
-    {{dataset.status_history[-1][1]|print_time}}
+    {{dataset.status_history[-1][1]|print_time_local}}
 </small>
 {% endif %}
 </p>
