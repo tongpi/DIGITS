@@ -24,7 +24,7 @@
     {% if total_gpu_count %}
     <div id="gpus-available" class="pull-right" style="margin-top:20px">
         {{remaining_gpu_count}}/{{total_gpu_count}}
-        GPU{{'s' if total_gpu_count != 1 }} {{_('available')}}
+        GPU{{'' if total_gpu_count != 1 }} {{_('available')}}
     </div>
     {% endif %}
     <h1>{{ _('Home') }}</h1>
@@ -130,7 +130,7 @@
                                             <span class="glyphicon"
                                                   ng-class="c.hideRows[job.group] ? 'glyphicon-triangle-right' : 'glyphicon-triangle-bottom'">
                                             </span>
-                                            <strong>{[ job.group ? job.group : 'Ungrouped' ]}</strong>
+                                            <strong>{[ job.group ? job.group : _('Ungrouped') ]}</strong>
                                         </div>
                                     </td>
                                 </tr>
@@ -161,7 +161,7 @@
                                         </small>
                                     </td>
                                     <td class="text-{[job.status_css]}">
-                                        {[ job.status ]}
+                                        {{_([ job.status ])}}
                                     </td>
                                     <td>
                                         <span style="width:150px; display:inline-block">
