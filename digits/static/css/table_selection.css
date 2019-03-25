@@ -44,5 +44,5 @@ tr.group-bar td {
     border-radius: 4px;
 }
 .table>thead>tr>th{
-    width: 205px;
+    width: 175px !important;
 }

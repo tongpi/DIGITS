@@ -288,7 +288,11 @@ $('#delete-job').on('click', function(event) {
             </div>
             <div class="panel-body">
                 <div id="show-job-notes" class="col-sm-12">
-                    <p style="display:inline;">{{ job.notes() }}</p>
+                    <p style="display:inline;">
+                        {% if job.notes() %}
+                        {{ job.notes() }}
+                        {% endif %}
+                    </p>
                     {% if job | has_permission('edit') %}
                     <a href=# onClick="$('#show-job-notes').hide(); $('#edit-job-notes').show(); return false;"><span class="glyphicon glyphicon-edit"></span></a>
                     {% endif %}
@@ -312,7 +316,11 @@ $('#delete-job').on('click', function(event) {
                         return false;
                     }
                     </script>
-                    <textarea name="job-notes" class="form-control" placeholder="{{_('Enter notes')}}" rows="5">{% if job.notes() %}{{ job.notes() }}{% endif %}</textarea>
+                    <textarea name="job-notes" class="form-control" placeholder="{{_('Enter notes')}}" rows="5">
+                        {% if job.notes() %}
+                            {{ job.notes() }}
+                        {% endif %}
+                    </textarea>
                     <a href=# class="btn btn-primary" onClick="return updateJobNotes();">{{_('Update')}}</a>
                     <a href=# class="btn btn-info" onClick="$('#edit-job-notes').hide(); $('#show-job-notes').show(); return false;">{{_('Cancel')}}</a>
                 </div>
