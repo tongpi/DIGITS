@@ -168,12 +168,12 @@
                         <td ng-if="storage.model_fields[6].show"
                             start="{[job.submitted]}">
                             <small ng-if="!is_today(job.submitted)"
-                                   title="{[ job.submitted * 1000 | date:'medium' ]}">
-                                {[ job.submitted * 1000 | date:'yyyy MM dd HH:mm:ss' ]}
+                                   title="{[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}">
+                                {[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}
                             </small>
                             <small ng-if="is_today(job.submitted)"
-                                   title="{[ job.submitted * 1000 | date:'medium' ]}">
-                                {[ job.submitted * 1000 | date:'yyyy MM dd HH:mm:ss' ]}
+                                   title="{[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}">
+                                {[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}
                             </small>
                         </td>
 
