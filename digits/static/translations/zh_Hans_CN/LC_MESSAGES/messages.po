@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-25 16:20+0800\n"
+"POT-Creation-Date: 2019-03-25 16:42+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -2006,13 +2006,8 @@ msgstr "您确定要中止所选"
 
 #: static/js/home_app.js:465
 #, python-format
-msgid ""
-"Enter a group name for the %(n_job_string)s selected %(job_string)s. "
-"<br><small>Leave the name blank to ungroup the .</small> %(job_string)s "
-".</small>"
-msgstr ""
-"输入%(n_job_string)s选定的%(job_string)s的组名。 <br> "
-"<small>将名称留空以取消组合。</small>%(job_string)s.</small>"
+msgid "Enter a group name for the %(n_job_string)s selected %(job_string)s. <br><small>Leave the name blank to ungroup the .</small> %(job_string)s .</small>"
+msgstr "输入%(n_job_string)s选定的%(job_string)s的组名。 <br> <small>将名称留空以取消组合。</small>%(job_string)s.</small>"
 
 #: static/js/home_app.js:539 templates/home.html:60
 msgid "Running Jobs"

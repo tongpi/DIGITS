@@ -447,7 +447,7 @@ try {
             var n_job_string = (job_ids.length == 1 ? '' : job_ids.length);
             var default_group_name = $scope.get_group_for_job(job_ids[0]);
             bootbox.prompt({
-                title: (gettext('Enter a group name for the %(n_job_string)s selected %(job_string)s. <br><small>Leave the name blank to ungroup the .</small> %(job_string)s .</small>', n_job_string=n_job_string,job_string=job_string)),
+                title: (gettext("Enter a group name for the %(n_job_string)s selected %(job_string)s. <br><small>Leave the name blank to ungroup the .</small> %(job_string)s .</small>", n_job_string=n_job_string,job_string=job_string)),
                 value: default_group_name,
                 callback: function(result) {
                     if (result !== null) {
