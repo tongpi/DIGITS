@@ -42,9 +42,6 @@ try {
                 var job = response.data.job;
                 for (var i = 0; i < $scope.jobs.length; i++) {
                     if ($scope.jobs[i].id == job_id) {
-
-                        console.log(Object.assign({}, job));
-                        console.log("++++++++++++++++++++++");
                         $scope.jobs[i] = Object.assign({}, job);
                         return;
                     }
@@ -93,6 +90,11 @@ try {
 
                 var r = response.data;
                 $scope.jobs = [].concat(r.running, r.datasets, r.models, r.pretrained_models);
+                for (var i = 0; i < jobs.length; i++) {
+                    console.log(jobs);
+                    jobs[i].status = gettext(jobs[i].status);
+                    console.log(jobs[i].status);
+                }
 
                 var scope = angular.element(document.getElementById('models-table')).scope();
                 // scope.storage.model_output_fields = [];
