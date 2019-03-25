@@ -42,7 +42,10 @@ try {
                 var job = response.data.job;
                 for (var i = 0; i < $scope.jobs.length; i++) {
                     if ($scope.jobs[i].id == job_id) {
+                        console.log(job.status)
                         job.status=gettext(job.status);
+                        console.log(job.status)
+                        console.log(job)
                         $scope.jobs[i] = Object.assign({}, job);
                         return;
                     }
