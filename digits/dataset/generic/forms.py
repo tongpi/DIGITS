@@ -6,7 +6,7 @@ from wtforms import validators
 
 from ..forms import DatasetForm
 from digits import utils
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 class GenericDatasetForm(DatasetForm):
@@ -15,52 +15,52 @@ class GenericDatasetForm(DatasetForm):
     """
     # Generic dataset options
     dsopts_feature_encoding = utils.forms.SelectField(
-        lgt('Feature Encoding'),
+        _('Feature Encoding'),
         default='png',
-        choices=[('none', lgt('None')),
-                 ('png', lgt('PNG (lossless)')),
-                 ('jpg', lgt('JPEG (lossy, 90% quality)')),
+        choices=[('none', _('None')),
+                 ('png', _('PNG (lossless)')),
+                 ('jpg', _('JPEG (lossy, 90% quality)')),
                  ],
-        tooltip=lgt("Using either of these compression formats can save disk"
+        tooltip=_("Using either of these compression formats can save disk"
                   " space, but can also require marginally more time for "
                   "training.")
     )
 
     dsopts_label_encoding = utils.forms.SelectField(
-        lgt('Label Encoding'),
+        _('Label Encoding'),
         default='none',
         choices=[
-            ('none', lgt('None')),
-            ('png', lgt('PNG (lossless)')),
-            ('jpg', lgt('JPEG (lossy, 90% quality)')),
+            ('none', _('None')),
+            ('png', _('PNG (lossless)')),
+            ('jpg', _('JPEG (lossy, 90% quality)')),
         ],
-        tooltip=lgt("Using either of these compression formats can save disk"
+        tooltip=_("Using either of these compression formats can save disk"
                   " space, but can also require marginally more time for"
                   " training.")
     )
 
     dsopts_batch_size = utils.forms.IntegerField(
-        lgt('Encoder batch size'),
+        _('Encoder batch size'),
         validators=[
             validators.DataRequired(),
             validators.NumberRange(min=1),
         ],
         default=32,
-        tooltip=lgt("Encode data in batches of specified number of entries")
+        tooltip=_("Encode data in batches of specified number of entries")
     )
 
     dsopts_num_threads = utils.forms.IntegerField(
-        lgt('Number of encoder threads'),
+        _('Number of encoder threads'),
         validators=[
             validators.DataRequired(),
             validators.NumberRange(min=1),
         ],
         default=4,
-        tooltip=lgt("Use specified number of encoder threads")
+        tooltip=_("Use specified number of encoder threads")
     )
 
     dsopts_backend = wtforms.SelectField(
-        lgt('DB backend'),
+        _('DB backend'),
         choices=[
             ('lmdb', 'LMDB'),
         ],
@@ -68,13 +68,13 @@ class GenericDatasetForm(DatasetForm):
     )
 
     dsopts_force_same_shape = utils.forms.SelectField(
-        lgt('Enforce same shape'),
+        _('Enforce same shape'),
         choices=[
-            (1, lgt('Yes')),
-            (0, lgt('No')),
+            (1, _('Yes')),
+            (0, _('No')),
         ],
         coerce=int,
         default=1,
-        tooltip=lgt("Check that each entry in the database has the same shape."
+        tooltip=_("Check that each entry in the database has the same shape."
                   "Disabling this will also disable mean image computation.")
     )

@@ -14,7 +14,7 @@ import digits
 from digits.config import config_value
 from digits.model.tasks import CaffeTrainTask
 from digits.utils import subclass, override, parse_version
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 @subclass
 class CaffeFramework(Framework):
@@ -47,7 +47,7 @@ class CaffeFramework(Framework):
         SUPPORTED_SOLVER_TYPES = ['SGD', 'NESTEROV', 'ADAGRAD',
                                   'RMSPROP', 'ADADELTA', 'ADAM']
     else:
-        raise ValueError(lgt('Unknown flavor.  Support NVIDIA and BVLC flavors only.'))
+        raise ValueError(_('Unknown flavor.  Support NVIDIA and BVLC flavors only.'))
 
     SUPPORTED_DATA_TRANSFORMATION_TYPES = ['MEAN_SUBTRACTION', 'CROPPING']
     SUPPORTED_DATA_AUGMENTATION_TYPES = []
@@ -74,7 +74,7 @@ class CaffeFramework(Framework):
         try:
             text_format.Merge(data, pb)
         except text_format.ParseError as e:
-            raise BadNetworkError(lgt('Not a valid NetParameter: %(e)s', e=e))
+            raise BadNetworkError(_('Not a valid NetParameter: %(e)s', e=e))
 
     @override
     def get_standard_network_desc(self, network):
@@ -155,4 +155,4 @@ class CaffeFramework(Framework):
         elif config_value('caffe')['flavor'] == 'NVIDIA':
             return (parse_version(config_value('caffe')['version']) > parse_version('0.14.0-alpha'))
         else:
-            raise ValueError(lgt('Unknown flavor.  Support NVIDIA and BVLC flavors only.'))
+            raise ValueError(_('Unknown flavor.  Support NVIDIA and BVLC flavors only.'))

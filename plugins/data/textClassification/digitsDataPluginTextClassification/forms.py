@@ -7,7 +7,7 @@ from digits import utils
 from digits.utils import subclass
 from flask.ext.wtf import Form
 from wtforms import validators
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 def validate_file_path(form, field):
@@ -29,12 +29,12 @@ class DatasetForm(Form):
     """
 
     train_data_file = utils.forms.StringField(
-        lgt(u'Training data (.csv)'),
+        _(u'Training data (.csv)'),
         validators=[
             validators.DataRequired(),
             validate_file_path,
         ],
-        tooltip=lgt("Data file in .csv format. There should be one sample "
+        tooltip=_("Data file in .csv format. There should be one sample "
                   "per line. On each line, the first field should be the "
                   "numerical class label. All subsequent fields will be "
                   "concatenated to produce a single string of characters, "
@@ -42,11 +42,11 @@ class DatasetForm(Form):
     )
 
     val_data_file = utils.forms.StringField(
-        lgt(u'Validation data (.csv)'),
+        _(u'Validation data (.csv)'),
         validators=[
             validate_file_path,
         ],
-        tooltip=lgt("Data file in .csv format. There should be one sample "
+        tooltip=_("Data file in .csv format. There should be one sample "
                   "per line. On each line, the first field should be the "
                   "numerical class label. All subsequent fields will be "
                   "concatenated to produce a single string of characters, "
@@ -54,32 +54,32 @@ class DatasetForm(Form):
     )
 
     alphabet = utils.forms.StringField(
-        lgt(u'Dictionary'),
+        _(u'Dictionary'),
         default="abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+ =<>()[]{}",
-        tooltip=lgt("Alphabet to use when converting characters to IDs "
+        tooltip=_("Alphabet to use when converting characters to IDs "
                   "(1-based indexing). Unknown characters will be all be "
                   "assigned the same next available ID. ")
     )
 
     class_labels_file = utils.forms.StringField(
-        lgt(u'Class labels'),
+        _(u'Class labels'),
         validators=[
             validate_file_path,
         ],
-        tooltip=lgt("The 'i'th line of the file should give the string label "
+        tooltip=_("The 'i'th line of the file should give the string label "
                   "associated with the '(i-1)'th numeric label. (E.g. the "
                   "string label for the numeric label 0 is supposed to be "
                   "on line 1.)")
     )
 
     max_chars_per_sample = utils.forms.IntegerField(
-        lgt(u'Number of characters per sample'),
+        _(u'Number of characters per sample'),
         default=1024,
         validators=[
             validators.Optional(),
             validators.NumberRange(min=1),
         ],
-        tooltip=lgt("Specify how many characters to retain per sample. "
+        tooltip=_("Specify how many characters to retain per sample. "
                   "Shorter samples will be padded. Longer samples will "
                   "be truncated. Leave blank and disable 'Enforce same "
                   "shape' below to use sample size in data file ")
@@ -93,16 +93,16 @@ class InferenceForm(Form):
     """
 
     snippet = utils.forms.TextAreaField(
-        lgt(u'Snippet'),
-        tooltip=lgt("Test a single snippet")
+        _(u'Snippet'),
+        tooltip=_("Test a single snippet")
     )
 
     test_data_file = utils.forms.StringField(
-        lgt(u'Test data (.csv)'),
+        _(u'Test data (.csv)'),
         validators=[
             validate_file_path,
         ],
-        tooltip=lgt("Data file in .csv format. There should be one sample "
+        tooltip=_("Data file in .csv format. There should be one sample "
                   "per line. On each line, the first field should be the "
                   "numerical class label. All subsequent fields will be "
                   "concatenated to produce a single string of characters, "

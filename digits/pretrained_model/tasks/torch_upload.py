@@ -4,7 +4,7 @@ import os
 from digits.utils import subclass, override
 from digits.status import Status
 from digits.pretrained_model.tasks import UploadPretrainedModelTask
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -15,7 +15,7 @@ class TorchUploadTask(UploadPretrainedModelTask):
 
     @override
     def name(self):
-        return lgt('Upload Pretrained Torch Model')
+        return _('Upload Pretrained Torch Model')
 
     @override
     def get_model_def_path(self):

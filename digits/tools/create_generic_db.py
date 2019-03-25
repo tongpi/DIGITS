@@ -15,7 +15,7 @@ import PIL.Image
 import Queue
 import sys
 import threading
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 # Add path for DIGITS package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -111,7 +111,7 @@ class LmdbWriter(DbWriter):
 
     def array_to_datum(self, data, scalar_label, encoding):
         if data.ndim != 3:
-            raise ValueError(lgt('Invalid number of dimensions: %(ndim)d', ndim=data.ndim))
+            raise ValueError(_('Invalid number of dimensions: %(ndim)d', ndim=data.ndim))
         if encoding == 'none':
             if data.shape[0] == 3:
                 # RGB to BGR
@@ -135,7 +135,7 @@ class LmdbWriter(DbWriter):
             elif encoding == 'jpg':
                 PIL.Image.fromarray(data).save(s, format='JPEG', quality=90)
             else:
-                raise ValueError(lgt('Invalid encoding type'))
+                raise ValueError(_('Invalid encoding type'))
             datum.data = s.getvalue()
             datum.encoded = True
         return datum
@@ -207,7 +207,7 @@ class LmdbWriter(DbWriter):
             except AttributeError as e:
                 version = tuple(int(x) for x in lmdb.__version__.split('.'))
                 if version < (0, 87):
-                    raise ValueError(lgt('py-lmdb is out of date (%(version)s vs 0.87)', version=lmdb.__version__))
+                    raise ValueError(_('py-lmdb is out of date (%(version)s vs 0.87)', version=lmdb.__version__))
                 else:
                     raise e
             # try again
@@ -258,11 +258,11 @@ class Encoder(threading.Thread):
                             self.label_shape = label.shape
                         if self.force_same_shape:
                             if self.feature_shape != feature.shape:
-                                raise ValueError(lgt("Feature shape mismatch (last:%(fshape1)s, previous:%(fshape2)s)"
-                                                     , fshape1=repr(feature.shape), fshape2=repr(self.feature_shape)))
+                                raise ValueError(_("Feature shape mismatch (last:%(fshape1)s, previous:%(fshape2)s)"
+                                                   , fshape1=repr(feature.shape), fshape2=repr(self.feature_shape)))
                             if self.label_shape != label.shape:
-                                raise ValueError(lgt("Label shape mismatch (last:%(lshape1)s, previous:%(lshape2)s)",
-                                                     lshape1=repr(label.shape), lshape2=repr(self.label_shape)))
+                                raise ValueError(_("Label shape mismatch (last:%(lshape1)s, previous:%(lshape2)s)",
+                                                   lshape1=repr(label.shape), lshape2=repr(self.label_shape)))
                             if self.feature_sum is None:
                                 self.feature_sum = np.zeros(self.feature_shape, dtype=np.float64)
                             # accumulate sum for mean file calculation
@@ -414,7 +414,7 @@ def create_generic_db(jobs_dir, dataset_id, stage):
     # load dataset job
     dataset_dir = os.path.join(jobs_dir, dataset_id)
     if not os.path.isdir(dataset_dir):
-        raise IOError(lgt("Dataset dir %(dataset_dir)s does not exist", dataset_dir=dataset_dir))
+        raise IOError(_("Dataset dir %(dataset_dir)s does not exist", dataset_dir=dataset_dir))
     dataset = Job.load(dataset_dir)
 
     # create instance of extension

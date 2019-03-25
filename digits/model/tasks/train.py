@@ -12,7 +12,7 @@ import psutil
 from digits import device_query
 from digits.task import Task
 from digits.utils import subclass, override
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 # NOTE: Increment this every time the picked object changes
@@ -192,7 +192,7 @@ class TrainTask(Task):
                 if device:
                     devices.append((index, device))
                 else:
-                    raise RuntimeError(lgt('Failed to load gpu information for GPU #"%(index)s"', index=index))
+                    raise RuntimeError(_('Failed to load gpu information for GPU #"%(index)s"', index=index))
 
         # this thread continues until killed in after_run()
         while True:
@@ -455,7 +455,7 @@ class TrainTask(Task):
                     snapshot_filename = f
                     break
         if not snapshot_filename:
-            raise ValueError(lgt('Invalid epoch'))
+            raise ValueError(_('Invalid epoch'))
 
         return snapshot_filename
 
@@ -540,7 +540,7 @@ class TrainTask(Task):
                 with open(fn, 'r') as file_data:
                     return file_data.read()
 
-        raise ValueError(lgt('Requested timeline not found in timeline list'))
+        raise ValueError(_('Requested timeline not found in timeline list'))
 
     def timeline_trace_list(self):
         """

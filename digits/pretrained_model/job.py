@@ -5,7 +5,7 @@ import os
 from digits.job import Job
 from digits.utils import subclass, override
 from digits.pretrained_model.tasks import CaffeUploadTask, TorchUploadTask, TensorflowUploadTask
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 @subclass
@@ -43,7 +43,7 @@ class PretrainedModelJob(Job):
         elif self.framework == "tensorflow":
             self.tasks.append(TensorflowUploadTask(**taskKwargs))
         else:
-            raise Exception(lgt("framework of type %(framework)s is not supported", framework=self.framework))
+            raise Exception(_("framework of type %(framework)s is not supported", framework=self.framework))
 
     def get_weights_path(self):
         return self.tasks[0].get_weights_path()
@@ -70,7 +70,7 @@ class PretrainedModelJob(Job):
 
     @override
     def job_type(self):
-        return lgt("Pretrained Model")
+        return _("Pretrained Model")
 
     @override
     def __getstate__(self):

@@ -2,7 +2,7 @@
 from __future__ import absolute_import
 
 import time
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 def print_time(t, ref_time=None):
@@ -48,7 +48,7 @@ def print_time_diff_local(diff):
         return '?'
 
     if diff < 0:
-        return lgt('负时间')
+        return _('负时间')
 
     total_seconds = int(diff)
     days = total_seconds // (24 * 3600)
@@ -66,12 +66,12 @@ def print_time_diff_local(diff):
             return '%s' % plural(number1, name1)
 
     if days >= 1:
-        return pair(days, lgt('天'), hours, lgt('小时'))
+        return pair(days, _('天'), hours, _('小时'))
     elif hours >= 1:
-        return pair(hours, lgt('小时'), minutes, lgt('分'))
+        return pair(hours, _('小时'), minutes, _('分'))
     elif minutes >= 1:
-        return pair(minutes, lgt('分'), seconds, lgt('秒'))
-    return plural(seconds, lgt('秒'))
+        return pair(minutes, _('分'), seconds, _('秒'))
+    return plural(seconds, _('秒'))
 
 
 def print_time_diff(diff):
@@ -79,7 +79,7 @@ def print_time_diff(diff):
         return '?'
 
     if diff < 0:
-        return lgt('Negative Time')
+        return _('Negative Time')
 
     total_seconds = int(diff)
     days = total_seconds // (24 * 3600)
@@ -97,12 +97,12 @@ def print_time_diff(diff):
             return '%s' % plural(number1, name1)
 
     if days >= 1:
-        return pair(days, lgt('day'), hours, lgt('hour'))
+        return pair(days, _('day'), hours, _('hour'))
     elif hours >= 1:
-        return pair(hours, lgt('hour'), minutes, lgt('minute'))
+        return pair(hours, _('hour'), minutes, _('minute'))
     elif minutes >= 1:
-        return pair(minutes, lgt('minute'), seconds, lgt('second'))
-    return plural(seconds, lgt('second'))
+        return pair(minutes, _('minute'), seconds, _('second'))
+    return plural(seconds, _('second'))
 
 
 

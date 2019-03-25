@@ -13,7 +13,7 @@ import shutil
 import sys
 import threading
 import time
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 # Find the best implementation available
 try:
@@ -218,7 +218,7 @@ def create_db(input_file, output_dir,
               shuffle=True,
               mean_files=None,
               **kwargs):
-    from flask_babel import lazy_gettext as lgt
+    from flask_babel import lazy_gettext as _
     """
     Create a database of images from a list of image paths
     Raises exceptions on errors
@@ -239,7 +239,7 @@ def create_db(input_file, output_dir,
     # Validate arguments
 
     if not os.path.exists(input_file):
-        raise ValueError(lgt('input_file does not exist'))
+        raise ValueError(_('input_file does not exist'))
     if os.path.exists(output_dir):
         logger.warning('removing existing database')
         if os.path.isdir(output_dir):
@@ -247,15 +247,15 @@ def create_db(input_file, output_dir,
         else:
             os.remove(output_dir)
     if image_width <= 0:
-        raise ValueError(lgt('invalid image width'))
+        raise ValueError(_('invalid image width'))
     if image_height <= 0:
-        raise ValueError(lgt('invalid image height'))
+        raise ValueError(_('invalid image height'))
     if image_channels not in [1, 3]:
-        raise ValueError(lgt('invalid number of channels'))
+        raise ValueError(_('invalid number of channels'))
     if resize_mode not in [None, 'crop', 'squash', 'fill', 'half_crop']:
-        raise ValueError(lgt('invalid resize_mode'))
+        raise ValueError(_('invalid resize_mode'))
     if image_folder is not None and not os.path.exists(image_folder):
-        raise ValueError(lgt('image_folder does not exist'))
+        raise ValueError(_('image_folder does not exist'))
     if mean_files:
         for mean_file in mean_files:
             if os.path.exists(mean_file):
@@ -265,7 +265,7 @@ def create_db(input_file, output_dir,
                 if not dirname:
                     dirname = '.'
                 if not os.path.exists(dirname):
-                    raise ValueError(lgt('Cannot save mean file at "%(mean_file)s"', mean_file=mean_file))
+                    raise ValueError(_('Cannot save mean file at "%(mean_file)s"', mean_file=mean_file))
     compute_mean = bool(mean_files)
 
     # Load lines from input_file into a load_queue
@@ -282,7 +282,7 @@ def create_db(input_file, output_dir,
     write_queue = Queue.Queue(2 * batch_size)
     summary_queue = Queue.Queue()
 
-    for lgt in xrange(num_threads):
+    for _ in xrange(num_threads):
         p = threading.Thread(target=_load_thread,
                              args=(load_queue, write_queue, summary_queue,
                                    image_width, image_height, image_channels,
@@ -305,7 +305,7 @@ def create_db(input_file, output_dir,
                      summary_queue, num_threads,
                      mean_files, **kwargs)
     else:
-        raise ValueError(lgt('invalid backend'))
+        raise ValueError(_('invalid backend'))
 
     logger.info('Database created after %d seconds.' % (time.time() - start))
 
@@ -322,7 +322,7 @@ def _create_tfrecords(image_count, write_queue, batch_size, output_dir,
     LIST_FILENAME = 'list.txt'
 
     if not tf:
-        raise ValueError(lgt("Can't create TFRecords as support for Tensorflow "
+        raise ValueError(_("Can't create TFRecords as support for Tensorflow "
                          "is not enabled."))
 
     wait_time = time.time()
@@ -381,11 +381,11 @@ def _create_tfrecords(image_count, write_queue, batch_size, output_dir,
             time.sleep(0.2)
 
     if images_loaded == 0:
-        raise LoadError(lgt('no images loaded from input file'))
+        raise LoadError(_('no images loaded from input file'))
     logger.debug('%s images loaded' % images_loaded)
 
     if images_written == 0:
-        raise WriteError(lgt('no images written to database'))
+        raise WriteError(_('no images written to database'))
     logger.info('%s images written to database' % images_written)
 
     if compute_mean:
@@ -460,11 +460,11 @@ def _create_lmdb(image_count, write_queue, batch_size, output_dir,
         images_written += len(batch)
 
     if images_loaded == 0:
-        raise LoadError(lgt('no images loaded from input file'))
+        raise LoadError(_('no images loaded from input file'))
     logger.debug('%s images loaded' % images_loaded)
 
     if images_written == 0:
-        raise WriteError(lgt('no images written to database'))
+        raise WriteError(_('no images written to database'))
     logger.info('%s images written to database' % images_written)
 
     if compute_mean:
@@ -543,11 +543,11 @@ def _create_hdf5(image_count, write_queue, batch_size, output_dir,
     assert images_written == writer.count()
 
     if images_loaded == 0:
-        raise LoadError(lgt('no images loaded from input file'))
+        raise LoadError(_('no images loaded from input file'))
     logger.debug('%s images loaded' % images_loaded)
 
     if images_written == 0:
-        raise WriteError(lgt('no images written to database'))
+        raise WriteError(_('no images written to database'))
     logger.info('%s images written to database' % images_written)
 
     if compute_mean:
@@ -591,7 +591,7 @@ def _fill_load_queue(filename, queue, shuffle):
 
     logger.debug('%s total lines in file' % total_lines)
     if valid_lines == 0:
-        raise BadInputFileError(lgt('No valid lines in input file'))
+        raise BadInputFileError(_('No valid lines in input file'))
     logger.info('%s valid lines in file' % valid_lines)
 
     for key in sorted(distribution):
@@ -732,7 +732,7 @@ def _array_to_tf_feature(image, label, encoding):
             PIL.Image.fromarray(image).save(s, format='JPEG', quality=90)
             encoding_id = 2
         else:
-            raise ValueError(lgt('Invalid encoding type'))
+            raise ValueError(_('Invalid encoding type'))
         image_raw = s.getvalue()
 
     depth = image.shape[2] if len(image.shape) > 2 else 1
@@ -769,7 +769,7 @@ def _array_to_datum(image, label, encoding):
             # Add a channels axis
             image = image[np.newaxis, :, :]
         else:
-            raise Exception(lgt('Image has unrecognized shape: "%(image_shape)s"', image_shap=image.shape))
+            raise Exception(_('Image has unrecognized shape: "%(image_shape)s"', image_shap=image.shape))
         datum = caffe.io.array_to_datum(image, label)
     else:
         datum = caffe_pb2.Datum()
@@ -787,7 +787,7 @@ def _array_to_datum(image, label, encoding):
         elif encoding == 'jpg':
             PIL.Image.fromarray(image).save(s, format='JPEG', quality=90)
         else:
-            raise ValueError(lgt('Invalid encoding type'))
+            raise ValueError(_('Invalid encoding type'))
         datum.data = s.getvalue()
         datum.encoded = True
     return datum
@@ -812,7 +812,7 @@ def _write_batch_lmdb(db, batch, image_count):
         except AttributeError as e:
             version = tuple(int(x) for x in lmdb.__version__.split('.'))
             if version < (0, 87):
-                raise Error(lgt('py-lmdb is out of date (%(version)s vs 0.87)', version=lmdb.__version__))
+                raise Error(_('py-lmdb is out of date (%(version)s vs 0.87)', version=lmdb.__version__))
             else:
                 raise e
         # try again
@@ -864,16 +864,16 @@ if __name__ == '__main__':
     # Positional arguments
 
     parser.add_argument('input_file',
-                        help=lgt('An input file of labeled images'))
+                        help=_('An input file of labeled images'))
     parser.add_argument('output_dir',
-                        help=lgt('Path to the output database'))
+                        help=_('Path to the output database'))
     parser.add_argument('width',
                         type=int,
-                        help=lgt('width of resized images'
-                                 ))
+                        help=_('width of resized images'
+                               ))
     parser.add_argument('height',
                         type=int,
-                        help=lgt('height of resized images')
+                        help=_('height of resized images')
                         )
 
     # Optional arguments
@@ -881,35 +881,35 @@ if __name__ == '__main__':
     parser.add_argument('-c', '--channels',
                         type=int,
                         default=3,
-                        help=lgt('channels of resized images (1 for grayscale, 3 for color [default])'
-                                 ))
+                        help=_('channels of resized images (1 for grayscale, 3 for color [default])'
+                               ))
     parser.add_argument('-r', '--resize_mode',
-                        help=lgt('resize mode for images (must be "crop", "squash" [default], "fill" or "half_crop")'
-                                 ))
+                        help=_('resize mode for images (must be "crop", "squash" [default], "fill" or "half_crop")'
+                               ))
     parser.add_argument('-m', '--mean_file', action='append',
-                        help=lgt("location to output the image mean (doesn't save mean if not specified)"))
+                        help=_("location to output the image mean (doesn't save mean if not specified)"))
     parser.add_argument('-f', '--image_folder',
-                        help=lgt('folder containing the images (if the paths in input_file are not absolute)'))
+                        help=_('folder containing the images (if the paths in input_file are not absolute)'))
     parser.add_argument('-s', '--shuffle',
                         action='store_true',
-                        help=lgt('Shuffle images before saving'
-                                 ))
+                        help=_('Shuffle images before saving'
+                               ))
     parser.add_argument('-e', '--encoding',
-                        help=lgt('Image encoding format (jpg/png)'
-                                 ))
+                        help=_('Image encoding format (jpg/png)'
+                               ))
     parser.add_argument('-C', '--compression',
-                        help=lgt('Database compression format (gzip)'
-                                 ))
+                        help=_('Database compression format (gzip)'
+                               ))
     parser.add_argument('-b', '--backend',
                         default='lmdb',
-                        help=lgt('The database backend - lmdb[default], hdf5 or tfrecords'))
+                        help=_('The database backend - lmdb[default], hdf5 or tfrecords'))
     parser.add_argument('--lmdb_map_size',
                         type=int,
-                        help=lgt('The initial map size for LMDB (in MB)'))
+                        help=_('The initial map size for LMDB (in MB)'))
     parser.add_argument('--hdf5_dset_limit',
                         type=int,
                         default=2**31,
-                        help=lgt('The size limit for HDF5 datasets'))
+                        help=_('The size limit for HDF5 datasets'))
 
     args = vars(parser.parse_args())
 

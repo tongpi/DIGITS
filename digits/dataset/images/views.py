@@ -14,7 +14,7 @@ import PIL.Image
 
 import digits
 from digits import utils
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -49,18 +49,18 @@ def resize_example():
             elif encoding == 'jpg':
                 PIL.Image.fromarray(image).save(s, format='JPEG', quality=90)
             else:
-                raise ValueError(lgt('unrecognized encoding "%(encoding)s"', encoding=encoding))
+                raise ValueError(_('unrecognized encoding "%(encoding)s"', encoding=encoding))
             s.seek(0)
             image = PIL.Image.open(s)
             length = len(s.getvalue())
 
         data = utils.image.embed_image_html(image)
 
-        return lgt('<img src="%(data)s" style=\"width:%(width)spx;height=%(height)spx\" />\n<br>\n<i>Image size: %(size)s</i>',
-                   data=data,
-                   width=width,
-                   height=height,
-                   size=utils.sizeof_fmt(length)
-                   )
+        return _('<img src="%(data)s" style=\"width:%(width)spx;height=%(height)spx\" />\n<br>\n<i>Image size: %(size)s</i>',
+                 data=data,
+                 width=width,
+                 height=height,
+                 size=utils.sizeof_fmt(length)
+                 )
     except Exception as e:
         return '%s: %s' % (type(e).__name__, e)

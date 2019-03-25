@@ -15,7 +15,7 @@ from ..interface import DataIngestionInterface
 from .forms import DatasetForm
 from .utils import GroundTruth, GroundTruthObj
 from .utils import bbox_to_array, pad_image, resize_bbox_list
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 TEMPLATE = "template.html"
 
@@ -90,7 +90,7 @@ class DataIngestion(DataIngestionInterface):
                 img = img.astype(float)
         else:
             if img.ndim != 3 or img.shape[2] != 3:
-                raise ValueError(lgt("Unsupported image shape: %(shape)s", shape=repr(img.shape)))
+                raise ValueError(_("Unsupported image shape: %(shape)s", shape=repr(img.shape)))
             # HWC -> CHW
             img = img.transpose(2, 0, 1)
 
@@ -100,7 +100,7 @@ class DataIngestion(DataIngestionInterface):
         label_id = os.path.splitext(os.path.basename(entry))[0]
 
         if label_id not in self.datasrc_annotation_dict:
-            raise ValueError(lgt("Label key %(label_id)s not found in label folder", label_id=label_id))
+            raise ValueError(_("Label key %(label_id)s not found in label folder", label_id=label_id))
         annotations = self.datasrc_annotation_dict[label_id]
 
         # collect bbox list into bboxList
@@ -169,7 +169,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return lgt("Object Detection")
+        return _("Object Detection")
 
     @override
     def itemize_entries(self, stage):
@@ -196,7 +196,7 @@ class DataIngestion(DataIngestionInterface):
                 # no validation folder was specified
                 return []
         else:
-            raise ValueError(lgt("Unknown stage: %(stage)s", stage=stage))
+            raise ValueError(_("Unknown stage: %(stage)s", stage=stage))
 
     def load_ground_truth(self, folder, min_box_size=None):
         """
@@ -226,7 +226,7 @@ class DataIngestion(DataIngestionInterface):
                 if filename.lower().endswith(digits.utils.image.SUPPORTED_EXTENSIONS):
                     image_files.append('%s' % os.path.join(dirpath, filename))
         if len(image_files) == 0:
-            raise ValueError(lgt("Unable to find supported images in %(folder)s", folder=folder))
+            raise ValueError(_("Unable to find supported images in %(folder)s", folder=folder))
         # shuffle
         random.shuffle(image_files)
         return image_files

@@ -72,12 +72,12 @@ function print_time_diff_terse(diff, min_unit) {
     var seconds = total_seconds % 60;
 
     if (days >= 1 || min_unit == 'day')
-        return Math.round(days) + 'd';
+        return Math.round(days) + gettext('d');
     else if (hours >= 1 || min_unit == 'hour')
-        return Math.round(hours) + 'h';
+        return Math.round(hours) + gettext('h');
     else if (minutes >= 1 || min_unit == 'minute')
-        return Math.round(minutes) + 'm';
-    return Math.round(seconds) + 's';
+        return Math.round(minutes) + gettext('m');
+    return Math.round(seconds) + gettext('s');
 }
 
 function print_time_diff_ago(start, min_unit) {
@@ -87,5 +87,5 @@ function print_time_diff_ago(start, min_unit) {
 
     var now = Date.now() / 1000;
     var time = print_time_diff_simple(now - start, min_unit);
-    return time + ' ago';
+    return time + gettext(' ago');
 }

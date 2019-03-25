@@ -9,7 +9,7 @@ from wtforms import validators
 from ..forms import ImageDatasetForm
 from digits import utils
 from digits.utils.forms import validate_required_iff
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 class GenericImageDatasetForm(ImageDatasetForm):
@@ -20,9 +20,9 @@ class GenericImageDatasetForm(ImageDatasetForm):
     # Use a SelectField instead of a HiddenField so that the default value
     # is used when nothing is provided (through the REST API)
     method = wtforms.SelectField(
-        lgt(u'Dataset type'),
+        _(u'Dataset type'),
         choices=[
-            ('prebuilt', lgt('Prebuilt')),
+            ('prebuilt', _('Prebuilt')),
         ],
         default='prebuilt',
     )
@@ -33,7 +33,7 @@ class GenericImageDatasetForm(ImageDatasetForm):
         else:
             # make sure the filesystem path exists
             if not os.path.exists(field.data) or not os.path.isdir(field.data):
-                raise validators.ValidationError(lgt('Folder does not exist'))
+                raise validators.ValidationError(_('Folder does not exist'))
 
     def validate_file_path(form, field):
         if not field.data:
@@ -41,33 +41,33 @@ class GenericImageDatasetForm(ImageDatasetForm):
         else:
             # make sure the filesystem path exists
             if not os.path.exists(field.data) or not os.path.isfile(field.data):
-                raise validators.ValidationError(lgt('File does not exist'))
+                raise validators.ValidationError(_('File does not exist'))
 
     #
     # Method - prebuilt
     #
 
     prebuilt_train_images = wtforms.StringField(
-        lgt('Training Images'),
+        _('Training Images'),
         validators=[
             validate_required_iff(method='prebuilt'),
             validate_lmdb_path,
         ]
     )
     prebuilt_train_labels = wtforms.StringField(
-        lgt('Training Labels'),
+        _('Training Labels'),
         validators=[
             validate_lmdb_path,
         ]
     )
     prebuilt_val_images = wtforms.StringField(
-        lgt('Validation Images'),
+        _('Validation Images'),
         validators=[
             validate_lmdb_path,
         ]
     )
     prebuilt_val_labels = wtforms.StringField(
-        lgt('Validation Labels'),
+        _('Validation Labels'),
         validators=[
             validate_lmdb_path,
         ]
@@ -78,20 +78,20 @@ class GenericImageDatasetForm(ImageDatasetForm):
     # this default to True when nothing is supplied, we have to use a
     # SelectField
     force_same_shape = utils.forms.SelectField(
-        lgt('Enforce same shape'),
+        _('Enforce same shape'),
         choices=[
-            (1, lgt('Yes')),
-            (0, lgt('No')),
+            (1, _('Yes')),
+            (0, _('No')),
         ],
         coerce=int,
         default=1,
-        tooltip=lgt('Check that each entry in the database has the same shape (can be time-consuming)')
+        tooltip=_('Check that each entry in the database has the same shape (can be time-consuming)')
     )
 
     prebuilt_mean_file = utils.forms.StringField(
-        lgt('Mean Image'),
+        _('Mean Image'),
         validators=[
             validate_file_path,
         ],
-        tooltip=lgt("Path to a .binaryproto file on the server")
+        tooltip=_("Path to a .binaryproto file on the server")
     )

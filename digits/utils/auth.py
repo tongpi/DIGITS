@@ -7,7 +7,7 @@ import re
 import werkzeug.exceptions
 
 from .routing import get_request_arg, request_wants_json
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 def get_username():
     return get_request_arg('username') or \
@@ -19,11 +19,11 @@ def validate_username(username):
     Raises a ValueError if the username is invalid
     """
     if not username:
-        raise ValueError(lgt('username is required'))
+        raise ValueError(_('username is required'))
     if not re.match('[a-z]', username):
-        raise ValueError(lgt('Must start with a lowercase letter'))
+        raise ValueError(_('Must start with a lowercase letter'))
     if not re.match('[a-z0-9\.\-_]+$', username):
-        raise ValueError(lgt('Only lowercase letters, numbers, periods, dashes and underscores allowed'))
+        raise ValueError(_('Only lowercase letters, numbers, periods, dashes and underscores allowed'))
 
 
 def requires_login(f=None, redirect=True):

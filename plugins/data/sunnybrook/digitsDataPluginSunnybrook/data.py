@@ -15,7 +15,7 @@ from digits.utils import subclass, override, constants
 from digits.utils.constants import COLOR_PALETTE_ATTRIBUTE
 from digits.extensions.data.interface import DataIngestionInterface
 from .forms import DatasetForm, InferenceForm
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 DATASET_TEMPLATE = "templates/dataset_template.html"
@@ -202,7 +202,7 @@ class DataIngestion(DataIngestionInterface):
     @staticmethod
     @override
     def get_title():
-        return lgt("Sunnybrook LV Segmentation")
+        return _("Sunnybrook LV Segmentation")
 
     @override
     def itemize_entries(self, stage):

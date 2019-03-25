@@ -22,7 +22,7 @@ from digits.utils import filesystem as fs
 from digits.utils.forms import fill_form_if_cloned, save_form_to_job
 from digits.utils.routing import request_wants_json, job_from_request
 from digits.webapp import scheduler
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
 
@@ -124,7 +124,7 @@ def create():
     datasetJob = scheduler.get_job(form.dataset.data)
     if not datasetJob:
         raise werkzeug.exceptions.BadRequest(
-            lgt('Unknown dataset job_id "%(data)s"', data=form.dataset.data))
+            _('Unknown dataset job_id "%(data)s"', data=form.dataset.data))
 
     # sweeps will be a list of the the permutations of swept fields
     # Get swept learning_rate
@@ -173,12 +173,12 @@ def create():
 
                 if not found:
                     raise werkzeug.exceptions.BadRequest(
-                        lgt('Unknown standard model "%(data)s"', data=form.standard_networks.data))
+                        _('Unknown standard model "%(data)s"', data=form.standard_networks.data))
             elif form.method.data == 'previous':
                 old_job = scheduler.get_job(form.previous_networks.data)
                 if not old_job:
                     raise werkzeug.exceptions.BadRequest(
-                        lgt('Job not found: %(data)s', data=form.previous_networks.data))
+                        _('Job not found: %(data)s', data=form.previous_networks.data))
 
                 use_same_dataset = (old_job.dataset_id == job.dataset_id)
                 network = fw.get_network_from_previous(old_job.train_task().network, use_same_dataset)
@@ -195,14 +195,14 @@ def create():
                             pretrained_model = old_job.train_task().get_snapshot(epoch, download=True)
                             if pretrained_model is None:
                                 raise werkzeug.exceptions.BadRequest(
-                                    lgt("For the job %(data)s, selected pretrained_model for epoch %(epoch)d is invalid!", data=form.previous_networks.data, epoch=epoch))
+                                    _("For the job %(data)s, selected pretrained_model for epoch %(epoch)d is invalid!", data=form.previous_networks.data, epoch=epoch))
                             # the first is the actual file if a list is returned, other should be meta data
                             if isinstance(pretrained_model, list):
                                 pretrained_model = pretrained_model[0]
 
                             if not (os.path.exists(pretrained_model)):
                                 raise werkzeug.exceptions.BadRequest(
-                                    lgt("Pretrained_model for the selected epoch doesn't exist. "
+                                    _("Pretrained_model for the selected epoch doesn't exist. "
                                       "May be deleted by another user/process. "
                                       "Please restart the server to load the correct pretrained_model details."))
                             # get logical path
@@ -222,7 +222,7 @@ def create():
                 pretrained_model = form.custom_network_snapshot.data.strip()
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    lgt('Unrecognized method: "%(data)s"', data=form.method.data))
+                    _('Unrecognized method: "%(data)s"', data=form.method.data))
 
             policy = {'policy': form.lr_policy.data}
             if form.lr_policy.data == 'fixed':
@@ -245,7 +245,7 @@ def create():
                 policy['gamma'] = form.lr_sigmoid_gamma.data
             else:
                 raise werkzeug.exceptions.BadRequest(
-                    lgt('Invalid learning rate policy'))
+                    _('Invalid learning rate policy'))
 
             if config_value('caffe')['multi_gpu']:
                 if form.select_gpus.data:
@@ -390,7 +390,7 @@ def classify_one():
         os.close(outfile[0])
         remove_image_path = True
     else:
-        raise werkzeug.exceptions.BadRequest(lgt('must provide image_path or image_file'))
+        raise werkzeug.exceptions.BadRequest(_('must provide image_path or image_file'))
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -399,7 +399,7 @@ def classify_one():
     layers = 'none'
     if 'show_visualizations' in flask.request.form and flask.request.form['show_visualizations']:
         layers = 'all'
-    job_name = lgt("Classify One Image")
+    job_name = _("Classify One Image")
     # create inference job
     inference_job = ImageInferenceJob(
         username=utils.auth.get_username(),
@@ -494,7 +494,7 @@ def classify_many():
 
     paths, ground_truths = read_image_list(image_list, image_folder, num_test_images)
 
-    job_name = lgt("Classify Many Images")
+    job_name = _("Classify Many Images")
     # create inference job
     inference_job = ImageInferenceJob(
         username=utils.auth.get_username(),

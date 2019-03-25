@@ -6,14 +6,14 @@ import os.path
 import platform
 import re
 import shutil
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 def get_tree_size(start_path):
     """
     return size (in bytes) of filesystem tree
     """
     if not os.path.exists(start_path):
-        raise ValueError(lgt("Incorrect path: %(start_path)s", start_path=start_path))
+        raise ValueError(_("Incorrect path: %(start_path)s", start_path=start_path))
     total_size = 0
     for dirpath, dirnames, filenames in os.walk(start_path):
         for f in filenames:
@@ -26,10 +26,10 @@ def get_python_file_dst(dirname, basename):
     basename = os.path.basename(basename)
     (root, ext) = os.path.splitext(basename)
     if ext != '.py' and ext != '.pyc':
-        ValueError(lgt('Python file, %(basename)s, needs .py or .pyc extension.', basename=basename))
+        ValueError(_('Python file, %(basename)s, needs .py or .pyc extension.', basename=basename))
     filename = os.path.join(dirname, 'digits_python_layers' + ext)
     if os.path.isfile(filename):
-        ValueError(lgt('Python file, %(filename)s, already exists.', filename=filename))
+        ValueError(_('Python file, %(filename)s, already exists.', filename=filename))
     return filename
 
 
@@ -72,7 +72,7 @@ def dir_hash(dir_name):
     modified the hash will change.
     """
     if not os.path.isdir(dir_name):
-        raise TypeError(lgt('%(dir_name)s is not a directory.', dir_name=dir_name))
+        raise TypeError(_('%(dir_name)s is not a directory.', dir_name=dir_name))
 
     md5 = hashlib.md5()
     for root, dirs, files in os.walk(dir_name, topdown=True):

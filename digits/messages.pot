@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-11 13:52+0800\n"
+"POT-Creation-Date: 2019-03-25 11:35+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -60,56 +60,52 @@ msgstr ""
 msgid "?"
 msgstr ""
 
-#: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:122
-#: views.py:65 views.py:80
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:123
+#: views.py:84 views.py:99
 msgid "Classification"
 msgstr ""
 
-#: views.py:70 views.py:85
+#: views.py:89 views.py:104
 msgid "Other"
 msgstr ""
 
 #: pretrained_model/tasks/upload_pretrained.py:37
-#: static/js/PretrainedModel.js:150 views.py:95
+#: static/js/PretrainedModel.js:150 views.py:114
 msgid "Upload Pretrained Model"
 msgstr ""
 
 #: model/views.py:38 model/views.py:74 model/views.py:275 utils/routing.py:21
-#: views.py:261 views.py:394 views.py:414 views.py:478 views.py:594
-#: views.py:613
+#: views.py:280 views.py:410 views.py:430 views.py:494 views.py:610
+#: views.py:629
 msgid "Job not found"
 msgstr ""
 
-#: views.py:325
-msgid "Jobs regrouped."
-msgstr ""
-
-#: dataset/views.py:43 dataset/views.py:60 model/views.py:51 views.py:403
-#: views.py:627
+#: dataset/views.py:43 dataset/views.py:60 model/views.py:51 views.py:419
+#: views.py:643
 msgid "Invalid job type"
 msgstr ""
 
-#: views.py:423
+#: views.py:439
 msgid "name cannot be blank"
 msgstr ""
 
-#: views.py:458
+#: views.py:474
 msgid "Job not found."
 msgstr ""
 
-#: views.py:535
+#: views.py:551
 msgid "Jobs deleted."
 msgstr ""
 
-#: views.py:581
+#: views.py:597
 msgid "Jobs aborted."
 msgstr ""
 
-#: views.py:599
+#: views.py:615
 msgid "Job not aborted"
 msgstr ""
 
-#: model/views.py:124 views.py:733
+#: model/views.py:124 views.py:749
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
 msgstr ""
@@ -1380,7 +1376,7 @@ msgstr ""
 msgid "Custom network"
 msgstr ""
 
-#: model/forms.py:264 static/js/home_app.js:547 static/js/home_app.js:578
+#: model/forms.py:264 static/js/home_app.js:567 static/js/home_app.js:598
 msgid "framework"
 msgstr ""
 
@@ -1485,7 +1481,7 @@ msgstr ""
 msgid "Subtract Mean"
 msgstr ""
 
-#: model/images/forms.py:29 templates/models/images/generic/infer_many.html:52
+#: model/images/forms.py:29 templates/models/images/generic/infer_many.html:53
 #: templates/models/images/generic/new.html:10
 #: templates/models/images/generic/new.html:19
 msgid "Image"
@@ -1663,27 +1659,27 @@ msgstr ""
 msgid "Invalid learning rate policy"
 msgstr ""
 
-#: model/images/classification/views.py:394 model/images/generic/views.py:353
+#: model/images/classification/views.py:393 model/images/generic/views.py:353
 msgid "must provide image_path or image_file"
 msgstr ""
 
-#: model/images/classification/views.py:403
+#: model/images/classification/views.py:402
 msgid "Classify One Image"
 msgstr ""
 
-#: model/images/classification/views.py:498
+#: model/images/classification/views.py:497
 msgid "Classify Many Images"
 msgstr ""
 
-#: model/images/classification/views.py:547
+#: model/images/classification/views.py:546
 msgid "Unable to classify any image from the file"
 msgstr ""
 
-#: model/images/classification/views.py:658
+#: model/images/classification/views.py:657
 msgid "TopN Image Classification"
 msgstr ""
 
-#: model/images/classification/views.py:684
+#: model/images/classification/views.py:683
 msgid "An error occurred while processing the images"
 msgstr ""
 
@@ -1959,27 +1955,27 @@ msgstr ""
 msgid "<p class=\"text-danger\">The server may be down.</p>"
 msgstr ""
 
-#: static/js/home_app.js:391
+#: static/js/home_app.js:409
 msgid "Are you sure you want to delete the selected "
 msgstr ""
 
-#: static/js/home_app.js:392 static/js/home_app.js:419
+#: static/js/home_app.js:410 static/js/home_app.js:437
 msgid "job?"
 msgstr ""
 
-#: static/js/home_app.js:392 static/js/home_app.js:419
+#: static/js/home_app.js:410 static/js/home_app.js:437
 msgid " jobs?"
 msgstr ""
 
-#: static/js/home_app.js:393
+#: static/js/home_app.js:411
 msgid "<br><br>(All related files will be permanently removed.)"
 msgstr ""
 
-#: static/js/home_app.js:418
+#: static/js/home_app.js:436
 msgid "Are you sure you want to abort the selected "
 msgstr ""
 
-#: static/js/home_app.js:447
+#: static/js/home_app.js:465
 #, python-format
 msgid ""
 "Enter a group name for the %(n_job_string)s selected %(job_string)s. "
@@ -1987,67 +1983,67 @@ msgid ""
 ".</small>"
 msgstr ""
 
-#: static/js/home_app.js:520 templates/home.html:60
+#: static/js/home_app.js:540 templates/home.html:60
 msgid "Running Jobs"
 msgstr ""
 
-#: static/js/home_app.js:521 static/js/home_app.js:531
-#: static/js/home_app.js:544 static/js/home_app.js:577
+#: static/js/home_app.js:541 static/js/home_app.js:551
+#: static/js/home_app.js:564 static/js/home_app.js:597
 msgid "name"
 msgstr ""
 
-#: static/js/home_app.js:522 static/js/home_app.js:537
-#: static/js/home_app.js:550 static/js/home_app.js:583
+#: static/js/home_app.js:542 static/js/home_app.js:557
+#: static/js/home_app.js:570 static/js/home_app.js:603
 msgid "submitted"
 msgstr ""
 
-#: static/js/home_app.js:523 static/js/home_app.js:535
-#: static/js/home_app.js:548 static/js/home_app.js:581
+#: static/js/home_app.js:543 static/js/home_app.js:555
+#: static/js/home_app.js:568 static/js/home_app.js:601
 msgid "status"
 msgstr ""
 
-#: static/js/home_app.js:524
+#: static/js/home_app.js:544
 msgid "loss"
 msgstr ""
 
-#: static/js/home_app.js:525
+#: static/js/home_app.js:545
 msgid "progress"
 msgstr ""
 
-#: static/js/home_app.js:530 templates/home.html:214
+#: static/js/home_app.js:550 templates/home.html:214
 msgid "Datasets"
 msgstr ""
 
-#: static/js/home_app.js:532
+#: static/js/home_app.js:552
 msgid "refs"
 msgstr ""
 
-#: static/js/home_app.js:533 static/js/home_app.js:546
+#: static/js/home_app.js:553 static/js/home_app.js:566
 msgid "extension"
 msgstr ""
 
-#: static/js/home_app.js:534
+#: static/js/home_app.js:554
 msgid "backend"
 msgstr ""
 
-#: static/js/home_app.js:536 static/js/home_app.js:549
-#: static/js/home_app.js:582
+#: static/js/home_app.js:556 static/js/home_app.js:569
+#: static/js/home_app.js:602
 msgid "elapsed"
 msgstr ""
 
-#: static/js/home_app.js:542 static/js/home_app.js:576 templates/home.html:224
+#: static/js/home_app.js:562 static/js/home_app.js:596 templates/home.html:224
 msgid "Models"
 msgstr ""
 
-#: static/js/home_app.js:545
+#: static/js/home_app.js:565
 msgid "id"
 msgstr ""
 
-#: static/js/home_app.js:579
+#: static/js/home_app.js:599
 msgid "username"
 msgstr ""
 
-#: static/js/home_app.js:580
+#: static/js/home_app.js:600
 msgid "has_labels"
 msgstr ""
 
@@ -2065,6 +2061,26 @@ msgstr ""
 
 #: static/js/model-graphs.js:92
 msgid "Learning Rate"
+msgstr ""
+
+#: static/js/time_filters.js:75
+msgid "d"
+msgstr ""
+
+#: static/js/time_filters.js:77
+msgid "h"
+msgstr ""
+
+#: static/js/time_filters.js:79
+msgid "m"
+msgstr ""
+
+#: static/js/time_filters.js:80
+msgid "s"
+msgstr ""
+
+#: static/js/time_filters.js:90
+msgid " ago"
 msgstr ""
 
 #: static/js/timeline-tracing.js:11
@@ -2096,16 +2112,16 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: templates/home.html:74 templates/partials/home/datasets_pane.html:44
-#: templates/partials/home/model_pane.html:65
-#: templates/partials/home/pretrained_model_pane.html:50
-#: templates/store.html:70
+#: templates/home.html:74 templates/partials/home/datasets_pane.html:43
+#: templates/partials/home/model_pane.html:64
+#: templates/partials/home/pretrained_model_pane.html:49
+#: templates/store.html:71
 msgid "Filter"
 msgstr ""
 
-#: templates/home.html:85 templates/partials/home/datasets_pane.html:55
-#: templates/partials/home/model_pane.html:76
-#: templates/partials/home/pretrained_model_pane.html:61
+#: templates/home.html:85 templates/partials/home/datasets_pane.html:54
+#: templates/partials/home/model_pane.html:75
+#: templates/partials/home/pretrained_model_pane.html:60
 msgid "Delete"
 msgstr ""
 
@@ -2113,9 +2129,9 @@ msgstr ""
 msgid "Abort"
 msgstr ""
 
-#: templates/home.html:95 templates/partials/home/datasets_pane.html:60
-#: templates/partials/home/model_pane.html:81
-#: templates/partials/home/pretrained_model_pane.html:66
+#: templates/home.html:95 templates/partials/home/datasets_pane.html:59
+#: templates/partials/home/model_pane.html:80
+#: templates/partials/home/pretrained_model_pane.html:65
 msgid "Group"
 msgstr ""
 
@@ -2185,31 +2201,31 @@ msgstr ""
 msgid "Enter notes"
 msgstr ""
 
-#: templates/layout.html:52
+#: templates/layout.html:54
 msgid "Logout"
 msgstr ""
 
-#: templates/layout.html:54 templates/login.html:32 templates/register.html:35
+#: templates/layout.html:56 templates/login.html:37 templates/register.html:34
 msgid "Login"
 msgstr ""
 
-#: templates/layout.html:55 templates/login.html:31
+#: templates/layout.html:57 templates/login.html:30
 msgid "Register"
 msgstr ""
 
-#: templates/register.html:23
+#: templates/register.html:22
 msgid "Username"
 msgstr ""
 
-#: templates/register.html:28
+#: templates/register.html:26
 msgid "Password"
 msgstr ""
 
-#: templates/register.html:32
+#: templates/register.html:30
 msgid "Repeat Password"
 msgstr ""
 
-#: templates/register.html:36
+#: templates/register.html:41
 msgid "register"
 msgstr ""
 
@@ -2225,47 +2241,47 @@ msgstr ""
 msgid "ERROR:"
 msgstr ""
 
-#: templates/store.html:53
+#: templates/store.html:54
 msgid "Model Store"
 msgstr ""
 
-#: templates/store.html:56
+#: templates/store.html:57
 msgid "Update Model List"
 msgstr ""
 
-#: templates/store.html:59
+#: templates/store.html:60
 msgid "No models in Model Store"
 msgstr ""
 
-#: templates/store.html:82
+#: templates/store.html:83
 msgid "Name"
 msgstr ""
 
-#: templates/store.html:83
+#: templates/store.html:84
 msgid "Contributor"
 msgstr ""
 
-#: templates/store.html:84
+#: templates/store.html:85
 msgid "Affiliate"
 msgstr ""
 
-#: templates/store.html:85
+#: templates/store.html:86
 msgid "Note"
 msgstr ""
 
-#: templates/store.html:86
+#: templates/store.html:87
 msgid "Data sets"
 msgstr ""
 
-#: templates/store.html:87 templates/store.html:141
+#: templates/store.html:88 templates/store.html:142
 msgid "License"
 msgstr ""
 
-#: templates/store.html:102
+#: templates/store.html:103
 msgid "Import"
 msgstr ""
 
-#: templates/store.html:147
+#: templates/store.html:148
 msgid "Close"
 msgstr ""
 
@@ -2278,7 +2294,6 @@ msgstr ""
 #: templates/datasets/generic/new.html:14
 #: templates/datasets/images/classification/new.html:14
 #: templates/datasets/images/generic/new.html:14
-#: templates/partials/home/datasets_pane.html:7
 msgid "New Dataset"
 msgstr ""
 
@@ -2499,9 +2514,9 @@ msgid "For the Caffe data layers, (change "
 msgstr ""
 
 #: templates/datasets/images/classification/new.html:387
-#: templates/models/images/generic/infer_db.html:53
-#: templates/models/images/generic/infer_extension.html:53
-#: templates/models/images/generic/infer_many.html:53
+#: templates/models/images/generic/infer_db.html:54
+#: templates/models/images/generic/infer_extension.html:54
+#: templates/models/images/generic/infer_many.html:54
 msgid "Data"
 msgstr ""
 
@@ -2732,9 +2747,9 @@ msgid "Classification failed, see job log"
 msgstr ""
 
 #: templates/models/images/classification/classify_many.html:28
-#: templates/models/images/generic/infer_db.html:37
-#: templates/models/images/generic/infer_extension.html:37
-#: templates/models/images/generic/infer_many.html:36
+#: templates/models/images/generic/infer_db.html:38
+#: templates/models/images/generic/infer_extension.html:38
+#: templates/models/images/generic/infer_many.html:37
 msgid "Summary"
 msgstr ""
 
@@ -2780,62 +2795,62 @@ msgid "Predictions"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:96
-#: templates/models/images/generic/infer_extension.html:118
-#: templates/models/images/generic/infer_one.html:108
+#: templates/models/images/generic/infer_extension.html:119
+#: templates/models/images/generic/infer_one.html:109
 msgid "Description"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:97
-#: templates/models/images/generic/infer_extension.html:119
-#: templates/models/images/generic/infer_one.html:109
+#: templates/models/images/generic/infer_extension.html:120
+#: templates/models/images/generic/infer_one.html:110
 msgid "Statistics"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:98
-#: templates/models/images/generic/infer_extension.html:120
-#: templates/models/images/generic/infer_one.html:110
+#: templates/models/images/generic/infer_extension.html:121
+#: templates/models/images/generic/infer_one.html:111
 msgid "Visualization"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:112
-#: templates/models/images/generic/infer_extension.html:134
-#: templates/models/images/generic/infer_one.html:124
+#: templates/models/images/generic/infer_extension.html:135
+#: templates/models/images/generic/infer_one.html:125
 msgid "learned parameters"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:117
-#: templates/models/images/generic/infer_extension.html:139
-#: templates/models/images/generic/infer_one.html:129
+#: templates/models/images/generic/infer_extension.html:140
+#: templates/models/images/generic/infer_one.html:130
 msgid "Data shape:"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:118
-#: templates/models/images/generic/infer_extension.html:140
-#: templates/models/images/generic/infer_one.html:130
+#: templates/models/images/generic/infer_extension.html:141
+#: templates/models/images/generic/infer_one.html:131
 msgid "Mean:"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:119
-#: templates/models/images/generic/infer_extension.html:141
-#: templates/models/images/generic/infer_one.html:131
+#: templates/models/images/generic/infer_extension.html:142
+#: templates/models/images/generic/infer_one.html:132
 msgid "Std deviation:"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:134
-#: templates/models/images/generic/infer_extension.html:156
-#: templates/models/images/generic/infer_one.html:146
+#: templates/models/images/generic/infer_extension.html:157
+#: templates/models/images/generic/infer_one.html:147
 msgid "Not shown"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:140
-#: templates/models/images/generic/infer_extension.html:162
-#: templates/models/images/generic/infer_one.html:152
+#: templates/models/images/generic/infer_extension.html:163
+#: templates/models/images/generic/infer_one.html:153
 msgid "Totals"
 msgstr ""
 
 #: templates/models/images/classification/classify_one.html:142
-#: templates/models/images/generic/infer_extension.html:164
-#: templates/models/images/generic/infer_one.html:154
+#: templates/models/images/generic/infer_extension.html:165
+#: templates/models/images/generic/infer_one.html:155
 msgid "Total learned parameters:"
 msgstr ""
 
@@ -3032,7 +3047,6 @@ msgstr ""
 
 #: templates/models/images/classification/new.html:14
 #: templates/models/images/generic/new.html:14
-#: templates/partials/home/model_pane.html:7
 msgid "New Model"
 msgstr ""
 
@@ -3292,58 +3306,58 @@ msgid ""
 "    Refer to the documentation for more information."
 msgstr ""
 
-#: templates/models/images/generic/infer_db.html:11
-#: templates/models/images/generic/infer_extension.html:11
-#: templates/models/images/generic/infer_many.html:11
+#: templates/models/images/generic/infer_db.html:12
+#: templates/models/images/generic/infer_extension.html:12
+#: templates/models/images/generic/infer_many.html:12
 #: templates/models/images/generic/show.html:364
 msgid "Test Many"
 msgstr ""
 
-#: templates/models/images/generic/infer_db.html:27
-#: templates/models/images/generic/infer_extension.html:27
-#: templates/models/images/generic/infer_many.html:26
-#: templates/models/images/generic/infer_one.html:49
+#: templates/models/images/generic/infer_db.html:28
+#: templates/models/images/generic/infer_extension.html:28
+#: templates/models/images/generic/infer_many.html:27
+#: templates/models/images/generic/infer_one.html:50
 msgid "Inference failed, see job log"
 msgstr ""
 
-#: templates/models/images/generic/infer_db.html:48
-#: templates/models/images/generic/infer_many.html:47
+#: templates/models/images/generic/infer_db.html:49
+#: templates/models/images/generic/infer_many.html:48
 #: templates/models/images/generic/show.html:32
 msgid "Visualizations"
 msgstr ""
 
-#: templates/models/images/generic/infer_db.html:51
-#: templates/models/images/generic/infer_extension.html:52
+#: templates/models/images/generic/infer_db.html:52
+#: templates/models/images/generic/infer_extension.html:53
 msgid "Index"
 msgstr ""
 
-#: templates/models/images/generic/infer_db.html:52
+#: templates/models/images/generic/infer_db.html:53
 msgid "Key"
 msgstr ""
 
-#: templates/models/images/generic/infer_extension.html:47
+#: templates/models/images/generic/infer_extension.html:48
 msgid "Output visualizations"
 msgstr ""
 
-#: templates/models/images/generic/infer_extension.html:115
+#: templates/models/images/generic/infer_extension.html:116
 msgid "Layer visualizations"
 msgstr ""
 
-#: templates/models/images/generic/infer_extension.html:129
-#: templates/models/images/generic/infer_one.html:119
+#: templates/models/images/generic/infer_extension.html:130
+#: templates/models/images/generic/infer_one.html:120
 msgid "layer"
 msgstr ""
 
-#: templates/models/images/generic/infer_one.html:11
+#: templates/models/images/generic/infer_one.html:12
 #: templates/models/images/generic/show.html:314
 msgid "Test One"
 msgstr ""
 
-#: templates/models/images/generic/infer_one.html:39
+#: templates/models/images/generic/infer_one.html:40
 msgid "Source image"
 msgstr ""
 
-#: templates/models/images/generic/infer_one.html:43
+#: templates/models/images/generic/infer_one.html:44
 msgid "Inference visualization"
 msgstr ""
 
@@ -3433,25 +3447,21 @@ msgstr ""
 msgid "Infer a list of images and show the network outputs."
 msgstr ""
 
-#: templates/partials/home/datasets_pane.html:26
-#: templates/partials/home/model_pane.html:26
-#: templates/partials/home/pretrained_model_pane.html:32
+#: templates/partials/home/datasets_pane.html:25
+#: templates/partials/home/model_pane.html:25
+#: templates/partials/home/pretrained_model_pane.html:31
 msgid "Group Jobs:"
 msgstr ""
 
-#: templates/partials/home/datasets_pane.html:153
+#: templates/partials/home/datasets_pane.html:152
 msgid "No Datasets"
 msgstr ""
 
-#: templates/partials/home/model_pane.html:194
+#: templates/partials/home/model_pane.html:193
 msgid "No Models"
 msgstr ""
 
-#: templates/partials/home/pretrained_model_pane.html:13
-msgid "Load Model"
-msgstr ""
-
-#: templates/partials/home/pretrained_model_pane.html:148
+#: templates/partials/home/pretrained_model_pane.html:147
 msgid "No Pretrained Models"
 msgstr ""
 
@@ -3767,27 +3777,47 @@ msgstr ""
 msgid "job_id is a required field"
 msgstr ""
 
-#: utils/time_filters.py:32
+#: utils/time_filters.py:51
+msgid "负时间"
+msgstr ""
+
+#: utils/time_filters.py:69
+msgid "天"
+msgstr ""
+
+#: utils/time_filters.py:69 utils/time_filters.py:71
+msgid "小时"
+msgstr ""
+
+#: utils/time_filters.py:71 utils/time_filters.py:73
+msgid "分"
+msgstr ""
+
+#: utils/time_filters.py:73 utils/time_filters.py:74
+msgid "秒"
+msgstr ""
+
+#: utils/time_filters.py:82
 msgid "Negative Time"
 msgstr ""
 
-#: utils/time_filters.py:50
+#: utils/time_filters.py:100
 msgid "day"
 msgstr ""
 
-#: utils/time_filters.py:50 utils/time_filters.py:52
+#: utils/time_filters.py:100 utils/time_filters.py:102
 msgid "hour"
 msgstr ""
 
-#: utils/time_filters.py:52 utils/time_filters.py:54
+#: utils/time_filters.py:102 utils/time_filters.py:104
 msgid "minute"
 msgstr ""
 
-#: utils/time_filters.py:54 utils/time_filters.py:55
+#: utils/time_filters.py:104 utils/time_filters.py:105
 msgid "second"
 msgstr ""
 
-#: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:96
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:97
 msgid "bAbI"
 msgstr ""
 
@@ -3822,8 +3852,8 @@ msgstr ""
 msgid "Test a story/question"
 msgstr ""
 
-#: ../plugins/data/gan/digitsDataPluginGan/data.py:169
-#: ../plugins/view/gan/digitsViewPluginGan/view.py:115
+#: ../plugins/data/gan/digitsDataPluginGan/data.py:170
+#: ../plugins/view/gan/digitsViewPluginGan/view.py:116
 msgid "GAN"
 msgstr ""
 
@@ -4035,8 +4065,8 @@ msgstr ""
 msgid "Animation"
 msgstr ""
 
-#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/data.py:95
-#: ../plugins/view/imageGradients/digitsViewPluginImageGradients/view.py:79
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/data.py:96
+#: ../plugins/view/imageGradients/digitsViewPluginImageGradients/view.py:80
 msgid "Gradients"
 msgstr ""
 
@@ -4092,7 +4122,7 @@ msgstr ""
 msgid "Test an image"
 msgstr ""
 
-#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/data.py:204
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/data.py:205
 msgid "Sunnybrook LV Segmentation"
 msgstr ""
 
@@ -4195,7 +4225,7 @@ msgstr ""
 msgid "Test a data file"
 msgstr ""
 
-#: ../plugins/view/textClassification/digitsViewPluginTextClassification/view.py:77
+#: ../plugins/view/textClassification/digitsViewPluginTextClassification/view.py:78
 msgid "Text Classification"
 msgstr ""
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-11 13:52+0800\n"
+"POT-Creation-Date: 2019-03-25 11:35+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -61,56 +61,52 @@ msgstr "错误"
 msgid "?"
 msgstr ""
 
-#: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:122
-#: views.py:65 views.py:80
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:123
+#: views.py:84 views.py:99
 msgid "Classification"
 msgstr "分类"
 
-#: views.py:70 views.py:85
+#: views.py:89 views.py:104
 msgid "Other"
 msgstr "其他"
 
 #: pretrained_model/tasks/upload_pretrained.py:37
-#: static/js/PretrainedModel.js:150 views.py:95
+#: static/js/PretrainedModel.js:150 views.py:114
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
 
 #: model/views.py:38 model/views.py:74 model/views.py:275 utils/routing.py:21
-#: views.py:261 views.py:394 views.py:414 views.py:478 views.py:594
-#: views.py:613
+#: views.py:280 views.py:410 views.py:430 views.py:494 views.py:610
+#: views.py:629
 msgid "Job not found"
 msgstr "未发现作业"
 
-#: views.py:325
-msgid "Jobs regrouped."
-msgstr "作业重组。"
-
-#: dataset/views.py:43 dataset/views.py:60 model/views.py:51 views.py:403
-#: views.py:627
+#: dataset/views.py:43 dataset/views.py:60 model/views.py:51 views.py:419
+#: views.py:643
 msgid "Invalid job type"
 msgstr "无效作业类型"
 
-#: views.py:423
+#: views.py:439
 msgid "name cannot be blank"
 msgstr "名称不能为空"
 
-#: views.py:458
+#: views.py:474
 msgid "Job not found."
 msgstr "未发现作业。"
 
-#: views.py:535
+#: views.py:551
 msgid "Jobs deleted."
 msgstr "作业已删除。"
 
-#: views.py:581
+#: views.py:597
 msgid "Jobs aborted."
 msgstr "作业中止。"
 
-#: views.py:599
+#: views.py:615
 msgid "Job not aborted"
 msgstr "作业未中止"
 
-#: model/views.py:124 views.py:733
+#: model/views.py:124 views.py:749
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
 msgstr "未知的扩展'%(extension_id)s'"
@@ -1401,7 +1397,7 @@ msgstr "预训练网络"
 msgid "Custom network"
 msgstr "自定义网络"
 
-#: model/forms.py:264 static/js/home_app.js:547 static/js/home_app.js:578
+#: model/forms.py:264 static/js/home_app.js:567 static/js/home_app.js:598
 msgid "framework"
 msgstr "框架"
 
@@ -1506,7 +1502,7 @@ msgstr "如果指定，在训练期间，在用作网络输入之前，将从输
 msgid "Subtract Mean"
 msgstr "减去均值"
 
-#: model/images/forms.py:29 templates/models/images/generic/infer_many.html:52
+#: model/images/forms.py:29 templates/models/images/generic/infer_many.html:53
 #: templates/models/images/generic/new.html:10
 #: templates/models/images/generic/new.html:19
 msgid "Image"
@@ -1686,27 +1682,27 @@ msgstr "无法识别的方法: \"%(data)s\""
 msgid "Invalid learning rate policy"
 msgstr "学习率策略无效"
 
-#: model/images/classification/views.py:394 model/images/generic/views.py:353
+#: model/images/classification/views.py:393 model/images/generic/views.py:353
 msgid "must provide image_path or image_file"
 msgstr "必须提供图像路径或图像文件"
 
-#: model/images/classification/views.py:403
+#: model/images/classification/views.py:402
 msgid "Classify One Image"
 msgstr "单个图像分类"
 
-#: model/images/classification/views.py:498
+#: model/images/classification/views.py:497
 msgid "Classify Many Images"
 msgstr "多个图像分类"
 
-#: model/images/classification/views.py:547
+#: model/images/classification/views.py:546
 msgid "Unable to classify any image from the file"
 msgstr "无法从文件中进行图像分类"
 
-#: model/images/classification/views.py:658
+#: model/images/classification/views.py:657
 msgid "TopN Image Classification"
 msgstr "TopN 图像分类"
 
-#: model/images/classification/views.py:684
+#: model/images/classification/views.py:683
 msgid "An error occurred while processing the images"
 msgstr "处理图像时发生错误"
 
@@ -1988,27 +1984,27 @@ msgstr "发生错误！"
 msgid "<p class=\"text-danger\">The server may be down.</p>"
 msgstr "<p class=\"text-danger\">服务器可能已关闭。</p>"
 
-#: static/js/home_app.js:391
+#: static/js/home_app.js:409
 msgid "Are you sure you want to delete the selected "
 msgstr "您确定要删除选择的"
 
-#: static/js/home_app.js:392 static/js/home_app.js:419
+#: static/js/home_app.js:410 static/js/home_app.js:437
 msgid "job?"
 msgstr "作业？"
 
-#: static/js/home_app.js:392 static/js/home_app.js:419
+#: static/js/home_app.js:410 static/js/home_app.js:437
 msgid " jobs?"
 msgstr "作业？"
 
-#: static/js/home_app.js:393
+#: static/js/home_app.js:411
 msgid "<br><br>(All related files will be permanently removed.)"
 msgstr "<br><br>(所有相关文件将被永久删除。)"
 
-#: static/js/home_app.js:418
+#: static/js/home_app.js:436
 msgid "Are you sure you want to abort the selected "
 msgstr "您确定要中止所选"
 
-#: static/js/home_app.js:447
+#: static/js/home_app.js:465
 #, python-format
 msgid ""
 "Enter a group name for the %(n_job_string)s selected %(job_string)s. "
@@ -2018,67 +2014,67 @@ msgstr ""
 "输入%(n_job_string)s选定的%(job_string)s的组名。 <br> "
 "<small>将名称留空以取消组合。</small>%(job_string)s.</small>"
 
-#: static/js/home_app.js:520 templates/home.html:60
+#: static/js/home_app.js:540 templates/home.html:60
 msgid "Running Jobs"
 msgstr "运行作业"
 
-#: static/js/home_app.js:521 static/js/home_app.js:531
-#: static/js/home_app.js:544 static/js/home_app.js:577
+#: static/js/home_app.js:541 static/js/home_app.js:551
+#: static/js/home_app.js:564 static/js/home_app.js:597
 msgid "name"
 msgstr "名称"
 
-#: static/js/home_app.js:522 static/js/home_app.js:537
-#: static/js/home_app.js:550 static/js/home_app.js:583
+#: static/js/home_app.js:542 static/js/home_app.js:557
+#: static/js/home_app.js:570 static/js/home_app.js:603
 msgid "submitted"
 msgstr "提交"
 
-#: static/js/home_app.js:523 static/js/home_app.js:535
-#: static/js/home_app.js:548 static/js/home_app.js:581
+#: static/js/home_app.js:543 static/js/home_app.js:555
+#: static/js/home_app.js:568 static/js/home_app.js:601
 msgid "status"
 msgstr "状态"
 
-#: static/js/home_app.js:524
+#: static/js/home_app.js:544
 msgid "loss"
 msgstr "丢失"
 
-#: static/js/home_app.js:525
+#: static/js/home_app.js:545
 msgid "progress"
 msgstr "进度"
 
-#: static/js/home_app.js:530 templates/home.html:214
+#: static/js/home_app.js:550 templates/home.html:214
 msgid "Datasets"
 msgstr "数据集"
 
-#: static/js/home_app.js:532
+#: static/js/home_app.js:552
 msgid "refs"
 msgstr "引用"
 
-#: static/js/home_app.js:533 static/js/home_app.js:546
+#: static/js/home_app.js:553 static/js/home_app.js:566
 msgid "extension"
 msgstr "延期"
 
-#: static/js/home_app.js:534
+#: static/js/home_app.js:554
 msgid "backend"
 msgstr "后端"
 
-#: static/js/home_app.js:536 static/js/home_app.js:549
-#: static/js/home_app.js:582
+#: static/js/home_app.js:556 static/js/home_app.js:569
+#: static/js/home_app.js:602
 msgid "elapsed"
 msgstr "已用时间"
 
-#: static/js/home_app.js:542 static/js/home_app.js:576 templates/home.html:224
+#: static/js/home_app.js:562 static/js/home_app.js:596 templates/home.html:224
 msgid "Models"
 msgstr "模型"
 
-#: static/js/home_app.js:545
+#: static/js/home_app.js:565
 msgid "id"
 msgstr "ID"
 
-#: static/js/home_app.js:579
+#: static/js/home_app.js:599
 msgid "username"
 msgstr "用户名"
 
-#: static/js/home_app.js:580
+#: static/js/home_app.js:600
 msgid "has_labels"
 msgstr "有标签"
 
@@ -2097,6 +2093,26 @@ msgstr "累积"
 #: static/js/model-graphs.js:92
 msgid "Learning Rate"
 msgstr "学习率"
+
+#: static/js/time_filters.js:75
+msgid "d"
+msgstr "天"
+
+#: static/js/time_filters.js:77
+msgid "h"
+msgstr "时"
+
+#: static/js/time_filters.js:79
+msgid "m"
+msgstr "分"
+
+#: static/js/time_filters.js:80
+msgid "s"
+msgstr "秒"
+
+#: static/js/time_filters.js:90
+msgid " ago"
+msgstr "之前"
 
 #: static/js/timeline-tracing.js:11
 msgid "No Trace Selected"
@@ -2127,16 +2143,16 @@ msgstr "可用"
 msgid "Home"
 msgstr "首页"
 
-#: templates/home.html:74 templates/partials/home/datasets_pane.html:44
-#: templates/partials/home/model_pane.html:65
-#: templates/partials/home/pretrained_model_pane.html:50
-#: templates/store.html:70
+#: templates/home.html:74 templates/partials/home/datasets_pane.html:43
+#: templates/partials/home/model_pane.html:64
+#: templates/partials/home/pretrained_model_pane.html:49
+#: templates/store.html:71
 msgid "Filter"
 msgstr "过滤"
 
-#: templates/home.html:85 templates/partials/home/datasets_pane.html:55
-#: templates/partials/home/model_pane.html:76
-#: templates/partials/home/pretrained_model_pane.html:61
+#: templates/home.html:85 templates/partials/home/datasets_pane.html:54
+#: templates/partials/home/model_pane.html:75
+#: templates/partials/home/pretrained_model_pane.html:60
 msgid "Delete"
 msgstr "删除"
 
@@ -2144,9 +2160,9 @@ msgstr "删除"
 msgid "Abort"
 msgstr "中止"
 
-#: templates/home.html:95 templates/partials/home/datasets_pane.html:60
-#: templates/partials/home/model_pane.html:81
-#: templates/partials/home/pretrained_model_pane.html:66
+#: templates/home.html:95 templates/partials/home/datasets_pane.html:59
+#: templates/partials/home/model_pane.html:80
+#: templates/partials/home/pretrained_model_pane.html:65
 msgid "Group"
 msgstr "组"
 
@@ -2216,31 +2232,31 @@ msgstr "注释"
 msgid "Enter notes"
 msgstr "输入注释"
 
-#: templates/layout.html:52
+#: templates/layout.html:54
 msgid "Logout"
 msgstr "注销"
 
-#: templates/layout.html:54 templates/login.html:32 templates/register.html:35
+#: templates/layout.html:56 templates/login.html:37 templates/register.html:34
 msgid "Login"
 msgstr "登录"
 
-#: templates/layout.html:55 templates/login.html:31
+#: templates/layout.html:57 templates/login.html:30
 msgid "Register"
 msgstr "注册"
 
-#: templates/register.html:23
+#: templates/register.html:22
 msgid "Username"
 msgstr "用户名"
 
-#: templates/register.html:28
+#: templates/register.html:26
 msgid "Password"
 msgstr "密码"
 
-#: templates/register.html:32
+#: templates/register.html:30
 msgid "Repeat Password"
 msgstr "确认密码"
 
-#: templates/register.html:36
+#: templates/register.html:41
 msgid "register"
 msgstr "注册"
 
@@ -2256,47 +2272,47 @@ msgstr "总计"
 msgid "ERROR:"
 msgstr "错误："
 
-#: templates/store.html:53
+#: templates/store.html:54
 msgid "Model Store"
 msgstr "模型商店"
 
-#: templates/store.html:56
+#: templates/store.html:57
 msgid "Update Model List"
 msgstr "更新模型列表"
 
-#: templates/store.html:59
+#: templates/store.html:60
 msgid "No models in Model Store"
 msgstr "模型商店中没有模型"
 
-#: templates/store.html:82
+#: templates/store.html:83
 msgid "Name"
 msgstr "名称"
 
-#: templates/store.html:83
+#: templates/store.html:84
 msgid "Contributor"
 msgstr "贡献者"
 
-#: templates/store.html:84
+#: templates/store.html:85
 msgid "Affiliate"
 msgstr "分支"
 
-#: templates/store.html:85
+#: templates/store.html:86
 msgid "Note"
 msgstr "笔记"
 
-#: templates/store.html:86
+#: templates/store.html:87
 msgid "Data sets"
 msgstr "数据集"
 
-#: templates/store.html:87 templates/store.html:141
+#: templates/store.html:88 templates/store.html:142
 msgid "License"
 msgstr "许可证"
 
-#: templates/store.html:102
+#: templates/store.html:103
 msgid "Import"
 msgstr "导入"
 
-#: templates/store.html:147
+#: templates/store.html:148
 msgid "Close"
 msgstr "关闭"
 
@@ -2309,7 +2325,6 @@ msgstr "新%(title)s数据集"
 #: templates/datasets/generic/new.html:14
 #: templates/datasets/images/classification/new.html:14
 #: templates/datasets/images/generic/new.html:14
-#: templates/partials/home/datasets_pane.html:7
 msgid "New Dataset"
 msgstr "新数据集"
 
@@ -2538,9 +2553,9 @@ msgid "For the Caffe data layers, (change "
 msgstr "对于Caffe数据层，（更改"
 
 #: templates/datasets/images/classification/new.html:387
-#: templates/models/images/generic/infer_db.html:53
-#: templates/models/images/generic/infer_extension.html:53
-#: templates/models/images/generic/infer_many.html:53
+#: templates/models/images/generic/infer_db.html:54
+#: templates/models/images/generic/infer_extension.html:54
+#: templates/models/images/generic/infer_many.html:54
 msgid "Data"
 msgstr "数据"
 
@@ -2771,9 +2786,9 @@ msgid "Classification failed, see job log"
 msgstr "分类失败，请参阅作业日志"
 
 #: templates/models/images/classification/classify_many.html:28
-#: templates/models/images/generic/infer_db.html:37
-#: templates/models/images/generic/infer_extension.html:37
-#: templates/models/images/generic/infer_many.html:36
+#: templates/models/images/generic/infer_db.html:38
+#: templates/models/images/generic/infer_extension.html:38
+#: templates/models/images/generic/infer_many.html:37
 msgid "Summary"
 msgstr "概要"
 
@@ -2819,62 +2834,62 @@ msgid "Predictions"
 msgstr "预测"
 
 #: templates/models/images/classification/classify_one.html:96
-#: templates/models/images/generic/infer_extension.html:118
-#: templates/models/images/generic/infer_one.html:108
+#: templates/models/images/generic/infer_extension.html:119
+#: templates/models/images/generic/infer_one.html:109
 msgid "Description"
 msgstr "描述"
 
 #: templates/models/images/classification/classify_one.html:97
-#: templates/models/images/generic/infer_extension.html:119
-#: templates/models/images/generic/infer_one.html:109
+#: templates/models/images/generic/infer_extension.html:120
+#: templates/models/images/generic/infer_one.html:110
 msgid "Statistics"
 msgstr "统计"
 
 #: templates/models/images/classification/classify_one.html:98
-#: templates/models/images/generic/infer_extension.html:120
-#: templates/models/images/generic/infer_one.html:110
+#: templates/models/images/generic/infer_extension.html:121
+#: templates/models/images/generic/infer_one.html:111
 msgid "Visualization"
 msgstr "可视化"
 
 #: templates/models/images/classification/classify_one.html:112
-#: templates/models/images/generic/infer_extension.html:134
-#: templates/models/images/generic/infer_one.html:124
+#: templates/models/images/generic/infer_extension.html:135
+#: templates/models/images/generic/infer_one.html:125
 msgid "learned parameters"
 msgstr "学习参数"
 
 #: templates/models/images/classification/classify_one.html:117
-#: templates/models/images/generic/infer_extension.html:139
-#: templates/models/images/generic/infer_one.html:129
+#: templates/models/images/generic/infer_extension.html:140
+#: templates/models/images/generic/infer_one.html:130
 msgid "Data shape:"
 msgstr "数据形状："
 
 #: templates/models/images/classification/classify_one.html:118
-#: templates/models/images/generic/infer_extension.html:140
-#: templates/models/images/generic/infer_one.html:130
+#: templates/models/images/generic/infer_extension.html:141
+#: templates/models/images/generic/infer_one.html:131
 msgid "Mean:"
 msgstr "均值："
 
 #: templates/models/images/classification/classify_one.html:119
-#: templates/models/images/generic/infer_extension.html:141
-#: templates/models/images/generic/infer_one.html:131
+#: templates/models/images/generic/infer_extension.html:142
+#: templates/models/images/generic/infer_one.html:132
 msgid "Std deviation:"
 msgstr "标准偏差："
 
 #: templates/models/images/classification/classify_one.html:134
-#: templates/models/images/generic/infer_extension.html:156
-#: templates/models/images/generic/infer_one.html:146
+#: templates/models/images/generic/infer_extension.html:157
+#: templates/models/images/generic/infer_one.html:147
 msgid "Not shown"
 msgstr "没有显示"
 
 #: templates/models/images/classification/classify_one.html:140
-#: templates/models/images/generic/infer_extension.html:162
-#: templates/models/images/generic/infer_one.html:152
+#: templates/models/images/generic/infer_extension.html:163
+#: templates/models/images/generic/infer_one.html:153
 msgid "Totals"
 msgstr "汇总"
 
 #: templates/models/images/classification/classify_one.html:142
-#: templates/models/images/generic/infer_extension.html:164
-#: templates/models/images/generic/infer_one.html:154
+#: templates/models/images/generic/infer_extension.html:165
+#: templates/models/images/generic/infer_one.html:155
 msgid "Total learned parameters:"
 msgstr "学习参数总数："
 
@@ -3073,7 +3088,6 @@ msgstr "新的图像分类模型"
 
 #: templates/models/images/classification/new.html:14
 #: templates/models/images/generic/new.html:14
-#: templates/partials/home/model_pane.html:7
 msgid "New Model"
 msgstr "新模型"
 
@@ -3333,58 +3347,58 @@ msgid ""
 "    Refer to the documentation for more information."
 msgstr "使用此字段可以使用python输入TensorFlow网络。有关更多信息，请参阅文档。"
 
-#: templates/models/images/generic/infer_db.html:11
-#: templates/models/images/generic/infer_extension.html:11
-#: templates/models/images/generic/infer_many.html:11
+#: templates/models/images/generic/infer_db.html:12
+#: templates/models/images/generic/infer_extension.html:12
+#: templates/models/images/generic/infer_many.html:12
 #: templates/models/images/generic/show.html:364
 msgid "Test Many"
 msgstr "测试多个"
 
-#: templates/models/images/generic/infer_db.html:27
-#: templates/models/images/generic/infer_extension.html:27
-#: templates/models/images/generic/infer_many.html:26
-#: templates/models/images/generic/infer_one.html:49
+#: templates/models/images/generic/infer_db.html:28
+#: templates/models/images/generic/infer_extension.html:28
+#: templates/models/images/generic/infer_many.html:27
+#: templates/models/images/generic/infer_one.html:50
 msgid "Inference failed, see job log"
 msgstr "推理失败，请参阅作业日志"
 
-#: templates/models/images/generic/infer_db.html:48
-#: templates/models/images/generic/infer_many.html:47
+#: templates/models/images/generic/infer_db.html:49
+#: templates/models/images/generic/infer_many.html:48
 #: templates/models/images/generic/show.html:32
 msgid "Visualizations"
 msgstr "可视化"
 
-#: templates/models/images/generic/infer_db.html:51
-#: templates/models/images/generic/infer_extension.html:52
+#: templates/models/images/generic/infer_db.html:52
+#: templates/models/images/generic/infer_extension.html:53
 msgid "Index"
 msgstr "索引"
 
-#: templates/models/images/generic/infer_db.html:52
+#: templates/models/images/generic/infer_db.html:53
 msgid "Key"
 msgstr "键"
 
-#: templates/models/images/generic/infer_extension.html:47
+#: templates/models/images/generic/infer_extension.html:48
 msgid "Output visualizations"
 msgstr "输出可视化"
 
-#: templates/models/images/generic/infer_extension.html:115
+#: templates/models/images/generic/infer_extension.html:116
 msgid "Layer visualizations"
 msgstr "层可视化"
 
-#: templates/models/images/generic/infer_extension.html:129
-#: templates/models/images/generic/infer_one.html:119
+#: templates/models/images/generic/infer_extension.html:130
+#: templates/models/images/generic/infer_one.html:120
 msgid "layer"
 msgstr "层"
 
-#: templates/models/images/generic/infer_one.html:11
+#: templates/models/images/generic/infer_one.html:12
 #: templates/models/images/generic/show.html:314
 msgid "Test One"
 msgstr "测试单个"
 
-#: templates/models/images/generic/infer_one.html:39
+#: templates/models/images/generic/infer_one.html:40
 msgid "Source image"
 msgstr "原图片"
 
-#: templates/models/images/generic/infer_one.html:43
+#: templates/models/images/generic/infer_one.html:44
 msgid "Inference visualization"
 msgstr "推理可视化"
 
@@ -3474,25 +3488,21 @@ msgstr "测试数据库"
 msgid "Infer a list of images and show the network outputs."
 msgstr "推断图像列表并显示网络输出。"
 
-#: templates/partials/home/datasets_pane.html:26
-#: templates/partials/home/model_pane.html:26
-#: templates/partials/home/pretrained_model_pane.html:32
+#: templates/partials/home/datasets_pane.html:25
+#: templates/partials/home/model_pane.html:25
+#: templates/partials/home/pretrained_model_pane.html:31
 msgid "Group Jobs:"
 msgstr "小组作业："
 
-#: templates/partials/home/datasets_pane.html:153
+#: templates/partials/home/datasets_pane.html:152
 msgid "No Datasets"
 msgstr "没有数据集"
 
-#: templates/partials/home/model_pane.html:194
+#: templates/partials/home/model_pane.html:193
 msgid "No Models"
 msgstr "没有模型"
 
-#: templates/partials/home/pretrained_model_pane.html:13
-msgid "Load Model"
-msgstr "加载模型"
-
-#: templates/partials/home/pretrained_model_pane.html:148
+#: templates/partials/home/pretrained_model_pane.html:147
 msgid "No Pretrained Models"
 msgstr "没有预训练模型"
 
@@ -3808,27 +3818,47 @@ msgstr "未识别的数据形状：%(data_shape)s"
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
 
-#: utils/time_filters.py:32
+#: utils/time_filters.py:51
+msgid "负时间"
+msgstr ""
+
+#: utils/time_filters.py:69
+msgid "天"
+msgstr ""
+
+#: utils/time_filters.py:69 utils/time_filters.py:71
+msgid "小时"
+msgstr ""
+
+#: utils/time_filters.py:71 utils/time_filters.py:73
+msgid "分"
+msgstr ""
+
+#: utils/time_filters.py:73 utils/time_filters.py:74
+msgid "秒"
+msgstr ""
+
+#: utils/time_filters.py:82
 msgid "Negative Time"
 msgstr "负时间"
 
-#: utils/time_filters.py:50
+#: utils/time_filters.py:100
 msgid "day"
 msgstr "天"
 
-#: utils/time_filters.py:50 utils/time_filters.py:52
+#: utils/time_filters.py:100 utils/time_filters.py:102
 msgid "hour"
 msgstr "小时"
 
-#: utils/time_filters.py:52 utils/time_filters.py:54
+#: utils/time_filters.py:102 utils/time_filters.py:104
 msgid "minute"
 msgstr "分钟"
 
-#: utils/time_filters.py:54 utils/time_filters.py:55
+#: utils/time_filters.py:104 utils/time_filters.py:105
 msgid "second"
 msgstr "秒"
 
-#: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:96
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:97
 msgid "bAbI"
 msgstr ""
 
@@ -3863,8 +3893,8 @@ msgstr "在那里写下所有句子并以问题结束"
 msgid "Test a story/question"
 msgstr ""
 
-#: ../plugins/data/gan/digitsDataPluginGan/data.py:169
-#: ../plugins/view/gan/digitsViewPluginGan/view.py:115
+#: ../plugins/data/gan/digitsDataPluginGan/data.py:170
+#: ../plugins/view/gan/digitsViewPluginGan/view.py:116
 msgid "GAN"
 msgstr ""
 
@@ -4076,8 +4106,8 @@ msgstr "使用GAN可视化方法"
 msgid "Animation"
 msgstr "动画"
 
-#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/data.py:95
-#: ../plugins/view/imageGradients/digitsViewPluginImageGradients/view.py:79
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/data.py:96
+#: ../plugins/view/imageGradients/digitsViewPluginImageGradients/view.py:80
 msgid "Gradients"
 msgstr "渐变"
 
@@ -4133,7 +4163,7 @@ msgstr "在测试集中创建的图像数量"
 msgid "Test an image"
 msgstr "测试一个图像"
 
-#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/data.py:204
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/data.py:205
 msgid "Sunnybrook LV Segmentation"
 msgstr "Sunnybrook分割"
 
@@ -4236,7 +4266,7 @@ msgstr "测试片段"
 msgid "Test a data file"
 msgstr "测试数据文件"
 
-#: ../plugins/view/textClassification/digitsViewPluginTextClassification/view.py:77
+#: ../plugins/view/textClassification/digitsViewPluginTextClassification/view.py:78
 msgid "Text Classification"
 msgstr "文本分类"
 
@@ -4447,4 +4477,10 @@ msgstr "文本分类"
 
 #~ msgid "Submit"
 #~ msgstr "提交"
+
+#~ msgid "Jobs regrouped."
+#~ msgstr "作业重组。"
+
+#~ msgid "Load Model"
+#~ msgstr "加载模型"
 

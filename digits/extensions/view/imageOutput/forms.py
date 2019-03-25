@@ -5,7 +5,7 @@ from flask.ext.wtf import Form
 
 from digits import utils
 from digits.utils import subclass
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 @subclass
 class ConfigForm(Form):
@@ -13,44 +13,44 @@ class ConfigForm(Form):
     A form used to display the network output as an image
     """
     channel_order = utils.forms.SelectField(
-        lgt('Channel order'),
+        _('Channel order'),
         choices=[
             ('rgb', 'RGB'),
             ('bgr', 'BGR'),
         ],
         default='rgb',
-        tooltip=lgt('Set channel order to BGR for Caffe networks (this field '
+        tooltip=_('Set channel order to BGR for Caffe networks (this field '
                   'is ignored in the case of a grayscale image)')
     )
 
     data_order = utils.forms.SelectField(
-        lgt('Data order'),
+        _('Data order'),
         choices=[
             ('chw', 'CHW'),
             ('hwc', 'HWC'),
             ],
         default='chw',
-        tooltip=lgt("Set the order of the data. For Caffe and Torch models this is often NCHW"
+        tooltip=_("Set the order of the data. For Caffe and Torch models this is often NCHW"
                   ", for Tensorflow it's NHWC. "
                   "N=Batch Size, W=Width, H=Height, C=Channels")
         )
 
     pixel_conversion = utils.forms.SelectField(
-        lgt('Pixel conversion'),
+        _('Pixel conversion'),
         choices=[
-            ('normalize', lgt('Normalize')),
-            ('clip', lgt('Clip')),
+            ('normalize', _('Normalize')),
+            ('clip', _('Clip')),
         ],
         default='normalize',
-        tooltip=lgt('Select method to convert pixel values to the target bit range')
+        tooltip=_('Select method to convert pixel values to the target bit range')
     )
 
     show_input = utils.forms.SelectField(
-        lgt('Show input as image'),
+        _('Show input as image'),
         choices=[
-            ('yes', lgt('Yes')),
-            ('no', lgt('No')),
+            ('yes', _('Yes')),
+            ('no', _('No')),
         ],
         default='no',
-        tooltip=lgt('Show input as image')
+        tooltip=_('Show input as image')
     )

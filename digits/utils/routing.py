@@ -3,7 +3,7 @@ from __future__ import absolute_import
 
 import flask
 import werkzeug.exceptions
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 def job_from_request():
     """
@@ -14,11 +14,11 @@ def job_from_request():
 
     job_id = get_request_arg('job_id')
     if job_id is None:
-        raise werkzeug.exceptions.BadRequest(lgt('job_id is a required field'))
+        raise werkzeug.exceptions.BadRequest(_('job_id is a required field'))
 
     job = scheduler.get_job(job_id)
     if job is None:
-        raise werkzeug.exceptions.NotFound(lgt('Job not found'))
+        raise werkzeug.exceptions.NotFound(_('Job not found'))
     else:
         return job
 

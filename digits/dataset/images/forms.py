@@ -7,7 +7,7 @@ from wtforms import validators
 from ..forms import DatasetForm
 from .job import ImageDatasetJob
 from digits import utils
-from flask_babel import lazy_gettext as lgt
+from flask_babel import lazy_gettext as _
 
 
 class ImageDatasetForm(DatasetForm):
@@ -17,38 +17,38 @@ class ImageDatasetForm(DatasetForm):
     """
 
     encoding = utils.forms.SelectField(
-        lgt('Image Encoding'),
+        _('Image Encoding'),
         default='png',
         choices=[
-            ('none', lgt('None')),
-            ('png', lgt('PNG (lossless)')),
-            ('jpg', lgt('JPEG (lossy, 90% quality)')),
+            ('none', _('None')),
+            ('png', _('PNG (lossless)')),
+            ('jpg', _('JPEG (lossy, 90% quality)')),
         ],
-        tooltip=lgt('Using either of these compression formats can save disk space, '
+        tooltip=_('Using either of these compression formats can save disk space, '
                   'but can also require marginally more time for training.'),
     )
 
     # Image resize
 
     resize_channels = utils.forms.SelectField(
-        lgt(u'Image Type'),
+        _(u'Image Type'),
         default='3',
-        choices=[('1', lgt('Grayscale')), ('3', lgt('Color'))],
-        tooltip=lgt("Color is 3-channel RGB. Grayscale is single channel monochrome.")
+        choices=[('1', _('Grayscale')), ('3', _('Color'))],
+        tooltip=_("Color is 3-channel RGB. Grayscale is single channel monochrome.")
     )
     resize_width = wtforms.IntegerField(
-        lgt(u'Resize Width'),
+        _(u'Resize Width'),
         default=256,
         validators=[validators.DataRequired()]
     )
     resize_height = wtforms.IntegerField(
-        lgt(u'Resize Height'),
+        _(u'Resize Height'),
         default=256,
         validators=[validators.DataRequired()]
     )
     resize_mode = utils.forms.SelectField(
-        lgt(u'Resize Transformation'),
+        _(u'Resize Transformation'),
         default='squash',
         choices=ImageDatasetJob.resize_mode_choices(),
-        tooltip=lgt("Options for dealing with aspect ratio changes during resize. See examples below.")
+        tooltip=_("Options for dealing with aspect ratio changes during resize. See examples below.")
     )
