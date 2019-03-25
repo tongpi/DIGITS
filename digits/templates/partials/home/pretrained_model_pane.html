@@ -127,8 +127,8 @@
                         </td>
                         <td start="{[job.submitted]}">
                             <small ng-if="!is_today(job.submitted)"
-                                   title="{[ job.submitted * 1000 | date:'medium' ]}">
-                                {[ job.submitted * 1000 | date:'yyyy MMM d h:mm:s' ]}
+                                   title="{[ job.submitted * 1000 | date:'yyyy MMM d HH:mm:s' ]}">
+                                {[ job.submitted * 1000 | date:'yyyy MMM d HH:mm:s' ]}
                             </small>
                             <small ng-if="is_today(job.submitted)"
                                    title="{[ job.submitted * 1000 | date:'medium' ]}">
