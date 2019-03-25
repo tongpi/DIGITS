@@ -180,7 +180,7 @@ $('#delete-job').on('click', function(event) {
             <div class="panel-heading">
                 <h4 class="panel-title">
                     {{_('Job Status')}}
-                    <small>{{job.status.text}}</small>
+                    <small>{{_(job.status.text)}}</small>
                 </h4>
             </div>
             <div class="panel-collapse">
@@ -197,7 +197,7 @@ $('#delete-job').on('click', function(event) {
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" href="#{{task.html_id()}}-status-collapse">
                                             {{task.name()}}
-                                            <small>{{task.status.text}}</small>
+                                            <small>{{_(task.status.text)}}</small>
                                             <span class="caret"></span>
                                         </a>
                                     </h4>
@@ -258,7 +258,7 @@ $('#delete-job').on('click', function(event) {
                                 <h4 class="panel-title">
                                     <a href="{{ url_for('digits.views.show_job', job_id=r_job.id()) }}">
                                         {{ r_job.name() }}
-                                        <small>{{r_job.status.text}}</small>
+                                        <small>{{_(r_job.status.text)}}</small>
                                     </a>
                                     <a data-toggle="collapse" href="#{{r_job.id()}}-status-collapse" style="float:right">
                                         <span class="caret"></span>
