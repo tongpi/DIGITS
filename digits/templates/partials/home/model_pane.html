@@ -47,12 +47,13 @@
                                     {[ field.title ]}
                                 </label>
                             </li>
+                            <!--
                             <li data-ng-repeat='field in storage.model_output_fields'>
                                 <label style="font-weight: normal !important;">
                                     <input type="checkbox" ng-model='field.show'>
                                     {[ field.name ]}
                                 </label>
-                            </li>
+                            </li>-->
                         </ul>
                     </div>
                     <!-- Filter -->
@@ -168,11 +169,11 @@
                             start="{[job.submitted]}">
                             <small ng-if="!is_today(job.submitted)"
                                    title="{[ job.submitted * 1000 | date:'medium' ]}">
-                                {[ job.submitted * 1000 | date:'medium' ]}
+                                {[ job.submitted * 1000 | date:'yyyy MM dd HH:mm:ss' ]}
                             </small>
                             <small ng-if="is_today(job.submitted)"
                                    title="{[ job.submitted * 1000 | date:'medium' ]}">
-                                {[ job.submitted * 1000 | date:'medium' ]}
+                                {[ job.submitted * 1000 | date:'yyyy MM dd HH:mm:ss' ]}
                             </small>
                         </td>
 
