@@ -43,7 +43,6 @@ tr.group-bar td {
     background-color: #ccccee;
     border-radius: 4px;
 }
-.table>tbody>tr>td:last-child,
-.table>thead>tr>th:last-child {
-    width: 200px;
+.table>thead>tr>th{
+    width: 205px;
 }
