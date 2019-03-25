@@ -4278,6 +4278,12 @@ msgstr "测试数据文件"
 msgid "Text Classification"
 msgstr "文本分类"
 
+#: templates/partials/home/model_pane.html:12
+#: templates/partials/home/datasets_pane.html:12
+#: templates/partials/home/pretrained_model_pane.html:18
+msgid "Images"
+msgstr "新建"
+
 #~ msgid "Retrieve from Model Store"
 #~ msgstr "从模型商店获取"
 
