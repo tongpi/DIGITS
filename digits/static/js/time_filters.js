@@ -11,7 +11,7 @@ function print_time_diff(diff) {
     var seconds = total_seconds % 60;
 
     function plural(number, name) {
-        return number + ' ' + name + (number == 1 ? '' : 's');
+        return number + ' ' + name + (number == 1 ? '' : '');
     }
 
     function pair(number1, name1, number2, name2) {
@@ -22,12 +22,12 @@ function print_time_diff(diff) {
     }
 
     if (days >= 1)
-        return pair(Math.floor(days), 'day', Math.round(hours), 'hour');
+        return pair(Math.floor(days), gettext('day'), Math.round(hours), gettext('hour'));
     else if (hours >= 1)
-        return pair(Math.floor(hours), 'hour', Math.round(minutes), 'minute');
+        return pair(Math.floor(hours), gettext('hour'), Math.round(minutes), gettext('minute'));
     else if (minutes >= 1)
-        return pair(Math.floor(minutes), 'minute', Math.round(seconds), 'second');
-    return plural(Math.round(seconds), 'second');
+        return pair(Math.floor(minutes), gettext('minute'), Math.round(seconds), gettext('second'));
+    return plural(Math.round(seconds), gettext('second'));
 }
 
 function print_time_diff_simple(diff, min_unit) {
@@ -36,7 +36,7 @@ function print_time_diff_simple(diff, min_unit) {
     }
     diff = Math.max(0, diff);
 
-    if (typeof(min_unit) === 'undefined') min_unit = 'second';
+    if (typeof(min_unit) === 'undefined') min_unit = gettext('second');
 
     var total_seconds = Math.floor(diff);
     var days = total_seconds / (24 * 3600);
@@ -45,16 +45,16 @@ function print_time_diff_simple(diff, min_unit) {
     var seconds = total_seconds % 60;
 
     function plural(number, name) {
-        return number + ' ' + name + (number == 1 ? '' : 's');
+        return number + ' ' + name + (number == 1 ? '' : '');
     }
 
     if (days >= 1 || min_unit == 'day')
-        return plural(Math.round(days), 'day');
+        return plural(Math.round(days), gettext('day'));
     else if (hours >= 1 || min_unit == 'hour')
-        return plural(Math.round(hours), 'hour');
+        return plural(Math.round(hours), gettext('hour'));
     else if (minutes >= 1 || min_unit == 'minute')
-        return plural(Math.round(minutes), 'minute');
-    return plural(Math.round(seconds), 'second');
+        return plural(Math.round(minutes), gettext('minute'));
+    return plural(Math.round(seconds), gettext('second'));
 }
 
 function print_time_diff_terse(diff, min_unit) {
@@ -63,7 +63,7 @@ function print_time_diff_terse(diff, min_unit) {
     }
     diff = Math.max(0, diff);
 
-    if (typeof(min_unit) === 'undefined') min_unit = 'second';
+    if (typeof(min_unit) === 'undefined') min_unit = gettext('second');
 
     var total_seconds = Math.floor(diff);
     var days = total_seconds / (24 * 3600);

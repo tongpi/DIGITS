@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-25 11:35+0800\n"
+"POT-Creation-Date: 2019-03-25 15:46+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2063,6 +2063,30 @@ msgstr ""
 msgid "Learning Rate"
 msgstr ""
 
+#: static/js/time_filters.js:25 static/js/time_filters.js:52
+#: utils/time_filters.py:100
+msgid "day"
+msgstr ""
+
+#: static/js/time_filters.js:25 static/js/time_filters.js:27
+#: static/js/time_filters.js:54 utils/time_filters.py:100
+#: utils/time_filters.py:102
+msgid "hour"
+msgstr ""
+
+#: static/js/time_filters.js:27 static/js/time_filters.js:29
+#: static/js/time_filters.js:56 utils/time_filters.py:102
+#: utils/time_filters.py:104
+msgid "minute"
+msgstr ""
+
+#: static/js/time_filters.js:29 static/js/time_filters.js:30
+#: static/js/time_filters.js:39 static/js/time_filters.js:57
+#: static/js/time_filters.js:66 utils/time_filters.py:104
+#: utils/time_filters.py:105
+msgid "second"
+msgstr ""
+
 #: static/js/time_filters.js:75
 msgid "d"
 msgstr ""
@@ -2113,14 +2137,14 @@ msgid "Home"
 msgstr ""
 
 #: templates/home.html:74 templates/partials/home/datasets_pane.html:43
-#: templates/partials/home/model_pane.html:64
+#: templates/partials/home/model_pane.html:65
 #: templates/partials/home/pretrained_model_pane.html:49
 #: templates/store.html:71
 msgid "Filter"
 msgstr ""
 
 #: templates/home.html:85 templates/partials/home/datasets_pane.html:54
-#: templates/partials/home/model_pane.html:75
+#: templates/partials/home/model_pane.html:76
 #: templates/partials/home/pretrained_model_pane.html:60
 msgid "Delete"
 msgstr ""
@@ -2130,7 +2154,7 @@ msgid "Abort"
 msgstr ""
 
 #: templates/home.html:95 templates/partials/home/datasets_pane.html:59
-#: templates/partials/home/model_pane.html:80
+#: templates/partials/home/model_pane.html:81
 #: templates/partials/home/pretrained_model_pane.html:65
 msgid "Group"
 msgstr ""
@@ -2147,11 +2171,11 @@ msgstr ""
 msgid "Pretrained Models"
 msgstr ""
 
-#: templates/job.html:117 templates/job.html:316
+#: templates/job.html:117 templates/job.html:324
 msgid "Update"
 msgstr ""
 
-#: templates/job.html:118 templates/job.html:317
+#: templates/job.html:118 templates/job.html:325
 msgid "Cancel"
 msgstr ""
 
@@ -2197,7 +2221,7 @@ msgstr ""
 msgid "Notes"
 msgstr ""
 
-#: templates/job.html:315
+#: templates/job.html:319
 msgid "Enter notes"
 msgstr ""
 
@@ -3457,7 +3481,7 @@ msgstr ""
 msgid "No Datasets"
 msgstr ""
 
-#: templates/partials/home/model_pane.html:193
+#: templates/partials/home/model_pane.html:194
 msgid "No Models"
 msgstr ""
 
@@ -3799,22 +3823,6 @@ msgstr ""
 
 #: utils/time_filters.py:82
 msgid "Negative Time"
-msgstr ""
-
-#: utils/time_filters.py:100
-msgid "day"
-msgstr ""
-
-#: utils/time_filters.py:100 utils/time_filters.py:102
-msgid "hour"
-msgstr ""
-
-#: utils/time_filters.py:102 utils/time_filters.py:104
-msgid "minute"
-msgstr ""
-
-#: utils/time_filters.py:104 utils/time_filters.py:105
-msgid "second"
 msgstr ""
 
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:97

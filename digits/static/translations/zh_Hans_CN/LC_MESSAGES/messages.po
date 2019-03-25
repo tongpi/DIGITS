@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-25 11:35+0800\n"
+"POT-Creation-Date: 2019-03-25 15:46+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -2094,6 +2094,30 @@ msgstr "累积"
 msgid "Learning Rate"
 msgstr "学习率"
 
+#: static/js/time_filters.js:25 static/js/time_filters.js:52
+#: utils/time_filters.py:100
+msgid "day"
+msgstr "天"
+
+#: static/js/time_filters.js:25 static/js/time_filters.js:27
+#: static/js/time_filters.js:54 utils/time_filters.py:100
+#: utils/time_filters.py:102
+msgid "hour"
+msgstr "小时"
+
+#: static/js/time_filters.js:27 static/js/time_filters.js:29
+#: static/js/time_filters.js:56 utils/time_filters.py:102
+#: utils/time_filters.py:104
+msgid "minute"
+msgstr "分钟"
+
+#: static/js/time_filters.js:29 static/js/time_filters.js:30
+#: static/js/time_filters.js:39 static/js/time_filters.js:57
+#: static/js/time_filters.js:66 utils/time_filters.py:104
+#: utils/time_filters.py:105
+msgid "second"
+msgstr "秒"
+
 #: static/js/time_filters.js:75
 msgid "d"
 msgstr "天"
@@ -2144,14 +2168,14 @@ msgid "Home"
 msgstr "首页"
 
 #: templates/home.html:74 templates/partials/home/datasets_pane.html:43
-#: templates/partials/home/model_pane.html:64
+#: templates/partials/home/model_pane.html:65
 #: templates/partials/home/pretrained_model_pane.html:49
 #: templates/store.html:71
 msgid "Filter"
 msgstr "过滤"
 
 #: templates/home.html:85 templates/partials/home/datasets_pane.html:54
-#: templates/partials/home/model_pane.html:75
+#: templates/partials/home/model_pane.html:76
 #: templates/partials/home/pretrained_model_pane.html:60
 msgid "Delete"
 msgstr "删除"
@@ -2161,7 +2185,7 @@ msgid "Abort"
 msgstr "中止"
 
 #: templates/home.html:95 templates/partials/home/datasets_pane.html:59
-#: templates/partials/home/model_pane.html:80
+#: templates/partials/home/model_pane.html:81
 #: templates/partials/home/pretrained_model_pane.html:65
 msgid "Group"
 msgstr "组"
@@ -2178,11 +2202,11 @@ msgstr "没有正在运行的作业"
 msgid "Pretrained Models"
 msgstr "预训练模型"
 
-#: templates/job.html:117 templates/job.html:316
+#: templates/job.html:117 templates/job.html:324
 msgid "Update"
 msgstr "更新"
 
-#: templates/job.html:118 templates/job.html:317
+#: templates/job.html:118 templates/job.html:325
 msgid "Cancel"
 msgstr "取消"
 
@@ -2228,7 +2252,7 @@ msgstr "相关作业"
 msgid "Notes"
 msgstr "注释"
 
-#: templates/job.html:315
+#: templates/job.html:319
 msgid "Enter notes"
 msgstr "输入注释"
 
@@ -3498,7 +3522,7 @@ msgstr "小组作业："
 msgid "No Datasets"
 msgstr "没有数据集"
 
-#: templates/partials/home/model_pane.html:193
+#: templates/partials/home/model_pane.html:194
 msgid "No Models"
 msgstr "没有模型"
 
@@ -3841,22 +3865,6 @@ msgstr ""
 #: utils/time_filters.py:82
 msgid "Negative Time"
 msgstr "负时间"
-
-#: utils/time_filters.py:100
-msgid "day"
-msgstr "天"
-
-#: utils/time_filters.py:100 utils/time_filters.py:102
-msgid "hour"
-msgstr "小时"
-
-#: utils/time_filters.py:102 utils/time_filters.py:104
-msgid "minute"
-msgstr "分钟"
-
-#: utils/time_filters.py:104 utils/time_filters.py:105
-msgid "second"
-msgstr "秒"
 
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:97
 msgid "bAbI"
@@ -4270,12 +4278,6 @@ msgstr "测试数据文件"
 msgid "Text Classification"
 msgstr "文本分类"
 
-#: templates/partials/home/model_pane.html:12
-#: templates/partials/home/datasets_pane.html:12
-#: templates/partials/home/pretrained_model_pane.html:18
-msgid "Images"
-msgstr "新建"
-
 #~ msgid "Retrieve from Model Store"
 #~ msgstr "从模型商店获取"
 
@@ -4489,4 +4491,7 @@ msgstr "新建"
 
 #~ msgid "Load Model"
 #~ msgstr "加载模型"
+
+#~ msgid "Images"
+#~ msgstr "新建"
 

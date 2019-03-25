@@ -211,7 +211,7 @@ $('#delete-job').on('click', function(event) {
                                                     {{percentage}}%
                                                 </div>
                                             </div>
-                                            {{_('Estimated time remaining:')}} <span class="task-eta">{{ task.est_done()|print_time_diff }}</span>
+                                            {{_('Estimated time remaining:')}} <span class="task-eta">{{ task.est_done()|print_time_diff_local }}</span>
                                             <br />
                                             <br />
                                         </div>
