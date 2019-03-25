@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-25 15:46+0800\n"
+"POT-Creation-Date: 2019-03-25 16:20+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1376,7 +1376,7 @@ msgstr ""
 msgid "Custom network"
 msgstr ""
 
-#: model/forms.py:264 static/js/home_app.js:567 static/js/home_app.js:598
+#: model/forms.py:264 static/js/home_app.js:566 static/js/home_app.js:597
 msgid "framework"
 msgstr ""
 
@@ -1983,67 +1983,67 @@ msgid ""
 ".</small>"
 msgstr ""
 
-#: static/js/home_app.js:540 templates/home.html:60
+#: static/js/home_app.js:539 templates/home.html:60
 msgid "Running Jobs"
 msgstr ""
 
-#: static/js/home_app.js:541 static/js/home_app.js:551
-#: static/js/home_app.js:564 static/js/home_app.js:597
+#: static/js/home_app.js:540 static/js/home_app.js:550
+#: static/js/home_app.js:563 static/js/home_app.js:596
 msgid "name"
 msgstr ""
 
-#: static/js/home_app.js:542 static/js/home_app.js:557
-#: static/js/home_app.js:570 static/js/home_app.js:603
+#: static/js/home_app.js:541 static/js/home_app.js:556
+#: static/js/home_app.js:569 static/js/home_app.js:602
 msgid "submitted"
 msgstr ""
 
-#: static/js/home_app.js:543 static/js/home_app.js:555
-#: static/js/home_app.js:568 static/js/home_app.js:601
+#: static/js/home_app.js:542 static/js/home_app.js:554
+#: static/js/home_app.js:567 static/js/home_app.js:600
 msgid "status"
 msgstr ""
 
-#: static/js/home_app.js:544
+#: static/js/home_app.js:543
 msgid "loss"
 msgstr ""
 
-#: static/js/home_app.js:545
+#: static/js/home_app.js:544
 msgid "progress"
 msgstr ""
 
-#: static/js/home_app.js:550 templates/home.html:214
+#: static/js/home_app.js:549 templates/home.html:214
 msgid "Datasets"
 msgstr ""
 
-#: static/js/home_app.js:552
+#: static/js/home_app.js:551
 msgid "refs"
 msgstr ""
 
-#: static/js/home_app.js:553 static/js/home_app.js:566
+#: static/js/home_app.js:552 static/js/home_app.js:565
 msgid "extension"
 msgstr ""
 
-#: static/js/home_app.js:554
+#: static/js/home_app.js:553
 msgid "backend"
 msgstr ""
 
-#: static/js/home_app.js:556 static/js/home_app.js:569
-#: static/js/home_app.js:602
+#: static/js/home_app.js:555 static/js/home_app.js:568
+#: static/js/home_app.js:601
 msgid "elapsed"
 msgstr ""
 
-#: static/js/home_app.js:562 static/js/home_app.js:596 templates/home.html:224
+#: static/js/home_app.js:561 static/js/home_app.js:595 templates/home.html:224
 msgid "Models"
 msgstr ""
 
-#: static/js/home_app.js:565
+#: static/js/home_app.js:564
 msgid "id"
 msgstr ""
 
-#: static/js/home_app.js:599
+#: static/js/home_app.js:598
 msgid "username"
 msgstr ""
 
-#: static/js/home_app.js:600
+#: static/js/home_app.js:599
 msgid "has_labels"
 msgstr ""
 
