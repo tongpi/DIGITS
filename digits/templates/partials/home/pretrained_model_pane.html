@@ -98,7 +98,7 @@
                                 <span class="glyphicon"
                                       ng-class="c.hideRows[job.group] ? 'glyphicon-triangle-right' : 'glyphicon-triangle-bottom'">
                                 </span>
-                                <strong>{[ job.group ? job.group : 'Ungrouped' ]}</strong>
+                                <strong>{[ job.group ? job.group : '未分组' ]}</strong>
                             </div>
                         </td>
                     </tr>
@@ -127,12 +127,12 @@
                         </td>
                         <td start="{[job.submitted]}">
                             <small ng-if="!is_today(job.submitted)"
-                                   title="{[ job.submitted * 1000 | date:'yyyy MM dd HH:mm:ss' ]}">
-                                {[ job.submitted * 1000 | date:'yyyy MM dd HH:mm:ss' ]}
+                                   title="{[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}">
+                                {[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}
                             </small>
                             <small ng-if="is_today(job.submitted)"
-                                   title="{[ job.submitted * 1000 | date:'medium' ]}">
-                                {[ job.submitted * 1000 | date:'h:mm a' ]}
+                                   title="{[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}">
+                                {[ job.submitted * 1000 | date:'yyyy年M月d日 HH:mm:ss' ]}
                             </small>
                         </td>
                     </tr>
