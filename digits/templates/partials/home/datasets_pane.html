@@ -125,7 +125,10 @@
                             <span class="badge">{[ job.backend ]}</span>
                         </td>
                         <td class="text-{[job.status_css]}">
-                            {[ _(job.status) ]}
+                            {% for statu in [ job.status ] %}
+                                {{ _(statu) }}
+                            {% endfor %}
+
                         </td>
                         <td start="{[job.elapsed]}">
                             <small title="{[ print_time_diff(job.elapsed) ]}">
