@@ -90,10 +90,10 @@ try {
 
                 var r = response.data;
                 $scope.jobs = [].concat(r.running, r.datasets, r.models, r.pretrained_models);
-                for (var i = 0; i < jobs.length; i++) {
-                    console.log(jobs);
-                    jobs[i].status = gettext(jobs[i].status);
-                    console.log(jobs[i].status);
+                for (var i = 0; i < $scope.jobs.length; i++) {
+                    console.log($scope.jobs);
+                    $scope.jobs[i].status = gettext($scope.jobs[i].status);
+                    console.log($scope.jobs[i].status);
                 }
 
                 var scope = angular.element(document.getElementById('models-table')).scope();
