@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
 
@@ -505,15 +506,15 @@ class TrainTask(Task):
         # return 100-200 values or fewer
         stride = max(len(self.train_outputs['epoch'].data) / 100, 1)
         e = ['epoch'] + self.train_outputs['epoch'].data[::stride]
-        lr = ['lr'] + self.train_outputs['learning_rate'].data[::stride]
+        lr = ['学习率'] + self.train_outputs['learning_rate'].data[::stride]
 
         return {
             'columns': [e, lr],
             'xs': {
-                'lr': 'epoch'
+                '学习率': 'epoch'
             },
             'names': {
-                'lr': 'Learning Rateeeeee'
+                '学习率': 'Learning Rate'
             },
         }
 

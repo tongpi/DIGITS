@@ -98,9 +98,6 @@ function drawLRGraph(data) {
         },
         grid: {x: {show: true} },
         legend: {show: false},
-        tooltip: {
-            tooltip_format_title: data.names.lr,
-        },
     },
     {data: data}
     ));
