@@ -349,7 +349,7 @@ class Task(StatusCls):
                           'task': self.html_id(),
                           'update': 'progress',
                           'percentage': int(round(100 * self.progress)),
-                          'eta': utils.time_filters.print_time_diff(self.est_done()),
+                          'eta': utils.time_filters.print_time_diff_local(self.est_done()),
                       },
                       namespace='/jobs',
                       room=self.job_id,
