@@ -27,7 +27,7 @@
     <dt>{{_('DB backend')}}</dt>
     <dd>{{dataset.get_backend()}}</dd>
     {% for task in dataset.create_db_tasks() %}
-    <dt>{{task.name()}}</dt>
+    <dt>{{_(task.name())}}</dt>
     <dd>
     {% if task.entries_count %}
     {{_('%(tec)s images', tec=task.entries_count)}}

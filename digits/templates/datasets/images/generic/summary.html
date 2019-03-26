@@ -16,7 +16,7 @@
 <ul>
     <li>{{_('DB backend: %(dgb)s', dgb=dataset.get_backend())}}</li>
     {% for task in dataset.analyze_db_tasks() %}
-    <li>{{task.name()}}</li>
+    <li>{{_(task.name())}}</li>
     <ul>
         <li><b>{{_('Image Count')}}</b> - {{task.image_count}}</li>
         <li><b>{{_('Image Dimensions')}}</b> -

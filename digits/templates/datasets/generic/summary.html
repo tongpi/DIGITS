@@ -17,7 +17,7 @@
     <li>{{_('DB backend: %(dbd)s', dbd=dataset.get_backend())}}</li>
     {% for task in dataset.create_db_tasks() %}
         {% if task.entry_count > 0 %}
-            <li>{{task.name()}}</li>
+            <li>{{_(task.name())}}</li>
             <ul>
                 <li><b>{{_('Entry Count:')}}</b> {{ task.entry_count }}</li>
                 <li><b>{{_('Feature shape')}}</b> {{ task.feature_shape }}</li>

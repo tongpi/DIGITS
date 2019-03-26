@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-26 11:37+0800\n"
+"POT-Creation-Date: 2019-03-26 13:46+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -2638,7 +2638,7 @@ msgstr "输入文件"
 
 #: templates/datasets/images/classification/show.html:82
 msgid " (before shuffling)"
-msgstr " 原始数据"
+msgstr " （原始数据）"
 
 #: templates/datasets/images/classification/show.html:85
 msgid "DB Creation log file"
@@ -2667,7 +2667,7 @@ msgstr "灰度"
 #: templates/datasets/images/classification/summary.html:33
 #, python-format
 msgid "%(tec)s images"
-msgstr "%(tec)s图片"
+msgstr "%(tec)s张图片"
 
 #: templates/datasets/images/generic/new.html:10
 #: templates/datasets/images/generic/new.html:19
@@ -4298,6 +4298,18 @@ msgstr "创建数据库（验证）"
 msgid "Create DB (test)"
 msgstr "创建数据库（测试）"
 
+msgid "Network (train/val)"
+msgstr "网络（训练/验证）"
+
+msgid "Network (deploy)"
+msgstr "网络（部署）"
+
+msgid "Network (original)"
+msgstr "网络（原型）"
+
+msgid "Solver"
+msgstr "求解器"
+
 #~ msgid "Retrieve from Model Store"
 #~ msgstr "从模型商店获取"
 
@@ -4517,4 +4529,16 @@ msgstr "创建数据库（测试）"
 
 #~ msgid "Create DB (%(db_name)s)"
 #~ msgstr "创建数据库（%(db_name)s）"
+
+#~ msgid "Network (train/val)"
+#~ msgstr "网络（训练/验证）"
+
+#~ msgid "Network (deploy)"
+#~ msgstr "网络（部署）"
+
+#~ msgid "Network (original)"
+#~ msgstr "网络（原型）"
+
+#~ msgid "Solver"
+#~ msgstr "求解器"
 

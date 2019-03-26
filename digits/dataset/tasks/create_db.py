@@ -313,7 +313,7 @@ class CreateDbTask(Task):
         if len(self.distribution.keys()) != len(labels):
             return None
 
-        label_count = '数量'
+        label_count = 'Count'
         label_error = 'LoadImageError'
 
         error_values = [label_error]
