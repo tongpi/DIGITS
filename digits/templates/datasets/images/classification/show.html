@@ -16,7 +16,7 @@
         <dt>{{_('Image Dimensions')}}</dt>
         <dd>{{job.image_dims[1]}}x{{job.image_dims[0]}} {{_('(Width x Height)')}}</dd>
         <dt>{{_('Image Type')}}</dt>
-        <dd>{{'Color' if job.image_dims[2] == 3 else 'Grayscale'}}</dd>
+        <dd>{{_('Color') if job.image_dims[2] == 3 else _('Grayscale')}}</dd>
         <dt>{{_('Resize Transformation')}}</dt>
         <dd>{{ job.resize_mode_name() }}</dd>
         <dt>{{_('DB Backend')}}</dt>

@@ -195,7 +195,7 @@ msgstr "使用指定数量的编码器线程"
 #: dataset/generic/forms.py:63 dataset/images/classification/forms.py:21
 #: templates/datasets/images/classification/summary.html:27
 msgid "DB backend"
-msgstr "DB后端"
+msgstr "后端存储"
 
 #: dataset/generic/forms.py:71 dataset/images/generic/forms.py:81
 msgid "Enforce same shape"
