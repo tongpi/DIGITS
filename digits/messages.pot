@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-26 11:02+0800\n"
+"POT-Creation-Date: 2019-03-26 11:37+0800\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -2597,6 +2597,10 @@ msgstr ""
 
 #: templates/datasets/images/classification/show.html:82
 msgid "Input File"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:82
+msgid " (before shuffling)"
 msgstr ""
 
 #: templates/datasets/images/classification/show.html:85

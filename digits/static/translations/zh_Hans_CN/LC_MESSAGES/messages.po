@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-03-26 11:02+0800\n"
+"POT-Creation-Date: 2019-03-26 11:37+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -2636,6 +2636,10 @@ msgstr "类别数量"
 msgid "Input File"
 msgstr "输入文件"
 
+#: templates/datasets/images/classification/show.html:82
+msgid " (before shuffling)"
+msgstr " 原始数据"
+
 #: templates/datasets/images/classification/show.html:85
 msgid "DB Creation log file"
 msgstr "数据库创建日志文件"
@@ -4482,13 +4486,13 @@ msgstr "创建数据库（测试）"
 #~ msgstr "解析文件夹%(name)s"
 
 #~ msgid "Create DB (train)"
-#~ msgstr "创建数据库（train）"
+#~ msgstr "创建数据库（训练）"
 
 #~ msgid "Create DB (val)"
-#~ msgstr "创建数据库（val）"
+#~ msgstr "创建数据库（验证）"
 
 #~ msgid "Create DB (test)"
-#~ msgstr "创建数据库（test）"
+#~ msgstr "创建数据库（测试）"
 
 #~ msgid "Create DB %(db_name)s"
 #~ msgstr "创建数据库(%(db_name)s)"

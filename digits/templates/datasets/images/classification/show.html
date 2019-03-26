@@ -79,7 +79,7 @@
 </div>
 <div class="panel-body">
     <dl>
-        <dt>{{_('Input File')}}{{' (before shuffling)' if task.shuffle }}</dt>
+        <dt>{{_('Input File')}}{{_(' (before shuffling)') if task.shuffle }}</dt>
         <dd>{{serve_file(task, task.input_file)}}</dd>
         {% if task.create_db_log_file %}
         <dt>{{_('DB Creation log file')}}</dt>
