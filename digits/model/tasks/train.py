@@ -1,4 +1,3 @@
-# -*- coding:utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
 
@@ -514,7 +513,7 @@ class TrainTask(Task):
                 'lr': 'epoch'
             },
             'names': {
-                'lr': '学习率'
+                'lr': 'Learning Rate'
             },
         }
 

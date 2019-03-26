@@ -65,7 +65,7 @@ function drawCombinedGraph(data) {
     {
         // just update data
         drawCombinedGraph.chart.load(data);
-        drawCombinedGraph.chart.data.names(data.names);
+        drawCombinedGraph.chart.data.names(gettext(data.names));
     }
 }
 function drawLRGraph(data) {
