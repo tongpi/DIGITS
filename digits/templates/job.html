@@ -196,7 +196,7 @@ $('#delete-job').on('click', function(event) {
                                 <div class="panel-heading">
                                     <h4 class="panel-title">
                                         <a data-toggle="collapse" href="#{{task.html_id()}}-status-collapse">
-                                            {{task.name()}}
+                                            {{_(task.name())}}
                                             <small>{{_(task.status.text)}}</small>
                                             <span class="caret"></span>
                                         </a>
