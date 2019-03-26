@@ -10,6 +10,8 @@ from digits import utils
 from digits.task import Task
 from digits.utils import subclass, override
 
+from flask_babel import lazy_gettext as _
+
 # NOTE: Increment this every time the pickled version changes
 PICKLE_VERSION = 3
 
@@ -111,13 +113,13 @@ class CreateDbTask(Task):
     @override
     def name(self):
         if self.db_name == utils.constants.TRAIN_DB or 'train' in self.db_name.lower():
-            return 'Create DB (train)'
+            return _('Create DB (train)')
         elif self.db_name == utils.constants.VAL_DB or 'val' in self.db_name.lower():
-            return 'Create DB (val)'
+            return _('Create DB (val)')
         elif self.db_name == utils.constants.TEST_DB or 'test' in self.db_name.lower():
-            return 'Create DB (test)'
+            return _('Create DB (test)')
         else:
-            return 'Create DB (%s)' % self.db_name
+            return _('Create DB (%(db_name)s)', db_name=self.db_name)
 
     @override
     def before_run(self):
