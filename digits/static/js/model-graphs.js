@@ -65,7 +65,7 @@ function drawCombinedGraph(data) {
     {
         // just update data
         drawCombinedGraph.chart.load(data);
-        drawCombinedGraph.chart.data.names(gettext(data.names));
+        drawCombinedGraph.chart.data.names(data.names);
     }
 }
 function drawLRGraph(data) {
@@ -98,6 +98,9 @@ function drawLRGraph(data) {
         },
         grid: {x: {show: true} },
         legend: {show: false},
+        tooltip: {
+            tooltip_format_title: data.names.lr,
+        },
     },
     {data: data}
     ));
