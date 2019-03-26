@@ -14,8 +14,6 @@ from .status import Status, StatusCls
 from digits.config import config_value
 from digits.utils import sizeof_fmt, filesystem as fs
 
-from flask_babel import lazy_gettext as _
-
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 2
 
@@ -228,7 +226,7 @@ class Job(StatusCls):
 
         message = {
             'update': 'status',
-            'status': _(self.status_of_tasks().name),
+            'status': self.status_of_tasks().name,
             'css': self.status_of_tasks().css,
             'running': self.status.is_running(),
             'job_id': self.id(),
