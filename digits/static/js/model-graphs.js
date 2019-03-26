@@ -69,6 +69,7 @@ function drawCombinedGraph(data) {
     }
 }
 function drawLRGraph(data) {
+    console.info(data);
     $('.lr-graph').show();
     c3.generate($.extend({
         bindto: '#lr-graph',

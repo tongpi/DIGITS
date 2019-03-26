@@ -91,6 +91,9 @@
             <div id="lr-graph" class="lr-graph"
                 style="height:300px;width:100%;background:white;display:none;"></div>
             {% set lr_graph_data = job.train_task().lr_graph_data() %}
+            <script>
+                console.info({{ lr_graph_data }})
+            </script>
             {% if lr_graph_data %}
             <script>
                 drawLRGraph({% autoescape false %}{{lr_graph_data}}{% endautoescape %});
