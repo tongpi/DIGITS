@@ -567,15 +567,15 @@ msgstr "分析 DB"
 
 #: dataset/tasks/create_db.py:116
 msgid "Create DB (train)"
-msgstr "创建数据库（训练）"
+msgstr "创建数据库（train）"
 
 #: dataset/tasks/create_db.py:118
 msgid "Create DB (val)"
-msgstr "创建数据库（验证）"
+msgstr "创建数据库（val）"
 
 #: dataset/tasks/create_db.py:120
 msgid "Create DB (test)"
-msgstr "创建数据库（测试）"
+msgstr "创建数据库（test）"
 
 #: dataset/tasks/create_db.py:122
 #, python-format
