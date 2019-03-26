@@ -513,7 +513,7 @@ class TrainTask(Task):
                 'lr': 'epoch'
             },
             'names': {
-                'lr': '学习率'
+                'lr': 'Learning Rate'
             },
         }
 

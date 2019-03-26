@@ -70,6 +70,9 @@ function drawCombinedGraph(data) {
 }
 function drawLRGraph(data) {
     console.info(data);
+    console.info('***************')
+    data.names.lr = "学习率";
+    console.info(data);
     $('.lr-graph').show();
     c3.generate($.extend({
         bindto: '#lr-graph',
