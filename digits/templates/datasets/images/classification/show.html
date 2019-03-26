@@ -139,6 +139,9 @@
     }
 </style>
 <script>
+    var gt = new Gettext({domain: 'digits'});
+    var gettext = function(msgid) { return gt.gettext(msgid); };
+
     function drawDistributionGraph(task_id, data) {
         var selector = "#"+task_id+" .distribution-graph";
         $(selector).show();
