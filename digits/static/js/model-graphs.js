@@ -14,7 +14,7 @@ function drawCombinedGraph(data) {
             axis: {
                 x: {
                     label: {
-                        text: gettext('Epoch'),
+                        text: '回合或或或或或',
                         position: 'outer-center',
                     },
                     tick: {
@@ -27,7 +27,7 @@ function drawCombinedGraph(data) {
                 },
                 y: {
                     label: {
-                        text: gettext('Loss'),
+                        text: '损失',
                         position: 'outer-middle',
                     },
                     min: 0,
