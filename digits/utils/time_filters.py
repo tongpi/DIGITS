@@ -61,7 +61,7 @@ def print_time_diff_local(diff):
 
     def pair(number1, name1, number2, name2):
         if number2 > 0:
-            return '%s, %s' % (plural(number1, name1), plural(number2, name2))
+            return '%s %s' % (plural(number1, name1), plural(number2, name2))
         else:
             return '%s' % plural(number1, name1)
 

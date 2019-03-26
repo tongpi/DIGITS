@@ -22,7 +22,7 @@ function setPanelClass(selector, css) {
 
 socket.on('job update', function (msg) {
         if (msg['update'] == 'status') {
-            $("#job-statuses .panel-title small").html(msg['status']);
+            $("#job-statuses .panel-title small").html(_(msg['status']));
             setPanelClass('#job-statuses', msg['css']);
             $("#job-statuses .job-statuses").html(msg['html']);
             if (!msg['running']) {
