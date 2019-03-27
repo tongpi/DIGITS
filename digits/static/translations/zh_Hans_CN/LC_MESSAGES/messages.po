@@ -1442,7 +1442,7 @@ msgstr "选择您要使用的GPU"
 
 #: model/forms.py:341
 msgid "Select which GPU[s] you would like to use"
-msgstr "选择您要使用的GPU [s]"
+msgstr "选择您要使用的GPU"
 
 #: model/forms.py:353
 msgid "The job won't start until all of the chosen GPUs are available."
@@ -1454,7 +1454,7 @@ msgstr "选择您要使用的GPU（以逗号分隔）"
 
 #: model/forms.py:365
 msgid "Use this many GPUs (next available)"
-msgstr "使用这么多GPU（下一个可用）"
+msgstr "使用GPU数量"
 
 #: model/forms.py:380
 msgid "Model Name"
