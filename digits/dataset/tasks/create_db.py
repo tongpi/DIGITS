@@ -328,7 +328,12 @@ class CreateDbTask(Task):
             titles.append(labels[int(key)])
 
         # distribution graph always displays the Count data
-        data = {'columns': [count_values], 'type': 'bar'}
+        data = {'columns': [count_values],
+                'type': 'bar',
+                'names': {
+                        'Count': 'Count'
+                    },
+                }
 
         # only display error data if any error occurred
         if sum(error_values[1:]) > 0:
