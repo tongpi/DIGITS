@@ -4,6 +4,12 @@ var gt = new Gettext({domain: 'digits'});
 var gettext = function(msgid) { return gt.gettext(msgid); };
 
 function drawCombinedGraph(data) {
+    data.names = {
+        "loss-val": '验证损失',
+        "accuracy-val": '累积损失',
+        "loss-train": '训练损失',
+    };
+
     $('.combined-graph').show();
     // drawCombinedGraph.chart is a static variable that holds the graph state;
     // it is initialized on first call to drawCombinedGraph()

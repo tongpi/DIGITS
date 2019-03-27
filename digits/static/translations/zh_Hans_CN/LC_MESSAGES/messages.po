@@ -4310,6 +4310,9 @@ msgstr "网络（原型）"
 msgid "Solver"
 msgstr "求解器"
 
+msgid "Count"
+msgstr "数量"
+
 #~ msgid "Retrieve from Model Store"
 #~ msgstr "从模型商店获取"
 

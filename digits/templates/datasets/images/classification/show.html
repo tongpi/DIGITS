@@ -143,8 +143,7 @@
     var gettext = function(msgid) { return gt.gettext(msgid); };
 
     function drawDistributionGraph(task_id, data) {
-        // data.names.Count = gettext(data.names.Count);
-        data.data.names.Count = '数量';
+        data.data.names.Count = gettext(data.data.names.Count);
         var selector = "#"+task_id+" .distribution-graph";
         $(selector).show();
         c3.generate($.extend(true, data, {
