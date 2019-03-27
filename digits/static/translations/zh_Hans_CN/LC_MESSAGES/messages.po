@@ -1442,7 +1442,7 @@ msgstr "选择您要使用的GPU"
 
 #: model/forms.py:341
 msgid "Select which GPU[s] you would like to use"
-msgstr "选择您要使用的GPU"
+msgstr "或选择您要使用的GPU"
 
 #: model/forms.py:353
 msgid "The job won't start until all of the chosen GPUs are available."
@@ -3016,7 +3016,7 @@ msgid ""
 "    In addition, since there are many ways to specify the rules, here's a"
 " table that you may find useful:"
 msgstr ""
-"您的图层的包含和排除规则应该正确设置，以便通过所需的计算状态[s]进行选取。您可以查看标准网络中的示例。此外，由于有许多方法可以指定规则，这里有一个表格，"
+"您的图层的包含和排除规则应该正确设置，以便通过所需的计算状态进行选取。您可以查看标准网络中的示例。此外，由于有许多方法可以指定规则，这里有一个表格，"
 " 你可能会觉得有用："
 
 #: templates/models/images/classification/custom_network_explanation.html:41
