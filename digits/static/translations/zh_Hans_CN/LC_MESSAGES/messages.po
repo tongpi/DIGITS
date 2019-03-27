@@ -585,7 +585,7 @@ msgstr "百分比和百分比测试的总和不得超过100"
 #: dataset/tasks/parse_folder.py:95
 #, python-format
 msgid "Parse Folder (%(name)s)"
-msgstr "解析文件夹 (%(name)s)"
+msgstr "解析文件夹"
 
 #: extensions/data/imageProcessing/data.py:65
 #: extensions/data/imageSegmentation/data.py:107
@@ -4312,6 +4312,15 @@ msgstr "求解器"
 
 msgid "Count"
 msgstr "数量"
+
+msgid "loss-val"
+msgstr "验证集损失"
+
+msgid "accuracy-val"
+msgstr "累积损失"
+
+msgid "loss-train"
+msgstr "训练集损失"
 
 #~ msgid "Retrieve from Model Store"
 #~ msgstr "从模型商店获取"

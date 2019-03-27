@@ -5,9 +5,9 @@ var gettext = function(msgid) { return gt.gettext(msgid); };
 
 function drawCombinedGraph(data) {
     data.names = {
-        "loss-val": '验证损失',
-        "accuracy-val": '累积损失',
-        "loss-train": '训练损失',
+        "loss-val": gettext('loss-val'),
+        "accuracy-val": gettext('accuracy-val'),
+        "loss-train": gettext('loss-train'),
     };
 
     $('.combined-graph').show();
