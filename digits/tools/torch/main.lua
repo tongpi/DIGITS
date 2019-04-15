@@ -14,7 +14,7 @@ if dir_path ~= nil then
 end
 
 -- 测试
-package.path = "~/torch/install/share/lua/5.1/?.lua"..package.path
+package.path = "~/torch/install/share/lua/5.1/?.lua"
 
 require 'Optimizer'
 require 'LRPolicy'
