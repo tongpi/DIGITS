@@ -548,7 +548,7 @@ def delete_jobs():
         error = ' '.join(error)
         raise werkzeug.exceptions.BadRequest(error)
 
-    return _('Jobs deleted.')
+    return 'Jobs deleted.'
 
 
 @blueprint.route('/abort_jobs', methods=['POST'])

@@ -2049,7 +2049,7 @@ msgstr "引用"
 
 #: static/js/home_app.js:552 static/js/home_app.js:565
 msgid "extension"
-msgstr "延期"
+msgstr "扩展"
 
 #: static/js/home_app.js:553
 msgid "backend"
