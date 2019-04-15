@@ -13,7 +13,8 @@ if dir_path ~= nil then
     package.path = dir_path .."?.lua;".. package.path
 end
 
-package.path = '/root/.luarocks/share/lua/5.1/?.lua;/root/.luarocks/share/lua/5.1/?/init.lua;/root/torch/install/share/lua/5.1/?.lua;/root/torch/install/share/lua/5.1/?/init.lua;./?.lua;/root/torch/install/share/luajit-2.1.0-beta1/?.lua;/usr/local/share/lua/5.1/?.lua;/usr/local/share/lua/5.1/?/init.lua'
+-- 测试
+package.path = '~/torch/install/share/lua/5.1/'
 
 require 'Optimizer'
 require 'LRPolicy'
