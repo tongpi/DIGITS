@@ -17,6 +17,9 @@ DATASET_TEMPLATE = "templates/dataset_template.html"
 INFERENCE_TEMPLATE = "templates/inference_template.html"
 
 
+csv.field_size_limit(500 * 1024 * 1024)
+
+
 @subclass
 class DataIngestion(DataIngestionInterface):
     """
