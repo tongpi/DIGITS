@@ -19,6 +19,7 @@ import time
 DB_BATCH_SIZE = 1024
 ALPHABET = "abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+ =<>()[]{}"
 FEATURE_LEN = 1024  # must have integer square root
+csv.field_size_limit(500 * 1024 * 1024)
 
 
 def _save_image(image, filename):
