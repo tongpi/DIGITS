@@ -48,26 +48,26 @@ class GenericImageDatasetForm(ImageDatasetForm):
     #
 
     prebuilt_train_images = wtforms.StringField(
-        _('Training Images'),
+        'Training Images',
         validators=[
             validate_required_iff(method='prebuilt'),
             validate_lmdb_path,
         ]
     )
     prebuilt_train_labels = wtforms.StringField(
-        _('Training Labels'),
+        'Training Labels',
         validators=[
             validate_lmdb_path,
         ]
     )
     prebuilt_val_images = wtforms.StringField(
-        _('Validation Images'),
+        'Validation Images',
         validators=[
             validate_lmdb_path,
         ]
     )
     prebuilt_val_labels = wtforms.StringField(
-        _('Validation Labels'),
+        'Validation Labels',
         validators=[
             validate_lmdb_path,
         ]
