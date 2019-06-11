@@ -60,7 +60,7 @@ class AnalyzeDbTask(Task):
 
     @override
     def name(self):
-        return _('Analyze DB') + ' (%s)' % (self.purpose)
+        return 'Analyze DB (%s)' % (self.purpose)
 
     @override
     def html_id(self):
