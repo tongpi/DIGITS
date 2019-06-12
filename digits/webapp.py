@@ -41,7 +41,7 @@ app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'static/translations'
 babel = Babel(app)
 
 # db
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', "postgresql://postgres@192.168.200.162/digits")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', "postgresql://postgres@192.168.15.100/digits")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
 # Register filters and views
