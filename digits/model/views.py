@@ -267,6 +267,7 @@ def to_pretrained(job_id):
     return flask.redirect(flask.url_for('digits.views.home', tab=3)), 302
 
 
+'''
 @blueprint.route('/<job_id>/publish_inference', methods=['POST'])
 def publish_inference(job_id):
     """
@@ -332,6 +333,7 @@ def publish_inference(job_id):
     end_point = json.loads(r.text)["location"]
     flash('Model successfully published to RIE.<p>New endpoint at {}'.format(end_point))
     return flask.redirect(flask.request.referrer), 302
+'''
 
 
 @blueprint.route('/<job_id>/publish_inference', methods=['POST'])
