@@ -66,13 +66,13 @@
                     <button type="button" class="close" data-dismiss="modal">
                         &times;
                     </button>
-                    <h4 class="modal-title">Publish to inference server</h4>
+                    <h4 class="modal-title">{{ _('Publish to inference server') }}</h4>
                 </div>
                 <div class="modal-body">
                     <p>
                     <div class="row">
                         <div class="col-sm-6" align="right">
-                            <label for="description">Description:</label>
+                            <label for="description">{{ _('Description') }}:</label>
                         </div>
                         <div class="col-sm-6">
                             <input type="text" name="description" id="description"
@@ -81,7 +81,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6" align="right">
-                            <label for="output_layer">Output layer:</label>
+                            <label for="output_layer">{{ _('Output layer') }}:</label>
                         </div>
                         <div class="col-sm-6">
                             <input type="text" name="output_layer" id="output_layer"
@@ -90,7 +90,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6" align="right">
-                            <label for="input_layer">Input layer:</label>
+                            <label for="input_layer">{{ _('Input layer') }}:</label>
                         </div>
                         <div class="col-sm-6">
                             <input type="text" name="input_layer" id="input_layer"
@@ -99,7 +99,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6" align="right">
-                            <label for="input_shape">Input shape:</label>
+                            <label for="input_shape">{{ _('Input shape') }}:</label>
                         </div>
                         <div class="col-sm-6">
                             <input type="text" name="input_shape" id="input_shape"
@@ -108,7 +108,7 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6" align="right">
-                            <label for="output_shape">Output shape:</label>
+                            <label for="output_shape">{{ _('Output shape') }}:</label>
                         </div>
                         <div class="col-sm-6">
                             <input type="text" name="output_shape" id="output_shape"
@@ -117,24 +117,24 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6" align="right">
-                            <label>Modality:</label>
+                            <label>{{ _('Modality') }}:</label>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="checkbox-inline">
-                                <label><input type="checkbox" name="modality" value="CT">CT</label>
-                            </div>
-                            <div class="checkbox-inline">
-                                <label><input type="checkbox" name="modality" value="XA">X-ray</label>
-                            </div>
-                            <div class="checkbox-inline">
-                                <label><input type="checkbox" name="modality" value="MR">MR</label>
-                            </div>
-                        </div>
+{#                        <div class="col-sm-6">#}
+{#                            <div class="checkbox-inline">#}
+{#                                <label><input type="checkbox" name="modality" value="CT">CT</label>#}
+{#                            </div>#}
+{#                            <div class="checkbox-inline">#}
+{#                                <label><input type="checkbox" name="modality" value="XA">X-ray</label>#}
+{#                            </div>#}
+{#                            <div class="checkbox-inline">#}
+{#                                <label><input type="checkbox" name="modality" value="MR">MR</label>#}
+{#                            </div>#}
+{#                        </div>#}
                     </div>
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="btn btn-info">Submit
+                    <button type="submit" class="btn btn-info">{{ _('Submit') }}
                     </button>
                 </div>
             </form>
@@ -251,7 +251,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                         <!-- Trigger the modal with a button -->
                         <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#nuance_modal">
-                            Publish to inference server
+                            {{ _('Publish to inference server') }}
                         </button>
                     </div>
                 </div>

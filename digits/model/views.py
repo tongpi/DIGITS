@@ -12,6 +12,11 @@ import flask
 from flask import flash
 import requests
 import werkzeug.exceptions
+import tensorflow as tf
+from tensorflow.core.framework import graph_pb2
+from tensorflow.core.framework import attr_value_pb2
+from tensorflow.python.framework import dtypes
+from tensorflow.python.framework import tensor_util
 
 from . import images as model_images
 from . import ModelJob
@@ -23,6 +28,7 @@ from digits.webapp import scheduler
 from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
+inference_server_model_path = os.environ.get("INFERENCE_SERVER_MODEL_PATH", '/home/data/dzh/server_model')
 
 
 @blueprint.route('/<job_id>.json', methods=['GET'])
@@ -325,6 +331,115 @@ def publish_inference(job_id):
         raise werkzeug.exceptions.BadRequest("Bad Request")
     end_point = json.loads(r.text)["location"]
     flash('Model successfully published to RIE.<p>New endpoint at {}'.format(end_point))
+    return flask.redirect(flask.request.referrer), 302
+
+
+@blueprint.route('/<job_id>/publish_inference', methods=['POST'])
+def publish_inference(job_id):
+    """
+    Publish model to inference server
+    """
+    # Get data from the modal form
+    description = flask.request.form.get('description')
+    modality = flask.request.form.getlist('modality')
+    output_layer = flask.request.form.get('output_layer')
+    input_layer = flask.request.form.get('input_layer')
+    input_shape = flask.request.form.get('input_shape')
+    output_shape = flask.request.form.get('output_shape')
+
+    job = scheduler.get_job(job_id)
+
+    if job is None:
+        raise werkzeug.exceptions.NotFound('Job not found')
+
+    epoch = -1
+    # GET ?epoch=n
+    if 'epoch' in flask.request.args:
+        epoch = float(flask.request.args['epoch'])
+
+    # POST ?snapshot_epoch=n (from form)
+    elif 'snapshot_epoch' in flask.request.form:
+        epoch = float(flask.request.form['snapshot_epoch'])
+
+    task = job.tensorflow_train_task()
+    snapshot_filename = task.get_snapshot(epoch, frozen_file=True)
+
+    TRIMMED_FROZEN_GRAPH_PATH = "{}/{}/".format(inference_server_model_path, description)
+    os.makedirs(TRIMMED_FROZEN_GRAPH_PATH + '1/', exist_ok=True)
+    TRIMMED_FROZEN_GRAPH_FP = TRIMMED_FROZEN_GRAPH_PATH + "1/model.graphdef"
+
+    # Open Graph
+    graph = tf.GraphDef()
+    with tf.gfile.Open(snapshot_filename, 'r') as f:
+        data = f.read()
+        graph.ParseFromString(data)
+
+    # print(len(graph.node))
+    d_input = graph.node.add()
+    d_input.op = 'Placeholder'
+    d_input.name = 'input_shape'
+    d_input.attr['dtype'].CopyFrom(attr_value_pb2.AttrValue(
+        type=dtypes.float32.as_datatype_enum))
+    d_input.attr["value"].CopyFrom(graph.node[0].attr['shapes'])
+
+    d_softmax = graph.node.add()
+    d_softmax.op = 'Softmax'
+    d_softmax.name = 'output_softmax'
+    d_softmax.attr['T'].CopyFrom(attr_value_pb2.AttrValue(
+        type=dtypes.float32.as_datatype_enum))
+    d_softmax.input.extend(graph.node[-3].name)
+
+    # node_dict = {}
+    # for i in range(len(graph.node)):
+    #     node_dict[i] = graph.node[i].name
+    # print(node_dict)
+    # output_name = graph.node[-2].name
+    # input_shape = [dim_size.size for dim_size in graph.node[0].attr['shapes'].list.shape[1].dim]
+    dataset = job.dataset
+    input_shape = dataset.get_feature_dims()
+    dataset_data = dataset.json_dict(True)
+    output_shape = dataset_data['ParseFolderTasks'][0]['label_count']
+
+    graph.node[4].input[0] = 'input_shape'
+
+    del graph.node[:3]
+
+    output_graph = graph_pb2.GraphDef()
+    output_graph.node.extend(graph.node)
+    # output_graph.node.extend(nodes)
+    with tf.gfile.GFile(TRIMMED_FROZEN_GRAPH_FP, 'w') as f:
+        f.write(output_graph.SerializeToString())
+
+    model_dict = {
+        "model_name": description,
+        "input_shape1": input_shape[0],
+        "input_shape2": input_shape[1],
+        "input_shape3": input_shape[2],
+        "output_shape": output_shape
+    }
+
+    s = """name: "{model_name}"
+platform: "tensorflow_graphdef"
+max_batch_size: 1
+input [
+  {{
+    name: "input_shape"
+    data_type: TYPE_FP32
+    format: FORMAT_NHWC
+    dims: [ {input_shape1}, {input_shape2}, {input_shape3} ]
+  }}
+]
+output [
+  {{
+    name: "output_softmax"
+    data_type: TYPE_FP32
+    dims: [ {output_shape} ]
+    }}
+]""".format(**model_dict)
+
+    with open(TRIMMED_FROZEN_GRAPH_PATH + 'config.pbtxt', 'w') as f:
+        f.write(s)
+
     return flask.redirect(flask.request.referrer), 302
 
 

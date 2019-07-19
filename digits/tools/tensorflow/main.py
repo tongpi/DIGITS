@@ -733,6 +733,7 @@ def main(_):
             output_graph=path_frozen,
             clear_devices=True,
             initializer_nodes="",
+            saved_model_tags='train',
         )
 
     logging.info('END')

@@ -58,6 +58,10 @@ class ModelJob(Job):
         """Return the first TrainTask for this job"""
         return [t for t in self.tasks if isinstance(t, tasks.TrainTask)][0]
 
+    def tensorflow_train_task(self):
+        """Return the first TrainTask for this job"""
+        return [t for t in self.tasks if isinstance(t, tasks.TensorflowTrainTask)][0]
+
     def download_files(self):
         """
         Returns a list of tuples: [(path, filename)...]

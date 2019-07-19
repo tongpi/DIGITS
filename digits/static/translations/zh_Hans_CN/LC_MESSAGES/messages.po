@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2019-06-12 11:40+0800\n"
+"POT-Creation-Date: 2019-07-19 10:31+0800\n"
 "PO-Revision-Date: 2019-02-26 14:13+0800\n"
 "Last-Translator: \n"
 "Language: zh\n"
@@ -75,13 +75,13 @@ msgstr "其他"
 msgid "Upload Pretrained Model"
 msgstr "上传预训练模型"
 
-#: model/views.py:38 model/views.py:74 model/views.py:275 utils/routing.py:21
+#: model/views.py:45 model/views.py:81 model/views.py:460 utils/routing.py:21
 #: views.py:280 views.py:410 views.py:430 views.py:494 views.py:610
 #: views.py:629
 msgid "Job not found"
 msgstr "未发现作业"
 
-#: dataset/views.py:43 dataset/views.py:60 model/views.py:51 views.py:419
+#: dataset/views.py:43 dataset/views.py:60 model/views.py:58 views.py:419
 #: views.py:643
 msgid "Invalid job type"
 msgstr "无效作业类型"
@@ -102,7 +102,7 @@ msgstr "作业中止。"
 msgid "Job not aborted"
 msgstr "作业未中止"
 
-#: model/views.py:124 views.py:749
+#: model/views.py:131 views.py:749
 #, python-format
 msgid "Unknown extension '%(extension_id)s'"
 msgstr "未知的扩展'%(extension_id)s'"
@@ -1457,19 +1457,19 @@ msgstr "随机训练数据"
 msgid "For every epoch, shuffle the data before training."
 msgstr "对于每个回合，在训练之前对数据进行洗牌。"
 
-#: model/views.py:62
+#: model/views.py:69
 msgid "network not provided"
 msgstr "没有提供网络"
 
-#: model/views.py:113
+#: model/views.py:120
 msgid "step is a required field"
 msgstr "步骤是必填字段"
 
-#: model/views.py:137
+#: model/views.py:144
 msgid "framework not provided"
 msgstr "没有提供框架"
 
-#: model/views.py:313
+#: model/views.py:498
 msgid "Invalid extension"
 msgstr "扩展名无效"
 
@@ -1723,7 +1723,7 @@ msgstr "在带有Python层的Windows中运行时，请选择单GPU。"
 msgid "Unknown solver type %(solver_type)s."
 msgstr "未知的求解器类型%(solver_type)s。"
 
-#: model/tasks/caffe_train.py:1651
+#: model/tasks/caffe_train.py:1652
 #, python-format
 msgid ""
 "Layer '%(name)s' references bottom '%(bottom)s' at the %(status)s stage "
@@ -1745,12 +1745,12 @@ msgstr "Train Tensorflow模型"
 msgid "Invalid epoch"
 msgstr "无效的回合"
 
-#: model/tasks/tensorflow_train.py:604 model/tasks/torch_train.py:626
+#: model/tasks/tensorflow_train.py:606 model/tasks/torch_train.py:626
 #, python-format
 msgid "%(id)s classify one task got aborted. error code - %(returncode)d"
 msgstr "%(id)s对一个被中止的任务进行分类。 错误代码 - %(returncode)d"
 
-#: model/tasks/tensorflow_train.py:623
+#: model/tasks/tensorflow_train.py:625
 #, python-format
 msgid ""
 "%(id)s classify one task failed with error code %(returncode)d \n"
@@ -1759,24 +1759,24 @@ msgstr ""
 "%(id)s将一个任务分类失败，错误代码为%(returncode)d \n"
 " %(str_e)s"
 
-#: model/tasks/tensorflow_train.py:635 model/tasks/torch_train.py:658
+#: model/tasks/tensorflow_train.py:637 model/tasks/torch_train.py:658
 #, python-format
 msgid "%(id)s classify one task failed with error code %(returncode)d"
 msgstr "%(id)s将一个任务分类失败，错误代码为%(returncode)d"
 
-#: model/tasks/tensorflow_train.py:795 model/tasks/torch_train.py:817
+#: model/tasks/tensorflow_train.py:797 model/tasks/torch_train.py:817
 #, python-format
 msgid ""
 "%(id)s classify %(test_category)s task failed with error message - "
 "%(message)s"
 msgstr "%(id)s分类%(test_category)s的任务失败，错误消息 - %(message)s"
 
-#: model/tasks/tensorflow_train.py:899
+#: model/tasks/tensorflow_train.py:901
 #, python-format
 msgid "%(id)s classify many task got aborted.error code - %(returncode)d"
 msgstr "%(id)s分类许多任务被中止。错误代码 - %(returncode)d"
 
-#: model/tasks/tensorflow_train.py:919 model/tasks/torch_train.py:951
+#: model/tasks/tensorflow_train.py:921 model/tasks/torch_train.py:951
 #, python-format
 msgid ""
 "%(id)s classify many task failed with error code %(returncode)d \n"
@@ -1785,7 +1785,7 @@ msgstr ""
 "%(id)s将许多任务分类失败，错误代码为%(returncode)d \n"
 " %(str_e)s"
 
-#: model/tasks/tensorflow_train.py:929 model/tasks/torch_train.py:963
+#: model/tasks/tensorflow_train.py:931 model/tasks/torch_train.py:963
 #, python-format
 msgid "%(id)s classify many task failed with error code %(returncode)d"
 msgstr "%(id)s 将许多任务分类失败，错误代码为%(returncode)d"
@@ -2067,49 +2067,53 @@ msgstr "验证集损失"
 
 #: static/js/model-graphs.js:10
 msgid "accuracy-val"
-msgstr "累积损失"
+msgstr "验证准确率"
 
 #: static/js/model-graphs.js:11
 msgid "loss-train"
 msgstr "训练集损失"
 
-#: static/js/model-graphs.js:27 static/js/model-graphs.js:92
+#: static/js/model-graphs.js:12
+msgid "accuracy-train"
+msgstr "训练准确率"
+
+#: static/js/model-graphs.js:28 static/js/model-graphs.js:93
 msgid "Epoch"
 msgstr "回合"
 
-#: static/js/model-graphs.js:41
+#: static/js/model-graphs.js:42
 msgid "Loss"
 msgstr "损失"
 
-#: static/js/model-graphs.js:50
+#: static/js/model-graphs.js:51
 msgid "Accuracy"
 msgstr "累积"
 
-#: static/js/model-graphs.js:106
+#: static/js/model-graphs.js:107
 msgid "Learning Rate"
 msgstr "学习率"
 
 #: static/js/time_filters.js:26 static/js/time_filters.js:53
-#: utils/time_filters.py:100
+#: utils/time_filters.py:101
 msgid "day"
 msgstr "天"
 
 #: static/js/time_filters.js:26 static/js/time_filters.js:28
-#: static/js/time_filters.js:55 utils/time_filters.py:100
-#: utils/time_filters.py:102
+#: static/js/time_filters.js:55 utils/time_filters.py:101
+#: utils/time_filters.py:103
 msgid "hour"
 msgstr "小时"
 
 #: static/js/time_filters.js:28 static/js/time_filters.js:30
-#: static/js/time_filters.js:57 utils/time_filters.py:102
-#: utils/time_filters.py:104
+#: static/js/time_filters.js:57 utils/time_filters.py:103
+#: utils/time_filters.py:105
 msgid "minute"
 msgstr "分钟"
 
 #: static/js/time_filters.js:30 static/js/time_filters.js:31
 #: static/js/time_filters.js:40 static/js/time_filters.js:58
-#: static/js/time_filters.js:67 utils/time_filters.py:104
-#: utils/time_filters.py:105
+#: static/js/time_filters.js:67 utils/time_filters.py:105
+#: utils/time_filters.py:106
 msgid "second"
 msgstr "秒"
 
@@ -2497,13 +2501,13 @@ msgstr ""
 #: ../plugins/data/gan/digitsDataPluginGan/forms.py:190
 #: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:31
 #: templates/datasets/images/classification/new.html:225
-#: templates/models/images/classification/show.html:236
+#: templates/models/images/classification/show.html:328
 #: templates/models/images/generic/show.html:349
 msgid "Image folder"
 msgstr "图像文件夹"
 
 #: templates/datasets/images/classification/new.html:225
-#: templates/models/images/classification/show.html:236
+#: templates/models/images/classification/show.html:328
 #: templates/models/images/generic/show.html:349
 msgid "(optional)"
 msgstr "（可选的）"
@@ -2798,7 +2802,7 @@ msgid "Show Timeline Trace"
 msgstr "显示时间线跟踪"
 
 #: templates/models/images/classification/classify_many.html:6
-#: templates/models/images/classification/show.html:251
+#: templates/models/images/classification/show.html:343
 msgid "Classify Many"
 msgstr "多个分类"
 
@@ -2848,7 +2852,7 @@ msgid "Top predictions"
 msgstr "最佳预测"
 
 #: templates/models/images/classification/classify_one.html:6
-#: templates/models/images/classification/show.html:215
+#: templates/models/images/classification/show.html:307
 msgid "Classify One"
 msgstr "单个分类"
 
@@ -2857,6 +2861,7 @@ msgid "Predictions"
 msgstr "预测"
 
 #: templates/models/images/classification/classify_one.html:96
+#: templates/models/images/classification/show.html:75
 #: templates/models/images/generic/infer_extension.html:119
 #: templates/models/images/generic/infer_one.html:109
 msgid "Description"
@@ -3178,71 +3183,100 @@ msgstr "原始%(tgfi)s输出"
 msgid "Dataset"
 msgstr "数据集"
 
-#: templates/models/images/classification/show.html:67
+#: templates/models/images/classification/show.html:69
+#: templates/models/images/classification/show.html:254
+msgid "Publish to inference server"
+msgstr "发布到推理服务器"
+
+#: templates/models/images/classification/show.html:84
+msgid "Output layer"
+msgstr "输出层"
+
+#: templates/models/images/classification/show.html:93
+msgid "Input layer"
+msgstr "输入层"
+
+#: templates/models/images/classification/show.html:102
+msgid "Input shape"
+msgstr "输入形状"
+
+#: templates/models/images/classification/show.html:111
+msgid "Output shape"
+msgstr "输出形状"
+
+#: templates/models/images/classification/show.html:120
+msgid "Modality"
+msgstr "形态"
+
+#: templates/models/images/classification/show.html:137
+msgid "Submit"
+msgstr "提交"
+
+#: templates/models/images/classification/show.html:154
 msgid ""
 "Use bottom chart to select region of interest. Drag to pan left/right. "
 "Click outside of region to unselect."
 msgstr "使用底部图表选择感兴趣的区域。 拖动以左/右平移。单击区域外部以取消选择。"
 
-#: templates/models/images/classification/show.html:73
+#: templates/models/images/classification/show.html:160
 #: templates/models/images/generic/show.html:69
 msgid "View Large"
 msgstr "查看大图"
 
-#: templates/models/images/classification/show.html:78
+#: templates/models/images/classification/show.html:165
 #: templates/models/images/generic/show.html:74
 msgid "View Timeline Traces"
 msgstr "查看时间线跟踪"
 
-#: templates/models/images/classification/show.html:110
+#: templates/models/images/classification/show.html:197
 #: templates/models/images/generic/show.html:106
 msgid "Trained Models"
 msgstr "训练模型"
 
-#: templates/models/images/classification/show.html:113
+#: templates/models/images/classification/show.html:200
 #: templates/models/images/generic/show.html:109
 msgid "Select Model"
 msgstr "选择模型"
 
-#: templates/models/images/classification/show.html:155
+#: templates/models/images/classification/show.html:242
 #: templates/models/images/generic/show.html:151
 msgid "Download Model"
 msgstr "下载模型"
 
-#: templates/models/images/classification/show.html:162
+#: templates/models/images/classification/show.html:249
 #: templates/models/images/generic/show.html:158
 msgid "Make Pretrained Model"
 msgstr "制作预训练模型"
 
-#: templates/models/images/classification/show.html:169
+#: templates/models/images/classification/show.html:261
 #: templates/models/images/generic/show.html:268
 msgid "Test a single image"
 msgstr "测试单个图像"
 
-#: templates/models/images/classification/show.html:171
+#: templates/models/images/classification/show.html:263
 #: templates/models/images/generic/show.html:270
 msgid "Image Path"
 msgstr "图片路径"
 
-#: templates/models/images/classification/show.html:180
+#: templates/models/images/classification/show.html:272
 #: templates/models/images/generic/show.html:279
 msgid "Upload image"
 msgstr "上传图片"
 
-#: templates/models/images/classification/show.html:185
-#: templates/models/images/classification/show.html:226
+#: templates/models/images/classification/show.html:277
+#: templates/models/images/classification/show.html:318
 #: templates/models/images/generic/show.html:284
 #: templates/models/images/generic/show.html:339
 msgid "Browse"
 msgstr "浏览"
 
-#: templates/models/images/classification/show.html:201
+#: templates/models/images/classification/show.html:293
 #: templates/models/images/generic/show.html:244
 #: templates/models/images/generic/show.html:300
 msgid "Show visualizations and statistics"
 msgstr "显示可视化和统计信息"
 
-#: templates/models/images/classification/show.html:206
+#: templates/models/images/classification/show.html:298
 #: templates/models/images/generic/show.html:249
 #: templates/models/images/generic/show.html:305
 msgid ""
@@ -3252,60 +3286,60 @@ msgid ""
 msgstr "对于网络中的每个层，显示权重/激活的统计信息，并尝试直观地表示数据。 可以大大延迟分类。"
 
 #: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:24
-#: templates/models/images/classification/show.html:219
+#: templates/models/images/classification/show.html:311
 #: templates/models/images/generic/show.html:332
 msgid "Test a list of images"
 msgstr "测试图像列表"
 
-#: templates/models/images/classification/show.html:221
+#: templates/models/images/classification/show.html:313
 #: templates/models/images/generic/show.html:334
 msgid "Upload Image List"
 msgstr "上传图片列表"
 
-#: templates/models/images/classification/show.html:232
+#: templates/models/images/classification/show.html:324
 #: templates/models/images/generic/show.html:345
 msgid "Accepts a list of filenames or urls (you can use your val.txt file)"
 msgstr "接受文件名或URL列表（您可以使用val.txt文件）"
 
-#: templates/models/images/classification/show.html:238
+#: templates/models/images/classification/show.html:330
 #: templates/models/images/generic/show.html:351
 msgid ""
 "Relative paths in the text file will be prepended with this value before "
 "reading"
 msgstr "在读取之前，文本文件中的相对路径将以此值为前缀"
 
-#: templates/models/images/classification/show.html:241
+#: templates/models/images/classification/show.html:333
 #: templates/models/images/generic/show.html:354
 msgid "Number of images use from the file"
 msgstr "从文件中使用的图像数量"
 
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:43
-#: templates/models/images/classification/show.html:242
+#: templates/models/images/classification/show.html:334
 #: templates/models/images/generic/show.html:355
 msgid "All"
 msgstr "所有"
 
-#: templates/models/images/classification/show.html:243
+#: templates/models/images/classification/show.html:335
 #: templates/models/images/generic/show.html:356
 msgid "Leave blank to use all"
 msgstr "留空以使用全部"
 
-#: templates/models/images/classification/show.html:256
+#: templates/models/images/classification/show.html:348
 msgid ""
 "Classify a list of images and show the top 5 category predictions for "
 "each."
 msgstr "对图像列表进行分类，并显示每个图像的前5个类别预测。"
 
-#: templates/models/images/classification/show.html:259
+#: templates/models/images/classification/show.html:351
 msgid "Number of images to show per category"
 msgstr "对图像列表进行分类，并显示每个图像的前5个类别预测"
 
-#: templates/models/images/classification/show.html:268
+#: templates/models/images/classification/show.html:360
 #: templates/models/images/classification/top_n.html:13
 msgid "Top N Predictions per Category"
 msgstr "每个类别的前N个预测"
 
-#: templates/models/images/classification/show.html:273
+#: templates/models/images/classification/show.html:365
 msgid ""
 "Classify a list of images and show the top N results per category by "
 "confidence."
@@ -3841,30 +3875,6 @@ msgstr "未识别的数据形状：%(data_shape)s"
 msgid "job_id is a required field"
 msgstr "作业id是必填项"
 
-#: utils/time_filters.py:51
-msgid "负时间"
-msgstr ""
-
-#: utils/time_filters.py:69
-msgid "天"
-msgstr ""
-
-#: utils/time_filters.py:69 utils/time_filters.py:71
-msgid "小时"
-msgstr ""
-
-#: utils/time_filters.py:71 utils/time_filters.py:73
-msgid "分"
-msgstr ""
-
-#: utils/time_filters.py:73 utils/time_filters.py:74
-msgid "秒"
-msgstr ""
-
-#: utils/time_filters.py:82
-msgid "Negative Time"
-msgstr "负时间"
-
 #: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:97
 msgid "bAbI"
 msgstr ""
@@ -4281,7 +4291,13 @@ msgstr "文本分类"
 #: templates/partials/home/datasets_pane.html:12
 #: templates/partials/home/pretrained_model_pane.html:18
 msgid "Images"
-msgstr "新建"
+msgstr "新建（图片）"
+
+#: templates/partials/home/model_pane.html:12
+#: templates/partials/home/datasets_pane.html:12
+#: templates/partials/home/pretrained_model_pane.html:18
+msgid "Text"
+msgstr "新建（文本）"
 
 #: templates/datasets/generic/show.html:8
 msgid "Create DB (train)"
@@ -4314,10 +4330,13 @@ msgid "loss-val"
 msgstr "验证集损失"
 
 msgid "accuracy-val"
-msgstr "累积损失"
+msgstr "验证准确率"
 
 msgid "loss-train"
 msgstr "训练集损失"
+
+msgid "accuracy-train"
+msgstr "训练准确率"
 
 msgid "Analyze DB (Training Images)"
 msgstr "分析数据库（训练图像）"
@@ -4577,4 +4596,34 @@ msgstr "分析数据库（验证标签）"
 
 #~ msgid "Count"
 #~ msgstr "数量"
+
+#~ msgid "负时间"
+#~ msgstr ""
+
+#~ msgid "Analyze DB (Training Images)"
+#~ msgstr "分析数据库（训练图像）"
+
+#~ msgid "Analyze DB (Training Labels)"
+#~ msgstr "分析数据库（训练标签）"
+
+#~ msgid "Analyze DB (Validation Images)"
+#~ msgstr "分析数据库（验证图像）"
+
+#~ msgid "Analyze DB (Validation Labels)"
+#~ msgstr "分析数据库（验证标签）"
+
+#~ msgid "天"
+#~ msgstr ""
+
+#~ msgid "小时"
+#~ msgstr ""
+
+#~ msgid "分"
+#~ msgstr ""
+
+#~ msgid "秒"
+#~ msgstr ""
+
+#~ msgid "Negative Time"
+#~ msgstr "负时间"
 

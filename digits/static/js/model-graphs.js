@@ -8,6 +8,7 @@ function drawCombinedGraph(data) {
         "loss-val": gettext('loss-val'),
         "accuracy-val": gettext('accuracy-val'),
         "loss-train": gettext('loss-train'),
+        "accuracy-train": gettext('accuracy-train')
     };
 
     $('.combined-graph').show();

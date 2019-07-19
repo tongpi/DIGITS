@@ -49,7 +49,7 @@ def print_time_diff_local(diff):
         return '?'
 
     if diff < 0:
-        return _('负时间')
+        return 'Negative Time'
 
     total_seconds = int(diff)
     days = total_seconds // (24 * 3600)
@@ -67,12 +67,12 @@ def print_time_diff_local(diff):
             return '%s' % plural(number1, name1)
 
     if days >= 1:
-        return pair(days, _('天'), hours, _('小时'))
+        return pair(days, '天', hours, '小时')
     elif hours >= 1:
-        return pair(hours, _('小时'), minutes, _('分'))
+        return pair(hours, '小时', minutes, '分')
     elif minutes >= 1:
-        return pair(minutes, _('分'), seconds, _('秒'))
-    return plural(seconds, _('秒'))
+        return pair(minutes, '分', seconds, '秒')
+    return plural(seconds, '秒')
 
 
 def print_time_diff(diff):
@@ -80,7 +80,7 @@ def print_time_diff(diff):
         return '?'
 
     if diff < 0:
-        return _('Negative Time')
+        return 'Negative Time'
 
     total_seconds = int(diff)
     days = total_seconds // (24 * 3600)
