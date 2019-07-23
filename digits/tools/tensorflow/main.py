@@ -732,8 +732,7 @@ def main(_):
             filename_tensor_name="save/Const:0",
             output_graph=path_frozen,
             clear_devices=True,
-            initializer_nodes="",
-            saved_model_tags='train',
+            initializer_nodes=""
         )
 
     logging.info('END')
