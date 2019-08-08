@@ -4299,6 +4299,12 @@ msgstr "新建（图片）"
 msgid "Text"
 msgstr "新建（文本）"
 
+#: templates/partials/home/model_pane.html:12
+#: templates/partials/home/datasets_pane.html:12
+#: templates/partials/home/pretrained_model_pane.html:18
+msgid "Sounds"
+msgstr "新建（声音）"
+
 #: templates/datasets/generic/show.html:8
 msgid "Create DB (train)"
 msgstr "创建数据库（训练）"
