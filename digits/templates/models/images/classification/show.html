@@ -72,53 +72,54 @@
                     <p>
                     <div class="row">
                         <div class="col-sm-6" align="right">
-                            <label for="description">{{ _('Description') }}:</label>
+{#                            <label for="description">{{ _('Description') }}:</label>#}
+                            <label for="description">模型名称：（注：请输入英文名称，此名称用于部署之后的模型调用）</label>
                         </div>
                         <div class="col-sm-6">
                             <input type="text" name="description" id="description"
-                                   class="form-control" placeholder="Description">
+                                   class="form-control" placeholder="example_model">
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="output_layer">{{ _('Output layer') }}:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" name="output_layer" id="output_layer"
-                                   class="form-control" placeholder="softmax">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="input_layer">{{ _('Input layer') }}:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" name="input_layer" id="input_layer"
-                                   class="form-control" placeholder="in">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="input_shape">{{ _('Input shape') }}:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" name="input_shape" id="input_shape"
-                                   class="form-control" placeholder="224, 224">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label for="output_shape">{{ _('Output shape') }}:</label>
-                        </div>
-                        <div class="col-sm-6">
-                            <input type="text" name="output_shape" id="output_shape"
-                                   class="form-control" placeholder="10">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-6" align="right">
-                            <label>{{ _('Modality') }}:</label>
-                        </div>
+{#                    <div class="row">#}
+{#                        <div class="col-sm-6" align="right">#}
+{#                            <label for="output_layer">{{ _('Output layer') }}:</label>#}
+{#                        </div>#}
+{#                        <div class="col-sm-6">#}
+{#                            <input type="text" name="output_layer" id="output_layer"#}
+{#                                   class="form-control" placeholder="softmax">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-sm-6" align="right">#}
+{#                            <label for="input_layer">{{ _('Input layer') }}:</label>#}
+{#                        </div>#}
+{#                        <div class="col-sm-6">#}
+{#                            <input type="text" name="input_layer" id="input_layer"#}
+{#                                   class="form-control" placeholder="in">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-sm-6" align="right">#}
+{#                            <label for="input_shape">{{ _('Input shape') }}:</label>#}
+{#                        </div>#}
+{#                        <div class="col-sm-6">#}
+{#                            <input type="text" name="input_shape" id="input_shape"#}
+{#                                   class="form-control" placeholder="224, 224">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-sm-6" align="right">#}
+{#                            <label for="output_shape">{{ _('Output shape') }}:</label>#}
+{#                        </div>#}
+{#                        <div class="col-sm-6">#}
+{#                            <input type="text" name="output_shape" id="output_shape"#}
+{#                                   class="form-control" placeholder="10">#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="row">#}
+{#                        <div class="col-sm-6" align="right">#}
+{#                            <label>{{ _('Modality') }}:</label>#}
+{#                        </div>#}
 {#                        <div class="col-sm-6">#}
 {#                            <div class="checkbox-inline">#}
 {#                                <label><input type="checkbox" name="modality" value="CT">CT</label>#}
@@ -130,7 +131,7 @@
 {#                                <label><input type="checkbox" name="modality" value="MR">MR</label>#}
 {#                            </div>#}
 {#                        </div>#}
-                    </div>
+{#                    </div>#}
                     </p>
                 </div>
                 <div class="modal-footer">
@@ -249,10 +250,12 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             {{_('Make Pretrained Model')}}
                         </button>
                         <!-- Trigger the modal with a button -->
+                        {% if task.get_framework_id() == 'tensorflow' %}
                         <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#nuance_modal">
                             {{ _('Publish to inference server') }}
                         </button>
+                        {% endif %}
                     </div>
                 </div>
                 {% if task.get_framework_id() in framework_ids %}

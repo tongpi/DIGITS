@@ -28,7 +28,7 @@ from digits.webapp import scheduler
 from flask_babel import lazy_gettext as _
 
 blueprint = flask.Blueprint(__name__, __name__)
-inference_server_model_path = os.environ.get("INFERENCE_SERVER_MODEL_PATH", '/home/data/dzh/server_model')
+inference_server_model_path = os.environ.get("INFERENCE_SERVER_MODEL_PATH", '/home/data/server_model')
 
 
 @blueprint.route('/<job_id>.json', methods=['GET'])
@@ -267,75 +267,6 @@ def to_pretrained(job_id):
     return flask.redirect(flask.url_for('digits.views.home', tab=3)), 302
 
 
-'''
-@blueprint.route('/<job_id>/publish_inference', methods=['POST'])
-def publish_inference(job_id):
-    """
-    Publish model to inference server
-    """
-    rie_url = os.environ.get('RIE_URL', "http://localhost:5055")
-
-    publish_endpoint = rie_url+'/models'
-
-    # Get data from the modal form
-    description = flask.request.form.get('description')
-    modality = flask.request.form.getlist('modality')
-    output_layer = flask.request.form.get('output_layer')
-    input_layer = flask.request.form.get('input_layer')
-    input_shape = flask.request.form.get('input_shape')
-    output_shape = flask.request.form.get('output_shape')
-
-    job = scheduler.get_job(job_id)
-
-    if job is None:
-        raise werkzeug.exceptions.NotFound('Job not found')
-
-    epoch = -1
-    # GET ?epoch=n
-    if 'epoch' in flask.request.args:
-        epoch = float(flask.request.args['epoch'])
-
-    # POST ?snapshot_epoch=n (from form)
-    elif 'snapshot_epoch' in flask.request.form:
-        epoch = float(flask.request.form['snapshot_epoch'])
-
-    # Write the stats of the job to json,
-    # and store in tempfile (for archive)
-    job_dict = job.json_dict(verbose=False, epoch=epoch)
-    job_dict.update({"output_layer": output_layer,
-                     "description": description,
-                     "input_layer": input_layer,
-                     "input_shape": input_shape,
-                     "output_shape": output_shape,
-                     "modality": modality})
-    info = json.dumps(job_dict, sort_keys=True, indent=4, separators=(',', ': '))
-    info_io = io.BytesIO()
-    info_io.write(info)
-
-    b = io.BytesIO()
-    mode = ''
-    with tarfile.open(fileobj=b, mode='w:%s' % mode) as tar:
-        for path, name in job.download_files(epoch, frozen_file=(job_dict['framework'] == 'tensorflow')):
-            tar.add(path, arcname=name)
-        tar_info = tarfile.TarInfo("info.json")
-        tar_info.size = len(info_io.getvalue())
-        info_io.seek(0)
-        tar.addfile(tar_info, info_io)
-
-    temp_buffer = b.getvalue()
-    files = {'model': ('tmp.tgz', temp_buffer)}
-    try:
-        r = requests.post(publish_endpoint, files=files)
-    except Exception as e:
-        return flask.make_response(e)
-    if r.status_code != requests.codes.ok:
-        raise werkzeug.exceptions.BadRequest("Bad Request")
-    end_point = json.loads(r.text)["location"]
-    flash('Model successfully published to RIE.<p>New endpoint at {}'.format(end_point))
-    return flask.redirect(flask.request.referrer), 302
-'''
-
-
 @blueprint.route('/<job_id>/publish_inference', methods=['POST'])
 def publish_inference(job_id):
     """
@@ -343,11 +274,9 @@ def publish_inference(job_id):
     """
     # Get data from the modal form
     description = flask.request.form.get('description')
-    modality = flask.request.form.getlist('modality')
-    output_layer = flask.request.form.get('output_layer')
-    input_layer = flask.request.form.get('input_layer')
-    input_shape = flask.request.form.get('input_shape')
-    output_shape = flask.request.form.get('output_shape')
+
+    if description is None or description == '':
+        raise werkzeug.exceptions.BadRequest('Model name does not meet specifications! ')
 
     job = scheduler.get_job(job_id)
 
@@ -401,6 +330,7 @@ def publish_inference(job_id):
     input_shape = dataset.get_feature_dims()
     dataset_data = dataset.json_dict(True)
     output_shape = dataset_data['ParseFolderTasks'][0]['label_count']
+    labels = dataset.train_db_task().get_labels()
 
     graph.node[4].input[0] = 'input_shape'
 
@@ -436,11 +366,16 @@ output [
     name: "output_softmax"
     data_type: TYPE_FP32
     dims: [ {output_shape} ]
+    label_filename: "labels.txt"
     }}
 ]""".format(**model_dict)
 
     with open(TRIMMED_FROZEN_GRAPH_PATH + 'config.pbtxt', 'w') as f:
         f.write(s)
+
+    with open(TRIMMED_FROZEN_GRAPH_PATH + 'labels.txt', 'w') as f:
+        for l in labels:
+            f.writelines(l + '\n')
 
     return flask.redirect(flask.request.referrer), 302
 

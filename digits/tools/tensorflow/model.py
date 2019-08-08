@@ -242,7 +242,8 @@ class Model(object):
         if not len(self.summaries):
             logging.error("No summaries defined. Please define at least one summary.")
             exit(-1)
-        return tf.summary.merge(self.summaries)
+        # return tf.summary.merge(self.summaries)
+        return tf.compat.v1.summary.merge(self.summaries)
 
     @model_property
     def global_step(self):

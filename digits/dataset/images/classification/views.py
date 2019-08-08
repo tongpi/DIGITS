@@ -2,6 +2,8 @@
 from __future__ import absolute_import
 
 import os
+import random
+import time
 import shutil
 
 # Find the best implementation available
@@ -13,6 +15,9 @@ except ImportError:
 import caffe_pb2
 import flask
 import PIL.Image
+import pandas as pd
+import librosa.display
+import matplotlib.pyplot as plt
 
 from .forms import ImageClassificationDatasetForm
 from .job import ImageClassificationDatasetJob
@@ -35,6 +40,154 @@ def from_folders(job, form):
     job.labels_file = utils.constants.LABELS_FILE
 
     # Add ParseFolderTask
+
+    percent_val = form.folder_pct_val.data
+    val_parents = []
+    if form.has_val_folder.data:
+        percent_val = 0
+
+    percent_test = form.folder_pct_test.data
+    test_parents = []
+    if form.has_test_folder.data:
+        percent_test = 0
+
+    min_per_class = form.folder_train_min_per_class.data
+    max_per_class = form.folder_train_max_per_class.data
+
+    parse_train_task = tasks.ParseFolderTask(
+        job_dir=job.dir(),
+        folder=form.folder_train.data,
+        percent_val=percent_val,
+        percent_test=percent_test,
+        min_per_category=min_per_class if min_per_class > 0 else 1,
+        max_per_category=max_per_class if max_per_class > 0 else None
+    )
+    job.tasks.append(parse_train_task)
+
+    # set parents
+    if not form.has_val_folder.data:
+        val_parents = [parse_train_task]
+    if not form.has_test_folder.data:
+        test_parents = [parse_train_task]
+
+    if form.has_val_folder.data:
+        min_per_class = form.folder_val_min_per_class.data
+        max_per_class = form.folder_val_max_per_class.data
+
+        parse_val_task = tasks.ParseFolderTask(
+            job_dir=job.dir(),
+            parents=parse_train_task,
+            folder=form.folder_val.data,
+            percent_val=100,
+            percent_test=0,
+            min_per_category=min_per_class if min_per_class > 0 else 1,
+            max_per_category=max_per_class if max_per_class > 0 else None
+        )
+        job.tasks.append(parse_val_task)
+        val_parents = [parse_val_task]
+
+    if form.has_test_folder.data:
+        min_per_class = form.folder_test_min_per_class.data
+        max_per_class = form.folder_test_max_per_class.data
+
+        parse_test_task = tasks.ParseFolderTask(
+            job_dir=job.dir(),
+            parents=parse_train_task,
+            folder=form.folder_test.data,
+            percent_val=0,
+            percent_test=100,
+            min_per_category=min_per_class if min_per_class > 0 else 1,
+            max_per_category=max_per_class if max_per_class > 0 else None
+        )
+        job.tasks.append(parse_test_task)
+        test_parents = [parse_test_task]
+
+    # Add CreateDbTasks
+
+    backend = form.backend.data
+    encoding = form.encoding.data
+    compression = form.compression.data
+
+    job.tasks.append(
+        tasks.CreateDbTask(
+            job_dir=job.dir(),
+            parents=parse_train_task,
+            input_file=utils.constants.TRAIN_FILE,
+            db_name=utils.constants.TRAIN_DB,
+            backend=backend,
+            image_dims=job.image_dims,
+            resize_mode=job.resize_mode,
+            encoding=encoding,
+            compression=compression,
+            mean_file=utils.constants.MEAN_FILE_CAFFE,
+            labels_file=job.labels_file,
+        )
+    )
+
+    if percent_val > 0 or form.has_val_folder.data:
+        job.tasks.append(
+            tasks.CreateDbTask(
+                job_dir=job.dir(),
+                parents=val_parents,
+                input_file=utils.constants.VAL_FILE,
+                db_name=utils.constants.VAL_DB,
+                backend=backend,
+                image_dims=job.image_dims,
+                resize_mode=job.resize_mode,
+                encoding=encoding,
+                compression=compression,
+                labels_file=job.labels_file,
+            )
+        )
+
+    if percent_test > 0 or form.has_test_folder.data:
+        job.tasks.append(
+            tasks.CreateDbTask(
+                job_dir=job.dir(),
+                parents=test_parents,
+                input_file=utils.constants.TEST_FILE,
+                db_name=utils.constants.TEST_DB,
+                backend=backend,
+                image_dims=job.image_dims,
+                resize_mode=job.resize_mode,
+                encoding=encoding,
+                compression=compression,
+                labels_file=job.labels_file,
+            )
+        )
+
+
+def from_sound_folders(job, form):
+    """
+    Add tasks for creating a dataset by parsing folders of images
+    """
+    job.labels_file = utils.constants.LABELS_FILE
+
+    # Add ParseFolderTask
+    sound_files_path = form.folder_train.data
+    train = pd.read_csv(sound_files_path + '/metadata/train.csv', encoding='utf-8')
+    file_name = '/%s-%s/' % (time.strftime('%Y%m%d-%H%M%S'), str(random.randint(10, 100)))
+
+    dir_name = set(train.className)
+    for name in dir_name:
+        os.mkdir((sound_files_path + file_name + name).encode('utf-8'))
+
+    plt.figure(figsize=(6, 2))
+    for i in train.index:
+        audio_name = train.slice_file_name[i]
+        audio_class = train.className[i]
+
+        try:
+            x, sr = librosa.load(sound_files_path + "/audio/" + audio_name)
+        except:
+            continue
+        # plt.figure(figsize=(12,4))
+        librosa.display.waveplot(x, sr=sr)
+        plt.savefig((sound_files_path + file_name + "{}/{}.png".format(audio_class, audio_name)).encode('utf-8'))
+
+        plt.clf()
+
+    form.folder_train.data = sound_files_path + file_name
 
     percent_val = form.folder_pct_val.data
     val_parents = []
@@ -277,6 +430,78 @@ def new():
     fill_form_if_cloned(form)
 
     return flask.render_template('datasets/images/classification/new.html', form=form)
+
+
+@blueprint.route('/sound_new', methods=['GET'])
+@utils.auth.requires_login
+def sound_new():
+    """
+    Returns a form for a new ImageClassificationDatasetJob
+    """
+    form = ImageClassificationDatasetForm()
+
+    # Is there a request to clone a job with ?clone=<job_id>
+    fill_form_if_cloned(form)
+
+    return flask.render_template('datasets/images/classification/sound_new.html', form=form)
+
+
+@blueprint.route('.json', methods=['POST'])
+@blueprint.route('/sound_create', methods=['POST'], strict_slashes=False)
+@utils.auth.requires_login(redirect=False)
+def sound_create():
+    """
+    Creates a new ImageClassificationDatasetJob
+
+    Returns JSON when requested: {job_id,name,status} or {errors:[]}
+    """
+    form = ImageClassificationDatasetForm()
+
+    # Is there a request to clone a job with ?clone=<job_id>
+    fill_form_if_cloned(form)
+
+    if not form.validate_on_submit():
+        if request_wants_json():
+            return flask.jsonify({'errors': form.errors}), 400
+        else:
+            return flask.render_template('datasets/images/classification/new.html', form=form), 400
+
+    job = None
+    try:
+        job = ImageClassificationDatasetJob(
+            username=utils.auth.get_username(),
+            name=form.dataset_name.data,
+            group=form.group_name.data,
+            image_dims=(
+                int(form.resize_height.data),
+                int(form.resize_width.data),
+                int(form.resize_channels.data),
+            ),
+            resize_mode=form.resize_mode.data
+        )
+
+        if form.method.data == 'folder':
+            from_sound_folders(job, form)
+
+        elif form.method.data == 'textfile':
+            from_files(job, form)
+
+        else:
+            raise ValueError(_('method not supported'))
+
+        # Save form data with the job so we can easily clone it later.
+        save_form_to_job(job, form)
+
+        scheduler.add_job(job)
+        if request_wants_json():
+            return flask.jsonify(job.json_dict())
+        else:
+            return flask.redirect(flask.url_for('digits.dataset.views.show', job_id=job.id()))
+
+    except:
+        if job:
+            scheduler.delete_job(job)
+        raise
 
 
 @blueprint.route('.json', methods=['POST'])

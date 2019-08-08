@@ -91,6 +91,13 @@ def home(tab=2):
                         'digits.dataset.images.generic.views.new'),
                 },
             },
+            'Sounds': {
+                'image-classification': {
+                    'title': _('Classification'),
+                    'url': flask.url_for(
+                        'digits.dataset.images.classification.views.sound_new'),
+                }
+            }
         }
 
         new_model_options = {

@@ -42,7 +42,8 @@ def nonblocking_readlines(f):
         fl = fcntl.fcntl(fd, fcntl.F_GETFL)
         fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
     enc = locale.getpreferredencoding(False)
-
+    # TODO(dzh):Use charset utf-8 in filename
+    enc = 'utf-8'
     buf = bytearray()
     while True:
         try:
