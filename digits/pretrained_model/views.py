@@ -47,6 +47,32 @@ def validate_caffe_files(files):
     return (weights_path, model_def_path)
 
 
+def validate_tensorflow_files(files):
+    """
+        Upload a tensorflow model
+        """
+    # Validate model weights:
+    if str(files['weights_file'].filename) is '':
+        raise werkzeug.exceptions.BadRequest('Missing weights file')
+    elif files['weights_file'].filename.rsplit('.', 1)[1] != "data-00000-of-00001":
+        raise werkzeug.exceptions.BadRequest('Weights must be a .data-00000-of-00001 file')
+
+    # Validate model definition:
+    if str(files['model_def_file'].filename) is '':
+        raise werkzeug.exceptions.BadRequest('Missing model definition file')
+    elif files['model_def_file'].filename != "network.py":
+        raise werkzeug.exceptions.BadRequest('Model definition must be network.py file')
+
+    weights_path = get_tempfile(flask.request.files['weights_file'], ".data-00000-of-00001")
+    index_path = get_tempfile(flask.request.files['index_file'], ".index")
+    meta_path = get_tempfile(flask.request.files['meta_file'], ".meta")
+    model_def_path = get_tempfile(flask.request.files['model_def_file'], ".py")
+
+    path_list = [weights_path, index_path, meta_path]
+
+    return (path_list, model_def_path)
+
+
 def validate_torch_files(files):
     """
     Upload a torch model
@@ -172,8 +198,10 @@ def new():
 
     if framework == "caffe":
         weights_path, model_def_path = validate_caffe_files(files)
-    else:
+    elif framework == "torch":
         weights_path, model_def_path = validate_torch_files(files)
+    else:
+        weights_path, model_def_path = validate_tensorflow_files(files)
 
     if str(flask.request.files['labels_file'].filename) is not '':
         labels_path = get_tempfile(flask.request.files['labels_file'], ".txt")

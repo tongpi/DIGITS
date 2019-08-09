@@ -21,7 +21,8 @@ var PretrainedModel = function(params) {
 
   self.frameworks = [
     {text: gettext('Caffe'), value: 'caffe'},
-    {text: gettext('Torch'), value: 'torch'}
+    {text: gettext('Torch'), value: 'torch'},
+    {text: gettext('Tensorflow'), value: 'tensorflow'},
   ];
 
   self.resize_channels = [
@@ -40,8 +41,10 @@ var PretrainedModel = function(params) {
     var nextFramework = self.frameworkSelector.property('value');
     if (nextFramework == 'torch') {
       self.torchForm();
-    }else {
+    }else if (nextFramework == 'caffe') {
       self.caffeForm();
+    } else {
+      self.tensorflowForm();
     }
   };
 
@@ -176,6 +179,20 @@ var PretrainedModel = function(params) {
     self.innerContainer.html('');
     inputs.file(self.innerContainer, gettext('Weights (**.caffemodel)'), 'weights_file');
     inputs.file(self.innerContainer, gettext('Model Definition (original.prototxt)'), 'model_def_file');
+    inputs.file(self.innerContainer, gettext('Labels file: (labels.txt)'), 'labels_file');
+
+    self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
+      .on('click', self.submit)
+      .style('background', 'white')
+      .html(gettext('Upload Model'));
+  };
+
+  self.tensorflowForm = function() {
+    self.innerContainer.html('');
+    inputs.file(self.innerContainer, gettext('Weights (**.data-00000-of-00001)'), 'weights_file');
+    inputs.file(self.innerContainer, gettext('Index (snapshot.ckpt.index)'), 'index_file');
+    inputs.file(self.innerContainer, gettext('Meta (snapshot.ckpt.meta)'), 'meta_file');
+    inputs.file(self.innerContainer, gettext('Model Definition (network.py)'), 'model_def_file');
     inputs.file(self.innerContainer, gettext('Labels file: (labels.txt)'), 'labels_file');
 
     self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
