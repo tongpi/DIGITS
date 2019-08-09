@@ -167,12 +167,12 @@ def from_sound_folders(job, form):
     sound_files_path = form.folder_train.data
     train = pd.read_csv(sound_files_path + '/metadata/train.csv', encoding='utf-8')
     file_name = '/%s-%s/' % (time.strftime('%Y%m%d-%H%M%S'), str(random.randint(10, 100)))
-
+    os.mkdir((sound_files_path + file_name).encode('utf-8'))
     dir_name = set(train.className)
     for name in dir_name:
         os.mkdir((sound_files_path + file_name + name).encode('utf-8'))
 
-    plt.figure(figsize=(6, 2))
+    plt.figure(figsize=(2.56, 2.56))
     for i in train.index:
         audio_name = train.slice_file_name[i]
         audio_class = train.className[i]

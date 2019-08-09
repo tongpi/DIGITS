@@ -295,8 +295,12 @@ def publish_inference(job_id):
     task = job.tensorflow_train_task()
     snapshot_filename = task.get_snapshot(epoch, frozen_file=True)
 
-    TRIMMED_FROZEN_GRAPH_PATH = "{}/{}/".format(inference_server_model_path, description)
-    os.makedirs(TRIMMED_FROZEN_GRAPH_PATH + '1/', exist_ok=True)
+    try:
+        TRIMMED_FROZEN_GRAPH_PATH = "{}/{}/".format(inference_server_model_path, description)
+        os.makedirs(TRIMMED_FROZEN_GRAPH_PATH + '1/')
+    except OSError as e:
+        raise werkzeug.exceptions.BadRequest('Model already exists!')
+
     TRIMMED_FROZEN_GRAPH_FP = TRIMMED_FROZEN_GRAPH_PATH + "1/model.graphdef"
 
     # Open Graph
