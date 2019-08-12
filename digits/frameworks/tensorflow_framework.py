@@ -76,6 +76,14 @@ class TensorflowFramework(Framework):
         return network_desc
 
     @override
+    def get_network_from_path(self, path):
+        """
+        return network object from a file path
+        """
+        with open(path) as infile:
+            return infile.read()
+
+    @override
     def get_network_from_previous(self, previous_network, use_same_dataset):
         """
         return new instance of network from previous network

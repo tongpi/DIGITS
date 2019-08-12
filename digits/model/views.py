@@ -240,6 +240,10 @@ def to_pretrained(job_id):
     snapshot_filename = None
     snapshot_filename = task.get_snapshot(epoch)
 
+    weights_path = [snapshot_filename + '.data-00000-of-00001',
+                    snapshot_filename + '.index',
+                    snapshot_filename + '.meta']
+
     # Set defaults:
     labels_path = None
     resize_mode = None
@@ -250,7 +254,7 @@ def to_pretrained(job_id):
         resize_mode = info["image resize mode"]
 
     job = PretrainedModelJob(
-        snapshot_filename,
+        weights_path,
         os.path.join(job.dir(), task.model_file),
         labels_path,
         info["framework"],
