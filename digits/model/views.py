@@ -296,7 +296,7 @@ def publish_inference(job_id):
     elif 'snapshot_epoch' in flask.request.form:
         epoch = float(flask.request.form['snapshot_epoch'])
 
-    task = job.tensorflow_train_task()
+    task = job.train_task()
     snapshot_filename = task.get_snapshot(epoch, frozen_file=True)
 
     try:
