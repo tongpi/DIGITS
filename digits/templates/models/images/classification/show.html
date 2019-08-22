@@ -250,7 +250,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             {{_('Make Pretrained Model')}}
                         </button>
                         <!-- Trigger the modal with a button -->
-                        {% if task.get_framework_id() == 'tensorflow' %}
+                        {% if task.get_framework_id() == 'tensorflow' or task.get_framework_id() == 'tensorflow_pb' %}
                         <button type="button" class="btn btn-success" data-toggle="modal"
                                 data-target="#nuance_modal">
                             {{ _('Publish to inference server') }}
