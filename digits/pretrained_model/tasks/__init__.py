@@ -5,10 +5,12 @@ from .upload_pretrained import UploadPretrainedModelTask
 from .caffe_upload import CaffeUploadTask
 from .torch_upload import TorchUploadTask
 from .tensorflow_upload import TensorflowUploadTask
+from .tfpb_upload import TfpbUploadTask
 
 __all__ = [
     'UploadPretrainedModelTask',
     'CaffeUploadTask',
     'TorchUploadTask',
-    'TensorflowUploadTask'
+    'TensorflowUploadTask',
+    'TfpbUploadTask'
 ]

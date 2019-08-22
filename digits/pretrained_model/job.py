@@ -4,7 +4,7 @@ import os
 
 from digits.job import Job
 from digits.utils import subclass, override
-from digits.pretrained_model.tasks import CaffeUploadTask, TorchUploadTask, TensorflowUploadTask
+from digits.pretrained_model.tasks import CaffeUploadTask, TorchUploadTask, TensorflowUploadTask, TfpbUploadTask
 from flask_babel import lazy_gettext as _
 
 
@@ -42,6 +42,8 @@ class PretrainedModelJob(Job):
             self.tasks.append(TorchUploadTask(**taskKwargs))
         elif self.framework == "tensorflow":
             self.tasks.append(TensorflowUploadTask(**taskKwargs))
+        elif self.framework == "tensorflow_pb":
+            self.tasks.append(TfpbUploadTask(**taskKwargs))
         else:
             raise Exception(_("framework of type %(framework)s is not supported", framework=self.framework))
 

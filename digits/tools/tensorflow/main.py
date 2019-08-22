@@ -143,6 +143,8 @@ tf.app.flags.DEFINE_float(
 tf.app.flags.DEFINE_float(
     'augHSVv', 0., """The stddev of HSV's Value shift as pre-processing augmentation""")
 
+tf.app.flags.DEFINE_string('framework_id', '', """framework id""")
+
 
 def save_timeline_trace(run_metadata, save_dir, step):
     tl = timeline.Timeline(run_metadata.step_stats)
@@ -242,9 +244,36 @@ def dump(obj):
         print("obj.%s = %s" % (attr, getattr(obj, attr)))
 
 
+def load_pb_snapshot(sess, weight_path, var_candidates):
+    logging.info("Loading weights from pretrained model - %s ", weight_path)
+    from tensorflow.python.platform import gfile
+
+    with gfile.FastGFile(weight_path, 'rb') as f:
+        graph_def = tf.GraphDef()
+        graph_def.ParseFromString(f.read())
+        sess.graph.as_default()
+        tf.import_graph_def(graph_def, name='')
+
+        graph_nodes = [tensor for tensor in graph_def.node]
+        var_map = [n.name for n in graph_nodes if n.op == 'Const']
+
+    # Only obtain all the variables that are [in the current graph] AND [in the checkpoint]
+    vars_restore = []
+    for vt in var_candidates:
+        for vm in var_map:
+            if vt.name.split(':')[0] == vm:
+                if ("global_step" not in vt.name) and not (vt.name.startswith("train/")):
+                    vars_restore.append(vt)
+                    logging.info('restoring %s -> %s' % (vm, vt.name))
+                else:
+                    logging.info('NOT restoring %s -> %s' % (vm, vt.name))
+
+    sess.run(vars_restore)
+
+
 def load_snapshot(sess, weight_path, var_candidates):
     """ Loads a snapshot into a session from a weight path. Will only load the
-    weights that are both in the weight_path file and the passed var_candidates."""
+        weights that are both in the weight_path file and the passed var_candidates."""
     logging.info("Loading weights from pretrained model - %s ", weight_path)
     reader = tf.train.NewCheckpointReader(weight_path)
     var_map = reader.get_variable_to_shape_map()
@@ -543,7 +572,10 @@ def main(_):
 
         # If weights option is set, preload weights from existing models appropriately
         if FLAGS.weights:
-            load_snapshot(sess, FLAGS.weights, tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES))
+            if FLAGS.framework_id == 'tensorflow_pb':
+                load_pb_snapshot(sess, FLAGS.weights, tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES))
+            else:
+                load_snapshot(sess, FLAGS.weights, tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES))
 
         # Tensorboard: Merge all the summaries and write them out
         writer = tf.summary.FileWriter(os.path.join(FLAGS.summaries_dir, 'tb'), sess.graph)

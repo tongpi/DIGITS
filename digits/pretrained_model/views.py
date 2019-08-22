@@ -50,7 +50,7 @@ def validate_caffe_files(files):
 def validate_tensorflow_files(files):
     """
         Upload a tensorflow model
-        """
+    """
     # Validate model weights:
     if str(files['weights_file'].filename) is '':
         raise werkzeug.exceptions.BadRequest('Missing weights file')
@@ -71,6 +71,18 @@ def validate_tensorflow_files(files):
     path_list = [weights_path, index_path, meta_path]
 
     return (path_list, model_def_path)
+
+
+def validate_tfpb_files(files):
+    """
+        Upload a tensorflow model
+    """
+    weights_path = get_tempfile(flask.request.files['weights_file'], ".pb")
+    model_def_path = None
+    if "model_def_file" in files:
+        model_def_path = get_tempfile(flask.request.files['model_def_file'], ".py")
+
+    return (weights_path, model_def_path)
 
 
 def validate_torch_files(files):
@@ -200,10 +212,12 @@ def new():
         weights_path, model_def_path = validate_caffe_files(files)
     elif framework == "torch":
         weights_path, model_def_path = validate_torch_files(files)
-    else:
+    elif framework == "tensorflow":
         weights_path, model_def_path = validate_tensorflow_files(files)
+    else:
+        weights_path, model_def_path = validate_tfpb_files(files)
 
-    if str(flask.request.files['labels_file'].filename) is not '':
+    if "labels_file" in files and str(flask.request.files['labels_file'].filename) is not '':
         labels_path = get_tempfile(flask.request.files['labels_file'], ".txt")
 
     job = PretrainedModelJob(
