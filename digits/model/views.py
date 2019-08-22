@@ -326,7 +326,7 @@ def publish_inference(job_id):
     d_softmax.name = 'output_softmax'
     d_softmax.attr['T'].CopyFrom(attr_value_pb2.AttrValue(
         type=dtypes.float32.as_datatype_enum))
-    d_softmax.input.extend(graph.node[-3].name)
+    d_softmax.input.extend([graph.node[-3].name])
 
     # node_dict = {}
     # for i in range(len(graph.node)):
