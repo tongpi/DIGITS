@@ -20,10 +20,11 @@ var PretrainedModel = function(params) {
   self.frameworkSelector = null;
 
   self.frameworks = [
-    {text: gettext('Caffe'), value: 'caffe'},
-    {text: gettext('Torch'), value: 'torch'},
-    {text: gettext('Tensorflow'), value: 'tensorflow'},
-    {text: gettext('tfpb'), value: 'tensorflow_pb'},
+    {text: 'Caffe', value: 'caffe'},
+    {text: 'Torch', value: 'torch'},
+    {text: 'Tensorflow', value: 'tensorflow'},
+    {text: 'tfpb', value: 'tensorflow_pb'},
+    {text: 'hub_model', value: 'tensorflow_hub'},
   ];
 
   self.resize_channels = [
@@ -48,6 +49,8 @@ var PretrainedModel = function(params) {
       self.tensorflowForm();
     } else if (nextFramework == 'tensorflow_pb'){
       self.tfpbForm();
+    } else if (nextFramework == 'tensorflow_hub') {
+      self.hubForm();
     }
   };
 
@@ -216,6 +219,17 @@ var PretrainedModel = function(params) {
       .html(gettext('Upload Model'));
   };
 
+  self.hubForm = function() {
+    self.innerContainer.html('');
+    inputs.field(self.innerContainer.append('div').attr('class', 'col-xs-6'), 'text', "模型URL（完整url）", 'model_url');
+    inputs.file(self.innerContainer, "模型压缩包（tar.gz）", 'model_file');
+
+    self.innerContainer.append('button').attr({type: 'submit', class: 'btn btn-default'})
+      .on('click', self.submit)
+      .style('background', 'white')
+      .html(gettext('Upload Model'));
+  };
+
   self.torchForm = function(e) {
     self.innerContainer.html('');
 
@@ -227,7 +241,6 @@ var PretrainedModel = function(params) {
       .style('background', 'white')
       .html(gettext('Upload Model'));
   };
-
 };
 
 PretrainedModel.Actions = function(props) {

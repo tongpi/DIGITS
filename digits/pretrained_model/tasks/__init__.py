@@ -6,11 +6,13 @@ from .caffe_upload import CaffeUploadTask
 from .torch_upload import TorchUploadTask
 from .tensorflow_upload import TensorflowUploadTask
 from .tfpb_upload import TfpbUploadTask
+from .hub_upload import HubUploadTask
 
 __all__ = [
     'UploadPretrainedModelTask',
     'CaffeUploadTask',
     'TorchUploadTask',
     'TensorflowUploadTask',
-    'TfpbUploadTask'
+    'TfpbUploadTask',
+    'HubUploadTask'
 ]

@@ -28,7 +28,7 @@ class Task(StatusCls):
     Communication is done by processing the stdout of the executable
     """
 
-    def __init__(self, job_dir, parents=None):
+    def __init__(self, job_dir, parents=None, **kwargs):
         super(Task, self).__init__()
         self.pickver_task = PICKLE_VERSION
 

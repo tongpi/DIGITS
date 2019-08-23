@@ -75,7 +75,7 @@ def validate_tensorflow_files(files):
 
 def validate_tfpb_files(files):
     """
-        Upload a tensorflow model
+        Upload a tensorflow pb model
     """
     weights_path = get_tempfile(flask.request.files['weights_file'], ".pb")
     model_def_path = None
@@ -83,6 +83,16 @@ def validate_tfpb_files(files):
         model_def_path = get_tempfile(flask.request.files['model_def_file'], ".py")
 
     return (weights_path, model_def_path)
+
+
+def validate_hub_files(files, form):
+    """
+        Upload a tensorflow hub model
+    """
+    model_url = form.get('model_url')
+    model_file = get_tempfile(flask.request.files['model_file'], ".tar.gz")
+
+    return (model_url, model_file)
 
 
 def validate_torch_files(files):
@@ -194,6 +204,10 @@ def new():
     """
     labels_path = None
     framework = None
+    model_url = None
+    model_file = None
+    weights_path = ''
+    model_def_path = ''
 
     form = flask.request.form
     files = flask.request.files
@@ -214,8 +228,12 @@ def new():
         weights_path, model_def_path = validate_torch_files(files)
     elif framework == "tensorflow":
         weights_path, model_def_path = validate_tensorflow_files(files)
-    else:
+    elif framework == "tensorflow_pb":
         weights_path, model_def_path = validate_tfpb_files(files)
+    elif framework == "tensorflow_hub":
+        model_url, model_file = validate_hub_files(files, form)
+    else:
+        exit(1)
 
     if "labels_file" in files and str(flask.request.files['labels_file'].filename) is not '':
         labels_path = get_tempfile(flask.request.files['labels_file'], ".txt")
@@ -230,7 +248,9 @@ def new():
         form["width"],
         form["height"],
         username=utils.auth.get_username(),
-        name=flask.request.form['job_name']
+        name=flask.request.form['job_name'],
+        model_url=model_url,
+        model_file=model_file
     )
 
     scheduler.add_job(job)

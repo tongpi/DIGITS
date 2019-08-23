@@ -26,6 +26,8 @@ class UploadPretrainedModelTask(Task):
         self.image_info = kwargs.pop('image_info', None)
         self.labels_path = kwargs.pop('labels_path', None)
         self.framework = kwargs.pop('framework', None)
+        self.model_url = kwargs.get('model_url', None)
+        self.model_file = kwargs.get('model_file', None)
 
         # resources
         self.gpu = None

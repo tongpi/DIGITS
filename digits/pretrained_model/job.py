@@ -1,10 +1,12 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
+
+import hashlib
 import os
 
 from digits.job import Job
 from digits.utils import subclass, override
-from digits.pretrained_model.tasks import CaffeUploadTask, TorchUploadTask, TensorflowUploadTask, TfpbUploadTask
+from digits.pretrained_model.tasks import CaffeUploadTask, TorchUploadTask, TensorflowUploadTask, TfpbUploadTask, HubUploadTask
 from flask_babel import lazy_gettext as _
 
 
@@ -19,6 +21,10 @@ class PretrainedModelJob(Job):
         super(PretrainedModelJob, self).__init__(persistent=False, **kwargs)
 
         self.framework = framework
+        self.model_url = kwargs.get('model_url', None)
+        self.model_path = hashlib.sha1(self.model_url.encode("utf8")).hexdigest() if self.model_url else None
+        self.model_file = kwargs.get('model_file', None)
+
         self.image_info = {
             "image_type": image_type,
             "resize_mode": resize_mode,
@@ -33,7 +39,9 @@ class PretrainedModelJob(Job):
             "model_def_path": model_def_path,
             "image_info": self.image_info,
             "labels_path": labels_path,
-            "job_dir": self.dir()
+            "job_dir": self.dir(),
+            "model_url": self.model_url,
+            "model_file": self.model_file
         }
 
         if self.framework == "caffe":
@@ -44,6 +52,8 @@ class PretrainedModelJob(Job):
             self.tasks.append(TensorflowUploadTask(**taskKwargs))
         elif self.framework == "tensorflow_pb":
             self.tasks.append(TfpbUploadTask(**taskKwargs))
+        elif self.framework == "tensorflow_hub":
+            self.tasks.append(HubUploadTask(**taskKwargs))
         else:
             raise Exception(_("framework of type %(framework)s is not supported", framework=self.framework))
 

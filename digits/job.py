@@ -46,7 +46,7 @@ class Job(StatusCls):
                     task.detect_timeline_traces()
             return job
 
-    def __init__(self, name, username, group='', persistent=True):
+    def __init__(self, name, username, group='', persistent=True, **kwargs):
         """
         Arguments:
         name -- name of this job
