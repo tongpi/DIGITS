@@ -276,8 +276,8 @@ class Scheduler:
             self.jobs.pop(job_id, None)
             job.abort()
             if os.path.exists(job.dir()):
-                # dzh
-                if job.model_path:
+                # dzh: remove tf_hub model file
+                if isinstance(job, PretrainedModelJob):
                     shutil.rmtree('/tmp/tfhub/{}'.format(job.model_path))
                 shutil.rmtree(job.dir())
             logger.info('Job deleted.', job_id=job_id)
