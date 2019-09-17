@@ -2,5 +2,6 @@
 from __future__ import absolute_import
 
 from .inference import InferenceTask
+from .hub_inference import HubInferenceTask
 
-__all__ = ['InferenceTask']
+__all__ = ['InferenceTask', 'HubInferenceTask']

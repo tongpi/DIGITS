@@ -32,6 +32,5 @@ class ImageModelJob(ModelJob):
             "creation time": creation_time,
             "username": self.username,
         })
-
         d.update(task.get_task_stats(epoch))
         return d

@@ -310,6 +310,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             {{_('Classify One')}}
                         </button>
                     </div>
+                    {% if task.get_framework_id() != 'tensorflow_hub' %}
                     <div class="col-sm-6">
                         <h3>{{_('Test a list of images')}}</h3>
                         <div>
@@ -368,6 +369,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             title="{{_('Classify a list of images and show the top N results per category by confidence.')}}"
                             ></span>
                     </div>
+                    {% endif %}
                 </div>
                 {% endif %}
             </form>

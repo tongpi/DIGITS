@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
 
@@ -263,7 +264,9 @@ def to_pretrained(job_id):
         info["image dimensions"][0],
         info["image dimensions"][1],
         username=auth.get_username(),
-        name=info["name"]
+        name=info["name"],
+        before_job_dir=job.dir(),  # 将此模型的目录传递给预训练模型
+        model_url=task.tfhub_module  # 获取预训练模型的URL或目录
     )
 
     scheduler.add_job(job)
@@ -406,11 +409,11 @@ def download(job_id, extension):
     epoch = -1
     # GET ?epoch=n
     if 'epoch' in flask.request.args:
-        epoch = float(flask.request.args['epoch'])
+        epoch = int(flask.request.args['epoch'])
 
     # POST ?snapshot_epoch=n (from form)
     elif 'snapshot_epoch' in flask.request.form:
-        epoch = float(flask.request.form['snapshot_epoch'])
+        epoch = int(flask.request.form['snapshot_epoch'])
 
     # Write the stats of the job to json,
     # and store in tempfile (for archive)

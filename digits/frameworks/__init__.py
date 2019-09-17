@@ -15,8 +15,10 @@ __all__ = [
 if config_value('tensorflow')['enabled']:
     from .tensorflow_framework import TensorflowFramework
     from .pb_framework import PBFramework
+    from .hub_framework import HubFramework
     __all__.append('TensorflowFramework')
     __all__.append('PBFramework')
+    __all__.append('HubFramework')
 
 #
 #  create framework instances
@@ -28,6 +30,7 @@ torch = TorchFramework() if config_value('torch')['enabled'] else None
 # tensorflow is optional
 tensorflow = TensorflowFramework() if config_value('tensorflow')['enabled'] else None
 pb = PBFramework() if config_value('tensorflow')['enabled'] else None
+hub = HubFramework() if config_value('tensorflow')['enabled'] else None
 
 # caffe is mandatory
 caffe = CaffeFramework()
@@ -48,6 +51,7 @@ def get_frameworks():
     if tensorflow:
         frameworks.append(tensorflow)
         frameworks.append(pb)
+        frameworks.append(hub)
     return frameworks
 
 

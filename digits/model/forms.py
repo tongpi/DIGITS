@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 
 import os
@@ -394,3 +395,27 @@ class ModelForm(Form):
                                        default=True,
                                        tooltip=_('For every epoch, shuffle the data before training.')
                                        )
+
+    steps = utils.forms.IntegerField("训练总步长",
+                                     default=4000,
+                                     validators=[
+                                         validators.NumberRange(min=1)
+                                     ],
+                                     tooltip="本次训练总步长数（迭代次数）")
+
+    iter_store_step = utils.forms.IntegerField("步长间隔",
+                                     default=1000,
+                                     validators=[
+                                         validators.NumberRange(min=1)
+                                     ],
+                                     tooltip="要间隔多少个步长来进行快照保存")
+
+    train_batch_size = utils.forms.IntegerField("批处理大小",
+                                     default=100,
+                                     validators=[
+                                         validators.NumberRange(min=1)
+                                     ],
+                                     tooltip="一次处理多少图片，默认为100")
+
+    # bottleneck_dir = utils.forms.StringField("瓶颈值目录",
+    #                                  tooltip="计算出每个图片的瓶颈值并存储于此目录下")

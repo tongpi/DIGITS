@@ -278,8 +278,11 @@ class Scheduler:
             if os.path.exists(job.dir()):
                 # dzh: remove tf_hub model file
                 if isinstance(job, PretrainedModelJob):
-                    shutil.rmtree('/tmp/tfhub/{}'.format(job.model_path))
-                shutil.rmtree(job.dir())
+                    try:
+                        shutil.rmtree('/home/data/tfhub/{}'.format(job.model_path))
+                    except:
+                        pass
+                shutil.rmtree(job.dir(), ignore_errors=True)
             logger.info('Job deleted.', job_id=job_id)
             from digits.webapp import socketio
             socketio.emit('job update',

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
 
@@ -68,7 +69,24 @@ class TrainTask(Task):
         self.framework_id = kwargs.pop('framework_id', None)
         self.data_aug = kwargs.pop('data_aug', None)
 
+        # dzh: hub模型所需参数
+        self.image_dir = kwargs.pop('image_dir', None)
+        self.tfhub_module = kwargs.pop('tfhub_module', None)
+
         super(TrainTask, self).__init__(job_dir=job.dir(), **kwargs)
+
+        # 以下参数为hub创建模型所需要的参数
+        self.output_graph = kwargs.pop('output_graph', os.path.join(self.job_dir, 'frozen_model.pb'))
+        self.intermediate_store_frequency = kwargs.pop('intermediate_store_frequency', 1000)
+        self.intermediate_output_graphs_dir = kwargs.pop('intermediate_output_graphs_dir',
+                                                         os.path.join(self.job_dir, 'intermediate_graph'))
+        self.output_labels = kwargs.pop('output_labels', os.path.join(self.job_dir, 'labels.txt'))
+        self.bottleneck_dir = kwargs.pop('bottleneck_dir', '/home/data/new_pb/bottleneck')
+        self.checkpoint_path = kwargs.pop('checkpoint_path', 'ckpt')
+        self.save_ckpt_path = kwargs.pop('save_ckpt_path', None)
+        self.summaries_dir = kwargs.pop('summaries_dir', os.path.join(self.job_dir, 'retrain_logs'))
+        self.train_batch_size = kwargs.pop('train_batch_size', 100)
+
         self.pickver_task_train = PICKLE_VERSION
 
         self.job = job
@@ -392,30 +410,35 @@ class TrainTask(Task):
     def snapshot_list(self):
         """
         Returns an array of arrays for creating an HTML select field
+        返回用于创建选择回合下拉框的数组
         """
-        return [[s[1], 'Epoch #%s' % s[1]] for s in reversed(self.snapshots)]
+        return [[s[1], 'Step #%s' % s[1]] for s in reversed(self.snapshots)]
 
     def est_next_snapshot(self):
         """
         Returns the estimated time in seconds until the next snapshot is taken
+        返回拍摄下一个快照之前的估计时间（以秒为单位）
         """
         return None
 
     def can_view_weights(self):
         """
         Returns True if this Task can visualize the weights of each layer for a given model
+        如果此Task可以显示给定模型的每个图层的权重，则返回True
         """
         raise NotImplementedError()
 
     def view_weights(self, model_epoch=None, layers=None):
         """
         View the weights for a specific model and layer[s]
+        查看特定模型和图层的权重[s]
         """
         return None
 
     def can_view_activations(self):
         """
         Returns True if this Task can visualize the activations of a model after inference
+        如果此任务可以在推理后可视化模型的激活，则返回True
         """
         raise NotImplementedError()
 
@@ -440,6 +463,7 @@ class TrainTask(Task):
     def get_snapshot(self, epoch=-1, download=False):
         """
         return snapshot file for specified epoch
+        返回指定回合的snapshot文件
         """
         snapshot_filename = None
 
@@ -462,6 +486,7 @@ class TrainTask(Task):
     def get_snapshot_filename(self, epoch=-1):
         """
         Return the filename for the specified epoch
+        返回指定回合的snapshot文件名
         """
         path, name = os.path.split(self.get_snapshot(epoch))
         return name
@@ -495,6 +520,7 @@ class TrainTask(Task):
     def lr_graph_data(self):
         """
         Returns learning rate data formatted for a C3.js graph
+        返回为C3.js图格式化的学习速率数据
 
         Keyword arguments:
 

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
 # ********************************************************************
-# * 为了新增处理pb格式的模型所创建的文件，不属于官方文件，作者: dzh. *
+# * 为了新增处理hub格式的模型所创建的文件，不属于官方文件，作者: dzh. *
 # ********************************************************************
 from __future__ import absolute_import
 
@@ -28,7 +28,7 @@ from flask_babel import lazy_gettext as _
 PICKLE_VERSION = 1
 
 # Constants
-TENSORFLOW_MODEL_FILE = 'network.py'
+TENSORFLOW_MODEL_FILE = 'checkpoint'
 TENSORFLOW_SNAPSHOT_PREFIX = 'snapshot'
 TENSORFLOW_MODEL_PB = 'frozen_model.pb'
 TIMELINE_PREFIX = 'timeline'
@@ -68,23 +68,24 @@ def subprocess_visible_devices(gpus):
 
 
 @subclass
-class PBTrainTask(TrainTask):
+class HubTrainTask(TrainTask):
     """
     Trains a tensorflow model
     """
 
-    TENSORFLOW_LOG = 'tensorflow_output.log'
+    TENSORFLOW_LOG = 'tensorflow_hub_output.log'
+
 
     def __init__(self, **kwargs):
         """
         Arguments:
         network -- a NetParameter defining the network
         """
-        super(PBTrainTask, self).__init__(**kwargs)
+        super(HubTrainTask, self).__init__(**kwargs)
 
         # save network description to file
-        with open(os.path.join(self.job_dir, TENSORFLOW_MODEL_FILE), "w") as outfile:
-            outfile.write(self.network)
+        # with open(os.path.join(self.job_dir, TENSORFLOW_MODEL_FILE), "w") as outfile:
+        #     outfile.write(self.network)
 
         self.pickver_task_tensorflow_train = PICKLE_VERSION
 
@@ -104,7 +105,7 @@ class PBTrainTask(TrainTask):
         self.log_file = self.TENSORFLOW_LOG
 
     def __getstate__(self):
-        state = super(PBTrainTask, self).__getstate__()
+        state = super(HubTrainTask, self).__getstate__()
 
         # Don't pickle these things
         if 'labels' in state:
@@ -119,7 +120,7 @@ class PBTrainTask(TrainTask):
         return state
 
     def __setstate__(self, state):
-        super(PBTrainTask, self).__setstate__(state)
+        super(HubTrainTask, self).__setstate__(state)
 
         # Make changes to self
         self.loaded_snapshot_file = None
@@ -132,13 +133,12 @@ class PBTrainTask(TrainTask):
     # Task overrides
     @override
     def name(self):
-        return _('Train Tensorflow Model')
+        return 'Train Tensorflow Hub Model'
 
     @override
     def before_run(self):
-        super(PBTrainTask, self).before_run()
+        super(HubTrainTask, self).before_run()
         self.tensorflow_log = open(self.path(self.TENSORFLOW_LOG), 'a')
-        self.saving_snapshot = False
         self.receiving_train_output = False
         self.receiving_val_output = False
         self.last_train_update = None
@@ -151,126 +151,65 @@ class PBTrainTask(TrainTask):
         """
         return snapshot file for specified epoch
         """
-        snapshot_pre = None
-
-        if len(self.snapshots) == 0:
-            return "no snapshots"
+        graph_name = None
 
         if epoch == -1 or not epoch:
             epoch = self.snapshots[-1][1]
-            snapshot_pre = self.snapshots[-1][0]
+            graph_name = self.snapshots[-1][0]
         else:
             for f, e in self.snapshots:
                 if e == epoch:
-                    snapshot_pre = f
+                    graph_name = f
                     break
-        if not snapshot_pre:
+        if not graph_name:
             raise ValueError(_('Invalid epoch'))
 
-        snapshot_files = os.path.join(os.path.dirname(snapshot_pre), "frozen_model.pb")
-
+        if download:
+            snapshot_files = os.path.join(self.job_dir, graph_name)
+        else:
+            snapshot_files = os.path.join(self.job_dir, 'snapshot.ckpt')
         return snapshot_files
 
     @override
     def task_arguments(self, resources, env):
+        """
+        :tfhub_module: hub中模型的地址（URL）
+        :image_dir: 进行再训练时的图像路径
+        :output_graph: 训练完成的graph文件路径
+        :output_labels: 训练完成的标签文件路径
+        :bottleneck_dir: 瓶颈值缓存路径
+        :checkpoint_path: ckpt文件保存路径
+        :intermediate_store_frequency: 存储步骤数，根据步骤来进行片段存储，默认为0
+        :intermediate_output_graphs_dir: 模型中间片段存储路径
+        :train_batch_size：批处理大小
+        total: 25`args
+        """
 
         args = [sys.executable,
-                os.path.join(os.path.dirname(os.path.abspath(digits.__file__)), 'tools', 'tensorflow', 'main.py'),
-                '--network=%s' % self.model_file,
-                '--epoch=%d' % int(self.train_epochs),
-                '--networkDirectory=%s' % self.job_dir,
-                '--save=%s' % self.job_dir,
-                '--snapshotPrefix=%s' % self.snapshot_prefix,
-                '--snapshotInterval=%s' % self.snapshot_interval,
-                '--lr_base_rate=%s' % self.learning_rate,
-                '--lr_policy=%s' % str(self.lr_policy['policy']),
-                '--framework_id=%s' % self.framework_id,
-                ]
+                os.path.join(os.path.dirname(os.path.abspath(digits.__file__)), 'tools', 'pb', 'retrain.py'),
+                '--tfhub_module=%s' % self.tfhub_module,
+                '--image_dir=%s' % self.image_dir,
+                '--output_graph=%s' % self.output_graph,
+                '--intermediate_output_graphs_dir=%s' % self.intermediate_output_graphs_dir,
+                '--output_labels=%s' % self.output_labels,
+                '--bottleneck_dir=%s' % self.bottleneck_dir,
+                '--checkpoint_path=%s' % os.path.join(self.job_dir, self.checkpoint_path),
+                '--summaries_dir=%s' % self.summaries_dir,]
 
-        if self.batch_size is not None:
-            args.append('--batch_size=%d' % self.batch_size)
+        if self.save_ckpt_path:
+            args.append('--save_ckpt_path=%s' % self.save_ckpt_path)
 
-        if self.use_mean != 'none':
-            mean_file = self.dataset.get_mean_file()
-            assert mean_file is not None, 'Failed to retrieve mean file.'
-            args.append('--mean=%s' % self.dataset.path(mean_file))
+        if self.intermediate_store_frequency:
+            args.append('--intermediate_store_frequency=%s' % int(self.intermediate_store_frequency))
 
-        if hasattr(self.dataset, 'labels_file'):
-            args.append('--labels_list=%s' % self.dataset.path(self.dataset.labels_file))
+        if self.learning_rate:
+            args.append('--learning_rate=%f' % self.learning_rate)
 
-        train_feature_db_path = self.dataset.get_feature_db_path(constants.TRAIN_DB)
-        train_label_db_path = self.dataset.get_label_db_path(constants.TRAIN_DB)
-        val_feature_db_path = self.dataset.get_feature_db_path(constants.VAL_DB)
-        val_label_db_path = self.dataset.get_label_db_path(constants.VAL_DB)
+        if self.how_many_training_steps:
+            args.append('--how_many_training_steps=%d' % self.how_many_training_steps)
 
-        args.append('--train_db=%s' % train_feature_db_path)
-        if train_label_db_path:
-            args.append('--train_labels=%s' % train_label_db_path)
-        if val_feature_db_path:
-            args.append('--validation_db=%s' % val_feature_db_path)
-        if val_label_db_path:
-            args.append('--validation_labels=%s' % val_label_db_path)
-
-        # learning rate policy input parameters
-        if self.lr_policy['policy'] == 'fixed':
-            pass
-        elif self.lr_policy['policy'] == 'step':
-            args.append('--lr_gamma=%s' % self.lr_policy['gamma'])
-            args.append('--lr_stepvalues=%s' % self.lr_policy['stepsize'])
-        elif self.lr_policy['policy'] == 'multistep':
-            args.append('--lr_stepvalues=%s' % self.lr_policy['stepvalue'])
-            args.append('--lr_gamma=%s' % self.lr_policy['gamma'])
-        elif self.lr_policy['policy'] == 'exp':
-            args.append('--lr_gamma=%s' % self.lr_policy['gamma'])
-        elif self.lr_policy['policy'] == 'inv':
-            args.append('--lr_gamma=%s' % self.lr_policy['gamma'])
-            args.append('--lr_power=%s' % self.lr_policy['power'])
-        elif self.lr_policy['policy'] == 'poly':
-            args.append('--lr_power=%s' % self.lr_policy['power'])
-        elif self.lr_policy['policy'] == 'sigmoid':
-            args.append('--lr_stepvalues=%s' % self.lr_policy['stepsize'])
-            args.append('--lr_gamma=%s' % self.lr_policy['gamma'])
-
-        if self.shuffle:
-            args.append('--shuffle=1')
-
-        if self.crop_size:
-            args.append('--croplen=%d' % self.crop_size)
-
-        if self.use_mean == 'pixel':
-            args.append('--subtractMean=pixel')
-        elif self.use_mean == 'image':
-            args.append('--subtractMean=image')
-        else:
-            args.append('--subtractMean=none')
-
-        if self.random_seed is not None:
-            args.append('--seed=%s' % self.random_seed)
-
-        if self.solver_type == 'SGD':
-            args.append('--optimization=sgd')
-        elif self.solver_type == 'ADADELTA':
-            args.append('--optimization=adadelta')
-        elif self.solver_type == 'ADAGRAD':
-            args.append('--optimization=adagrad')
-        elif self.solver_type == 'ADAGRADDA':
-            args.append('--optimization=adagradda')
-        elif self.solver_type == 'MOMENTUM':
-            args.append('--optimization=momentum')
-        elif self.solver_type == 'ADAM':
-            args.append('--optimization=adam')
-        elif self.solver_type == 'FTRL':
-            args.append('--optimization=ftrl')
-        elif self.solver_type == 'RMSPROP':
-            args.append('--optimization=rmsprop')
-        else:
-            raise ValueError('Unknown solver_type %s' % self.solver_type)
-
-        if self.val_interval is not None:
-            args.append('--validation_interval=%d' % self.val_interval)
-
-        # if self.traces_interval is not None:
-        args.append('--log_runtime_stats_per_step=%d' % self.traces_interval)
+        if self.train_batch_size:
+            args.append('--train_batch_size=%d' % self.train_batch_size)
 
         if 'gpus' in resources:
             identifiers = []
@@ -282,32 +221,64 @@ class PBTrainTask(TrainTask):
             # default.
             env['CUDA_VISIBLE_DEVICES'] = subprocess_visible_devices(identifiers)
 
-        if self.pretrained_model:
-            args.append('--weights=%s' % self.path(self.pretrained_model))
-
-        # Augmentations
-        assert self.data_aug['flip'] in ['none', 'fliplr', 'flipud', 'fliplrud'], 'Bad or unknown flag "flip"'
-        args.append('--augFlip=%s' % self.data_aug['flip'])
-
-        if self.data_aug['noise']:
-            args.append('--augNoise=%s' % self.data_aug['noise'])
-
-        if self.data_aug['contrast']:
-            args.append('--augContrast=%s' % self.data_aug['contrast'])
-
-        if self.data_aug['whitening']:
-            args.append('--augWhitening=1')
-
-        if self.data_aug['hsv_use']:
-            args.append('--augHSVh=%s' % self.data_aug['hsv_h'])
-            args.append('--augHSVs=%s' % self.data_aug['hsv_s'])
-            args.append('--augHSVv=%s' % self.data_aug['hsv_v'])
-        else:
-            args.append('--augHSVh=0')
-            args.append('--augHSVs=0')
-            args.append('--augHSVv=0')
+        # if self.training_steps:
+        #     # 训练步骤
+        #     args.append('--how_many_training_steps=%s' % self.training_steps)
+        #
+        #
+        # if self.testing_percentage:
+        #     # 使用多少图像作为测试集
+        #     args.append('--testing_percentage=%d' % self.testing_percentage)
+        #
+        # if self.validation_percentage:
+        #     # 使用多少图像作为验证集
+        #     args.append('--validation_percentage=%d' % self.validation_percentage)
+        #
+        # if self.eval_step_interval:
+        #     # 多久评估一次培训结果
+        #     args.append('--eval_step_interval=%d' % self.eval_step_interval)
+        #
+        # if self.train_batch_size:
+        #     args.append('--train_batch_size=%d' % self.train_batch_size)
+        #
+        # if self.test_batch_size:
+        #     args.append('--test_batch_size=%d' % self.test_batch_size)
+        #
+        # if self.validation_batch_size:
+        #     args.append('--validation_batch_size=%d' % self.validation_batch_size)
+        #
+        # if self.print_misclassified_test_images:
+        #     # 是否打印出所有错误分类的测试图像的列表
+        #     args.append('--print_misclassified_test_images=%s' % self.print_misclassified_test_images)
+        #
+        # if self.final_tensor_name:
+        #     # 再训练图中输出分类图层的名称
+        #     args.append('--final_tensor_name=%s' % self.final_tensor_name)
+        #
+        # if self.flip_left_right:
+        #     # 是否水平地随机翻转一半训练图像
+        #     args.append('--flip_left_right=%s' % self.flip_left_right)
+        #
+        # if self.random_crop:
+        #     # 随机剪裁
+        #     args.append('--random_crop=%d' % self.random_crop)
+        # if self.random_scale:
+        #     # 随机扩大比例
+        #     args.append('--random_scale=%d' % self.random_scale)
+        # if self.random_brightness:
+        #     # 向上向下
+        #     args.append('--random_brightness=%d' % self.random_brightness)
+        #
+        # if self.saved_model_dir:
+        #     # 保存graph输出的位置
+        #     args.append('--saved_model_dir=%s' % self.saved_model_dir)
 
         return args
+
+    def send_update(self):
+        self.detect_snapshots()
+        self.send_snapshot_update()
+        return True
 
     @override
     def process_output(self, line):
@@ -315,7 +286,7 @@ class PBTrainTask(TrainTask):
         self.tensorflow_log.flush()
 
         # parse tensorflow output
-        timestamp, level, message = self.preprocess_output_tensorflow(line)
+        timestamp, level, step, message = self.preprocess_output_tensorflow(line)
 
         # return false when unrecognized output is encountered
         if not level:
@@ -335,23 +306,27 @@ class PBTrainTask(TrainTask):
                 self.displaying_network = False
             return True
 
-        # Distinguish between a Validation and Training stage epoch
-        pattern_stage_epoch = re.compile(r'(Validation|Training)\ \(\w+\ ([^\ ]+)\)\:\ (.*)')
-        for (stage, epoch, kvlist) in re.findall(pattern_stage_epoch, message):
-            epoch = float(epoch)
-            self.send_progress_update(epoch)
-            pattern_key_val = re.compile(r'([\w\-_]+)\ =\ ([^,^\ ]+)')
+        # 此处为过滤retrain.py创建模型时的输出
+        self.train_epochs = self.how_many_training_steps
+        pattern_stage_epoch = re.compile(r'(Validation|Train|Cross)\ (.*)')
+        for (stage, kvlist) in re.findall(pattern_stage_epoch, message):
+            # accuracy = 92.0%
+            self.send_progress_update(step)
+            pattern_key_val = re.compile(r'([\w]+)\ =\ (\S+)')
+            # m = re.match(r'([\w]+)\ =\ (\S+)', 'accuracy = 92.0%')
             # Now iterate through the keys and values on this line dynamically
             for (key, value) in re.findall(pattern_key_val, kvlist):
-                assert not('Inf' in value or 'NaN' in value), 'Network reported %s for %s.' % (value, key)
-                value = float(value)
-                if key == 'lr':
-                    key = 'learning_rate'  # Convert to special DIGITS key for learning rate
-                if stage == 'Training':
+                if stage == 'Train':
+                    # 此处为进度条数据的创建
+                    value = float(value[:4]) / 100
                     self.save_train_output(key, key, value)
+                    self.save_train_output('learning_rate', 'learning_rate', self.learning_rate)
                 elif stage == 'Validation':
+                    value = float(value[:4]) / 100
                     self.save_val_output(key, key, value)
-                    self.logger.debug('Network validation %s #%s: %s' % (key, epoch, value))
+                elif stage == 'Cross':
+                    value = float(value)
+                    self.save_train_output(key, key, value)
                 else:
                     self.logger.error('Unknown stage found other than training or validation: %s' % (stage))
             self.logger.debug(message)
@@ -363,19 +338,12 @@ class PBTrainTask(TrainTask):
             self.detect_timeline_traces()
             return True
 
-        # snapshot saved
-        if self.saving_snapshot:
-            if message.startswith('Snapshot saved'):
-                self.logger.info(message)
+        # 此处为更新训练过程中保存pb文件的输出
+        match = re.match(r'\S*Save intermediate result to\S*', message)
+        if match:
+            self.logger.info(message)
             self.detect_snapshots()
             self.send_snapshot_update()
-            self.saving_snapshot = False
-            return True
-
-        # snapshot starting
-        match = re.match(r'Snapshotting to (.*)\s*$', message)
-        if match:
-            self.saving_snapshot = True
             return True
 
         # network display starting
@@ -394,16 +362,15 @@ class PBTrainTask(TrainTask):
     @staticmethod
     def preprocess_output_tensorflow(line):
         """
-        Takes line of output and parses it according to tensorflow's output format
-        Returns (timestamp, level, message) or (None, None, None)
+        获取retrain执行后的日志，用来处理进度条与时间
         """
-        # NOTE: This must change when the logging format changes
-        # LMMDD HH:MM:SS.MICROS pid file:lineno] message
-        match = re.match(r'(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2})\s\[(\w+)\s*]\s+(\S.*)$', line)
+        match = re.match(r'(\w+):tensorflow:(\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\.\d{6}):\sStep\s(\d*):\s(\S.*)$', line)
+
         if match:
-            timestamp = time.mktime(time.strptime(match.group(1), '%Y-%m-%d %H:%M:%S'))
-            level = match.group(2)
-            message = match.group(3)
+            level = match.group(1)
+            timestamp = time.mktime(time.strptime(match.group(2)[:19], '%Y-%m-%d %H:%M:%S'))
+            step = float(match.group(3))
+            message = match.group(4)
             if level == 'INFO':
                 level = 'info'
             elif level == 'WARNING':
@@ -412,10 +379,10 @@ class PBTrainTask(TrainTask):
                 level = 'error'
             elif level == 'FAIL':  # FAIL
                 level = 'critical'
-            return (timestamp, level, message)
+            return (timestamp, level, step, message)
         else:
             # self.logger.warning('Unrecognized task output "%s"' % line)
-            return (None, None, None)
+            return (None, None, None, None)
 
     def send_snapshot_update(self):
         """
@@ -476,20 +443,20 @@ class PBTrainTask(TrainTask):
 
     @override
     def detect_snapshots(self):
+        # 获取模型目录下，根据步长间隔保存模型的数量，为根据步长间隔来选择不同阶段的模型进行操作
         self.snapshots = []
         snapshots = []
         for filename in os.listdir(self.job_dir):
             # find models
-            match = re.match(r'%s_(\d+)\.?(\d*)\.ckpt\.index$' % self.snapshot_prefix, filename)
+            # match = re.match(r'%s_(\d+)\.?(\d*)\.ckpt\.index$' % self.snapshot_prefix, filename)
+            match = re.match(r'intermediate_graphintermediate_(\d*).pb$', filename)
             if match:
-                epoch = 0
-                # remove '.index' suffix from filename
-                filename = filename[:-6]
-                if match.group(2) == '':
-                    epoch = int(match.group(1))
-                else:
-                    epoch = float(match.group(1) + '.' + match.group(2))
-                snapshots.append((os.path.join(self.job_dir, filename), epoch))
+                step = 0
+                # filename = filename[:-6]
+                step = int(match.group(1))
+                snapshots.append((os.path.join(self.job_dir, filename), step))
+            if filename == 'frozen_model.pb':
+                snapshots.append((os.path.join(self.job_dir, 'frozen_model.pb'), self.how_many_training_steps))
         self.snapshots = sorted(snapshots, key=lambda tup: tup[1])
         return len(self.snapshots) > 0
 
@@ -498,6 +465,7 @@ class PBTrainTask(TrainTask):
         # TODO: Currently this function is not in use. Probably in future we may have to implement this
         return None
 
+    # 之后的代码全为弃用，hub模型预测调用DIGITS\digits\inference\tasks\hub_inference.py
     @override
     def infer_one(self,
                   data,
@@ -546,7 +514,7 @@ class PBTrainTask(TrainTask):
         file_to_load = self.get_snapshot(snapshot_epoch)
 
         args = [sys.executable,
-                os.path.join(os.path.dirname(os.path.abspath(digits.__file__)), 'tools', 'tensorflow', 'main.py'),
+                os.path.join(os.path.dirname(os.path.abspath(digits.__file__)), 'tools', 'pb', 'label_image.py'),
                 '--inference_db=%s' % temp_image_path,
                 '--network=%s' % self.model_file,
                 '--networkDirectory=%s' % self.job_dir,
@@ -954,7 +922,7 @@ class PBTrainTask(TrainTask):
         """
         return paths to model files
         """
-        return {"Network": self.model_file}
+        return {"Network": 'checkpoint'}
 
     @override
     def get_network_desc(self):
@@ -969,7 +937,6 @@ class PBTrainTask(TrainTask):
     def get_task_stats(self, epoch=-1):
         """
         return a dictionary of task statistics
-        给模型页面制作预训练模型提供数据： \DIGITS\digits\model\images\job.py json_dict()
         """
 
         loc, mean_file = os.path.split(self.dataset.get_mean_file())
@@ -979,8 +946,8 @@ class PBTrainTask(TrainTask):
             "mean file": mean_file,
             "snapshot file": self.get_snapshot_filename(epoch),
             "model file": self.model_file,
-            "framework": "tensorflow_pb",
-            "mean subtraction": self.use_mean
+            "framework": "tensorflow_hub",
+            "mean subtraction": self.use_mean,
         }
 
         if hasattr(self, "digits_version"):

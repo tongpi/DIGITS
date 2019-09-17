@@ -601,7 +601,7 @@ def abort_jobs():
     if len(errors) > 0:
         raise werkzeug.exceptions.BadRequest(' '.join(errors))
 
-    return _('Jobs aborted.')
+    return 'Jobs aborted.'
 
 
 @blueprint.route('/datasets/<job_id>/abort', methods=['POST'])

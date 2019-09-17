@@ -8,7 +8,8 @@ function drawCombinedGraph(data) {
         "loss-val": gettext('loss-val'),
         "accuracy-val": gettext('accuracy-val'),
         "loss-train": gettext('loss-train'),
-        "accuracy-train": gettext('accuracy-train')
+        "accuracy-train": gettext('accuracy-train'),
+        "entropy-train": "验证损失"
     };
 
     $('.combined-graph').show();
@@ -43,7 +44,7 @@ function drawCombinedGraph(data) {
                 y2: {
                     show: true,
                     label: {
-                        text: gettext('Accuracy') + ' (%)',
+                        text: '准确率' + ' (%)',
                         position: 'outer-middle',
                     },
                     min: 0,

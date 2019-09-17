@@ -106,79 +106,99 @@ $("#dataset").change();
             <div class="well">
                 <h4>{{ _('Solver Options') }}</h4>
 
+                <div class="disable-hub">
                 <!-- Length -->
-                <div class="form-group{{mark_errors([form.shuffle])}}" id="shuffle-data" style="display:none;">
-                    <label for={{form.shuffle.name}}>
-                        {{form.shuffle}}
-                        {{form.shuffle.label.text}}
-                    </label>
-                    {{ form.shuffle.tooltip }}
+                    <div class="form-group{{mark_errors([form.shuffle])}}" id="shuffle-data" style="display:none;">
+                        <label for={{form.shuffle.name}}>
+                            {{form.shuffle}}
+                            {{form.shuffle.label.text}}
+                        </label>
+                        {{ form.shuffle.tooltip }}
+                    </div>
+                    <div class="form-group{{mark_errors([form.train_epochs])}}">
+                        {{form.train_epochs.label}}
+                        {{form.train_epochs.tooltip}}
+                        {{form.train_epochs(class='form-control')}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.snapshot_interval])}}">
+                        {{form.snapshot_interval.label}}
+                        {{form.snapshot_interval.tooltip}}
+                        {{form.snapshot_interval(class='form-control')}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.val_interval])}}">
+                        {{form.val_interval.label}}
+                        {{form.val_interval.tooltip}}
+                        {{form.val_interval(class='form-control')}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.val_interval])}}" id="timeline-traces" style="display:none;">
+                        {{form.traces_interval.label}}
+                        {{form.traces_interval.tooltip}}
+                        {{form.traces_interval(class='form-control')}}
+                    </div>
+                    {# TODO: neat progress bar #}
+                    <div class="form-group{{mark_errors([form.random_seed])}}">
+                        {{form.random_seed.label}}
+                        {{form.random_seed.tooltip}}
+                        {{form.random_seed(class='form-control', placeholder=_('[none]'))}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.batch_size])}}">
+                        {{form.batch_size.label}}
+                        {{form.batch_size.tooltip}}
+                        <small class="pull-right">
+                            {{form.batch_size.small_text}}
+                        </small>
+                        {{form.batch_size(class='form-control', placeholder=_('[network defaults]'))}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.batch_accumulation])}}"
+                        id="batch-accumulation-option" style="display:none;">
+                        {{form.batch_accumulation.label}}
+                        {{form.batch_accumulation.tooltip}}
+                        {{form.batch_accumulation(class='form-control')}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.solver_type])}}">
+                        {{form.solver_type.label}}
+                        {{form.solver_type.tooltip}}
+                        {{form.solver_type(class='form-control')}}
+                    </div>
+                    <div class="solver-specific-RMSPROP form-group{{mark_errors([form.rms_decay])}}">
+                        {{form.rms_decay.label}}
+                        {{form.rms_decay.tooltip}}
+                        {{form.rms_decay(class='form-control')}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.learning_rate])}}">
+                        {{form.learning_rate.label}}
+                        {{form.learning_rate.tooltip}}
+                        <small class="pull-right">
+                            {{form.learning_rate.small_text}}
+                        </small>
+                        {{form.learning_rate(class='form-control learning-rate-option')}}
+                    </div>
                 </div>
-
-                <div class="form-group{{mark_errors([form.train_epochs])}}">
-                    {{form.train_epochs.label}}
-                    {{form.train_epochs.tooltip}}
-                    {{form.train_epochs(class='form-control')}}
-                </div>
-                <div class="form-group{{mark_errors([form.snapshot_interval])}}">
-                    {{form.snapshot_interval.label}}
-                    {{form.snapshot_interval.tooltip}}
-                    {{form.snapshot_interval(class='form-control')}}
-                </div>
-                <div class="form-group{{mark_errors([form.val_interval])}}">
-                    {{form.val_interval.label}}
-                    {{form.val_interval.tooltip}}
-                    {{form.val_interval(class='form-control')}}
-                </div>
-                <div class="form-group{{mark_errors([form.val_interval])}}" id="timeline-traces" style="display:none;">
-                    {{form.traces_interval.label}}
-                    {{form.traces_interval.tooltip}}
-                    {{form.traces_interval(class='form-control')}}
-                </div>
-                {# TODO: neat progress bar #}
-                <div class="form-group{{mark_errors([form.random_seed])}}">
-                    {{form.random_seed.label}}
-                    {{form.random_seed.tooltip}}
-                    {{form.random_seed(class='form-control', placeholder=_('[none]'))}}
-                </div>
-                <div class="form-group{{mark_errors([form.batch_size])}}">
-                    {{form.batch_size.label}}
-                    {{form.batch_size.tooltip}}
-                    <small class="pull-right">
-                        {{form.batch_size.small_text}}
-                    </small>
-                    {{form.batch_size(class='form-control', placeholder=_('[network defaults]'))}}
-                </div>
-                <div class="form-group{{mark_errors([form.batch_accumulation])}}"
-                    id="batch-accumulation-option" style="display:none;">
-                    {{form.batch_accumulation.label}}
-                    {{form.batch_accumulation.tooltip}}
-                    {{form.batch_accumulation(class='form-control')}}
-                </div>
-                <div class="form-group{{mark_errors([form.solver_type])}}">
-                    {{form.solver_type.label}}
-                    {{form.solver_type.tooltip}}
-                    {{form.solver_type(class='form-control')}}
-                </div>
-                <div class="solver-specific-RMSPROP form-group{{mark_errors([form.rms_decay])}}">
-                    {{form.rms_decay.label}}
-                    {{form.rms_decay.tooltip}}
-                    {{form.rms_decay(class='form-control')}}
-                </div>
-                <div class="form-group{{mark_errors([form.learning_rate])}}">
-                    {{form.learning_rate.label}}
-                    {{form.learning_rate.tooltip}}
-                    <small class="pull-right">
-                        {{form.learning_rate.small_text}}
-                    </small>
-                    {{form.learning_rate(class='form-control learning-rate-option')}}
+                <div id="hub-div">
+                    <div class="form-group{{mark_errors([form.steps])}}">
+                        {{form.steps.label}}
+                        {{form.steps.tooltip}}
+                        {{form.steps(class='form-control')}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.iter_store_step])}}">
+                        {{form.iter_store_step.label}}
+                        {{form.iter_store_step.tooltip}}
+                        {{form.iter_store_step(class='form-control')}}
+                    </div>
+                    <div class="form-group{{mark_errors([form.train_batch_size])}}">
+                        {{form.train_batch_size.label}}
+                        {{form.train_batch_size.tooltip}}
+                        {{form.train_batch_size(class='form-control')}}
+                    </div>
                 </div>
 
                 <p>
-                <label class="checkbox-inline">
-                    <input id="show-advanced-lr-options" type="checkbox" />
-                    {{ _('Show advanced learning rate options') }}
-                </label>
+                <div class="disable-hub">
+                    <label class="checkbox-inline">
+                        <input id="show-advanced-lr-options" type="checkbox" />
+                        {{ _('Show advanced learning rate options') }}
+                    </label>
+                </div>
                 </p>
                 <script>
 {% for choice in form.solver_type.choices %}
@@ -371,7 +391,7 @@ showHideSolverSpecificOptions();
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 disable-hub">
             <div class="well" id="data-transformation">
                 <h4>{{ _('Data Transformations') }}</h4>
                 <div class="form-group{{mark_errors([form.use_mean])}} data-transformation-input" id="MEAN_SUBTRACTION">
@@ -502,6 +522,14 @@ function setFramework(fwid)
         $("#data-augmentation").show();
     else
         $("#data-augmentation").hide();
+
+    if (fwid == 'tensorflow_hub'){
+        $("#hub-div").show();
+        $(".disable-hub").hide();
+    } else {
+        $("#hub-div").hide();
+        $(".disable-hub").show();
+    }
 
     if (fwid == 'torch'){
         editor.session.setMode(new LuaMode()); // Change editor syntax environment

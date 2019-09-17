@@ -22,7 +22,11 @@
 <div class="row">
     {% if image_src %}
     <div class="col-sm-6">
-        <img src="{{image_src}}" style="max-width:100%;" />
+        {% if model_job.train_task().framework_id == 'tensorflow_hub' %}
+            <img src="data:image/png;base64,{{image_src}}" style="max-width:100%;" />
+        {% else %}
+            <img src="{{image_src}}" style="max-width:100%;" />
+        {% endif %}
     </div>
 
     <div class="col-sm-6">

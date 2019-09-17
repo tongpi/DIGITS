@@ -27,6 +27,7 @@ class InferenceJob(Job):
         # get handle to framework object
         fw_id = model.train_task().framework_id
         fw = digits.frameworks.get_framework_by_id(fw_id)
+        self.fw_id = fw_id
 
         if fw is None:
             raise RuntimeError(
@@ -53,6 +54,8 @@ class InferenceJob(Job):
 
     def inference_task(self):
         """Return the first and only InferenceTask for this job"""
+        if self.fw_id == 'tensorflow_hub':
+            return [t for t in self.tasks if isinstance(t, tasks.HubInferenceTask)][0]
         return [t for t in self.tasks if isinstance(t, tasks.InferenceTask)][0]
 
     @override

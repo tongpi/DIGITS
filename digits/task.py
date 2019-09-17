@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
 
@@ -49,6 +50,9 @@ class Task(StatusCls):
         self.aborted = gevent.event.Event()
         self.set_logger()
         self.p = None  # Subprocess object for training
+
+        # 此属性只为DIGITS\digits\model\tasks\hub_train.py中HubTrainTask使用
+        self.how_many_training_steps = kwargs.pop('how_many_training_steps', None)
 
     def __getstate__(self):
         d = self.__dict__.copy()
@@ -242,6 +246,10 @@ class Task(StatusCls):
                             self.logger.warning('%s unrecognized output: %s' % (self.name(), line.strip()))
                             unrecognized_output.append(line)
                     else:
+                        try:
+                            self.send_update()
+                        except:
+                            pass
                         time.sleep(0.05)
                 if sigterm_time is not None and (time.time() - sigterm_time > sigterm_timeout):
                     self.p.send_signal(signal.SIGKILL)

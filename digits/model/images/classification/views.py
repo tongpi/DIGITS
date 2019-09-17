@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
 
@@ -162,6 +163,14 @@ def create():
             fw = frameworks.get_framework_by_id(form.framework.data)
 
             pretrained_model = None
+            tfhub_module = None
+            steps = None
+            intermediate_store_frequency = None
+            image_dir = None
+            checkpoint_path = 'ckpt'
+            save_ckpt_path = None
+            train_batch_size = None
+
             if form.method.data == 'standard':
                 found = False
 
@@ -210,12 +219,31 @@ def create():
                         break
 
             elif form.method.data == 'pretrained':
-                pretrained_job = scheduler.get_job(form.pretrained_networks.data)
-                model_def_path = pretrained_job.get_model_def_path()
-                weights_path = pretrained_job.get_weights_path()
+                # dzh: 如果预训练模型框架为hub时，则取到创建预训练Hub模型时的URL
+                if fw.get_id() == 'tensorflow_hub':
+                    pretrained_job = scheduler.get_job(form.pretrained_networks.data)
+                    if pretrained_job.get_model_status():
+                        tfhub_module = pretrained_job.dir()
+                        checkpoint_path = os.path.join(tfhub_module, 'ckpt')
+                        save_ckpt_path = os.path.join(job.dir(), 'ckpt')
+                    else:
+                        # dzh: Hub model URL
+                        tfhub_module = pretrained_job.get_model_path()
+                    network = None
+                    task = datasetJob.parse_folder_tasks()[0]
+                    # 图片路径
+                    image_dir = task.folder
+                    steps = form.steps.data
+                    intermediate_store_frequency = form.iter_store_step.data
+                    train_batch_size = form.train_batch_size.data
+                else:
+                    pretrained_job = scheduler.get_job(form.pretrained_networks.data)
+                    model_def_path = pretrained_job.get_model_def_path()
+                    weights_path = pretrained_job.get_weights_path()
 
-                network = fw.get_network_from_path(model_def_path)
-                pretrained_model = weights_path
+                    network = fw.get_network_from_path(model_def_path)
+                    pretrained_model = weights_path
+
 
             elif form.method.data == 'custom':
                 network = fw.get_network_from_desc(form.custom_network.data)
@@ -309,6 +337,13 @@ def create():
                 rms_decay=form.rms_decay.data,
                 shuffle=form.shuffle.data,
                 data_aug=data_aug,
+                tfhub_module=tfhub_module,
+                image_dir=image_dir,
+                how_many_training_steps=steps,
+                intermediate_store_frequency=intermediate_store_frequency,
+                checkpoint_path=checkpoint_path,
+                save_ckpt_path=save_ckpt_path,
+                train_batch_size=train_batch_size
             )
             )
 
@@ -430,6 +465,20 @@ def classify_one():
 
     image = None
     predictions = []
+
+    if model_job.train_task().framework_id == 'tensorflow_hub':
+        predictions = outputs
+        image = inputs
+        return flask.render_template('models/images/classification/classify_one.html',
+                                     model_job=model_job,
+                                     job=inference_job,
+                                     image_src=image,
+                                     predictions=predictions,
+                                     visualizations=visualizations,
+                                     total_parameters=sum(v['param_count']
+                                                          for v in visualizations if v['vis_type'] == 'Weights'),
+                                     ), status_code
+
     if inputs is not None and len(inputs['data']) == 1:
         image = utils.image.embed_image_html(inputs['data'][0])
         # convert to class probabilities for viewing

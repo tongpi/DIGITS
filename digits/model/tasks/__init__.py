@@ -19,3 +19,5 @@ if config_value('tensorflow')['enabled']:
     __all__.append('TensorflowTrainTask')
     from .pb_train import PBTrainTask
     __all__.append('PBTrainTask')
+    from .hub_train import HubTrainTask
+    __all__.append('HubTrainTask')
