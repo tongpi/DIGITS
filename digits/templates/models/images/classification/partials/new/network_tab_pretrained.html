@@ -20,7 +20,9 @@
   });
 
   $(document).ready(function(){
-    updatePretrainedTab("{{frameworks[0].get_id()}}");
+    {#updatePretrainedTab("{{frameworks[-1].get_id()}}");#}
+    // 保存被克隆模型的预训练模型参数
+    updatePretrainedTab("{{form.framework.data}}");
   });
 
 </script>

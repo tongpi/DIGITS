@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 # Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -281,11 +282,30 @@ def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir,
   Returns:
     File system path string to an image that meets the requested parameters.
   """
+  pattern = re.compile(r'[0-9a-z\-_]{20}')
+  match = pattern.findall(module_name)
+  if match:
+      module_name = module_name[:-21]
   module_name = (module_name.replace('://', '~')  # URL scheme.
                  .replace('/', '~')  # URL and Unix paths.
                  .replace(':', '~').replace('\\', '~'))  # Windows paths.
-  return get_image_path(image_lists, label_name, index, bottleneck_dir,
-                        category) + '_' + module_name + '.txt'
+  # return get_image_path(image_lists, label_name, index, bottleneck_dir,
+  #                       category) + '_' + module_name + '.txt'
+  if label_name not in image_lists:
+    tf.logging.fatal('Label does not exist %s.', label_name)
+  label_lists = image_lists[label_name]
+  if category not in label_lists:
+    tf.logging.fatal('Category does not exist %s.', category)
+  category_list = label_lists[category]
+  if not category_list:
+    tf.logging.fatal('Label %s has no images in the category %s.',
+                     label_name, category)
+  mod_index = index % len(category_list)
+  base_name = category_list[mod_index]
+  sub_dir = label_lists['dir']
+  path = os.path.join(FLAGS.bottleneck_dir, sub_dir, base_name) + '.txt'
+  return path
+  # return get_image_path(image_lists, label_name, index, bottleneck_dir, category)
 
 
 def create_module_graph(module_spec):
@@ -405,19 +425,24 @@ def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
   ensure_dir_exists(sub_dir_path)
   bottleneck_path = get_bottleneck_path(image_lists, label_name, index,
                                         bottleneck_dir, category, module_name)
+  # bottleneck_path = FLAGS.bottleneck_dir
+  """
+  此函数的所有注释是因为瓶颈值从数据集中获得，在此脚本中（retrain.py）将不会再创建瓶颈值
   if not os.path.exists(bottleneck_path):
     create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
                            image_dir, category, sess, jpeg_data_tensor,
                            decoded_image_tensor, resized_input_tensor,
                            bottleneck_tensor)
+  """
   with tf.gfile.GFile(bottleneck_path, 'r') as bottleneck_file:
     bottleneck_string = bottleneck_file.read()
-  did_hit_error = False
-  try:
-    bottleneck_values = [float(x) for x in bottleneck_string.split(',')]
-  except ValueError:
-    tf.logging.warning('Invalid float found, recreating bottleneck')
-    did_hit_error = True
+  # did_hit_error = False
+  # try:
+  bottleneck_values = [float(x) for x in bottleneck_string.split(',')]
+  # except ValueError:
+    # tf.logging.warning('Invalid float found, recreating bottleneck')
+    # did_hit_error = True
+  """
   if did_hit_error:
     create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
                            image_dir, category, sess, jpeg_data_tensor,
@@ -428,6 +453,7 @@ def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
     # Allow exceptions to propagate here, since they shouldn't happen after a
     # fresh creation
     bottleneck_values = [float(x) for x in bottleneck_string.split(',')]
+  """
   return bottleneck_values
 
 
@@ -1000,7 +1026,7 @@ def main(_):
   # Prepare necessary directories that can be used during training
   prepare_file_system()
 
-  # Look at the folder structure, and create lists of all the images.
+  # Look at the folder structure, and create lists of all the images. 创建图像列表
   image_lists = create_image_lists(FLAGS.image_dir, FLAGS.testing_percentage,
                                    FLAGS.validation_percentage)
   class_count = len(image_lists.keys())
@@ -1013,18 +1039,19 @@ def main(_):
                      ' - multiple classes are needed for classification.')
     return -1
 
-  # See if the command-line flags mean we're applying any distortions.
+  # See if the command-line flags mean we're applying any distortions. 是否使用图像扭曲参数
   do_distort_images = should_distort_images(
       FLAGS.flip_left_right, FLAGS.random_crop, FLAGS.random_scale,
       FLAGS.random_brightness)
 
   # TODO: pre-train
   # Set up the pre-trained graph.
-  module_spec = hub.load_module_spec(FLAGS.tfhub_module)
+  model_hash = hashlib.sha1(FLAGS.tfhub_module.encode("utf8")).hexdigest()
+  module_spec = hub.load_module_spec("/home/data/tfhub/{}".format(model_hash))
   graph, bottleneck_tensor, resized_image_tensor, wants_quantization = (
       create_module_graph(module_spec))
 
-  # Add the new layer that we'll be training.
+  # Add the new layer that we'll be training. 添加需要训练的新图层
   with graph.as_default():
     (train_step, cross_entropy, bottleneck_input,
      ground_truth_input, final_tensor) = add_final_retrain_ops(
@@ -1034,6 +1061,7 @@ def main(_):
   with tf.Session(graph=graph) as sess:
     # Initialize all weights: for the module to their pretrained values,
     # and for the newly added retraining layer to random initial values.
+    # 初始化所有权重：从模块到其预训练值，以及新添加的再训练层到随机初始值。
     if 'https' in FLAGS.tfhub_module:
         init = tf.global_variables_initializer()
         sess.run(init)
@@ -1052,6 +1080,7 @@ def main(_):
     else:
       # We'll make sure we've calculated the 'bottleneck' image summaries and
       # cached them on disk.
+      # 计算出图像的瓶颈值，并将其缓存在磁盘中
       cache_bottlenecks(sess, image_lists, FLAGS.image_dir,
                         FLAGS.bottleneck_dir, jpeg_data_tensor,
                         decoded_image_tensor, resized_image_tensor,

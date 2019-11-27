@@ -74,19 +74,6 @@ class TrainTask(Task):
         self.tfhub_module = kwargs.pop('tfhub_module', None)
 
         super(TrainTask, self).__init__(job_dir=job.dir(), **kwargs)
-
-        # 以下参数为hub创建模型所需要的参数
-        self.output_graph = kwargs.pop('output_graph', os.path.join(self.job_dir, 'frozen_model.pb'))
-        self.intermediate_store_frequency = kwargs.pop('intermediate_store_frequency', 1000)
-        self.intermediate_output_graphs_dir = kwargs.pop('intermediate_output_graphs_dir',
-                                                         os.path.join(self.job_dir, 'intermediate_graph'))
-        self.output_labels = kwargs.pop('output_labels', os.path.join(self.job_dir, 'labels.txt'))
-        self.bottleneck_dir = kwargs.pop('bottleneck_dir', '/home/data/new_pb/bottleneck')
-        self.checkpoint_path = kwargs.pop('checkpoint_path', 'ckpt')
-        self.save_ckpt_path = kwargs.pop('save_ckpt_path', None)
-        self.summaries_dir = kwargs.pop('summaries_dir', os.path.join(self.job_dir, 'retrain_logs'))
-        self.train_batch_size = kwargs.pop('train_batch_size', 100)
-
         self.pickver_task_train = PICKLE_VERSION
 
         self.job = job
@@ -103,6 +90,20 @@ class TrainTask(Task):
         # data gets stored as dicts of lists (for graphing)
         self.train_outputs = OrderedDict()
         self.val_outputs = OrderedDict()
+
+
+        # 以下参数为hub创建模型所需要的参数
+        self.output_graph = kwargs.pop('output_graph', os.path.join(self.job_dir, 'frozen_model.pb'))
+        self.intermediate_store_frequency = kwargs.pop('intermediate_store_frequency', 1000)
+        self.intermediate_output_graphs_dir = kwargs.pop('intermediate_output_graphs_dir',
+                                                         os.path.join(self.job_dir, 'intermediate_graph'))
+        self.output_labels = kwargs.pop('output_labels', os.path.join(self.job_dir, 'labels.txt'))
+        self.bottleneck_dir = self.dataset.path("bottleneck")
+        self.checkpoint_path = kwargs.pop('checkpoint_path', 'ckpt')
+        self.save_ckpt_path = kwargs.pop('save_ckpt_path', None)
+        self.summaries_dir = kwargs.pop('summaries_dir', os.path.join(self.job_dir, 'retrain_logs'))
+        self.train_batch_size = kwargs.pop('train_batch_size', 100)
+
 
     def __getstate__(self):
         state = super(TrainTask, self).__getstate__()

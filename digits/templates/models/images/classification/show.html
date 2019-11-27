@@ -290,6 +290,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                             $("#image_path").change(function() { $("#image_file").val(""); });
                             $("#image_file").change(function() { $("#image_path").val(""); });
                         </script>
+                        {% if  task.get_framework_id() != 'tensorflow_hub' %}
                         <div class="form-group">
                             <label for="show_visualizations">
                                 <input id="show_visualizations" name="show_visualizations" type="checkbox" value="y">
@@ -301,6 +302,7 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                                 title="{{_('For each layer in the network, show statistics for the weights/activations and attempt to represent the data visually. Can delay classification considerably.')}}"
                                 ></span>
                         </div>
+                        {% endif %}
                         <button name="classify-one-btn"
                             formaction="{{url_for('digits.model.images.classification.views.classify_one', job_id=job.id())}}"
                             formmethod="post"

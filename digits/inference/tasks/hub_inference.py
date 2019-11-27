@@ -103,71 +103,15 @@ class HubInferenceTask(Task):
         visualizations = []
         outputs = []
         # roses:0.975007;sunflowers:0.0193765;daisy:0.00269356;dandelion:0.00194239;tulips:0.000980855;
-        for item in self.infer_result.split(';'):
-            if not item:
-                break
-            outputs.append((item.split(':')[0], round(float(item.split(':')[1]), 4) * 100))
+        if self.infer_result:
+            for item in self.infer_result.split(';'):
+                if not item:
+                    break
+                outputs.append((item.split(':')[0], round(float(item.split(':')[1]), 4) * 100))
 
-        self.inference_outputs = outputs
-        with open(self.images[0], 'r') as f:
-            self.inference_inputs = base64.b64encode(f.read()).decode()
-
-
-        # if self.inference_data_filename is not None:
-        #     # the HDF5 database contains:
-        #     # - input images, in a dataset "/inputs"
-        #     # - all network outputs, in a group "/outputs/"
-        #     # - layer activations and weights, if requested, in a group "/layers/"
-        #     db = h5py.File(self.inference_data_filename, 'r')
-        #
-        #     # collect paths and data
-        #     input_ids = db['input_ids'][...]
-        #     input_data = db['input_data'][...]
-        #
-        #     # collect outputs
-        #     o = []
-        #     for output_key, output_data in db['outputs'].items():
-        #         output_name = base64.urlsafe_b64decode(str(output_key))
-        #         o.append({'id': output_data.attrs['id'], 'name': output_name, 'data': output_data[...]})
-        #     # sort outputs by ID
-        #     o = sorted(o, key=lambda x: x['id'])
-        #     # retain only data (using name as key)
-        #     for output in o:
-        #         outputs[output['name']] = output['data']
-        #
-        #     # collect layer data, if applicable
-        #     if 'layers' in db.keys():
-        #         for layer_id, layer in db['layers'].items():
-        #             visualization = {
-        #                 'id': int(layer_id),
-        #                 'name': layer.attrs['name'],
-        #                 'vis_type': layer.attrs['vis_type'],
-        #                 'data_stats': {
-        #                     'shape': layer.attrs['shape'],
-        #                     'mean': layer.attrs['mean'],
-        #                     'stddev': layer.attrs['stddev'],
-        #                     'histogram': [
-        #                         layer.attrs['histogram_y'].tolist(),
-        #                         layer.attrs['histogram_x'].tolist(),
-        #                         layer.attrs['histogram_ticks'].tolist(),
-        #                     ]
-        #                 }
-        #             }
-        #             if 'param_count' in layer.attrs:
-        #                 visualization['param_count'] = layer.attrs['param_count']
-        #             if 'layer_type' in layer.attrs:
-        #                 visualization['layer_type'] = layer.attrs['layer_type']
-        #             vis = layer[...]
-        #             if vis.shape[0] > 0:
-        #                 visualization['image_html'] = embed_image_html(vis)
-        #             visualizations.append(visualization)
-        #         # sort by layer ID (as HDF5 ASCII sorts)
-        #         visualizations = sorted(visualizations, key=lambda x: x['id'])
-        #     db.close()
-        #     # save inference data for further use
-        #     self.inference_inputs = {'ids': input_ids, 'data': input_data}
-        #     self.inference_outputs = outputs
-        #     self.inference_layers = visualizations
+            self.inference_outputs = outputs
+            with open(self.images[0], 'r') as f:
+                self.inference_inputs = base64.b64encode(f.read()).decode()
 
         self.inference_log.close()
 
@@ -193,7 +137,7 @@ class HubInferenceTask(Task):
         return None
 
     def get_graph(self, step):
-        if 'intermediate_graphintermediate_%d.pb' % step not in  os.listdir(self.model.dir()):
+        if step is None or 'intermediate_graphintermediate_%d.pb' % step not in os.listdir(self.model.dir()):
             return os.path.join(self.model.dir(), 'frozen_model.pb')
         else:
             return os.path.join(self.model.dir(), 'intermediate_graphintermediate_%d.pb' % step)

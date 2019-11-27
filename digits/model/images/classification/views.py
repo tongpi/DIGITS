@@ -450,7 +450,6 @@ def classify_one():
 
     # wait for job to complete
     inference_job.wait_completion()
-
     # retrieve inference data
     inputs, outputs, visualizations = inference_job.get_data()
 
@@ -469,6 +468,8 @@ def classify_one():
     if model_job.train_task().framework_id == 'tensorflow_hub':
         predictions = outputs
         image = inputs
+        if request_wants_json():
+            return flask.jsonify({'predictions': predictions}), status_code
         return flask.render_template('models/images/classification/classify_one.html',
                                      model_job=model_job,
                                      job=inference_job,

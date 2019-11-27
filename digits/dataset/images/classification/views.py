@@ -121,6 +121,8 @@ def from_folders(job, form):
             compression=compression,
             mean_file=utils.constants.MEAN_FILE_CAFFE,
             labels_file=job.labels_file,
+            image_folder=form.folder_train.data,
+            is_train=1
         )
     )
 
@@ -137,6 +139,8 @@ def from_folders(job, form):
                 encoding=encoding,
                 compression=compression,
                 labels_file=job.labels_file,
+                image_folder=form.folder_train.data,
+                is_train=0
             )
         )
 
@@ -153,6 +157,8 @@ def from_folders(job, form):
                 encoding=encoding,
                 compression=compression,
                 labels_file=job.labels_file,
+                image_folder=form.folder_train.data,
+                is_train=0
             )
         )
 
@@ -269,6 +275,7 @@ def from_sound_folders(job, form):
             compression=compression,
             mean_file=utils.constants.MEAN_FILE_CAFFE,
             labels_file=job.labels_file,
+            is_train=0,
         )
     )
 
@@ -285,6 +292,7 @@ def from_sound_folders(job, form):
                 encoding=encoding,
                 compression=compression,
                 labels_file=job.labels_file,
+                is_train=0,
             )
         )
 
@@ -301,6 +309,7 @@ def from_sound_folders(job, form):
                 encoding=encoding,
                 compression=compression,
                 labels_file=job.labels_file,
+                is_train=0,
             )
         )
 

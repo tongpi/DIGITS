@@ -45,6 +45,7 @@ class CreateDbTask(Task):
         self.compression = kwargs.pop('compression', None)
         self.mean_file = kwargs.pop('mean_file', None)
         self.labels_file = kwargs.pop('labels_file', None)
+        self.is_train = kwargs.pop('is_train', None)
 
         super(CreateDbTask, self).__init__(**kwargs)
         self.pickver_task_createdb = PICKLE_VERSION
@@ -159,6 +160,8 @@ class CreateDbTask(Task):
             '--backend=%s' % self.backend,
             '--channels=%s' % self.image_dims[2],
             '--resize_mode=%s' % self.resize_mode,
+            '--job_dir=%s' % self.job_dir,
+            '--is_train=%d' % self.is_train
         ]
 
         if self.mean_file is not None:

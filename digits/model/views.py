@@ -241,9 +241,13 @@ def to_pretrained(job_id):
     snapshot_filename = None
     snapshot_filename = task.get_snapshot(epoch)
 
-    weights_path = [snapshot_filename + '.data-00000-of-00001',
-                    snapshot_filename + '.index',
-                    snapshot_filename + '.meta']
+    # 优化制作预训练模型时，对tensorflow和caffe torch的模型文件的不同处理逻辑
+    if info["framework"][:10] == "tensorflow":
+        weights_path = [snapshot_filename + '.data-00000-of-00001',
+                        snapshot_filename + '.index',
+                        snapshot_filename + '.meta']
+    else:
+        weights_path = snapshot_filename
 
     # Set defaults:
     labels_path = None

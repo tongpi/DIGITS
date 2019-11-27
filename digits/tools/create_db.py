@@ -1,7 +1,10 @@
 #!/usr/bin/env python2
+# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 
 import argparse
+import collections
+import hashlib
 from collections import Counter
 import logging
 import math
@@ -37,6 +40,7 @@ import caffe_pb2  # noqa
 
 if digits.config.config_value('tensorflow')['enabled']:
     import tensorflow as tf
+    import tensorflow_hub as hub
 else:
     tf = None
 
@@ -217,8 +221,9 @@ def create_db(input_file, output_dir,
               image_folder=None,
               shuffle=True,
               mean_files=None,
+              job_dir=None,
+              is_train=None,
               **kwargs):
-    from flask_babel import lazy_gettext as _
     """
     Create a database of images from a list of image paths
     Raises exceptions on errors
@@ -237,6 +242,7 @@ def create_db(input_file, output_dir,
     mean_files -- a list of mean files to save
     """
     # Validate arguments
+    from flask_babel import lazy_gettext as _
 
     if not os.path.exists(input_file):
         raise ValueError(_('input_file does not exist'))
@@ -306,6 +312,8 @@ def create_db(input_file, output_dir,
                      mean_files, **kwargs)
     else:
         raise ValueError(_('invalid backend'))
+    if int(is_train) == 1:
+        _create_bottleneck(job_dir, image_folder, image_height, image_width, image_channels)
 
     logger.info('Database created after %d seconds.' % (time.time() - start))
 
@@ -858,6 +866,250 @@ def _save_means(image_sum, image_count, mean_files):
         logger.info('Mean saved at "%s"' % mean_file)
 
 
+MAX_NUM_IMAGES_PER_CLASS = 2 ** 27 - 1
+FAKE_QUANT_OPS = ('FakeQuantWithMinMaxVars',
+                  'FakeQuantWithMinMaxVarsPerChannel')
+
+
+# dzh: create tensorflow_hub bottleneck file
+def _create_bottleneck(job_dir, folder, height, width, channel):
+    # 10,10: 验证图像百分比和测试图像百分比
+    image_lists = create_image_lists(folder, 10, 10)
+
+    class_count = len(image_lists.keys())
+    if class_count == 0:
+        logger.error('No valid folders of images found at ' + folder)
+        return -1
+    if class_count == 1:
+        logger.error('Only one valid folder of images found at ' +
+                     folder +
+                     ' - multiple classes are needed for classification.')
+        return -1
+    # TODO: 忽略图片旋转功能
+
+    # module_spec = hub.load_module_spec(tfhub_module)
+    graph, bottleneck_tensor, resized_image_tensor, wants_quantization = (
+        create_module_graph(height, width))
+
+    with tf.Session(graph=graph) as sess:
+        init = tf.global_variables_initializer()
+        sess.run(init)
+
+        jpeg_data_tensor, decoded_image_tensor = add_jpeg_decoding(height, width, channel)
+
+        cache_bottlenecks(sess, image_lists, folder,
+                          job_dir + '/bottleneck', jpeg_data_tensor,
+                          decoded_image_tensor, resized_image_tensor,
+                          bottleneck_tensor)
+
+
+def create_image_lists(image_dir, testing_percentage, validation_percentage):
+    if not tf.gfile.Exists(image_dir):
+        logger.error("Image directory '" + image_dir + "' not found.")
+        return None
+    result = collections.OrderedDict()
+    sub_dirs = sorted(x[0] for x in tf.gfile.Walk(image_dir))
+    is_root_dir = True
+    for sub_dir in sub_dirs:
+        if is_root_dir:
+            is_root_dir = False
+            continue
+        extensions = sorted(set(os.path.normcase(ext)  # Smash case on Windows.
+                                for ext in ['JPEG', 'JPG', 'jpeg', 'jpg', 'png']))
+        file_list = []
+        dir_name = os.path.basename(
+            # tf.gfile.Walk() returns sub-directory with trailing '/' when it is in
+            # Google Cloud Storage, which confuses os.path.basename().
+            sub_dir[:-1] if sub_dir.endswith('/') else sub_dir)
+
+        if dir_name == image_dir:
+            continue
+        logger.info("Looking for images in '" + dir_name + "'")
+        for extension in extensions:
+            file_glob = os.path.join(image_dir, dir_name, '*.' + extension)
+            file_list.extend(tf.gfile.Glob(file_glob))
+        if not file_list:
+            logger.warning('No files found')
+            continue
+        if len(file_list) < 20:
+            logger.warning(
+                'WARNING: Folder has less than 20 images, which may cause issues.')
+        elif len(file_list) > MAX_NUM_IMAGES_PER_CLASS:
+            logger.warning(
+                'WARNING: Folder {} has more than {} images. Some images will '
+                'never be selected.'.format(dir_name, MAX_NUM_IMAGES_PER_CLASS))
+        label_name = re.sub(r'[^a-z0-9]+', ' ', dir_name.lower())
+        training_images = []
+        testing_images = []
+        validation_images = []
+        for file_name in file_list:
+            base_name = os.path.basename(file_name)
+
+            hash_name = re.sub(r'_nohash_.*$', '', file_name)
+
+            hash_name_hashed = hashlib.sha1(tf.compat.as_bytes(hash_name)).hexdigest()
+            percentage_hash = ((int(hash_name_hashed, 16) %
+                                (MAX_NUM_IMAGES_PER_CLASS + 1)) *
+                                (100.0 / MAX_NUM_IMAGES_PER_CLASS))
+            if percentage_hash < validation_percentage:
+                validation_images.append(base_name)
+            elif percentage_hash < (testing_percentage + validation_percentage):
+                testing_images.append(base_name)
+            else:
+                training_images.append(base_name)
+            result[label_name] = {
+                'dir': dir_name,
+                'training': training_images,
+                'testing': testing_images,
+                'validation': validation_images,
+            }
+    return result
+
+
+def get_image_path(image_lists, label_name, index, image_dir, category):
+    if label_name not in image_lists:
+        logger.fatal('Label does not exist %s.', label_name)
+    label_lists = image_lists[label_name]
+    if category not in label_lists:
+        logger.fatal('Category does not exist %s.', category)
+    category_list = label_lists[category]
+    if not category_list:
+        logger.fatal('Label %s has no images in the category %s.',
+                         label_name, category)
+    mod_index = index % len(category_list)
+    base_name = category_list[mod_index]
+    sub_dir = label_lists['dir']
+    full_path = os.path.join(image_dir, sub_dir, base_name)
+    return full_path
+
+
+def ensure_dir_exists(dir_name):
+    if not os.path.exists(dir_name):
+        os.makedirs(dir_name)
+
+
+def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir,
+                        category):
+    return get_image_path(image_lists, label_name, index, bottleneck_dir,
+                          category) + '.txt'
+
+
+def run_bottleneck_on_image(sess, image_data, image_data_tensor,
+                            decoded_image_tensor, resized_input_tensor,
+                            bottleneck_tensor):
+
+    # First decode the JPEG image, resize it, and rescale the pixel values.
+    resized_input_values = sess.run(decoded_image_tensor,
+                                    {image_data_tensor: image_data})
+
+    # Then run it through the recognition network.
+    bottleneck_values = sess.run(bottleneck_tensor,
+                                 {resized_input_tensor: resized_input_values})
+
+    bottleneck_values = np.squeeze(bottleneck_values)
+    return bottleneck_values
+
+
+def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
+                           image_dir, category, sess, jpeg_data_tensor,
+                           decoded_image_tensor, resized_input_tensor,
+                           bottleneck_tensor):
+    # logger.debug('Creating bottleneck at ' + bottleneck_path)
+    image_path = get_image_path(image_lists, label_name, index,
+                                image_dir, category)
+    if not tf.gfile.Exists(image_path):
+        logger.fatal('File does not exist %s', image_path)
+    image_data = tf.gfile.GFile(image_path, 'rb').read()
+    try:
+        bottleneck_values = run_bottleneck_on_image(
+            sess, image_data, jpeg_data_tensor, decoded_image_tensor,
+            resized_input_tensor, bottleneck_tensor)
+    except Exception as e:
+        raise RuntimeError('Error during processing file %s (%s)' % (image_path, str(e)))
+    bottleneck_string = ','.join(str(x) for x in bottleneck_values)
+    with tf.gfile.GFile(bottleneck_path, 'w') as bottleneck_file:
+        bottleneck_file.write(bottleneck_string)
+
+
+def get_or_create_bottleneck(sess, image_lists, label_name, index, image_dir,
+                             category, bottleneck_dir, jpeg_data_tensor,
+                             decoded_image_tensor, resized_input_tensor,
+                             bottleneck_tensor):
+
+    label_lists = image_lists[label_name]
+    sub_dir = label_lists['dir']
+    sub_dir_path = os.path.join(bottleneck_dir, sub_dir)
+    ensure_dir_exists(sub_dir_path)
+    bottleneck_path = get_bottleneck_path(image_lists, label_name, index,
+                                          bottleneck_dir, category)
+    if not os.path.exists(bottleneck_path):
+        create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
+                               image_dir, category, sess, jpeg_data_tensor,
+                               decoded_image_tensor, resized_input_tensor,
+                               bottleneck_tensor)
+    with tf.gfile.GFile(bottleneck_path, 'r') as bottleneck_file:
+        bottleneck_string = bottleneck_file.read()
+    did_hit_error = False
+    try:
+        bottleneck_values = [float(x) for x in bottleneck_string.split(',')]
+    except ValueError:
+        logger.warning('Invalid float found, recreating bottleneck')
+        did_hit_error = True
+    if did_hit_error:
+        create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
+                               image_dir, category, sess, jpeg_data_tensor,
+                               decoded_image_tensor, resized_input_tensor,
+                               bottleneck_tensor)
+        with tf.gfile.GFile(bottleneck_path, 'r') as bottleneck_file:
+            bottleneck_string = bottleneck_file.read()
+        # Allow exceptions to propagate here, since they shouldn't happen after a
+        # fresh creation
+        bottleneck_values = [float(x) for x in bottleneck_string.split(',')]
+    return bottleneck_values
+
+
+def cache_bottlenecks(sess, image_lists, image_dir, bottleneck_dir,
+                      jpeg_data_tensor, decoded_image_tensor,
+                      resized_input_tensor, bottleneck_tensor):
+    how_many_bottlenecks = 0
+    ensure_dir_exists(bottleneck_dir)
+    for label_name, label_lists in image_lists.items():
+        for category in ['training', 'testing', 'validation']:
+            category_list = label_lists[category]
+            for index, unused_base_name in enumerate(category_list):
+                get_or_create_bottleneck(
+                    sess, image_lists, label_name, index, image_dir, category,
+                    bottleneck_dir, jpeg_data_tensor, decoded_image_tensor,
+                    resized_input_tensor, bottleneck_tensor)
+                how_many_bottlenecks += 1
+                if how_many_bottlenecks % 100 == 0:
+                    logger.info(str(how_many_bottlenecks) + ' bottleneck files created.')
+
+
+def add_jpeg_decoding(height, width, channel):
+    jpeg_data = tf.placeholder(tf.string, name='DecodeJPGInput')
+    decoded_image = tf.image.decode_jpeg(jpeg_data, channels=channel)
+    decoded_image_as_float = tf.image.convert_image_dtype(decoded_image,
+                                                          tf.float32)
+    decoded_image_4d = tf.expand_dims(decoded_image_as_float, 0)
+    resize_shape = tf.stack([height, width])
+    resize_shape_as_int = tf.cast(resize_shape, dtype=tf.int32)
+    resized_image = tf.image.resize_bilinear(decoded_image_4d,
+                                             resize_shape_as_int)
+    return jpeg_data, resized_image
+
+
+def create_module_graph(height, width):
+    with tf.Graph().as_default() as graph:
+        resized_input_tensor = tf.placeholder(tf.float32, [None, height, width, 3])
+        # m = hub.Module("https://tfhub.dev/google/imagenet/inception_v3/classification/3")
+        m = hub.Module("/home/data/tfhub/e3e43a40838bb69eb22219f4c1e9b50726326db2")
+        bottleneck_tensor = m(resized_input_tensor)
+        wants_quantization = any(node.op in FAKE_QUANT_OPS
+                                 for node in graph.as_graph_def().node)
+    return graph, bottleneck_tensor, resized_input_tensor, wants_quantization
+
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Create-Db tool - DIGITS')
 
@@ -910,6 +1162,10 @@ if __name__ == '__main__':
                         type=int,
                         default=2**31,
                         help=_('The size limit for HDF5 datasets'))
+    parser.add_argument('--job_dir',
+                        help=_('Path to the dataset job_dir'))
+    parser.add_argument('--is_train',
+                        help=_('T(1) or F(0)'))
 
     args = vars(parser.parse_args())
 
@@ -929,6 +1185,8 @@ if __name__ == '__main__':
                   compression=args['compression'],
                   lmdb_map_size=args['lmdb_map_size'],
                   hdf5_dset_limit=args['hdf5_dset_limit'],
+                  job_dir=args['job_dir'],
+                  is_train=args['is_train']
                   )
     except Exception as e:
         logger.error('%s: %s' % (type(e).__name__, e.message))

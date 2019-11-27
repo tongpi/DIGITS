@@ -58,7 +58,11 @@ def read_tensor_from_image_file(file_name,
   dims_expander = tf.expand_dims(float_caster, 0)
   resized = tf.image.resize_bilinear(dims_expander, [input_height, input_width])
   normalized = tf.divide(tf.subtract(resized, [input_mean]), [input_std])
-  sess = tf.Session()
+
+  config = tf.ConfigProto()
+  config.gpu_options.allow_growth = True
+
+  sess = tf.Session(config=config)
   result = sess.run(normalized)
 
   return result
@@ -128,7 +132,10 @@ if __name__ == "__main__":
   input_operation = graph.get_operation_by_name(input_name)
   output_operation = graph.get_operation_by_name(output_name)
 
-  with tf.Session(graph=graph) as sess:
+  config = tf.ConfigProto()
+  config.gpu_options.allow_growth = True
+
+  with tf.Session(graph=graph, config=config) as sess:
     results = sess.run(output_operation.outputs[0], {
         input_operation.outputs[0]: t
     })
