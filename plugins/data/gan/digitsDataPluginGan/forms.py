@@ -1,9 +1,9 @@
 # Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 
-from flask.ext.wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import HiddenField, TextAreaField, validators
 
 from digits import utils
@@ -12,7 +12,7 @@ from flask_babel import lazy_gettext as _
 
 
 @subclass
-class DatasetForm(Form):
+class DatasetForm(FlaskForm):
     """
     A form used to create a Sunnybrook dataset
     """
@@ -40,7 +40,7 @@ class DatasetForm(Form):
                 return True
 
     file_list = utils.forms.StringField(
-        _(u'File list (with attributes) in CelebA format'),
+        _('File list (with attributes) in CelebA format'),
         validators=[
             validate_file_path,
         ],
@@ -48,7 +48,7 @@ class DatasetForm(Form):
     )
 
     image_folder = utils.forms.StringField(
-        _(u'Image folder'),
+        _('Image folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
@@ -57,7 +57,7 @@ class DatasetForm(Form):
         )
 
     center_crop_size = utils.forms.IntegerField(
-        _(u'Center crop size'),
+        _('Center crop size'),
         default=108,
         validators=[
             validators.NumberRange(min=0)
@@ -66,14 +66,14 @@ class DatasetForm(Form):
     )
 
     resize = utils.forms.IntegerField(
-        _(u'Resize after crop.'),
+        _('Resize after crop.'),
         default=64,
         tooltip=_("Resize after crop.")
     )
 
 
 @subclass
-class InferenceForm(Form):
+class InferenceForm(FlaskForm):
     """
     A form used to perform inference on a text classification dataset
     """
@@ -106,7 +106,7 @@ class InferenceForm(Form):
                 return True
 
     row_count = utils.forms.IntegerField(
-        _(u'Rows'),
+        _('Rows'),
         default=10,
         validators=[
             validators.NumberRange(min=1)
@@ -140,23 +140,23 @@ class InferenceForm(Form):
         )
 
     class_z_vector = utils.forms.StringField(
-        _(u'Z vector (leave blank for random)'),
+        _('Z vector (leave blank for random)'),
     )
 
     style_z1_vector = utils.forms.StringField(
-        _(u'Z1 vector (leave blank for random)'),
+        _('Z1 vector (leave blank for random)'),
     )
 
     style_z2_vector = utils.forms.StringField(
-        _(u'Z2 vector (leave blank for random)'),
+        _('Z2 vector (leave blank for random)'),
     )
 
     genimg_z_vector = utils.forms.StringField(
-        _(u'Z vector (leave blank for random)'),
+        _('Z vector (leave blank for random)'),
     )
 
     genimg_class_id = utils.forms.IntegerField(
-        _(u'Class ID'),
+        _('Class ID'),
         default=0,
         validators=[
             validators.NumberRange(min=0, max=9)
@@ -165,11 +165,11 @@ class InferenceForm(Form):
     )
 
     attributes_z_vector = utils.forms.StringField(
-        _(u'Z vector (leave blank for random)'),
+        _('Z vector (leave blank for random)'),
     )
 
     attributes_file = utils.forms.StringField(
-        _(u'Attributes vector file'),
+        _('Attributes vector file'),
         validators=[
             validate_file_path,
             ],
@@ -179,7 +179,7 @@ class InferenceForm(Form):
     attributes_params = HiddenField()
 
     enc_file_list = utils.forms.StringField(
-        _(u'File list'),
+        _('File list'),
         validators=[
             validate_file_path,
             ],
@@ -187,7 +187,7 @@ class InferenceForm(Form):
         )
 
     enc_image_folder = utils.forms.StringField(
-        _(u'Image folder'),
+        _('Image folder'),
         validators=[
             validate_folder_path,
             ],
@@ -195,7 +195,7 @@ class InferenceForm(Form):
         )
 
     enc_num_images = utils.forms.IntegerField(
-        _(u'Number of images to encode'),
+        _('Number of images to encode'),
         default=100,
         validators=[
             validators.NumberRange(min=0)
@@ -204,19 +204,19 @@ class InferenceForm(Form):
     )
 
     attributes_z1_vector = utils.forms.StringField(
-        _(u'Source Z vector (leave blank for random)'),
+        _('Source Z vector (leave blank for random)'),
     )
 
     attributes_z2_vector = utils.forms.StringField(
-        _(u'First Sink Z vector (leave blank for random)'),
+        _('First Sink Z vector (leave blank for random)'),
     )
 
     attributes_z3_vector = utils.forms.StringField(
-        _(u'Second Sink Z vector (leave blank for random)'),
+        _('Second Sink Z vector (leave blank for random)'),
     )
 
     animation_num_transitions = utils.forms.IntegerField(
-        _(u'Number of transitions per image'),
+        _('Number of transitions per image'),
         default=10,
         validators=[
             validators.NumberRange(min=1, max=100)
@@ -225,5 +225,5 @@ class InferenceForm(Form):
     )
 
     animation_z_vectors = TextAreaField(
-        _(u'z vectors (one per line)'),
+        _('z vectors (one per line)'),
     )

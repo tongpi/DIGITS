@@ -1,9 +1,9 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 
-from flask.ext.wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import validators
 
 from digits import utils
@@ -13,7 +13,7 @@ from flask_babel import lazy_gettext as _
 
 
 @subclass
-class DatasetForm(Form):
+class DatasetForm(FlaskForm):
     """
     A form used to create an image processing dataset
     """
@@ -41,7 +41,7 @@ class DatasetForm(Form):
                 return True
 
     feature_folder = utils.forms.StringField(
-        _(u'Feature image folder'),
+        _('Feature image folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
@@ -50,7 +50,7 @@ class DatasetForm(Form):
     )
 
     label_folder = utils.forms.StringField(
-        _(u'Label image folder'),
+        _('Label image folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
@@ -79,7 +79,7 @@ class DatasetForm(Form):
                                               )
 
     validation_feature_folder = utils.forms.StringField(
-        _(u'Validation feature image folder'),
+        _('Validation feature image folder'),
         validators=[
             validate_required_iff(has_val_folder=True),
             validate_folder_path,
@@ -88,7 +88,7 @@ class DatasetForm(Form):
     )
 
     validation_label_folder = utils.forms.StringField(
-        _(u'Validation label image folder'),
+        _('Validation label image folder'),
         validators=[
             validate_required_iff(has_val_folder=True),
             validate_folder_path,
@@ -115,7 +115,7 @@ class DatasetForm(Form):
     )
 
     class_labels_file = utils.forms.StringField(
-        _(u'Class labels (optional)'),
+        _('Class labels (optional)'),
         validators=[
             validate_file_path,
         ],

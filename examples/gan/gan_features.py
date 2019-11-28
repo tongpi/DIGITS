@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # Copyright (c) 2017, NVIDIA CORPORATION.  All rights reserved.
 
 import argparse
@@ -9,9 +8,9 @@ import PIL.Image
 import os
 import sys
 try:
-    from cStringIO import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 
 # Add path for DIGITS package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -22,7 +21,7 @@ from digits.job import Job  # noqa
 from digits.utils.lmdbreader import DbReader  # noqa
 
 # Import digits.config before caffe to set the path
-import caffe_pb2  # noqa
+from caffe.proto import caffe_pb2  # noqa
 
 logger = logging.getLogger('digits.tools.inference')
 
@@ -37,7 +36,7 @@ def parse_datum(value):
     datum = caffe_pb2.Datum()
     datum.ParseFromString(value)
     if datum.encoded:
-        s = StringIO()
+        s = BytesIO()
         s.write(datum.data)
         s.seek(0)
         img = PIL.Image.open(s)
@@ -63,7 +62,7 @@ def save_attributes(attributes):
     Save attribute vectors
     """
     zs = np.zeros(attributes['positive_attribute_z'].shape)
-    for i in xrange(attributes['n_attributes']):
+    for i in range(attributes['n_attributes']):
         zs[i] = attributes['positive_attribute_z'][i] / attributes['positive_count'][i] \
             - attributes['negative_attribute_z'][i] / attributes['negative_count'][i]
     output = open('attributes_z.pkl', 'wb')
@@ -181,13 +180,13 @@ def infer(jobs_dir,
         n_input_samples = n_input_samples + 1
         if n_input_samples % batch_size == 0:
             aggregate(input_data, input_labels, attributes, embeddings)
-            print("######## %d processed ########" % n_input_samples)
+            print(("######## %d processed ########" % n_input_samples))
             input_data = []      # sample data
             input_labels = []    # sample labels
 
     if n_input_samples % batch_size != 0:
         aggregate(input_data, input_labels, attributes, embeddings)
-        print("######## %d processed ########" % n_input_samples)
+        print(("######## %d processed ########" % n_input_samples))
 
 if __name__ == '__main__':
 

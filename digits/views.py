@@ -1,6 +1,6 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+
 
 import glob
 import hashlib
@@ -11,7 +11,7 @@ import os
 
 import flask
 from flask import request, flash, session, redirect, render_template, url_for
-from flask.ext.socketio import join_room, leave_room
+from flask_socketio import join_room, leave_room
 from werkzeug import HTTP_STATUS_CODES
 import werkzeug.exceptions
 
@@ -190,7 +190,6 @@ def json_dict(job, model_output_fields):
         d.update({
             'framework': job.train_task().get_framework_id(),
         })
-
         for prefix, outputs in (('train', job.train_task().train_outputs),
                                 ('val', job.train_task().val_outputs)):
             for key in outputs.keys():
@@ -651,7 +650,7 @@ def clone_job(clone):
 
 # Error handling
 
-
+'''
 @app.errorhandler(Exception)
 def handle_error(e):
     """
@@ -689,12 +688,12 @@ def handle_error(e):
                                      description=description,
                                      trace=trace,
                                      ), status_code
-
+'''
 # Register this handler for all error codes
 # Necessary for flask<=0.10.1
-for code in HTTP_STATUS_CODES:
-    if code not in [301]:
-        app.register_error_handler(code, handle_error)
+#for code in HTTP_STATUS_CODES:
+#    if code not in [301]:
+#        app.register_error_handler(code, handle_error)
 
 # File serving
 
@@ -816,5 +815,5 @@ def on_leave_jobs():
     if 'room' in flask.session:
         room = flask.session['room']
         del flask.session['room']
-        # print '>>> Somebody left room %s' % room
+        # print('>>> Somebody left room %s' % room)
         leave_room(room)

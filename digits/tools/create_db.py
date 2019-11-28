@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 
@@ -9,7 +8,7 @@ from collections import Counter
 import logging
 import math
 import os
-import Queue
+import queue
 import random
 import re
 import shutil
@@ -19,10 +18,7 @@ import time
 from flask_babel import lazy_gettext as _
 
 # Find the best implementation available
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+from io import BytesIO
 
 import h5py
 import lmdb
@@ -36,7 +32,7 @@ from digits import utils, log  # noqa
 
 # Import digits.config first to set the path to Caffe
 import caffe.io  # noqa
-import caffe_pb2  # noqa
+from caffe.proto import caffe_pb2  # noqa
 
 if digits.config.config_value('tensorflow')['enabled']:
     import tensorflow as tf
@@ -276,7 +272,7 @@ def create_db(input_file, output_dir,
 
     # Load lines from input_file into a load_queue
 
-    load_queue = Queue.Queue()
+    load_queue = queue.Queue()
     image_count = _fill_load_queue(input_file, load_queue, shuffle)
 
     # Start some load threads
@@ -285,10 +281,10 @@ def create_db(input_file, output_dir,
                                        bool(backend == 'hdf5'), kwargs.get('hdf5_dset_limit'),
                                        image_channels, image_height, image_width)
     num_threads = _calculate_num_threads(batch_size, shuffle)
-    write_queue = Queue.Queue(2 * batch_size)
-    summary_queue = Queue.Queue()
+    write_queue = queue.Queue(2 * batch_size)
+    summary_queue = queue.Queue()
 
-    for _ in xrange(num_threads):
+    for _ in range(num_threads):
         p = threading.Thread(target=_load_thread,
                              args=(load_queue, write_queue, summary_queue,
                                    image_width, image_height, image_channels,
@@ -349,7 +345,7 @@ def _create_tfrecords(image_count, write_queue, batch_size, output_dir,
 
     writers = []
     with open(os.path.join(output_dir, LIST_FILENAME), 'w') as outfile:
-        for shard_id in xrange(num_shards):
+        for shard_id in range(num_shards):
             shard_name = 'SHARD_%03d.tfrecords' % (shard_id)
             filename = os.path.join(output_dir, shard_name)
             writers.append(tf.python_io.TFRecordWriter(filename))
@@ -670,7 +666,7 @@ def _load_thread(load_queue, write_queue, summary_queue,
     while not load_queue.empty():
         try:
             path, label = load_queue.get(True, 0.05)
-        except Queue.Empty:
+        except queue.Empty:
             continue
 
         # prepend path with image_folder, if appropriate
@@ -732,7 +728,7 @@ def _array_to_tf_feature(image, label, encoding):
         image_raw = image.tostring()
         encoding_id = 0
     else:
-        s = StringIO()
+        s = BytesIO()
         if encoding == 'png':
             PIL.Image.fromarray(image).save(s, format='PNG')
             encoding_id = 1
@@ -789,7 +785,7 @@ def _array_to_datum(image, label, encoding):
         datum.width = image.shape[1]
         datum.label = label
 
-        s = StringIO()
+        s = BytesIO()
         if encoding == 'png':
             PIL.Image.fromarray(image).save(s, format='PNG')
         elif encoding == 'jpg':
@@ -809,7 +805,7 @@ def _write_batch_lmdb(db, batch, image_count):
         with db.begin(write=True) as lmdb_txn:
             for i, datum in enumerate(batch):
                 key = '%08d_%d' % (image_count + i, datum.label)
-                lmdb_txn.put(key, datum.SerializeToString())
+                lmdb_txn.put(key.encode("UTF-8"), datum.SerializeToString())
 
     except lmdb.MapFullError:
         # double the map_size
@@ -875,8 +871,7 @@ FAKE_QUANT_OPS = ('FakeQuantWithMinMaxVars',
 def _create_bottleneck(job_dir, folder, height, width, channel):
     # 10,10: 验证图像百分比和测试图像百分比
     image_lists = create_image_lists(folder, 10, 10)
-
-    class_count = len(image_lists.keys())
+    class_count = len(list(image_lists.keys()))
     if class_count == 0:
         logger.error('No valid folders of images found at ' + folder)
         return -1
@@ -938,7 +933,8 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
             logger.warning(
                 'WARNING: Folder {} has more than {} images. Some images will '
                 'never be selected.'.format(dir_name, MAX_NUM_IMAGES_PER_CLASS))
-        label_name = re.sub(r'[^a-z0-9]+', ' ', dir_name.lower())
+        label_name = re.sub(r'[\s]+', ' ', dir_name.lower())
+
         training_images = []
         testing_images = []
         validation_images = []
@@ -1073,7 +1069,7 @@ def cache_bottlenecks(sess, image_lists, image_dir, bottleneck_dir,
                       resized_input_tensor, bottleneck_tensor):
     how_many_bottlenecks = 0
     ensure_dir_exists(bottleneck_dir)
-    for label_name, label_lists in image_lists.items():
+    for label_name, label_lists in list(image_lists.items()):
         for category in ['training', 'testing', 'validation']:
             category_list = label_lists[category]
             for index, unused_base_name in enumerate(category_list):
@@ -1102,8 +1098,7 @@ def add_jpeg_decoding(height, width, channel):
 def create_module_graph(height, width):
     with tf.Graph().as_default() as graph:
         resized_input_tensor = tf.placeholder(tf.float32, [None, height, width, 3])
-        # m = hub.Module("https://tfhub.dev/google/imagenet/inception_v3/classification/3")
-        m = hub.Module("/home/data/tfhub/e3e43a40838bb69eb22219f4c1e9b50726326db2")
+        m = hub.Module("https://tfhub.dev/google/imagenet/inception_v3/classification/3")
         bottleneck_tensor = m(resized_input_tensor)
         wants_quantization = any(node.op in FAKE_QUANT_OPS
                                  for node in graph.as_graph_def().node)
@@ -1189,5 +1184,5 @@ if __name__ == '__main__':
                   is_train=args['is_train']
                   )
     except Exception as e:
-        logger.error('%s: %s' % (type(e).__name__, e.message))
+        logger.error('%s: %s' % (type(e).__name__, e.args[0]))
         raise

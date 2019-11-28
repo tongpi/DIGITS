@@ -6,7 +6,7 @@ import tarfile
 
 import PIL.Image
 
-from downloader import DataDownloader
+from .downloader import DataDownloader
 
 
 class Cifar100Downloader(DataDownloader):
@@ -26,7 +26,7 @@ class Cifar100Downloader(DataDownloader):
         assert os.path.exists(filepath), 'Expected "%s" to exist' % filename
 
         if not os.path.exists(os.path.join(self.outdir, 'cifar-100-python')):
-            print "Uncompressing file=%s ..." % filename
+            print("Uncompressing file=%s ..." % filename)
             with tarfile.open(filepath) as tf:
                 tf.extractall(self.outdir)
 
@@ -67,7 +67,7 @@ class Cifar100Downloader(DataDownloader):
         fine_label_names -- mapping from fine_labels to strings
         coarse_label_names -- mapping from coarse_labels to strings
         """
-        print 'Extracting images file=%s ...' % input_file
+        print('Extracting images file=%s ...' % input_file)
 
         # Read the pickle file
         with open(input_file, 'rb') as infile:
@@ -117,7 +117,7 @@ class Cifar100Downloader(DataDownloader):
                     fine_to_coarse[fine_label] = coarse_label_names[coarse_labels[index]]
 
         # Create the coarse dataset with symlinks
-        for fine, coarse in fine_to_coarse.iteritems():
+        for fine, coarse in fine_to_coarse.items():
             self.mkdir(os.path.join(coarse_dirname, coarse))
             os.symlink(
                 # Create relative symlinks for portability

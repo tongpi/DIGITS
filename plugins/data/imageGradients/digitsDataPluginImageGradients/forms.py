@@ -1,17 +1,17 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 from digits import utils
 from digits.utils import subclass
 from digits.utils.forms import validate_required_iff
-from flask.ext.wtf import Form
+from flask_wtf import FlaskForm
 import wtforms
 from wtforms import validators
 from flask_babel import lazy_gettext as _
 
 
 @subclass
-class DatasetForm(Form):
+class DatasetForm(FlaskForm):
     """
     A form used to create an image gradient dataset
     """
@@ -47,20 +47,20 @@ class DatasetForm(Form):
     )
 
     image_width = wtforms.IntegerField(
-        _(u'Image Width'),
+        _('Image Width'),
         default=50,
         validators=[validators.DataRequired()]
     )
 
     image_height = wtforms.IntegerField(
-        _(u'Image Height'),
+        _('Image Height'),
         default=50,
         validators=[validators.DataRequired()]
     )
 
 
 @subclass
-class InferenceForm(Form):
+class InferenceForm(FlaskForm):
     """
     A form used to perform inference on a gradient regression model
     """

@@ -1,7 +1,7 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
 
-from flask.ext.wtf import Form
+
+from flask_wtf import FlaskForm
 import os
 from wtforms import validators
 
@@ -12,7 +12,7 @@ from flask_babel import lazy_gettext as _
 
 
 @subclass
-class DatasetForm(Form):
+class DatasetForm(FlaskForm):
     """
     A form used to create an image processing dataset
     """
@@ -28,7 +28,7 @@ class DatasetForm(Form):
                 return True
 
     train_image_folder = utils.forms.StringField(
-        _(u'Training image folder'),
+        _('Training image folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
@@ -37,7 +37,7 @@ class DatasetForm(Form):
     )
 
     train_label_folder = utils.forms.StringField(
-        _(u'Training label folder'),
+        _('Training label folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
@@ -46,7 +46,7 @@ class DatasetForm(Form):
     )
 
     val_image_folder = utils.forms.StringField(
-        _(u'Validation image folder'),
+        _('Validation image folder'),
         validators=[
             validate_required_if_set('val_label_folder'),
             validate_folder_path,
@@ -55,7 +55,7 @@ class DatasetForm(Form):
     )
 
     val_label_folder = utils.forms.StringField(
-        _(u'Validation label folder'),
+        _('Validation label folder'),
         validators=[
             validate_required_if_set('val_image_folder'),
             validate_folder_path,
@@ -64,7 +64,7 @@ class DatasetForm(Form):
     )
 
     resize_image_width = utils.forms.IntegerField(
-        _(u'Resize Image Width'),
+        _('Resize Image Width'),
         validators=[
             validate_required_if_set('resize_image_height'),
             validators.NumberRange(min=1),
@@ -73,7 +73,7 @@ class DatasetForm(Form):
     )
 
     resize_image_height = utils.forms.IntegerField(
-        _(u'Resize Image Height'),
+        _('Resize Image Height'),
         validators=[
             validate_required_if_set('resize_image_width'),
             validators.NumberRange(min=1),
@@ -82,7 +82,7 @@ class DatasetForm(Form):
     )
 
     padding_image_width = utils.forms.IntegerField(
-        _(u'Padding Image Width'),
+        _('Padding Image Width'),
         default=1248,
         validators=[
             validate_required_if_set('padding_image_height'),
@@ -92,7 +92,7 @@ class DatasetForm(Form):
     )
 
     padding_image_height = utils.forms.IntegerField(
-        _(u'Padding Image Height'),
+        _('Padding Image Height'),
         default=384,
         validators=[
             validate_required_if_set('padding_image_width'),
@@ -102,7 +102,7 @@ class DatasetForm(Form):
     )
 
     channel_conversion = utils.forms.SelectField(
-        _(u'Channel conversion'),
+        _('Channel conversion'),
         choices=[
             ('RGB', 'RGB'),
             ('L', _('Grayscale')),
@@ -113,7 +113,7 @@ class DatasetForm(Form):
     )
 
     val_min_box_size = utils.forms.IntegerField(
-        _(u'Minimum box size (in pixels) for validation set'),
+        _('Minimum box size (in pixels) for validation set'),
         default='25',
         validators=[
             validators.InputRequired(),
@@ -125,7 +125,7 @@ class DatasetForm(Form):
     )
 
     custom_classes = utils.forms.StringField(
-        _(u'Custom classes'),
+        _('Custom classes'),
         validators=[
             validators.Optional(),
         ],

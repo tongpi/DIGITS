@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 from .caffe_train import CaffeTrainTask, CaffeTrainSanityCheckError
 
@@ -7,7 +7,7 @@ from google.protobuf import text_format
 from digits import test_utils
 
 # Must import after importing digit.config
-import caffe_pb2
+from caffe.proto import caffe_pb2
 
 
 def check_positive(desc, stage):

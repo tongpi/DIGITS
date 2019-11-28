@@ -10,9 +10,9 @@ the correct functions for the respective backends.
 
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+
+
+
 
 from PIL import Image
 import logging
@@ -355,8 +355,8 @@ class LoaderFactory(object):
                 contrast_fact = self.aug_dict['aug_contrast']
                 if contrast_fact > 0:
                     single_data = tf.image.random_contrast(single_data,
-                                                           lower=1.-contrast_fact,
-                                                           upper=1.+contrast_fact,
+                                                           lower=1. - contrast_fact,
+                                                           upper=1. + contrast_fact,
                                                            seed=self._seed)
 
                 # @TODO(tzaman): rewrite the below HSV stuff entirely in a TF PR to be done in one single operation

@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
 """
 Functions for creating a text classification dataset out of .csv files
@@ -40,7 +39,7 @@ def create_dataset(folder, input_file_name, db_batch_size=None, create_images=Fa
     # open output LMDB
     output_db = lmdb.open(folder, map_async=True, max_dbs=0)
 
-    print "Reading input file %s..." % input_file_name
+    print("Reading input file %s..." % input_file_name)
     # create character dict
     cdict = {}
     for i, c in enumerate(ALPHABET):
@@ -63,7 +62,7 @@ def create_dataset(folder, input_file_name, db_batch_size=None, create_images=Fa
                         break
             samples[label].append(sample)
         samples_per_class = None
-        classes = samples.keys()
+        classes = list(samples.keys())
         class_samples = []
         for c in classes:
             if samples_per_class is None:
@@ -77,17 +76,17 @@ def create_dataset(folder, input_file_name, db_batch_size=None, create_images=Fa
 
     labels = None
     if labels_file is not None:
-        labels = map(str.strip, open(labels_file, "r").readlines())
+        labels = list(map(str.strip, open(labels_file, "r").readlines()))
         assert len(classes) == len(samples)
     else:
         labels = classes
-    print "Class labels: %s" % repr(labels)
+    print("Class labels: %s" % repr(labels))
 
     if create_images:
         for label in labels:
             os.makedirs(os.path.join(args['output'], label))
 
-    print "Storing data into %s..." % folder
+    print("Storing data into %s..." % folder)
 
     batch = []
     for idx in indices:
@@ -160,4 +159,4 @@ if __name__ == '__main__':
         labels_file=args['labels'],
     )
 
-    print 'Done after %s seconds' % (time.time() - start_time,)
+    print('Done after %s seconds' % (time.time() - start_time,))

@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import itertools
 import json
@@ -8,15 +8,15 @@ import shutil
 import tempfile
 import time
 import unittest
-import caffe_pb2
+from caffe.proto import caffe_pb2
 import math
 
 
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO
 
 from bs4 import BeautifulSoup
 
@@ -262,23 +262,23 @@ class BaseViewsTestWithDataset(BaseViewsTest,
 
         if request_json:
             if rv.status_code != 200:
-                print json.loads(rv.data)
+                print(json.loads(rv.data))
                 raise RuntimeError('Model creation failed with %s' % rv.status_code)
             data = json.loads(rv.data)
-            if 'jobs' in data.keys():
+            if 'jobs' in list(data.keys()):
                 return [j['id'] for j in data['jobs']]
             else:
                 return data['id']
 
         # expect a redirect
         if not 300 <= rv.status_code <= 310:
-            print 'Status code:', rv.status_code
+            print('Status code:', rv.status_code)
             s = BeautifulSoup(rv.data, 'html.parser')
             div = s.select('div.alert-danger')
             if div:
-                print div[0]
+                print(div[0])
             else:
-                print rv.data
+                print(rv.data)
             raise RuntimeError('Failed to create dataset - status %s' % rv.status_code)
 
         job_id = cls.job_id_from_response(rv)
@@ -403,7 +403,7 @@ class BaseTestCreation(BaseViewsTestWithDataset):
     def test_select_gpus(self):
         # test all possible combinations
         gpu_list = config_value('gpu_list').split(',')
-        for i in xrange(len(gpu_list)):
+        for i in range(len(gpu_list)):
             for combination in itertools.combinations(gpu_list, i + 1):
                 yield self.check_select_gpus, combination
 
@@ -413,7 +413,7 @@ class BaseTestCreation(BaseViewsTestWithDataset):
 
     def classify_one_for_job(self, job_id, test_misclassification=True):
         # carry out one inference test per category in dataset
-        for category in self.imageset_paths.keys():
+        for category in list(self.imageset_paths.keys()):
             image_path = self.imageset_paths[category][0]
             image_path = os.path.join(self.imageset_folder, image_path)
             with open(image_path, 'rb') as infile:
@@ -662,7 +662,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
 
     def test_classify_one(self):
         # test first image in first category
-        category = self.imageset_paths.keys()[0]
+        category = list(self.imageset_paths.keys())[0]
         image_path = self.imageset_paths[category][0]
         image_path = os.path.join(self.imageset_folder, image_path)
         with open(image_path, 'rb') as infile:
@@ -685,7 +685,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
 
     def test_classify_one_json(self):
         # test last image in last category
-        category = self.imageset_paths.keys()[-1]
+        category = list(self.imageset_paths.keys())[-1]
         image_path = self.imageset_paths[category][-1]
         image_path = os.path.join(self.imageset_folder, image_path)
         with open(image_path, 'rb') as infile:
@@ -706,7 +706,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
     def test_classify_many(self):
         textfile_images = ''
         label_id = 0
-        for label, images in self.imageset_paths.iteritems():
+        for label, images in self.imageset_paths.items():
             for image in images:
                 image_path = image
                 image_path = os.path.join(self.imageset_folder, image_path)
@@ -727,7 +727,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
     def test_classify_many_from_folder(self):
         textfile_images = ''
         label_id = 0
-        for label, images in self.imageset_paths.iteritems():
+        for label, images in self.imageset_paths.items():
             for image in images:
                 image_path = image
                 textfile_images += '%s %d\n' % (image_path, label_id)
@@ -748,7 +748,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
     def test_classify_many_invalid_ground_truth(self):
         textfile_images = ''
         label_id = 0
-        for label, images in self.imageset_paths.iteritems():
+        for label, images in self.imageset_paths.items():
             for image in images:
                 image_path = image
                 image_path = os.path.join(self.imageset_folder, image_path)
@@ -770,7 +770,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
     def test_classify_many_json(self):
         textfile_images = ''
         label_id = 0
-        for label, images in self.imageset_paths.iteritems():
+        for label, images in self.imageset_paths.items():
             for image in images:
                 image_path = image
                 image_path = os.path.join(self.imageset_folder, image_path)
@@ -788,7 +788,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
         data = json.loads(rv.data)
         assert 'classifications' in data, 'invalid response'
         # verify classification of first image in each category
-        for category in self.imageset_paths.keys():
+        for category in list(self.imageset_paths.keys()):
             image_path = self.imageset_paths[category][0]
             image_path = os.path.join(self.imageset_folder, image_path)
             prediction = data['classifications'][image_path][0][0]
@@ -797,7 +797,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
     def test_top_n(self):
         textfile_images = ''
         label_id = 0
-        for label, images in self.imageset_paths.iteritems():
+        for label, images in self.imageset_paths.items():
             for image in images:
                 image_path = image
                 image_path = os.path.join(self.imageset_folder, image_path)
@@ -814,14 +814,14 @@ class BaseTestCreated(BaseViewsTestWithModel):
         s = BeautifulSoup(rv.data, 'html.parser')
         body = s.select('body')
         assert rv.status_code == 200, 'POST failed with %s\n\n%s' % (rv.status_code, body)
-        keys = self.imageset_paths.keys()
+        keys = list(self.imageset_paths.keys())
         for key in keys:
             assert key in rv.data, '"%s" not found in the response'
 
     def test_top_n_from_folder(self):
         textfile_images = ''
         label_id = 0
-        for label, images in self.imageset_paths.iteritems():
+        for label, images in self.imageset_paths.items():
             for image in images:
                 image_path = image
                 textfile_images += '%s %d\n' % (image_path, label_id)
@@ -838,7 +838,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
         s = BeautifulSoup(rv.data, 'html.parser')
         body = s.select('body')
         assert rv.status_code == 200, 'POST failed with %s\n\n%s' % (rv.status_code, body)
-        keys = self.imageset_paths.keys()
+        keys = list(self.imageset_paths.keys())
         for key in keys:
             assert key in rv.data, '"%s" not found in the response'
 
@@ -857,7 +857,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
             gpu_count = len(config_value('gpu_list').split(','))
 
         # grab an image for testing
-        category = self.imageset_paths.keys()[-1]
+        category = list(self.imageset_paths.keys())[-1]
         image_path = self.imageset_paths[category][-1]
         image_path = os.path.join(self.imageset_folder, image_path)
         with open(image_path, 'rb') as infile:

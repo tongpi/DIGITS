@@ -1,16 +1,16 @@
 # Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 
 from digits import utils
 from digits.utils import subclass
-from flask_wtf import Form
+from flask_wtf import FlaskForm
 import wtforms.validators
 
 
 @subclass
-class ConfigForm(Form):
+class ConfigForm(FlaskForm):
     """
     A form used to configure gradient visualization
     """
@@ -39,7 +39,7 @@ class ConfigForm(Form):
         )
 
     attributes_file = utils.forms.StringField(
-        u'Attributes vector file',
+        'Attributes vector file',
         validators=[
             validate_file_path,
             ],

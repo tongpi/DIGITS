@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
 
 import argparse
@@ -11,9 +10,9 @@ import time
 
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 
 import lmdb
 import numpy as np
@@ -27,7 +26,7 @@ from digits import log  # noqa
 
 # Import digits.config first to set path to Caffe
 import caffe.io  # noqa
-import caffe_pb2  # noqa
+from caffe.proto import caffe_pb2  # noqa
 
 logger = logging.getLogger('digits.tools.analyze_db')
 np.set_printoptions(suppress=True, precision=3)
@@ -108,7 +107,7 @@ def analyze_db(database,
     try:
         database = validate_database_path(database)
     except ValueError as e:
-        logger.error(e.message)
+        logger.error(e.args[0])
         return False
 
     reader = DbReader(database)
@@ -124,15 +123,15 @@ def analyze_db(database,
 
         if print_data:
             array = caffe.io.datum_to_array(datum)
-            print '>>> Datum #%d (shape=%s)' % (count, array.shape)
-            print array
+            print('>>> Datum #%d (shape=%s)' % (count, array.shape))
+            print(array)
 
         if (not datum.HasField('height') or datum.height == 0 or
                 not datum.HasField('width') or datum.width == 0):
             if datum.encoded:
                 if force_same_shape or not len(unique_shapes.keys()):
                     # Decode datum to learn the shape
-                    s = StringIO()
+                    s = BytesIO()
                     s.write(datum.data)
                     s.seek(0)
                     img = PIL.Image.open(s)

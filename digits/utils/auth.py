@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import flask
 import functools
@@ -51,7 +51,7 @@ def requires_login(f=None, redirect=True):
             # Validate username
             validate_username(username)
         except ValueError as e:
-            raise werkzeug.exceptions.BadRequest('Invalid username - %s' % e.message)
+            raise werkzeug.exceptions.BadRequest('Invalid username - %s' % e.args[0])
         return f(*args, **kwargs)
     return decorated
 

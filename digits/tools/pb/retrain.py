@@ -115,9 +115,9 @@ tensorflow_model_server --port=9000 --model_name=my_image_classifier \
 """
 # pylint: enable=line-too-long
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+
+
+
 
 import argparse
 import collections
@@ -131,6 +131,19 @@ import sys
 import numpy as np
 import tensorflow as tf
 import tensorflow_hub as hub
+
+import logging
+
+
+
+# logging.basicConfig(format='[%(levelname)s] %(message)s',
+#                     datefmt='%Y-%m-%d %H:%M:%S',
+#                     level=logging.INFO)
+# logging.getLogger().setLevel(logging.INFO)
+logger = logging.getLogger()
+while logger.handlers:
+     logger.handlers.pop()
+
 
 FLAGS = None
 
@@ -194,7 +207,7 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
       tf.logging.warning(
           'WARNING: Folder {} has more than {} images. Some images will '
           'never be selected.'.format(dir_name, MAX_NUM_IMAGES_PER_CLASS))
-    label_name = re.sub(r'[^a-z0-9]+', ' ', dir_name.lower())
+    label_name = re.sub(r'[\s]+', ' ', dir_name.lower())
     training_images = []
     testing_images = []
     validation_images = []
@@ -486,7 +499,7 @@ def cache_bottlenecks(sess, image_lists, image_dir, bottleneck_dir,
   """
   how_many_bottlenecks = 0
   ensure_dir_exists(bottleneck_dir)
-  for label_name, label_lists in image_lists.items():
+  for label_name, label_lists in list(image_lists.items()):
     for category in ['training', 'testing', 'validation']:
       category_list = label_lists[category]
       for index, unused_base_name in enumerate(category_list):
@@ -531,7 +544,7 @@ def get_random_cached_bottlenecks(sess, image_lists, how_many, category,
     List of bottleneck arrays, their corresponding ground truths, and the
     relevant filenames.
   """
-  class_count = len(image_lists.keys())
+  class_count = len(list(image_lists.keys()))
   bottlenecks = []
   ground_truths = []
   filenames = []
@@ -594,7 +607,7 @@ def get_random_distorted_bottlenecks(
   Returns:
     List of bottleneck arrays and their corresponding ground truths.
   """
-  class_count = len(image_lists.keys())
+  class_count = len(list(image_lists.keys()))
   bottlenecks = []
   ground_truths = []
   for unused_i in range(how_many):
@@ -999,11 +1012,11 @@ def logging_level_verbosity(logging_verbosity):
     'WARN', 'ERROR', 'FATAL'
   """
   name_to_level = {
-    'FATAL': tf.logging.FATAL,
-    'ERROR': tf.logging.ERROR,
-    'WARN': tf.logging.WARN,
-    'INFO': tf.logging.INFO,
-    'DEBUG': tf.logging.DEBUG
+    'FATAL': logging.FATAL,
+    'ERROR': logging.ERROR,
+    'WARN': logging.WARN,
+    'INFO': logging.INFO,
+    'DEBUG': logging.DEBUG
   }
 
   try:
@@ -1029,7 +1042,7 @@ def main(_):
   # Look at the folder structure, and create lists of all the images. 创建图像列表
   image_lists = create_image_lists(FLAGS.image_dir, FLAGS.testing_percentage,
                                    FLAGS.validation_percentage)
-  class_count = len(image_lists.keys())
+  class_count = len(list(image_lists.keys()))
   if class_count == 0:
     tf.logging.error('No valid folders of images found at ' + FLAGS.image_dir)
     return -1
@@ -1133,12 +1146,15 @@ def main(_):
             [evaluation_step, cross_entropy],
             feed_dict={bottleneck_input: train_bottlenecks,
                        ground_truth_input: train_ground_truth})
-        tf.logging.info('%s: Step %d: Train accuracy = %.1f%%' %
-                        (datetime.now(), i, train_accuracy * 100))
-        tf.logging.info('%s: Step %d: Cross entropy = %f' %
-                        (datetime.now(), i, cross_entropy_value))
+        # tf.logging.info('%s: Step %d: Train accuracy = %.1f%%' %
+        #                 (datetime.now(), i, train_accuracy * 100))
+        tf.logging.info('{}: Step {}: Train accuracy = {}%'
+                        .format(datetime.now(), i, round(train_accuracy * 100), 2))
+        # logging.info('Step {}'.format(i))
+        tf.logging.info('{}: Step {}: Cross entropy = {}'
+                        .format(datetime.now(), i, cross_entropy_value))
         # TODO: Make this use an eval graph, to avoid quantization
-        # moving averages being updated by the validation set, though in
+        # moving averages being updated by the validation set, though ina
         # practice this makes a negligable difference.
         validation_bottlenecks, validation_ground_truth, _ = (
             get_random_cached_bottlenecks(
@@ -1153,9 +1169,8 @@ def main(_):
             feed_dict={bottleneck_input: validation_bottlenecks,
                        ground_truth_input: validation_ground_truth})
         validation_writer.add_summary(validation_summary, i)
-        tf.logging.info('%s: Step %d: Validation accuracy = %.1f%% (N=%d)' %
-                        (datetime.now(), i, validation_accuracy * 100,
-                         len(validation_bottlenecks)))
+        tf.logging.info('{}: Step {}: Validation accuracy = {}% (N={})'
+                        .format(datetime.now(), i, round(validation_accuracy * 100, 2),len(validation_bottlenecks)))
 
       # Store intermediate results
       intermediate_frequency = FLAGS.intermediate_store_frequency
@@ -1194,7 +1209,7 @@ def main(_):
       tf.logging.info('The model is instrumented for quantization with TF-Lite')
     save_graph_to_file(FLAGS.output_graph, module_spec, class_count)
     with tf.gfile.GFile(FLAGS.output_labels, 'w') as f:
-      f.write('\n'.join(image_lists.keys()) + '\n')
+      f.write('\n'.join(list(image_lists.keys())) + '\n')
 
     if FLAGS.saved_model_dir:
       export_model(module_spec, class_count, FLAGS.saved_model_dir)

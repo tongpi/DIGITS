@@ -1,13 +1,13 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os.path
 
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 
 import flask
 import PIL.Image
@@ -43,13 +43,13 @@ def resize_example():
         if backend != 'lmdb' or encoding == 'none':
             length = len(image.tostring())
         else:
-            s = StringIO()
+            s = BytesIO()
             if encoding == 'png':
                 PIL.Image.fromarray(image).save(s, format='PNG')
             elif encoding == 'jpg':
                 PIL.Image.fromarray(image).save(s, format='JPEG', quality=90)
             else:
-                raise ValueError(_('unrecognized encoding "%(encoding)s"', encoding=encoding))
+                raise ValueError('unrecognized encoding "%s"' % encoding)
             s.seek(0)
             image = PIL.Image.open(s)
             length = len(s.getvalue())

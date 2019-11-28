@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os.path
 import re
@@ -105,7 +105,7 @@ class CreateDbTask(Task):
 
         if not hasattr(self, 'entries_error'):
             self.entries_error = 0
-            for key in self.distribution.keys():
+            for key in list(self.distribution.keys()):
                 self.distribution[key] = {
                     'count': self.distribution[key],
                     'error_count': 0
@@ -313,7 +313,7 @@ class CreateDbTask(Task):
         except AssertionError:
             return None
 
-        if len(self.distribution.keys()) != len(labels):
+        if len(list(self.distribution.keys())) != len(labels):
             return None
 
         label_count = 'Count'
@@ -323,7 +323,7 @@ class CreateDbTask(Task):
         count_values = [label_count]
         titles = []
         for key, value in sorted(
-                self.distribution.items(),
+                list(self.distribution.items()),
                 key=lambda item: item[1]['count'],
                 reverse=True):
             count_values.append(value['count'])

@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 
@@ -87,7 +87,7 @@ class Visualization(VisualizationInterface):
         else:
             image_input = None
 
-        data_output = output_data[output_data.keys()[0]].astype('float32')
+        data_output = output_data[list(output_data.keys())[0]].astype('float32')
         image_output = self.process_image(self.data_order, data_output)
 
         return [image_input, image_output]

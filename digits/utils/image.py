@@ -1,19 +1,18 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import math
 import os.path
 import requests
 
 # Find the best implementation available
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+from io import BytesIO
 
 import numpy as np
 import PIL.Image
 import scipy.misc
+
+import base64
 
 from . import is_url, HTTP_TIMEOUT, errors
 from flask_babel import lazy_gettext as _
@@ -56,18 +55,18 @@ def load_image(path):
             stream = StringIO(r.content)
             image = PIL.Image.open(stream)
         except requests.exceptions.RequestException as e:
-            raise errors.LoadImageError, e.message
+            raise errors.LoadImageError(e.args[0])
         except IOError as e:
-            raise errors.LoadImageError, e.message
+            raise errors.LoadImageError(e.args[0])
     elif os.path.exists(path):
         try:
             image = PIL.Image.open(path)
             image.load()
         except IOError as e:
-            raise errors.LoadImageError, _('IOError: Trying to load "%(path)s": %(message)s', path=path,
-                                           message=e.message)
+            raise errors.LoadImageError(_('IOError: Trying to load "%(path)s": %(message)s', path=path,
+                                           message=e.message))
     else:
-        raise errors.LoadImageError, _('"%(path)s" not found', path=path)
+        raise errors.LoadImageError(_('"%(path)s" not found', path=path))
 
     if image.mode in ['L', 'RGB']:
         # No conversion necessary
@@ -89,7 +88,7 @@ def load_image(path):
         new.paste(image, mask=image.convert('RGBA'))
         return new
     else:
-        raise errors.LoadImageError, _('Image mode "%(mode)s" not supported', mode=image.mode)
+        raise errors.LoadImageError(_('Image mode "%(mode)s" not supported', mode=image.mode))
 
 
 def upscale(image, ratio):
@@ -318,9 +317,10 @@ def embed_image_html(image):
     else:
         fmt = fmt.lower()
 
-    string_buf = StringIO()
-    image.save(string_buf, format=fmt)
-    data = string_buf.getvalue().encode('base64').replace('\n', '')
+    # Python3
+    bytes_buf = BytesIO()
+    image.save(bytes_buf, format=fmt)
+    data = base64.encodebytes(bytes_buf.getvalue()).decode().strip()
     return 'data:image/%s;base64,%s' % (fmt, data)
 
 
@@ -393,7 +393,7 @@ def get_layer_vis_square(data,
         if width > 1:
             padsize = 1
             width += 1
-        n = max(max_width / width, 1)
+        n = int(max(max_width / width, 1))
         n *= n
         data = data[:n]
 
@@ -446,9 +446,9 @@ def vis_square(images,
         # they're grayscale - convert to a colormap
         redmap, greenmap, bluemap = get_color_map(colormap)
 
-        red = np.interp(images * (len(redmap) - 1) / 255.0, xrange(len(redmap)), redmap)
-        green = np.interp(images * (len(greenmap) - 1) / 255.0, xrange(len(greenmap)), greenmap)
-        blue = np.interp(images * (len(bluemap) - 1) / 255.0, xrange(len(bluemap)), bluemap)
+        red = np.interp(images * (len(redmap) - 1) / 255.0, range(len(redmap)), redmap)
+        green = np.interp(images * (len(greenmap) - 1) / 255.0, range(len(greenmap)), greenmap)
+        blue = np.interp(images * (len(bluemap) - 1) / 255.0, range(len(bluemap)), bluemap)
 
         # Slap the channels back together
         images = np.concatenate((red[..., np.newaxis], green[..., np.newaxis], blue[..., np.newaxis]), axis=3)
@@ -513,7 +513,7 @@ def get_color_map(name):
         bluemap = [1, 0.5]
     else:
         if name != 'jet':
-            print 'Warning: colormap "%s" not supported. Using jet instead.' % name
+            print('Warning: colormap "%s" not supported. Using jet instead.' % name)
         redmap = [0, 0, 0, 0, 0.5, 1, 1, 1, 0.5]
         greenmap = [0, 0, 0.5, 1, 1, 1, 0.5, 0, 0]
         bluemap = [0.5, 1, 1, 1, 0.5, 0, 0, 0, 0]

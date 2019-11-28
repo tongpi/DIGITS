@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 
@@ -34,7 +34,7 @@ class ImageClassificationDatasetJob(ImageDatasetJob):
                 if task.encoding == "jpg":
                     if task.mean_file.endswith('.binaryproto'):
                         import numpy as np
-                        import caffe_pb2
+                        from caffe.proto import caffe_pb2
 
                         old_blob = caffe_pb2.BlobProto()
                         with open(task.path(task.mean_file), 'rb') as infile:
@@ -140,21 +140,21 @@ class ImageClassificationDatasetJob(ImageDatasetJob):
         if verbose:
             d.update({
                 'ParseFolderTasks': [{
-                    "name":        t.name(),
+                    "name": t.name(),
                     "label_count": t.label_count,
                     "train_count": t.train_count,
-                    "val_count":   t.val_count,
-                    "test_count":  t.test_count,
+                    "val_count": t.val_count,
+                    "test_count": t.test_count,
                 } for t in self.parse_folder_tasks()],
                 'CreateDbTasks': [{
-                    "name":             t.name(),
-                    "entries":          t.entries_count,
-                    "image_width":      t.image_dims[0],
-                    "image_height":     t.image_dims[1],
-                    "image_channels":   t.image_dims[2],
-                    "backend":          t.backend,
-                    "encoding":         t.encoding,
-                    "compression":      t.compression,
+                    "name": t.name(),
+                    "entries": t.entries_count,
+                    "image_width": t.image_dims[0],
+                    "image_height": t.image_dims[1],
+                    "image_channels": t.image_dims[2],
+                    "backend": t.backend,
+                    "encoding": t.encoding,
+                    "compression": t.compression,
                 } for t in self.create_db_tasks()],
             })
         return d

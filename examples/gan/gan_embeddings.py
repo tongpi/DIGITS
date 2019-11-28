@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # Copyright (c) 2017, NVIDIA CORPORATION.  All rights reserved.
 
 import argparse
@@ -84,5 +83,5 @@ if __name__ == '__main__':
             args['embeddings_file'],
         )
     except Exception as e:
-        print('%s: %s' % (type(e).__name__, e.message))
+        print(('%s: %s' % (type(e).__name__, e.message)))
         raise

@@ -1,17 +1,17 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 
 from digits import utils
 from digits.utils import subclass
-from flask.ext.wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import validators
 from flask_babel import lazy_gettext as _
 
 
 @subclass
-class DatasetForm(Form):
+class DatasetForm(FlaskForm):
     """
     A form used to create a Sunnybrook dataset
     """
@@ -28,7 +28,7 @@ class DatasetForm(Form):
                 return True
 
     image_folder = utils.forms.StringField(
-        _(u'Image folder'),
+        _('Image folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
@@ -37,7 +37,7 @@ class DatasetForm(Form):
     )
 
     contour_folder = utils.forms.StringField(
-        _(u'Contour folder'),
+        _('Contour folder'),
         validators=[
             validators.DataRequired(),
             validate_folder_path,
@@ -67,7 +67,7 @@ class DatasetForm(Form):
 
 
 @subclass
-class InferenceForm(Form):
+class InferenceForm(FlaskForm):
 
     def validate_file_path(form, field):
         if not field.data:
@@ -83,7 +83,7 @@ class InferenceForm(Form):
     A form used to perform inference on a text classification dataset
     """
     test_image_file = utils.forms.StringField(
-        _(u'Image file'),
+        _('Image file'),
         validators=[
             validate_file_path,
         ],

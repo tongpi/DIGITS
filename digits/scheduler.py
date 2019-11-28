@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 from collections import OrderedDict
 import os
@@ -220,7 +220,7 @@ class Scheduler:
         elif isinstance(job, DatasetJob):
             datajob = job
         else:
-            raise ValueError(_("Unhandled job type %(job_type)s", job_type=job.job_type()))
+            raise ValueError("Unhandled job type %s" % job.job_type())
 
         for j in self.jobs.values():
             # Any model that shares (this/the same) dataset should be added too:
@@ -248,12 +248,12 @@ class Scheduler:
         Deletes an entire job folder from disk
         Returns True if the Job was found and deleted
         """
-        if isinstance(job, str) or isinstance(job, unicode):
+        if isinstance(job, str) or isinstance(job, bytes):
             job_id = str(job)
         elif isinstance(job, Job):
             job_id = job.id()
         else:
-            raise ValueError(_('called delete_job with a %(type)s', type=type(job)))
+            raise ValueError('called delete_job with a %s' % type(job))
         dependent_jobs = []
         # try to find the job
         job = self.jobs.get(job_id, None)
@@ -299,7 +299,7 @@ class Scheduler:
         path = os.path.join(config_value('jobs_dir'), job_id)
         path = os.path.normpath(path)
         if os.path.dirname(path) == config_value('jobs_dir') and os.path.exists(path):
-            shutil.rmtree(path)
+            shutil.rmtree(path, ignore_errors=True)
             return True
 
         return False
@@ -308,28 +308,28 @@ class Scheduler:
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, DatasetJob) and j.status.is_running()],
-            cmp=lambda x, y: cmp(y.id(), x.id())
+            key=id
         )
 
     def completed_dataset_jobs(self):
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, DatasetJob) and not j.status.is_running()],
-            cmp=lambda x, y: cmp(y.id(), x.id())
+            key=id
         )
 
     def running_model_jobs(self):
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, ModelJob) and j.status.is_running()],
-            cmp=lambda x, y: cmp(y.id(), x.id())
+            key=id
         )
 
     def completed_model_jobs(self):
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, ModelJob) and not j.status.is_running()],
-            cmp=lambda x, y: cmp(y.id(), x.id())
+            key=id
         )
 
     def start(self):
@@ -474,7 +474,7 @@ class Scheduler:
         """
         try:
             # reserve resources
-            for resource_type, requests in resources.iteritems():
+            for resource_type, requests in resources.items():
                 for identifier, value in requests:
                     found = False
                     for resource in self.resources[resource_type]:
@@ -484,8 +484,8 @@ class Scheduler:
                             found = True
                             break
                     if not found:
-                        raise RuntimeError(_('Resource "%(resourceType)s" with identifier="%(identifier)s" not found',
-                                             resourceType=resource_type, identifier=identifier))
+                        raise RuntimeError('Resource "%s" with identifier="%s" not found' % (
+                            resource_type, identifier))
             task.current_resources = resources
             return True
         except Exception as e:
@@ -498,7 +498,7 @@ class Scheduler:
         Release resources previously reserved for a task
         """
         # release resources
-        for resource_type, requests in resources.iteritems():
+        for resource_type, requests in resources.items():
             for identifier, value in requests:
                 for resource in self.resources[resource_type]:
                     if resource.identifier == identifier:

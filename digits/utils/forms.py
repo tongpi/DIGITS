@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 from werkzeug.datastructures import FileStorage
 import wtforms
@@ -21,16 +21,18 @@ def validate_required_iff(**kwargs):
     """
     def _validator(form, field):
         all_conditions_met = True
-        for key, value in kwargs.iteritems():
+        for key, value in kwargs.items():
             if getattr(form, key).data != value:
                 all_conditions_met = False
 
         if all_conditions_met:
             # Verify that data exists
             if field.data is None \
-                    or (isinstance(field.data, (str, unicode)) and not field.data.strip()) \
-                    or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
-                raise validators.ValidationError(_('This field is required.'))
+                    or (isinstance(field.data, (str, bytes))
+                        and not field.data.strip()) \
+                    or (isinstance(field.data, FileStorage)
+                        and not field.data.filename.strip()):
+                raise validators.ValidationError('This field is required.')
         else:
             # This field is not required, ignore other errors
             field.errors[:] = []
@@ -51,10 +53,12 @@ def validate_required_if_set(other_field, **kwargs):
         other_field_value = getattr(form, other_field).data
         if other_field_value:
             # Verify that data exists
-            if field.data is None or \
-                    (isinstance(field.data, (str, unicode)) and not field.data.strip()) \
-                    or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
-                raise validators.ValidationError(_('This field is required if %(other_field)s is set.', other_field=other_field))
+            if field.data is None \
+                    or (isinstance(field.data, (str, bytes))
+                        and not field.data.strip()) \
+                    or (isinstance(field.data, FileStorage)
+                        and not field.data.filename.strip()):
+                raise validators.ValidationError('This field is required if %s is set.' % other_field)
         else:
             # This field is not required, ignore other errors
             field.errors[:] = []
@@ -74,9 +78,9 @@ def validate_greater_than(fieldname):
         try:
             other = form[fieldname]
         except KeyError:
-            raise validators.ValidationError(field.gettext(_(u"Invalid field name '%(fieldname)s'.", fieldname=fieldname)))
+            raise validators.ValidationError(field.gettext(_("Invalid field name '%(fieldname)s'.", fieldname=fieldname)))
         if field.data != '' and field.data < other.data:
-            message = field.gettext(_(u'Field must be greater than %(fieldname)s.', fieldname=fieldname))
+            message = field.gettext(_('Field must be greater than %(fieldname)s.', fieldname=fieldname))
             raise validators.ValidationError(message)
     return _validator
 
@@ -489,7 +493,7 @@ def iterate_over_form(job, form, function, prefix=['form'], indent=''):
         if hasattr(attr, 'data') and hasattr(attr, 'type'):
             if (isinstance(attr.data, int) or
                 isinstance(attr.data, float) or
-                isinstance(attr.data, basestring) or
+                isinstance(attr.data, str) or
                     attr.type in whitelist_fields):
                 key = '%s.%s.data' % ('.'.join(prefix), attr_name)
                 warnings |= function(job, attr, key, attr.data)
@@ -509,7 +513,7 @@ def set_data(job, form, key, value):
         job.form_data = dict()
     job.form_data[key] = value
 
-    if isinstance(value, basestring):
+    if isinstance(value, str):
         value = '\'' + value + '\''
     return False
 

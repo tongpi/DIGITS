@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import io
 import json
@@ -27,6 +27,7 @@ from digits.utils import auth
 from digits.utils.routing import request_wants_json, job_from_request, get_request_arg
 from digits.webapp import scheduler
 from flask_babel import lazy_gettext as _
+from functools import reduce
 
 blueprint = flask.Blueprint(__name__, __name__)
 inference_server_model_path = os.environ.get("INFERENCE_SERVER_MODEL_PATH", '/home/data/server_model')
@@ -168,7 +169,7 @@ def visualize_lr():
     """
     policy = flask.request.form['lr_policy']
     # There may be multiple lrs if the learning_rate is swept
-    lrs = map(float, flask.request.form['learning_rate'].split(','))
+    lrs = list(map(float, flask.request.form['learning_rate'].split(',')))
     if policy == 'fixed':
         pass
     elif policy == 'step':
@@ -194,7 +195,7 @@ def visualize_lr():
     datalist = []
     for j, lr in enumerate(lrs):
         data = ['Learning Rate %d' % j]
-        for i in xrange(101):
+        for i in range(101):
             if policy == 'fixed':
                 data.append(lr)
             elif policy == 'step':
@@ -421,7 +422,7 @@ def download(job_id, extension):
 
     # Write the stats of the job to json,
     # and store in tempfile (for archive)
-    info = json.dumps(job.json_dict(verbose=False, epoch=epoch), sort_keys=True, indent=4, separators=(',', ': '))
+    info = json.dumps(job.json_dict(verbose=False, epoch=epoch), sort_keys=True, indent=4, separators=(',', ': ')).encode('utf-8')
     info_io = io.BytesIO()
     info_io.write(info)
 
@@ -478,7 +479,7 @@ class ColumnType(object):
 
 
 def get_column_attrs():
-    job_outs = [set(j.train_task().train_outputs.keys() + j.train_task().val_outputs.keys())
-                for j in scheduler.jobs.values() if isinstance(j, ModelJob)]
+    job_outs = [set(list(j.train_task().train_outputs.keys()) + list(j.train_task().val_outputs.keys()))
+                for j in list(scheduler.jobs.values()) if isinstance(j, ModelJob)]
 
     return reduce(lambda acc, j: acc.union(j), job_outs, set())

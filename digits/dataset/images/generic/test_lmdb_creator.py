@@ -1,10 +1,9 @@
-#!/usr/bin/env python2
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
 """
 Functions for creating temporary LMDBs
 Used in test_views
 """
-from __future__ import absolute_import
+
 
 import argparse
 import os
@@ -13,9 +12,9 @@ import time
 
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 
 import lmdb
 import numpy as np
@@ -27,7 +26,7 @@ if __name__ == '__main__':
     import digits.config  # noqa
 
 # Import digits.config first to set the path to Caffe
-import caffe_pb2  # noqa
+from caffe.proto import caffe_pb2  # noqa
 
 
 IMAGE_SIZE = 10
@@ -74,7 +73,7 @@ def create_lmdbs(folder, image_width=None, image_height=None, image_count=None):
 
         image_sum = np.zeros((image_height, image_width), 'float64')
 
-        for i in xrange(image_count):
+        for i in range(image_count):
             xslope, yslope = np.random.random_sample(2) - 0.5
             a = xslope * 255 / image_width
             b = yslope * 255 / image_height
@@ -90,7 +89,7 @@ def create_lmdbs(folder, image_width=None, image_height=None, image_count=None):
             image_datum.height = image.shape[0]
             image_datum.width = image.shape[1]
             image_datum.channels = 1
-            s = StringIO()
+            s = BytesIO()
             pil_img.save(s, format='PNG')
             image_datum.data = s.getvalue()
             image_datum.encoded = True
@@ -193,12 +192,12 @@ if __name__ == '__main__':
     args = vars(parser.parse_args())
 
     if os.path.exists(args['folder']):
-        print 'ERROR: Folder already exists'
+        print('ERROR: Folder already exists')
         sys.exit(1)
     else:
         os.makedirs(args['folder'])
 
-    print 'Creating images at "%s" ...' % args['folder']
+    print('Creating images at "%s" ...' % args['folder'])
 
     start_time = time.time()
 
@@ -208,4 +207,4 @@ if __name__ == '__main__':
                  image_count=args['image_count'],
                  )
 
-    print 'Done after %s seconds' % (time.time() - start_time,)
+    print('Done after %s seconds' % (time.time() - start_time,))

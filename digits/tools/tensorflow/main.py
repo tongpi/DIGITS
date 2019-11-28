@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
 #
 # This document should comply with PEP-8 Style Guide
@@ -13,9 +12,9 @@ See the self-documenting flags below.
 
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+from __future__ import absolute_import, print_function
+
+
 
 import time
 
@@ -48,9 +47,7 @@ TF_INTRA_OP_THREADS = 0
 TF_INTER_OP_THREADS = 0
 MIN_LOGS_PER_TRAIN_EPOCH = 8  # torch default: 8
 
-logging.basicConfig(format='%(asctime)s [%(levelname)s] %(message)s',
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    level=logging.INFO)
+logging.basicConfig(level=logging.INFO)
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -163,7 +160,7 @@ def strip_data_from_graph_def(graph_def):
         if n.op == 'Const':
             tensor = n.attr['value'].tensor
             if (tensor.tensor_content):
-                tensor.tensor_content = ''
+                tensor.tensor_content = b''
             if (tensor.string_val):
                 del tensor.string_val[:]
     return strip_def
@@ -191,7 +188,7 @@ def average_head_keys(tags, vals):
             sums[a] += b
             nums[a] += 1
     tags_clean = sums.keys()
-    return tags_clean, np.asarray(sums.values())/np.asarray(nums.values())
+    return tags_clean, np.asarray(list(sums.values()))/np.asarray(list(nums.values()))
 
 
 def summary_to_lists(summary_str):
@@ -387,7 +384,8 @@ def Inference(sess, model):
             for i in range(len(keys)):
                 #    for j in range(len(preds)):
                 # We're allowing multiple predictions per image here. DIGITS doesnt support that iirc
-                logging.info('Predictions for image ' + str(model.dataloader.get_key_index(keys[i])) +
+
+                logging.info('Predictions for image ' + str(model.dataloader.get_key_index(keys[i].decode('utf-8'))) +
                              ': ' + json.dumps(preds[i].tolist()))
     except tf.errors.OutOfRangeError:
         print('Done: tf.errors.OutOfRangeError')
@@ -546,14 +544,11 @@ def main(_):
         # Start running operations on the Graph. allow_soft_placement must be set to
         # True to build towers on GPU, as some of the ops do not have GPU
         # implementations.
-        config = tf.ConfigProto(
+        sess = tf.Session(config=tf.ConfigProto(
                           allow_soft_placement=True,  # will automatically do non-gpu supported ops on cpu
                           inter_op_parallelism_threads=TF_INTER_OP_THREADS,
                           intra_op_parallelism_threads=TF_INTRA_OP_THREADS,
-                          log_device_placement=FLAGS.log_device_placement,
-                          )
-        config.gpu_options.allow_growth = True
-        sess = tf.Session(config=config)
+                          log_device_placement=FLAGS.log_device_placement))
 
         if FLAGS.visualizeModelPath:
             visualize_graph(sess.graph_def, FLAGS.visualizeModelPath)

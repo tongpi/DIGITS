@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
 """
 Functions for creating temporary LMDBs
@@ -25,7 +24,7 @@ from digits import utils  # noqa
 
 # Import digits.config first to set the path to Caffe
 import caffe.io  # noqa
-import caffe_pb2  # noqa
+from caffe.proto import caffe_pb2  # noqa
 
 IMAGE_SIZE = 10
 TRAIN_IMAGE_COUNT = 1000
@@ -73,13 +72,13 @@ def create_lmdbs(folder, file_list, image_count=None, db_batch_size=None):
             ground_truth = int(match.group(2))
             images.append([path, ground_truth])
 
-    print "Found %d image paths in image list" % len(images)
+    print("Found %d image paths in image list" % len(images))
 
     for phase, image_count in [
             ('train', train_image_count),
             ('val', val_image_count)]:
 
-        print "Will create %d pairs of %s images" % (image_count, phase)
+        print("Will create %d pairs of %s images" % (image_count, phase))
 
         # create DBs
         image_db = lmdb.open(os.path.join(folder, '%s_images' % phase),
@@ -99,7 +98,7 @@ def create_lmdbs(folder, file_list, image_count=None, db_batch_size=None):
         image_batch = []
         label_batch = []
 
-        for i in xrange(image_count):
+        for i in range(image_count):
             # pick up random indices from image list
             index1 = random.randint(0, len(images) - 1)
             index2 = random.randint(0, len(images) - 1)
@@ -146,7 +145,7 @@ def create_lmdbs(folder, file_list, image_count=None, db_batch_size=None):
                 label_batch = []
 
             if i % (image_count / 20) == 0:
-                print "%d/%d" % (i, image_count)
+                print("%d/%d" % (i, image_count))
 
         # close databases
         image_db.close()
@@ -235,12 +234,12 @@ if __name__ == '__main__':
     args = vars(parser.parse_args())
 
     if os.path.exists(args['folder']):
-        print 'ERROR: Folder already exists'
+        print('ERROR: Folder already exists')
         sys.exit(1)
     else:
         os.makedirs(args['folder'])
 
-    print 'Creating images at "%s" ...' % args['folder']
+    print('Creating images at "%s" ...' % args['folder'])
 
     start_time = time.time()
 
@@ -250,4 +249,4 @@ if __name__ == '__main__':
         image_count=args['image_count'],
     )
 
-    print 'Done after %s seconds' % (time.time() - start_time,)
+    print('Done after %s seconds' % (time.time() - start_time,))

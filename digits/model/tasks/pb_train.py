@@ -3,7 +3,7 @@
 # ********************************************************************
 # * 为了新增处理pb格式的模型所创建的文件，不属于官方文件，作者: dzh. *
 # ********************************************************************
-from __future__ import absolute_import
+
 
 import operator
 import os
@@ -23,6 +23,7 @@ from digits import utils
 from digits.utils import subclass, override, constants
 import tensorflow as tf
 from flask_babel import lazy_gettext as _
+from functools import reduce
 
 # NOTE: Increment this everytime the pickled object changes
 PICKLE_VERSION = 1
@@ -460,7 +461,7 @@ class PBTrainTask(TrainTask):
                 self.traceback = traceback
 
             if 'DIGITS_MODE_TEST' in os.environ:
-                print output
+                print(output)
 
     @override
     def detect_timeline_traces(self):
@@ -658,7 +659,7 @@ class PBTrainTask(TrainTask):
             #    |  |- activations
             #    |  |- weights
             #    |- 2
-            for layer_id, layer in vis_db['layers'].items():
+            for layer_id, layer in list(vis_db['layers'].items()):
                 op_name = layer.attrs['op']
                 var_name = layer.attrs['var']
                 layer_desc = "%s\n%s" % (op_name, var_name)
@@ -736,7 +737,7 @@ class PBTrainTask(TrainTask):
         y, x = np.histogram(data, bins=20)
         y = list(y)
         ticks = x[[0, len(x)/2, -1]]
-        x = [(x[i]+x[i+1])/2.0 for i in xrange(len(x)-1)]
+        x = [(x[i]+x[i+1])/2.0 for i in range(len(x)-1)]
         ticks = list(ticks)
         return (mean, std, [y, x, ticks])
 

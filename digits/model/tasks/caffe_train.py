@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+from __future__ import absolute_import, print_function
 
 from collections import OrderedDict
 import copy
@@ -27,7 +27,8 @@ from flask_babel import lazy_gettext as _
 
 # Must import after importing digit.config
 import caffe
-import caffe_pb2
+from caffe.proto import caffe_pb2
+from functools import reduce
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 5
@@ -925,7 +926,7 @@ class CaffeTrainTask(TrainTask):
         # This is the normal path
         args = [config_value('caffe')['executable'],
                 'train',
-                '--solver=%s' % self.path(self.solver_file),
+                '--solver=%s' % self.path(self.solver_file)
                 ]
 
         if 'gpus' in resources:
@@ -1129,7 +1130,7 @@ class CaffeTrainTask(TrainTask):
         if os.path.exists(self.path(self.CAFFE_LOG)):
             output = tail(self.path(self.CAFFE_LOG), 40)
             lines = []
-            for line in output.split('\n'):
+            for line in output.decode().split('\n'):
                 # parse caffe header
                 timestamp, level, message = self.preprocess_output_caffe(line)
 
@@ -1138,7 +1139,7 @@ class CaffeTrainTask(TrainTask):
             # return the last 20 lines
             self.traceback = '\n'.join(lines[len(lines) - 20:])
             if 'DIGITS_MODE_TEST' in os.environ:
-                print output
+                print(output)
 
     # TrainTask overrides
 
@@ -1203,7 +1204,7 @@ class CaffeTrainTask(TrainTask):
                 epoch = round(epoch, 3)
                 # if epoch is int
                 if epoch == math.ceil(epoch):
-                    # print epoch,math.ceil(epoch),int(epoch)
+                    # print(epoch,math.ceil(epoch),int(epoch))
                     epoch = int(epoch)
                 snapshots.append((
                     os.path.join(snapshot_dir, filename),
@@ -1221,7 +1222,7 @@ class CaffeTrainTask(TrainTask):
 
         # delete all but the most recent solverstate
         for filename, iteration in sorted(solverstates, key=lambda tup: tup[1])[:-1]:
-            # print 'Removing "%s"' % filename
+            # print('Removing "%s"' % filename)
             os.remove(filename)
 
         self.snapshots = sorted(snapshots, key=lambda tup: tup[1])
@@ -1410,8 +1411,8 @@ class CaffeTrainTask(TrainTask):
         std = np.std(data).astype(np.float32)
         y, x = np.histogram(data, bins=20)
         y = list(y.astype(np.float32))
-        ticks = x[[0, len(x) / 2, -1]]
-        x = [((x[i] + x[i + 1]) / 2.0).astype(np.float32) for i in xrange(len(x) - 1)]
+        ticks = x[[0, int(len(x) / 2), -1]]
+        x = [((x[i] + x[i + 1]) / 2.0).astype(np.float32) for i in range(len(x) - 1)]
         ticks = list(ticks.astype(np.float32))
         return (mean, std, [y, x, ticks])
 
@@ -1458,7 +1459,7 @@ class CaffeTrainTask(TrainTask):
             data_shape = (constants.DEFAULT_BATCH_SIZE,) + data_shape
 
         outputs = None
-        for chunk in [caffe_images[x:x + data_shape[0]] for x in xrange(0, len(caffe_images), data_shape[0])]:
+        for chunk in [caffe_images[x:x + data_shape[0]] for x in range(0, len(caffe_images), data_shape[0])]:
             new_shape = (len(chunk),) + data_shape[1:]
             if net.blobs['data'].data.shape != new_shape:
                 net.blobs['data'].reshape(*new_shape)
@@ -1476,9 +1477,9 @@ class CaffeTrainTask(TrainTask):
             if outputs is None:
                 outputs = copy.deepcopy(output)
             else:
-                for name, blob in output.iteritems():
+                for name, blob in output.items():
                     outputs[name] = np.vstack((outputs[name], blob))
-            print 'Processed %s/%s images' % (len(outputs[outputs.keys()[0]]), len(caffe_images))
+            print('Processed %s/%s images' % (len(outputs[list(outputs.keys())[0]]), len(caffe_images)))
 
         return outputs
 

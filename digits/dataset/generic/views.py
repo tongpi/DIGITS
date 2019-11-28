@@ -1,14 +1,14 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 
-import caffe_pb2
+from caffe.proto import caffe_pb2
 import flask
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -42,7 +42,7 @@ def new(extension_id):
 
     extension = extensions.data.get_extension(extension_id)
     if extension is None:
-        raise ValueError(_("Unknown extension '%(id)s'", id=extension_id))
+        raise ValueError("Unknown extension '%s'" % extension_id)
     extension_form = extension.get_dataset_form()
 
     # Is there a request to clone a job with ?clone=<job_id>
@@ -176,14 +176,14 @@ def explore():
     total_entries = reader.total_entries
 
     max_page = min((total_entries - 1) / size, page + 5)
-    pages = range(min_page, max_page + 1)
+    pages = list(range(min_page, max_page + 1))
     for key, value in reader.entries():
         if count >= page * size:
             datum = caffe_pb2.Datum()
             datum.ParseFromString(value)
             if not datum.encoded:
                 raise RuntimeError(_("Expected encoded database"))
-            s = StringIO()
+            s = BytesIO()
             s.write(datum.data)
             s.seek(0)
             img = PIL.Image.open(s)

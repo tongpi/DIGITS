@@ -4,7 +4,7 @@
 import os
 
 import flask
-from flask.ext.wtf import Form
+from flask_wtf import FlaskForm
 import wtforms
 from wtforms import validators
 
@@ -16,7 +16,7 @@ from digits.utils.forms import validate_required_iff
 from digits import frameworks
 from flask_babel import lazy_gettext as _
 
-class ModelForm(Form):
+class ModelForm(FlaskForm):
 
     # Methods
 
@@ -76,19 +76,19 @@ class ModelForm(Form):
     )
 
     python_layer_from_client = utils.forms.BooleanField(
-        _(u'Use client-side file'),
+        _('Use client-side file'),
         default=False,
     )
 
     python_layer_client_file = utils.forms.FileField(
-        _(u'Client-side file'),
+        _('Client-side file'),
         validators=[
             validate_py_ext
         ],
         tooltip=_("Choose a Python file on the client containing layer definitions.")
     )
     python_layer_server_file = utils.forms.StringField(
-        _(u'Server-side file'),
+        _('Server-side file'),
         validators=[
             validate_file_exists,
             validate_py_ext
@@ -144,6 +144,7 @@ class ModelForm(Form):
 
     batch_size = utils.forms.MultiIntegerField(
         _('Batch size'),
+        default=100,
         validators=[
             utils.forms.MultiNumberRange(min=1),
             utils.forms.MultiOptional(),
@@ -250,7 +251,7 @@ class ModelForm(Form):
     # Use a SelectField instead of a HiddenField so that the default value
     # is used when nothing is provided (through the REST API)
     method = wtforms.SelectField(
-        _(u'Network type'),
+        _('Network type'),
         choices=[
             ('standard', _('Standard network')),
             ('previous', _('Previous network')),

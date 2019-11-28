@@ -13,9 +13,9 @@
 # limitations under the License.
 # ==============================================================================
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+
+
+
 
 import argparse
 
@@ -58,11 +58,7 @@ def read_tensor_from_image_file(file_name,
   dims_expander = tf.expand_dims(float_caster, 0)
   resized = tf.image.resize_bilinear(dims_expander, [input_height, input_width])
   normalized = tf.divide(tf.subtract(resized, [input_mean]), [input_std])
-
-  config = tf.ConfigProto()
-  config.gpu_options.allow_growth = True
-
-  sess = tf.Session(config=config)
+  sess = tf.Session()
   result = sess.run(normalized)
 
   return result
@@ -132,10 +128,7 @@ if __name__ == "__main__":
   input_operation = graph.get_operation_by_name(input_name)
   output_operation = graph.get_operation_by_name(output_name)
 
-  config = tf.ConfigProto()
-  config.gpu_options.allow_growth = True
-
-  with tf.Session(graph=graph, config=config) as sess:
+  with tf.Session(graph=graph) as sess:
     results = sess.run(output_operation.outputs[0], {
         input_operation.outputs[0]: t
     })

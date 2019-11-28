@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import json
 import os
@@ -95,9 +95,9 @@ class BaseViewsTestWithDataset(BaseViewsTest):
             s = BeautifulSoup(rv.data, 'html.parser')
             div = s.select('div.alert-danger')
             if div:
-                print div[0]
+                print(div[0])
             else:
-                print rv.data
+                print(rv.data)
             raise RuntimeError(
                 'Failed to create dataset - status %s' % rv.status_code)
 
@@ -138,7 +138,7 @@ class BaseViewsTestWithDataset(BaseViewsTest):
         if not hasattr(cls, 'imageset_folder'):
             # create a temporary folder
             cls.imageset_folder = tempfile.mkdtemp()
-            for i in xrange(num_images):
+            for i in range(num_images):
                 x = np.random.randint(
                     low=0,
                     high=256,
@@ -162,7 +162,7 @@ class BaseViewsTestWithDataset(BaseViewsTest):
         if not hasattr(cls, 'imageset_folder'):
             # create a temporary folder
             cls.imageset_folder = tempfile.mkdtemp()
-            for i in xrange(num_images):
+            for i in range(num_images):
                 image_width = np.random.randint(low=8, high=32)
                 image_height = np.random.randint(low=8, high=32)
                 x = np.random.randint(
@@ -207,7 +207,7 @@ class GenericViewsTest(BaseViewsTest):
 
     def test_page_dataset_new(self):
         rv = self.app.get('/datasets/generic/new/%s' % self.EXTENSION_ID)
-        print rv.data
+        print(rv.data)
         assert rv.status_code == 200, 'page load failed with %s' % rv.status_code
         assert extensions.data.get_extension(self.EXTENSION_ID).get_title() in rv.data, 'unexpected page format'
 

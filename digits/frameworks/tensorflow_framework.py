@@ -1,5 +1,4 @@
 # Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
 
 import os
 import re
@@ -121,7 +120,7 @@ class TensorflowFramework(Framework):
 
         # save network description to temporary file
         temp_network_handle, temp_network_path = tempfile.mkstemp(suffix='.py')
-        os.write(temp_network_handle, desc)
+        os.write(temp_network_handle, desc.encode())
         os.close(temp_network_handle)
 
         # Generate a temporaty file to put the graph definition in

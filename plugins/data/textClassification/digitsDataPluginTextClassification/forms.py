@@ -1,11 +1,11 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 
 from digits import utils
 from digits.utils import subclass
-from flask.ext.wtf import Form
+from flask_wtf import FlaskForm
 from wtforms import validators
 from flask_babel import lazy_gettext as _
 
@@ -23,13 +23,13 @@ def validate_file_path(form, field):
 
 
 @subclass
-class DatasetForm(Form):
+class DatasetForm(FlaskForm):
     """
     A form used to create a text classification dataset
     """
 
     train_data_file = utils.forms.StringField(
-        _(u'Training data (.csv)'),
+        _('Training data (.csv)'),
         validators=[
             validators.DataRequired(),
             validate_file_path,
@@ -42,7 +42,7 @@ class DatasetForm(Form):
     )
 
     val_data_file = utils.forms.StringField(
-        _(u'Validation data (.csv)'),
+        _('Validation data (.csv)'),
         validators=[
             validate_file_path,
         ],
@@ -54,7 +54,7 @@ class DatasetForm(Form):
     )
 
     alphabet = utils.forms.StringField(
-        _(u'Dictionary'),
+        _('Dictionary'),
         default="abcdefghijklmnopqrstuvwxyz0123456789-,;.!?:'\"/\\|_@#$%^&*~`+ =<>()[]{}",
         tooltip=_("Alphabet to use when converting characters to IDs "
                   "(1-based indexing). Unknown characters will be all be "
@@ -62,7 +62,7 @@ class DatasetForm(Form):
     )
 
     class_labels_file = utils.forms.StringField(
-        _(u'Class labels'),
+        _('Class labels'),
         validators=[
             validate_file_path,
         ],
@@ -73,7 +73,7 @@ class DatasetForm(Form):
     )
 
     max_chars_per_sample = utils.forms.IntegerField(
-        _(u'Number of characters per sample'),
+        _('Number of characters per sample'),
         default=1024,
         validators=[
             validators.Optional(),
@@ -87,18 +87,18 @@ class DatasetForm(Form):
 
 
 @subclass
-class InferenceForm(Form):
+class InferenceForm(FlaskForm):
     """
     A form used to perform inference on a text classification dataset
     """
 
     snippet = utils.forms.TextAreaField(
-        _(u'Snippet'),
+        _('Snippet'),
         tooltip=_("Test a single snippet")
     )
 
     test_data_file = utils.forms.StringField(
-        _(u'Test data (.csv)'),
+        _('Test data (.csv)'),
         validators=[
             validate_file_path,
         ],

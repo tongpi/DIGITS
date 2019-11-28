@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 import PIL.Image
@@ -115,9 +115,9 @@ class Visualization(VisualizationInterface):
         self.image_count += 1
 
         # create arrays in expected format
-        keys = inference_data.keys()
-        bboxes = dict(zip(keys, [[] for x in range(0, len(keys))]))
-        for key, outputs in inference_data.items():
+        keys = list(inference_data.keys())
+        bboxes = dict(list(zip(keys, [[] for x in range(0, len(keys))])))
+        for key, outputs in list(inference_data.items()):
             # last number is confidence
             bboxes[key] = [list(o) for o in outputs if o[-1] > 0]
             self.bbox_count += len(bboxes[key])

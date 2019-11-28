@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 from digits.utils import subclass, override, constants
 from digits.extensions.data.interface import DataIngestionInterface
@@ -111,4 +111,4 @@ class DataIngestion(DataIngestionInterface):
                 count = self.val_image_count
             elif stage == constants.TEST_DB:
                 count = self.test_image_count
-        return [np.random.random_sample(2) - 0.5 for i in xrange(count)] if count > 0 else []
+        return [np.random.random_sample(2) - 0.5 for i in range(count)] if count > 0 else []

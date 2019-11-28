@@ -8,9 +8,9 @@ Class for generating Caffe-style learning rates using different policies.
 
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+
+
+
 
 import logging
 import math
@@ -55,7 +55,7 @@ class LRPolicy(object):
         self.max_steps = max_steps
         self.step_values = step_values
         if self.step_values:
-            self.stepvalues_list = map(float, step_values.split(','))
+            self.stepvalues_list = list(map(float, step_values.split(',')))
         else:
             self.stepvalues_list = []
 

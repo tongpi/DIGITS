@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import flask
 import werkzeug.exceptions
@@ -71,7 +71,8 @@ def inference_form(extension_id, job_id):
     if extension_id != "all-default":
         extension_class = extensions.data.get_extension(extension_id)
         if not extension_class:
-            raise RuntimeError(_("Unable to find data extension with ID=%(id)s", id=job_id.dataset.extension_id))
+            raise RuntimeError("Unable to find data extension with ID=%s"
+                               % job_id.dataset.extension_id)
         job = scheduler.get_job(job_id)
         if hasattr(job, 'extension_userdata'):
             extension_userdata = job.extension_userdata

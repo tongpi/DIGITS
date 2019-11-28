@@ -1,18 +1,13 @@
-#!/usr/bin/env python2
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
 
 import argparse
-# Find the best implementation available
-try:
-    from cStringIO import StringIO
-except ImportError:
-    from StringIO import StringIO
+from io import BytesIO
 import lmdb
 import logging
 import numpy as np
 import os
 import PIL.Image
-import Queue
+import queue
 import sys
 import threading
 from flask_babel import lazy_gettext as _
@@ -25,7 +20,7 @@ from digits.job import Job  # noqa
 
 # Import digits.config first to set the path to Caffe
 import caffe.io  # noqa
-import caffe_pb2  # noqa
+from caffe.proto import caffe_pb2  # noqa
 
 logger = logging.getLogger('digits.tools.create_dataset')
 
@@ -37,7 +32,7 @@ class DbWriter(threading.Thread):
 
     def __init__(self, output_dir, total_batches):
         self._dir = output_dir
-        self.write_queue = Queue.Queue(10)
+        self.write_queue = queue.Queue(10)
         # sequence number
         self.seqn = 0
         self.total_batches = total_batches
@@ -65,7 +60,7 @@ class DbWriter(threading.Thread):
         while True:
             try:
                 batch = self.write_queue.get(timeout=0.1)
-            except Queue.Empty:
+            except queue.Empty:
                 if self.done:
                     # break out of main loop and terminate
                     break
@@ -129,7 +124,7 @@ class LmdbWriter(DbWriter):
             if data.shape[2] == 1:
                 # grayscale
                 data = data[:, :, 0]
-            s = StringIO()
+            s = BytesIO()
             if encoding == 'png':
                 PIL.Image.fromarray(data).save(s, format='PNG')
             elif encoding == 'jpg':
@@ -197,7 +192,7 @@ class LmdbWriter(DbWriter):
         try:
             with db.begin(write=True) as lmdb_txn:
                 for key, datum in batch:
-                    lmdb_txn.put(key, datum)
+                    lmdb_txn.put(key.encode(), datum)
         except lmdb.MapFullError:
             # double the map_size
             curr_limit = db.info()['map_size']
@@ -236,7 +231,7 @@ class Encoder(threading.Thread):
             # don't block- if the queue is empty then we're done
             try:
                 batch = self.queue.get_nowait()
-            except Queue.Empty:
+            except queue.Empty:
                 # break out of main loop and terminate
                 break
 
@@ -278,7 +273,7 @@ class Encoder(threading.Thread):
                     # write data
                     self.writer.write_batch(data)
             except Exception as e:
-                self.error_queue.put('%s: %s' % (type(e).__name__, e.message))
+                self.error_queue.put('%s: %s' % (type(e).__name__, e.args[0]))
                 raise
 
 
@@ -299,11 +294,11 @@ class DbCreator(object):
 
         if entry_count > 0:
             # create a queue to write errors to
-            error_queue = Queue.Queue()
+            error_queue = queue.Queue()
 
             # create and fill encoder queue
-            encoder_queue = Queue.Queue()
-            batch_indices = xrange(0, len(entry_ids), batch_size)
+            encoder_queue = queue.Queue()
+            batch_indices = range(0, len(entry_ids), batch_size)
             for batch in [entry_ids[start:start+batch_size] for start in batch_indices]:
                 # queue this batch
                 encoder_queue.put(batch)
@@ -320,7 +315,7 @@ class DbCreator(object):
 
             # create encoder threads
             encoders = []
-            for _ in xrange(num_threads):
+            for _ in range(num_threads):
                 encoder = Encoder(encoder_queue, writer, extension, error_queue, force_same_shape)
                 encoder.daemon = True
                 encoder.start()
@@ -479,5 +474,5 @@ if __name__ == '__main__':
             args['stage']
         )
     except Exception as e:
-        logger.error('%s: %s' % (type(e).__name__, e.message))
+        logger.error('%s: %s' % (type(e).__name__, e.args[0]))
         raise

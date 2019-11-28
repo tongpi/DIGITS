@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import cv2
 import fnmatch
@@ -81,7 +81,7 @@ def get_all_contours(contour_path):
         for dirpath, dirnames, files in os.walk(contour_path)
         for f in fnmatch.filter(files, 'IM-0001-*-icontour-manual.txt')
     ]
-    extracted = map(Contour, contours)
+    extracted = list(map(Contour, contours))
     return extracted
 
 
@@ -131,7 +131,7 @@ class DataIngestion(DataIngestionInterface):
 
     @override
     def encode_entry(self, entry):
-        if isinstance(entry, basestring):
+        if isinstance(entry, str):
             img = load_image(entry)
             label = np.array([0])
         else:

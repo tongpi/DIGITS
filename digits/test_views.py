@@ -1,11 +1,11 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import json
 import time
-import urllib
+import urllib.request, urllib.parse, urllib.error
 
-from urlparse import urlparse
+from urllib.parse import urlparse
 
 from . import test_utils
 from . import webapp
@@ -197,7 +197,7 @@ class TestViews(BaseViewsTest):
 
     def check_autocomplete(self, absolute_path):
         path = '/' if absolute_path else './'
-        url = '/autocomplete/path?query=%s' % (urllib.quote(path, safe=''))
+        url = '/autocomplete/path?query=%s' % (urllib.parse.quote(path, safe=''))
         rv = self.app.get(url)
         assert rv.status_code == 200
         status = json.loads(rv.data)

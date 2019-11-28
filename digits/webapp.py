@@ -1,11 +1,11 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
 
+import codecs
 import os
 
 import flask
 from flask import session
-from flask.ext.socketio import SocketIO
+from flask_socketio import SocketIO
 from gevent import monkey
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel
@@ -26,7 +26,8 @@ app.config['DEBUG'] = True
 # Disable CSRF checking in WTForms
 app.config['WTF_CSRF_ENABLED'] = False
 # This is still necessary for SocketIO
-app.config['SECRET_KEY'] = os.urandom(12).encode('hex')
+# app.config['SECRET_KEY'] = os.urandom(12).encode('hex')
+app.config['SECRET_KEY'] = codecs.encode(os.urandom(12), 'hex_codec')
 app.url_map.redirect_defaults = False
 app.config['URL_PREFIX'] = url_prefix
 socketio = SocketIO(app, async_mode='gevent', path=url_prefix+'/socket.io')
@@ -111,7 +112,7 @@ def username_decorator(f):
         return f(*args, **kwargs)
     return decorated
 
-for endpoint, function in app.view_functions.iteritems():
+for endpoint, function in app.view_functions.items():
     app.view_functions[endpoint] = username_decorator(function)
 
 # Setup the environment

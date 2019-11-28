@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 
 class DataIngestionInterface(object):
@@ -21,7 +21,7 @@ class DataIngestionInterface(object):
         self.userdata = kwargs
 
         # populate instance from userdata dictionary
-        for k, v in self.userdata.items():
+        for k, v in list(self.userdata.items()):
             setattr(self, k, v)
 
     def encode_entry(self, entry):

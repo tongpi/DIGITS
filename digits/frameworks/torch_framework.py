@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 import re
@@ -124,7 +124,7 @@ class TorchFramework(Framework):
         desc = kwargs['desc']
         # save network description to temporary file
         temp_network_handle, temp_network_path = tempfile.mkstemp(suffix='.lua')
-        os.write(temp_network_handle, desc)
+        os.write(temp_network_handle, desc.encode())
         os.close(temp_network_handle)
 
         try:  # do this in a try..finally clause to make sure we delete the temp file

@@ -1,4 +1,3 @@
-#!/usr/bin/env python2
 # Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
 #
 # This document should comply with PEP-8 Style Guide
@@ -13,9 +12,9 @@ See the self-documenting flags below.
 
 """
 
-from __future__ import absolute_import
-from __future__ import division
-from __future__ import print_function
+
+
+
 
 import threading
 import time
@@ -446,7 +445,7 @@ def input_generator(zs_file, batch_size):
     indices_init = (indices * batch_size + epoch) % img_count
     indices_final = (indices_init + 1) % img_count
 
-    for i in xrange(batch_size):
+    for i in range(batch_size):
         z_init = zs[indices_init[i]]
         z_final = zs[indices_final[i]]
 

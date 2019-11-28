@@ -27,7 +27,7 @@ class BaseTestWithDB(object):
     def setUpClass(cls):
         cls._data_dir = tempfile.mkdtemp()
         cls.db = lmdb.open(os.path.join(cls._data_dir, 'db'))
-        for i in xrange(2):
+        for i in range(2):
             if cls.SAME_SHAPE:
                 width = 10
             else:

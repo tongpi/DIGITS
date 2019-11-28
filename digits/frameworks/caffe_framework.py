@@ -1,11 +1,12 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 import re
+import base64
 
 import caffe.draw
-import caffe_pb2
+from caffe.proto import caffe_pb2
 from google.protobuf import text_format
 
 from .errors import BadNetworkError
@@ -145,7 +146,7 @@ class CaffeFramework(Framework):
         if not net.name:
             net.name = 'Network'
         return ('<image src="data:image/png;base64,' +
-                caffe.draw.draw_net(net, 'UD').encode('base64') +
+                base64.b64encode(caffe.draw.draw_net(net, 'UD')).decode() +
                 '" style="max-width:100%" />')
 
     @override

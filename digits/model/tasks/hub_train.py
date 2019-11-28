@@ -3,7 +3,7 @@
 # ********************************************************************
 # * 为了新增处理hub格式的模型所创建的文件，不属于官方文件，作者: dzh. *
 # ********************************************************************
-from __future__ import absolute_import
+
 
 import operator
 import os
@@ -23,6 +23,7 @@ from digits import utils
 from digits.utils import subclass, override, constants
 import tensorflow as tf
 from flask_babel import lazy_gettext as _
+from functools import reduce
 
 # NOTE: Increment this everytime the pickled object changes
 PICKLE_VERSION = 1
@@ -154,8 +155,10 @@ class HubTrainTask(TrainTask):
         graph_name = None
 
         if epoch == -1 or not epoch:
-            epoch = self.snapshots[-1][1]
-            graph_name = self.snapshots[-1][0]
+            if self.snapshots:
+                graph_name = self.snapshots[-1][0]
+            else:
+                graph_name = 'snapshot.ckpt'
         else:
             for f, e in self.snapshots:
                 if e == epoch:
@@ -318,11 +321,11 @@ class HubTrainTask(TrainTask):
             for (key, value) in re.findall(pattern_key_val, kvlist):
                 if stage == 'Train':
                     # 此处为进度条数据的创建
-                    value = float(value[:4]) / 100
+                    value = float(value.split('%')[0]) / 100
                     self.save_train_output(key, key, value)
                     self.save_train_output('learning_rate', 'learning_rate', self.learning_rate)
                 elif stage == 'Validation':
-                    value = float(value[:4]) / 100
+                    value = float(value.split('%')[0]) / 100
                     self.save_val_output(key, key, value)
                 elif stage == 'Cross':
                     value = float(value)
@@ -369,10 +372,12 @@ class HubTrainTask(TrainTask):
         if match:
             level = match.group(1)
             timestamp = time.mktime(time.strptime(match.group(2)[:19], '%Y-%m-%d %H:%M:%S'))
-            step = float(match.group(3))
+            step = int(match.group(3))
             message = match.group(4)
             if level == 'INFO':
                 level = 'info'
+            elif level == 'DUBUG':
+                level = 'debug'
             elif level == 'WARNING':
                 level = 'warning'
             elif level == 'ERROR':
@@ -413,7 +418,7 @@ class HubTrainTask(TrainTask):
         if os.path.exists(self.path(self.TENSORFLOW_LOG)):
             output = subprocess.check_output(['tail', '-n40', self.path(self.TENSORFLOW_LOG)])
             lines = []
-            for line in output.split('\n'):
+            for line in output.split('\n'.encode('utf-8')):
                 # parse tensorflow header
                 timestamp, level, message = self.preprocess_output_tensorflow(line)
 
@@ -427,7 +432,7 @@ class HubTrainTask(TrainTask):
                 self.traceback = traceback
 
             if 'DIGITS_MODE_TEST' in os.environ:
-                print output
+                print(output)
 
     @override
     def detect_timeline_traces(self):
@@ -626,7 +631,7 @@ class HubTrainTask(TrainTask):
             #    |  |- activations
             #    |  |- weights
             #    |- 2
-            for layer_id, layer in vis_db['layers'].items():
+            for layer_id, layer in list(vis_db['layers'].items()):
                 op_name = layer.attrs['op']
                 var_name = layer.attrs['var']
                 layer_desc = "%s\n%s" % (op_name, var_name)
@@ -704,7 +709,7 @@ class HubTrainTask(TrainTask):
         y, x = np.histogram(data, bins=20)
         y = list(y)
         ticks = x[[0, len(x)/2, -1]]
-        x = [(x[i]+x[i+1])/2.0 for i in xrange(len(x)-1)]
+        x = [(x[i]+x[i+1])/2.0 for i in range(len(x)-1)]
         ticks = list(ticks)
         return (mean, std, [y, x, ticks])
 

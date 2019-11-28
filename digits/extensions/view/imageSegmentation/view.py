@@ -1,5 +1,5 @@
 """Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved."""
-from __future__ import absolute_import
+
 
 import json
 import os
@@ -180,7 +180,7 @@ class Visualization(VisualizationInterface):
         """Process one inference and return data to visualize."""
         # assume the only output is a CHW image where C is the number
         # of classes, H and W are the height and width of the image
-        class_data = output_data[output_data.keys()[0]].astype('float32')
+        class_data = output_data[list(output_data.keys())[0]].astype('float32')
 
         # Is this binary segmentation?
         is_binary = class_data.shape[0] == 2
@@ -196,7 +196,7 @@ class Visualization(VisualizationInterface):
             fill_data = (self.map.to_rgba(class_data) * 255).astype('uint8')
         else:
             fill_data = np.ndarray((class_data.shape[0], class_data.shape[1], 4), dtype='uint8')
-            for x in xrange(3):
+            for x in range(3):
                 fill_data[:, :, x] = class_data.copy()
 
         # Assuming that class 0 is the background

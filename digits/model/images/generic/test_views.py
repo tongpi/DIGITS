@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import itertools
 import json
@@ -12,9 +12,9 @@ import unittest
 
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 
 from bs4 import BeautifulSoup
 
@@ -212,23 +212,23 @@ class BaseViewsTestWithAnyDataset(BaseViewsTest):
 
         if request_json:
             if rv.status_code != 200:
-                print json.loads(rv.data)
+                print(json.loads(rv.data))
                 raise RuntimeError('Model creation failed with %s' % rv.status_code)
             data = json.loads(rv.data)
-            if 'jobs' in data.keys():
+            if 'jobs' in list(data.keys()):
                 return [j['id'] for j in data['jobs']]
             else:
                 return data['id']
 
         # expect a redirect
         if not 300 <= rv.status_code <= 310:
-            print 'Status code:', rv.status_code
+            print('Status code:', rv.status_code)
             s = BeautifulSoup(rv.data, 'html.parser')
             div = s.select('div.alert-danger')
             if div:
-                print div[0]
+                print(div[0])
             else:
-                print rv.data
+                print(rv.data)
             raise RuntimeError('Failed to create dataset - status %s' % rv.status_code)
 
         job_id = cls.job_id_from_response(rv)
@@ -364,7 +364,7 @@ class BaseTestCreation(BaseViewsTestWithDataset):
     def test_select_gpus(self):
         # test all possible combinations
         gpu_list = config_value('gpu_list').split(',')
-        for i in xrange(len(gpu_list)):
+        for i in range(len(gpu_list)):
             for combination in itertools.combinations(gpu_list, i + 1):
                 yield self.check_select_gpus, combination
 
@@ -734,7 +734,7 @@ class BaseTestCreatedWithGradientDataExtension(BaseTestCreatedWithAnyDataset,
         )
         assert rv.status_code == 200, 'POST failed with %s' % rv.status_code
         data = json.loads(rv.data)
-        output = data['outputs'][data['outputs'].keys()[0]]['output']
+        output = data['outputs'][list(data['outputs'].keys())[0]]['output']
         assert output[0] > 0 and \
             output[1] < 0, \
             'image regression result is wrong: %s' % data['outputs']['output']
@@ -854,10 +854,10 @@ class UserModel(Tower):
         x = x.astype('uint8')
         pil_img = PIL.Image.fromarray(x)
         # create output stream
-        s = StringIO()
+        s = BytesIO()
         pil_img.save(s, format="png")
         # create input stream
-        s = StringIO(s.getvalue())
+        s = BytesIO(s.getvalue())
         image_upload = (s, 'image.png')
         # post request
         rv = self.app.post(

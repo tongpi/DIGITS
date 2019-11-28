@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import
+
 
 import os
 import random
@@ -8,11 +8,11 @@ import shutil
 
 # Find the best implementation available
 try:
-    from cStringIO import StringIO
+    from io import StringIO, BytesIO
 except ImportError:
-    from StringIO import StringIO
+    from io import StringIO, BytesIO
 
-import caffe_pb2
+from caffe.proto import caffe_pb2
 import flask
 import PIL.Image
 import pandas as pd
@@ -59,8 +59,8 @@ def from_folders(job, form):
         folder=form.folder_train.data,
         percent_val=percent_val,
         percent_test=percent_test,
-        min_per_category=min_per_class if min_per_class > 0 else 1,
-        max_per_category=max_per_class if max_per_class > 0 else None
+        min_per_category=min_per_class if min_per_class is None or min_per_class > 0 else 1,
+        max_per_category=max_per_class if max_per_class is None or max_per_class > 0 else None
     )
     job.tasks.append(parse_train_task)
 
@@ -176,7 +176,7 @@ def from_sound_folders(job, form):
     os.mkdir((sound_files_path + file_name).encode('utf-8'))
     dir_name = set(train.className)
     for name in dir_name:
-        os.mkdir((sound_files_path + file_name + name).encode('utf-8'))
+        os.mkdir(sound_files_path + file_name + name)
 
     plt.figure(figsize=(2.56, 2.56))
     for i in train.index:
@@ -189,7 +189,8 @@ def from_sound_folders(job, form):
             continue
         # plt.figure(figsize=(12,4))
         librosa.display.waveplot(x, sr=sr)
-        plt.savefig((sound_files_path + file_name + "{}/{}.png".format(audio_class, audio_name)).encode('utf-8'))
+        image_path = sound_files_path + file_name + "{}/{}.png".format(audio_class, audio_name)
+        plt.savefig(image_path)
 
         plt.clf()
 
@@ -207,6 +208,8 @@ def from_sound_folders(job, form):
 
     min_per_class = form.folder_train_min_per_class.data
     max_per_class = form.folder_train_max_per_class.data
+    if max_per_class is None:
+        max_per_class = -1
 
     parse_train_task = tasks.ParseFolderTask(
         job_dir=job.dir(),
@@ -214,7 +217,7 @@ def from_sound_folders(job, form):
         percent_val=percent_val,
         percent_test=percent_test,
         min_per_category=min_per_class if min_per_class > 0 else 1,
-        max_per_category=max_per_class if max_per_class > 0 else None
+        max_per_category=max_per_class if max_per_class > 0 else None,
     )
     job.tasks.append(parse_train_task)
 
@@ -309,7 +312,7 @@ def from_sound_folders(job, form):
                 encoding=encoding,
                 compression=compression,
                 labels_file=job.labels_file,
-                is_train=0,
+                is_train=0
             )
         )
 
@@ -602,11 +605,11 @@ def explore():
     elif 'test' in db.lower():
         task = job.test_db_task()
     if task is None:
-        raise ValueError(_('No create_db task for %(db)s', db=db))
+        raise ValueError('No create_db task for {0}'.format(db))
     if task.status != 'D':
-        raise ValueError(_("This create_db task's status should be 'D' but is '%(status)s'", status=task.status))
+        raise ValueError("This create_db task's status should be 'D' but is '{0}'".format(task.status))
     if task.backend != 'lmdb':
-        raise ValueError(_("Backend is %(backend)s while expected backend is lmdb", backend=task.backend))
+        raise ValueError("Backend is {0} while expected backend is lmdb".format(task.backend))
     db_path = job.path(task.db_name)
     labels = task.get_labels()
 
@@ -634,15 +637,16 @@ def explore():
         else:
             total_entries = label_entries
 
-    max_page = min((total_entries - 1) / size, page + 5)
-    pages = range(min_page, max_page + 1)
+    max_page = int(min((total_entries - 1) / size, page + 5))
+    pages = list(range(min_page, max_page + 1))
     for key, value in reader.entries():
         if count >= page * size:
             datum = caffe_pb2.Datum()
             datum.ParseFromString(value)
             if label is None or datum.label == label:
                 if datum.encoded:
-                    s = StringIO()
+                    # s = StringIO()
+                    s = BytesIO()
                     s.write(datum.data)
                     s.seek(0)
                     img = PIL.Image.open(s)

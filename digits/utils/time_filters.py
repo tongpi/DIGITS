@@ -1,6 +1,6 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 # -*- coding: utf-8 -*-
-from __future__ import absolute_import
+
 
 import time
 from flask_babel import lazy_gettext as _
@@ -16,13 +16,13 @@ def print_time(t, ref_time=None):
         now = time.localtime(ref_time)
 
     if lt.tm_year != now.tm_year:
-        return time.strftime('%b %d %Y, %I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%b %d %Y, %I:%M:%S %p', lt)
     elif lt.tm_mon != now.tm_mon:
-        return time.strftime('%b %d, %I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%b %d, %I:%M:%S %p', lt)
     elif lt.tm_mday != now.tm_mday:
-        return time.strftime('%a %b %d, %I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%a %b %d, %I:%M:%S %p', lt)
     else:
-        return time.strftime('%I:%M:%S %p', lt).decode('utf-8')
+        return time.strftime('%I:%M:%S %p', lt)
 
 
 def print_time_local(t, ref_time=None):
@@ -35,13 +35,13 @@ def print_time_local(t, ref_time=None):
         now = time.localtime(ref_time)
 
     if lt.tm_year != now.tm_year:
-        return time.strftime('%Y年%m月%d日 %H:%M:%S', lt).decode('utf-8')
+        return time.strftime('%Y年%m月%d日 %H:%M:%S', lt)
     elif lt.tm_mon != now.tm_mon:
-        return time.strftime('%m月%d日 %H:%M:%S', lt).decode('utf-8')
+        return time.strftime('%m月%d日 %H:%M:%S', lt)
     elif lt.tm_mday != now.tm_mday:
-        return time.strftime('%m月%d日 %H:%M:%S', lt).decode('utf-8')
+        return time.strftime('%m月%d日 %H:%M:%S', lt)
     else:
-        return time.strftime('%H:%M:%S', lt).decode('utf-8')
+        return time.strftime('%H:%M:%S', lt)
 
 
 def print_time_diff_local(diff):
