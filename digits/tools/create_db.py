@@ -309,7 +309,10 @@ def create_db(input_file, output_dir,
     else:
         raise ValueError(_('invalid backend'))
     if int(is_train) == 1:
-        _create_bottleneck(job_dir, image_folder, image_height, image_width, image_channels)
+        try:
+            _create_bottleneck(job_dir, image_folder, image_height, image_width, image_channels)
+        except ValueError:
+            logger.error("数据集图片尺寸不能生成bottleneck文件")
 
     logger.info('Database created after %d seconds.' % (time.time() - start))
 
