@@ -1,19 +1,35 @@
 # -*- coding: utf-8 -*-
 from .webapp import db, app
 from sqlalchemy import and_
+from sqlalchemy.dialects import postgresql
 import hashlib
 
 
 class User(db.Model):
+    DEFAULT_PERMISSIONS = '0'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(320), unique=True)
     password_hash = db.Column(db.String(128), nullable=True)
+    # permissions = db.Column(postgresql.ARRAY(db.String(255)), default=DEFAULT_PERMISSIONS)
+    permissions = db.Column(db.String(128), default=DEFAULT_PERMISSIONS)
+    status = db.Column(db.Boolean, default=True)
 
     __tablename__ = 'users'
 
     def __repr__(self):
         return '<User %r>' % self.username
+
+    @staticmethod
+    def get_all_users():
+        return User.query.filter().order_by(User.id).all()
+
+    @staticmethod
+    def inspect_username(username):
+        if User.query.filter(User.username == username).first():
+            return False
+        else:
+            return True
 
 
 # 登录检验

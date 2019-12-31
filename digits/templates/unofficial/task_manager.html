@@ -1,0 +1,107 @@
+{% extends "layout.html" %}
+{% from "helper.html" import serve_file %}
+
+{% block head %}
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% macro gen_model_log_path(job_id) %}
+    {% set job = scheduler.get_job(job_id) %}
+    {% set task = job.train_task() %}
+    {% if task.log_file %}
+        <td>{{serve_file(task, task.log_file)}}</td>
+    {% endif %}
+{% endmacro %}
+
+{% macro gen_dataset_log_path(job_id) %}
+    {% set job = scheduler.get_job(job_id) %}
+     <td>
+    {% for index, task in enumerate(job.create_db_tasks()) %}
+        {% if task.create_db_log_file %}
+            {{ serve_file(task, task.create_db_log_file) }}
+            {% if index == 0 %}
+                |
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </td>
+{% endmacro %}
+
+{% macro delete_job(job_id) %}
+    <td><a id="delete-job" class="btn btn-danger btn-xs">删除</a></td>
+    <script>
+    $('#delete-job').on('click', function(event) {
+        event.preventDefault();
+        bootbox.confirm(
+            '{{_("Are you sure you want to delete this job?<br><br>All related files will be permanently removed.")}}',
+            function(result) {
+                if (result)
+                    $.ajax("{{url_for('digits.views.delete_job', job_id=job_id)}}",
+                        {type: "DELETE"})
+                    .done(function() {
+                        window.location = "{{url_for('digits.views.home')}}";
+                        })
+                    .fail(function(data) { errorAlert(data); });
+            });
+        });
+    </script>
+{% endmacro %}
+
+
+{% block content %}
+
+    <h2>任务信息详情</h2>
+    <hr>
+    <div class="well">
+    <table class="table table-bordered table-striped list-group selectable"
+               style="word-wrap: break-word"
+               width="100%">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>类别</th>
+                <th>名称</th>
+                <th>ID</th>
+                <th>状态</th>
+                <th>文件目录</th>
+                <th>日志</th>
+{#                <th>操作</th>#}
+            </tr>
+        </thead>
+        <tbody>
+        {% set count = namespace(value=1) %}
+        {% for dataset_job in job_data['datasets'] %}
+            <tr>
+                <th>{{ count.value }}</th>
+                <td>{{ "数据集" }}</td>
+                <td>{{ dataset_job['name'] }}</td>
+                <td><a href="{{ url_for('digits.dataset.views.show', job_id=dataset_job['id']) }}">{{ dataset_job['id'] }}</a> </td>
+                <td>{{ _(dataset_job['status']) }}</td>
+                <td>{{ dataset_job['directory'] }}</td>
+                {{ gen_dataset_log_path(dataset_job['id']) }}
+{#                <td><a id="delete-job" class="btn btn-danger btn-xs" href="#">删除</a></td>#}
+            </tr>
+            {% set count.value = count.value + 1 %}
+        {% endfor %}
+        {% for model_job in job_data['models'] %}
+            <tr>
+                <th>{{ count.value }}</th>
+                <td>{{ "模型" }}</td>
+                <td>{{ model_job['name'] }}</td>
+                <td><a href="{{ url_for('digits.model.views.show', job_id=model_job['id']) }}">{{ model_job['id'] }}</a> </td>
+                <td>{{ _(model_job['status']) }}</td>
+                <td>{{ model_job['directory'] }}</td>
+                {{ gen_model_log_path(model_job['id']) }}
+{#                {{ delete_job(model_job['id']) }}#}
+            </tr>
+            {% set count.value = count.value + 1 %}
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}
+
+
+
