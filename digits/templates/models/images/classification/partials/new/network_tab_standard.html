@@ -1,7 +1,9 @@
 {# Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved. #}
 <ul class="nav nav-tabs" id="stdnetRole">
     {% for fw in frameworks %}
-    <li id="{{ fw.get_id() }}"><a href="#{{ fw.get_id() }}_standard" data-toggle="tab">{{ fw.get_name() }}</a></li>
+        {% if fw.get_name() in ['Caffe', 'Torch', 'Tensorflow'] %}
+            <li id="{{ fw.get_id() }}"><a href="#{{ fw.get_id() }}_standard" data-toggle="tab">{{ fw.get_name() }}</a></li>
+        {% endif %}
     {% endfor %}
 </ul>
 <div id="network-tab-standard-contents" class="tab-pane active">

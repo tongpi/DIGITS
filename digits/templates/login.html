@@ -27,7 +27,9 @@
                         <input class="form-control input-box" id="password" name="password" type="password" autofocus/>
                     </div>
                     <div class="register-text">
+                        {% if have_user %}
                         <a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a>
+                        {% endif %}
                         {% if error %}
                             <p class="form-error-text">
                                 {{ error }}

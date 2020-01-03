@@ -31,6 +31,11 @@ class User(db.Model):
         else:
             return True
 
+    @staticmethod
+    def have_user():
+        u = User.query.filter().all()
+        return False if u else True
+
 
 # 登录检验
 def valid_login(username, password):

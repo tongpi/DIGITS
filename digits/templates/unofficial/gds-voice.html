@@ -316,7 +316,7 @@ to annotate temporal segments of a video: contains 4 rows
           <li>GDS共享项目: <input id="via_page_import_pid" type="text" placeholder="e.g. 71578187-3cd3-45d0-8198-7c441fbc06af" style="width:25em;">
           </li>
           <li>创建GDS2项目（json文件）:
-            <input id="via_page_import_via2_project_json" type="file">
+            <input id="gds_page_import_gds2_project_json" type="file">
           </li>
         </ul>
 
@@ -489,7 +489,7 @@ to annotate temporal segments of a video: contains 4 rows
       <div data-pageid="page_about" class="via_page">
         <div class="toolbar"><span onclick="_via_util_page_hide()" class="text_button">&times;</span></div>
         <h2>图像标注器（GDS）</h2>
-        <p>版本：<!--<a href="https://gitlab.com/vgg/via/blob/master/CHANGELOG">-->__VIA_VERSION__<!--</a>--></p>
+        <p>版本：GDS_VERSION__<!--</a>--></p>
         <p>图像标注器（GDS）是一个简单而独立的手动图像、音频和视频标注工具。GDS软件是一个轻量级的标注工具，仅在web浏览器中运行。更多详细信息，请关注长城数字官方网站www.e-u.cn</p>
       </div>
     </div> <!-- end of page container -->
@@ -506,13 +506,13 @@ to annotate temporal segments of a video: contains 4 rows
       </ul>
     </div>
 
-    <!-- VIA dynamically populates this container with control panel, media (image, video, etc), etc. -->
+    <!-- GDS dynamically populates this container with control panel, media (image, video, etc), etc. -->
     <div class="via_container" id="via_container"></div>
 
 <!-- START: Contents of file: js/_via_util.js-->
 <script>
 /**
- * Utilities used by VIA default user interface
+ * Utilities used by GDS default user interface
  *
  * @author gds <www.e-u.cn>
  * @date 31 Dec. 2018
@@ -1436,7 +1436,7 @@ _via_control_panel.prototype._add_project_tools = function() {
   }.bind(this));
   this.c.appendChild(save);
 
-  var import_export_annotation = _via_util_get_svg_button('micon_import_export', '导入或导出批注');
+  var import_export_annotation = _via_util_get_svg_button('micon_import_export', '导入或导出标注');
   import_export_annotation.addEventListener('click', this._page_show_import_export.bind(this));
   this.c.appendChild(import_export_annotation);
 }
@@ -1831,7 +1831,7 @@ _via_data.prototype._init_default_project = function() {
     'rev_timestamp': '__VIA_PROJECT_REV_TIMESTAMP__',
     'pname': 'Unnamed VIA Project',
     'data_format_version': this.DATA_FORMAT_VERSION,
-    'creator': 'VGG Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via)',
+    'creator': 'GDS Image Annotator (http://www.e-u.cn)',
     'created': Date.now(),
     'vid_list': [],
   }
@@ -3228,7 +3228,7 @@ _via_import_export.prototype.export_to_via3_csv = function() {
       attribute[aid] = this.d.store.attribute[aid].aname;
     }
 
-    csv.push('# Exported using VGG Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via)');
+    csv.push('# Exported using GDS Image Annotator (http://www.e-u.cn)');
     csv.push('# Notes:');
     csv.push('# - spatial_coordinates of [2,10,20,50,80] denotes a rectangle (shape_id=2) of size 50x80 placed at (10,20)');
     csv.push('# - temporal coordinate of [1.349,2.741] denotes a temporal segment from time 1.346 sec. to 2.741 sec.');
@@ -9690,7 +9690,7 @@ _via_dp[0]['store']['project'] = {
   'rev': '__VIA_PROJECT_REV_ID__',
   'rev_timestamp': '__VIA_PROJECT_REV_TIMESTAMP__',
   'pname':   'VIA Debug Project',
-  'creator': 'VGG Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via)',
+  'creator': 'GDS Image Annotator (http://www.e-u.cn)',
   'created': Date.now(),
   'data_format_version': '3.1.0',
 };
@@ -9973,7 +9973,7 @@ _via_dp[1]['store']['metadata'] = {
   '-glfwaaX': {
     'vid': '1',
     'flg': 0,
-    'z': [0, 5.5],
+    'z': [0, 3.838],
     'xy': [],
     'av': {
       '1':'飞行员',
@@ -9984,7 +9984,7 @@ _via_dp[1]['store']['metadata'] = {
   '+mHHT-tg': {
     'vid': '1',
     'flg': 0,
-    'z': [6.0, 11.0],
+    'z': [3.912, 5.208],
     'xy': [],
     'av': {
       '1':'空管员',
@@ -9995,7 +9995,7 @@ _via_dp[1]['store']['metadata'] = {
   'ed+wsOZZ': {
     'vid': '1',
     'flg': 0,
-    'z': [11.0, 18.0],
+    'z': [5.444,8.597],
     'xy': [],
     'av': {
       '1':'飞行员',
@@ -10006,7 +10006,7 @@ _via_dp[1]['store']['metadata'] = {
   'mxCVj1qz': {
     'vid': '1',
     'flg': 0,
-    'z': [18.0, 18.9],
+    'z': [10.615,14.856],
     'xy': [],
     'av': {
       '1':'空管员',
@@ -10017,7 +10017,7 @@ _via_dp[1]['store']['metadata'] = {
 'kHRoMie1': {
     'vid': '1',
     'flg': 0,
-    'z': [19.0, 30.0],
+    'z': [14.949,17.875],
     'xy': [],
     'av': {
       '1':'飞行员',
@@ -10028,7 +10028,7 @@ _via_dp[1]['store']['metadata'] = {
   'QhKrsZlV': {
     'vid': '1',
     'flg': 0,
-    'z': [32.0, 38.0],
+    'z': [27.282,30.226],
     'xy': [],
     'av': {
       '1':'空管员',
@@ -10047,112 +10047,49 @@ _via_dp[1]['store']['metadata'] = {
       '3':'1',
     }
   },
-  "2_Z+LXp1s8": {
-    "vid": "2",
+   "1_aEc7wk9X": {
+    "vid": "1",
     "flg": 0,
-    "z": [
-      0,
-      1.183
-    ],
+    "z": [17.967,19.375],
     "xy": [],
     "av": {
-      "1": "Interviewer"
+      "1": "空管员"
     }
   },
-  "2_AG1+bmSA": {
-    "vid": "2",
+  "1_2vjfEPdj": {
+    "vid": "1",
     "flg": 0,
-    "z": [
-      1.137,
-      2.436121
-    ],
+    "z": [19.47,20.634],
     "xy": [],
     "av": {
-      "1": "Prof. Debora"
+      "1": "飞行员"
     }
   },
-  "2_S5L7szM-": {
-    "vid": "2",
+    "1_ev5nmlw3": {
+    "vid": "1",
     "flg": 0,
-    "z": [
-      2.436,
-      3.816733
-    ],
+    "z": [20.745,23.449],
     "xy": [],
     "av": {
-      "1": "Interviewer"
+      "1": "空管员"
     }
   },
-  "2_cMYHLELJ": {
-    "vid": "2",
+   "1_qyDCwNtg": {
+    "vid": "1",
     "flg": 0,
-    "z": [
-      4.017,
-      5.624805
-    ],
+    "z": [23.523,24.856],
     "xy": [],
     "av": {
-      "1": "Prof. Debora"
+      "1": "飞行员"
     }
   },
-  "2_DaiuIloC": {
-    "vid": "2",
+   "1_tFQWFmPp": {
+    "vid": "1",
     "flg": 0,
-    "z": [
-      5.921,
-      15.101221
-    ],
+    "z": [24.949,26.541],
     "xy": [],
     "av": {
-      "1": "Interviewer"
-    }
-  },
-  "2_zp-ru14v": {
-    "vid": "2",
-    "flg": 0,
-    "z": [
-      15.101,
-      41.008681
-    ],
-    "xy": [],
-    "av": {
-      "1": "Prof. Debora"
-    }
-  },
-  "2_dIFoc30m": {
-    "vid": "2",
-    "flg": 0,
-    "z": [
-      41.147,
-      62.644961
-    ],
-    "xy": [],
-    "av": {
-      "1": "Interviewer"
-    }
-  },
-  "3_Xp-au12v": {
-    "vid": "3",
-    "flg": 0,
-    "z": [
-      2.101,
-      6.008681
-    ],
-    "xy": [],
-    "av": {
-      "1": "A"
-    }
-  },
-  "3_sIxEc10m": {
-    "vid": "3",
-    "flg": 0,
-    "z": [
-      16.147,
-      27.644961
-    ],
-    "xy": [],
-    "av": {
-      "1": "B"
+      "1": "空管员"
     }
   },
 };
@@ -10170,7 +10107,7 @@ _via_dp[2]['store']['project'] = {
   "rev":"1",
   "rev_timestamp":"1561373349251",
   'pname':   'Video Annotation Project',
-  'creator': 'VGG Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via)',
+  'creator': 'GDS Image Annotator (http://www.e-u.cn)',
   'created': Date.now(),
   'data_format_version': '3.1.1',
   'vid_list': ['1', '2', '3'],
@@ -10180,7 +10117,7 @@ _via_dp[2]['store']['config'] = {
     'loc_prefix': {
       '1':'',
       '2':'',
-      '3':'file:///data/datasets/via/via-3.x.y/activity/',
+      '3':'file:///data/datasets/gds/via-3.x.y/activity/',
       '4':'',
     },
   },
@@ -10425,7 +10362,7 @@ _via_dp[3]['store']['project'] = {
   'rev': '__VIA_PROJECT_REV_ID__',
   'rev_timestamp': '__VIA_PROJECT_REV_TIMESTAMP__',
   'pname':   'MRI Stenosis',
-  'creator': 'VGG Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via)',
+  'creator': 'GDS Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via)',
   'created': Date.now(),
   'data_format_version': '3.1.1',
 };
@@ -10564,7 +10501,7 @@ _via_dp[4]['store']['project'] = {
   'rev': '__VIA_PROJECT_REV_ID__',
   'rev_timestamp': '__VIA_PROJECT_REV_TIMESTAMP__',
   'pname':   'Image Annotation',
-  'creator': 'VGG Image Annotator (http://www.robots.ox.ac.uk/~vgg/software/via)',
+  'creator': 'GDS Image Annotator (http://www.e-u.cn)',
   'created': Date.now(),
   'data_format_version': '3.1.1',
   'vid_list':['1', '2'],
@@ -10661,7 +10598,7 @@ _via_dp[4]['store']['metadata'] = {
 /**
  *
  * @class
- * @classdesc VIA
+ * @classdesc GDS
  * @author gds <www.e-u.cn>
  * @date 12 May 2019
  *
@@ -10672,7 +10609,7 @@ _via_dp[4]['store']['metadata'] = {
 function _via(via_container) {
   this._ID = '_via';
 
-  console.log('Initializing VGG Image Annotator (VIA) version ' + _VIA_VERSION)
+  console.log('Initializing GDS Image Annotator version ' + _VIA_VERSION)
   this.via_container = via_container;
 
   this.d  = new _via_data();
@@ -10747,13 +10684,13 @@ function _via(via_container) {
   // load any external modules (e.g. demo) which should be defined as follows
   // function _via_load_submodules()
   if (typeof _via_load_submodules === 'function') {
-    console.log('VIA submodule detected, invoking _via_load_submodules()');
+    console.log('GDS submodule detected, invoking _via_load_submodules()');
     this._load_submodule = new Promise( function(ok_callback, err_callback) {
       try {
         _via_load_submodules.call(this);
       }
       catch(err) {
-        console.warn('VIA submodule load failed: ' + err);
+        console.warn('GDS 子模块加载失败: ' + err);
         err_callback(err);
       }
     }.bind(this));
@@ -10886,167 +10823,140 @@ function _via_load_submodules() {
   };
 
   _via_demo_project['store']['metadata'] = {
-    '-glfwaaX': {
-      'vid': '1',
-      'flg': 0,
-      'z': [0, 5.5],
-      'xy': [],
-      'av': {
-        '1':'飞行员',
-        '2':'?',
-        '3':'0',
-      }
-    },
-    '+mHHT-tg': {
-      'vid': '1',
-      'flg': 0,
-      'z': [6.0, 11.0],
-      'xy': [],
-      'av': {
-        '1':'空管员',
-        '2':'Clear to land',
-        '3':'1',
-      }
-    },
-    'ed+wsOZZ': {
-      'vid': '1',
-      'flg': 0,
-      'z': [11.0, 18.0],
-      'xy': [],
-      'av': {
-        '1':'飞行员',
-        '2':'Tower to PNR 102 ?',
-        '3':'0',
-      }
-    },
-    'mxCVj1qz': {
-      'vid': '1',
-      'flg': 0,
-      'z': [18.0, 18.9],
-      'xy': [],
-      'av': {
-        '1':'空管员',
-        '2':'?',
-        '3':'0',
-      }
-    },
-  'kHRoMie1': {
-      'vid': '1',
-      'flg': 0,
-      'z': [19.0, 30.0],
-      'xy': [],
-      'av': {
-        '1':'飞行员',
-        '2':'we have a drone on our right approximately ?',
-        '3':'1',
-      }
-    },
-    'QhKrsZlV': {
-      'vid': '1',
-      'flg': 0,
-      'z': [32.0, 38.0],
-      'xy': [],
-      'av': {
-        '1':'空管员',
-        '2':'? do you have a colour and type',
-        '3':'1',
-      }
-    },
-    'uzhWgk75': {
-      'vid': '1',
-      'flg': 0,
-      'z': [38.0, 40.0],
-      'xy': [],
-      'av': {
-        '1':'飞行员',
-        '2':'its dark green',
-        '3':'1',
-      }
-    },
-    "2_Z+LXp1s8": {
-        "vid": "2",
-        "flg": 0,
-        "z": [
-          0,
-          1.183
-        ],
-        "xy": [],
-        "av": {
-          "1": "Interviewer"
-        }
-      },
-      "2_AG1+bmSA": {
-        "vid": "2",
-        "flg": 0,
-        "z": [
-          1.137,
-          2.436121
-        ],
-        "xy": [],
-        "av": {
-          "1": "Prof. Debora"
-        }
-      },
-      "2_S5L7szM-": {
-        "vid": "2",
-        "flg": 0,
-        "z": [
-          2.436,
-          3.816733
-        ],
-        "xy": [],
-        "av": {
-          "1": "Interviewer"
-        }
-      },
-      "2_cMYHLELJ": {
-        "vid": "2",
-        "flg": 0,
-        "z": [
-          4.017,
-          5.624805
-        ],
-        "xy": [],
-        "av": {
-          "1": "Prof. Debora"
-        }
-      },
-      "2_DaiuIloC": {
-        "vid": "2",
-        "flg": 0,
-        "z": [
-          5.921,
-          15.101221
-        ],
-        "xy": [],
-        "av": {
-          "1": "Interviewer"
-        }
-      },
-      "2_zp-ru14v": {
-        "vid": "2",
-        "flg": 0,
-        "z": [
-          15.101,
-          41.008681
-        ],
-        "xy": [],
-        "av": {
-          "1": "Prof. Debora"
-        }
-      },
-      "2_dIFoc30m": {
-        "vid": "2",
-        "flg": 0,
-        "z": [
-          41.147,
-          62.644961
-        ],
-        "xy": [],
-        "av": {
-          "1": "Interviewer"
-        }
-      },
+    "-glfwaaX": {
+			"vid": "1",
+			"flg": 0,
+			"z": [0,
+			3.838],
+			"xy": [],
+			"av": {
+				"1": "飞行员",
+				"2": "?",
+				"3": "0"
+			}
+		},
+		"+mHHT-tg": {
+			"vid": "1",
+			"flg": 0,
+			"z": [3.912,
+			5.208],
+			"xy": [],
+			"av": {
+				"1": "空管员",
+				"2": "Clear to land",
+				"3": "1"
+			}
+		},
+		"ed+wsOZZ": {
+			"vid": "1",
+			"flg": 0,
+			"z": [5.444,
+			8.597],
+			"xy": [],
+			"av": {
+				"1": "飞行员",
+				"2": "Tower to PNR 102 ?",
+				"3": "0"
+			}
+		},
+		"mxCVj1qz": {
+			"vid": "1",
+			"flg": 0,
+			"z": [10.615,
+			14.856],
+			"xy": [],
+			"av": {
+				"1": "空管员",
+				"2": "?",
+				"3": "0"
+			}
+		},
+		"kHRoMie1": {
+			"vid": "1",
+			"flg": 0,
+			"z": [14.949,
+			17.875],
+			"xy": [],
+			"av": {
+				"1": "飞行员",
+				"2": "we have a drone on our right approximately ?",
+				"3": "1"
+			}
+		},
+		"QhKrsZlV": {
+			"vid": "1",
+			"flg": 0,
+			"z": [27.282,
+			30.226],
+			"xy": [],
+			"av": {
+				"1": "空管员",
+				"2": "? do you have a colour and type",
+				"3": "1"
+			}
+		},
+		"uzhWgk75": {
+			"vid": "1",
+			"flg": 0,
+			"z": [38,
+			40],
+			"xy": [],
+			"av": {
+				"1": "飞行员",
+				"2": "its dark green",
+				"3": "1"
+			}
+		},
+		"1_aEc7wk9X": {
+			"vid": "1",
+			"flg": 0,
+			"z": [17.967,
+			19.375],
+			"xy": [],
+			"av": {
+				"1": "空管员"
+			}
+		},
+		"1_2vjfEPdj": {
+			"vid": "1",
+			"flg": 0,
+			"z": [19.47,
+			20.634],
+			"xy": [],
+			"av": {
+				"1": "飞行员"
+			}
+		},
+		"1_ev5nmlw3": {
+			"vid": "1",
+			"flg": 0,
+			"z": [20.745,
+			23.449],
+			"xy": [],
+			"av": {
+				"1": "空管员"
+			}
+		},
+		"1_qyDCwNtg": {
+			"vid": "1",
+			"flg": 0,
+			"z": [23.523,
+			24.856],
+			"xy": [],
+			"av": {
+				"1": "飞行员"
+			}
+		},
+		"1_tFQWFmPp": {
+			"vid": "1",
+			"flg": 0,
+			"z": [24.949,
+			26.541],
+			"xy": [],
+			"av": {
+				"1": "空管员"
+			}
+		},
   };
   this.d.store = _via_demo_project['store'];
   this.d._cache_update();

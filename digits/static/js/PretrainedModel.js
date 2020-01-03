@@ -23,8 +23,8 @@ var PretrainedModel = function(params) {
     {text: 'Caffe', value: 'caffe'},
     {text: 'Torch', value: 'torch'},
     {text: 'Tensorflow', value: 'tensorflow'},
-    {text: 'tfpb', value: 'tensorflow_pb'},
-    {text: 'hub_model', value: 'tensorflow_hub'},
+    {text: 'Tensorflow_PB', value: 'tensorflow_pb'},
+    {text: 'Tensorflow_Hub', value: 'tensorflow_hub'},
   ];
 
   self.resize_channels = [
