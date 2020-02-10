@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+{% from "helper.html" import serve_file %}
+
+{% block head %}
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>数据标注</h2>
+    <hr>
+    <div class="well">
+    <a class="btn btn-info" id="image_btn" onclick="imageClick()">图片标注</a>
+    <a class="btn btn-info" id="voice_btn" onclick="voiceClick()">音频标注</a>
+    <a class="btn btn-info" id="video_btn" onclick="videoClick()">视频标注</a>
+    <hr style="margin-bottom: 0;">
+    <div style="height:600px;">
+        <label for="mark_frame" class="control-label" id="mark_label">图片标注</label>
+        <a class="btn btn-success btn-sm" id="video_btn" onclick="fullClick()" style="float:right">全屏打开</a>
+        <iframe id="mark_frame" name="image" src="{{ url_for('digits.unofficial.views.mark_manager', index='image') }}" frameborder="1" style="width:100%;height:100%"></iframe>
+    </div>
+    </div>
+    <script>
+        function imageClick() {
+            var frame = document.getElementById('mark_frame');
+            frame.setAttribute('src', "{{ url_for('digits.unofficial.views.mark_manager', index='image') }}");
+            frame.setAttribute('name', "image");
+            document.getElementById('mark_label').innerHTML = '图片标注';
+        }
+
+        function voiceClick() {
+            var frame = document.getElementById('mark_frame');
+            frame.setAttribute('src', "{{ url_for('digits.unofficial.views.mark_manager', index='voice') }}");
+            frame.setAttribute('name', "voice");
+            document.getElementById('mark_label').innerHTML = '音频标注';
+        }
+
+        function videoClick() {
+            var frame = document.getElementById('mark_frame');
+            frame.setAttribute('src', "{{ url_for('digits.unofficial.views.mark_manager', index='video') }}");
+            frame.setAttribute('name', "video");
+            document.getElementById('mark_label').innerHTML = '视频标注';
+        }
+        function fullClick() {
+            var frame = document.getElementById('mark_frame');
+            var name = frame.attributes['name'];
+            window.open("/manager/mark_manager/"+name.value);
+        }
+    </script>
+{% endblock %}
+

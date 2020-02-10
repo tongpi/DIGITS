@@ -575,7 +575,9 @@ function setFramework(fwid)
                 <div id="network-tab-custom" class="tab-pane">
                     <ul class="nav nav-tabs" id="customFramework">
                         {% for fw in frameworks %}
-                        <li id="{{ fw.get_id() }}"><a href="#{{ fw.get_id() }}_custom" data-toggle="tab">{{ fw.get_name() }}</a></li>
+                            {% if fw.get_name() in ['Caffe', 'Torch', 'Tensorflow'] %}
+                                <li id="{{ fw.get_id() }}"><a href="#{{ fw.get_id() }}_custom" data-toggle="tab">{{ fw.get_name() }}</a></li>
+                            {% endif %}
                         {% endfor %}
                     </ul>
                     <script>

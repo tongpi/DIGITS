@@ -28,6 +28,9 @@
                     </div>
                     <div class="register-text">
                         <a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a>
+                        {% if have_user %}
+                        <a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a>
+                        {% endif %}
                         {% if error %}
                             <p class="form-error-text">
                                 {{ error }}

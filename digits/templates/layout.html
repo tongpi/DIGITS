@@ -48,6 +48,13 @@
             {% endblock %}
         </ul>
         <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for("digits.views.home") }}" class="navbar-link">首页</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.task_manager") }}" class="navbar-link">任务管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.system_manager") }}" class="navbar-link">系统管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.index_manager") }}" class="navbar-link">索引管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.data_manager") }}" class="navbar-link">数据管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.mark_manager", index='none') }}" class="navbar-link">数据标注</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.visualization_manager") }}" class="navbar-link">诊断分析</a></li>
             <li>
             <p class="navbar-text">
             {% if username %}

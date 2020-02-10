@@ -1,0 +1,96 @@
+{% extends "layout.html" %}
+
+{% block head %}
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+
+{% block content %}
+    <h2>数据管理</h2>
+    <hr>
+    <div style="display:block;margin:0 auto">
+    <label class="control-label">数据上传与导入</label>
+    <form action="{{ url_for('digits.unofficial.views.data_manager') }}" enctype="multipart/form-data" method="post" >
+        <div class="well" style="width:400px;">
+            <label for="image_file" class="control-label">上传文件</label>
+            <div class="form-group cl-upload-files">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-info btn-file" %s>
+                            浏览&hellip;
+                            <input class="form-control" type="file" id="image_file" name="image_file">
+                        </span>
+                    </span>
+                    <input class="form-control" type="text" readonly>
+                </div>
+            </div>
+            <label for="image_folder" class="control-label">上传文件夹</label>
+            <div class="form-group cl-upload-files">
+                <div class="input-group">
+                    <span class="input-group-btn">
+                        <span class="btn btn-info btn-file" %s>
+                            浏览&hellip;
+                            <input class="form-control" type="file" id="image_folder" name="image_folder" multiple >
+                        </span>
+                    </span>
+                    <input class="form-control" type="text" readonly>
+                </div>
+            </div>
+            <label for="data_name" class="control-label">数据描述</label>
+            <div class="form-group cl-upload-files">
+                <input type="text" class="form-control" id="data_name" name="data_name">
+            </div>
+            <label for="file_path" class="control-label">文件存放路径</label>
+            <div class="form-group">
+                <input name="file_path" id="file_path" type="text" class="form-control autocomplete_path">
+            </div>
+            <button class="btn btn-primary" style="display:block;margin:0 auto">提交</button>
+        </div>
+    </form>
+    </div>
+    <br>
+    <div class="well">
+        <label class="control-label">文件信息</label>
+        <table class="table table-bordered table-striped list-group selectable"
+                   style="word-wrap: break-word"
+                   width="100%">
+            <thead>
+                <tr>
+                    <th>序号</th>
+                    <th>名称</th>
+                    <th>所在目录</th>
+                    <th>上传用户</th>
+                    <th>上传时间</th>
+                    <th>操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>汽车数据</td>
+                    <td>/home/data/upload_file</td>
+                    <td>test</td>
+                    <td>2019/12/29 17:07:33</td>
+                    <td>
+                        <a href="#" class="btn btn-primary btn-xs">
+                        查看
+                        </a>
+                        <a href="#" class="btn btn-danger btn-xs">
+                        删除
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+
+

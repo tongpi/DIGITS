@@ -1,0 +1,200 @@
+{% extends "layout.html" %}
+{% from "helper.html" import serve_file, print_flashes %}
+
+
+{% macro gen_model_log_path(job_id) %}
+    {% set job = scheduler.get_job(job_id) %}
+    {% set task = job.train_task() %}
+    {% if task.log_file %}
+        <td>{{serve_file(task, task.log_file)}}</td>
+    {% endif %}
+{% endmacro %}
+
+{% macro gen_dataset_log_path(job_id) %}
+    {% set job = scheduler.get_job(job_id) %}
+     <td>
+    {% for index, task in enumerate(job.create_db_tasks()) %}
+        {% if task.create_db_log_file %}
+            {{ serve_file(task, task.create_db_log_file) }}
+            {% if index == 0 %}
+                |
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+    </td>
+{% endmacro %}
+
+{% block head %}
+    <style>
+        #add-user-dialog {
+            width: 400px;
+            position: absolute;
+            z-index: 999999;
+            background: #ffffff;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -200px;
+            box-shadow: 7px 15px 30px #285a63;
+            border: 1px solid transparent;
+            border-radius: 4px;
+        }
+    </style>
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+
+{% block content %}
+    {% set permiss = ['高级管理员', '普通管理员', '普通用户', '只读用户'] %}
+    <h2>系统管理</h2>
+    <hr>
+    {{ print_flashes() }}
+    <div class="well">
+    <h3>用户与权限管理</h3>
+        <div id="add-user-dialog" style="display: none;">
+            <form action="{{ url_for('digits.unofficial.views.add_user') }}" method="post" class="panel panel-default modalBody" style="margin-bottom: 0">
+                <div class="panel-heading text-center">
+                    <span style="font-size:24px;">添加用户</span>
+                    <a class="btn btn-danger btn-xs closeButton" style="float: right;" id="close-add-user">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </a>
+                </div>
+                <div class="" style="top: -10px; position: relative; padding: 10px 20px;">
+                    <div class="row" style="margin:10px 30px 0 30px;">
+                        <div class="form-group">
+                            <label for="username" class="control-label">用户名</label>
+                            <input type="text" class="form-control" id="username" name="username" autofocus required>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0 30px">
+                        <div class="form-group">
+                            <label for="permissions" class="control-label">权限</label>
+                            <select class="form-control" name="permissions">
+                                <option value="0">{{ permiss[0] }}</option>
+                                <option value="1">{{ permiss[1] }}</option>
+                                <option value="2">{{ permiss[2] }}</option>
+                                <option value="3">{{ permiss[3] }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0 30px">
+                        <div class="form-group">
+                            <label for="upassword" class="control-label">密码</label>
+                            <input type="password" class="form-control" id="upassword" name="upassword" required>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="display:block;margin:0 auto">添加</button>
+                </div>
+            </form>
+        </div>
+    <a class="btn btn-success btn-sm" id="create_user" style="float:right" >添加用户</a>
+
+    <script>
+        $('#create_user').click(
+            function () {
+                $('#add-user-dialog')[0].style.display = 'block';
+            }
+        );
+        $('#close-add-user').click(
+            function () {
+                $('#add-user-dialog')[0].style.display = 'none';
+            }
+        )
+
+    </script>
+
+
+    <hr>
+    <table class="table table-bordered table-striped list-group selectable"
+               style="word-wrap: break-word"
+               width="100%">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>用户名</th>
+                <th>权限</th>
+                <th>状态</th>
+                <th>修改状态</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td><a href="#">{{ user.username }}</a> </td>
+                <td>
+                    {% for per in user.permissions %}
+                        {{ permiss[int(per.decode('utf8'))] }}
+                    {% endfor %}
+                </td>
+                <td>
+                    {% if user.status %}
+                        正常
+                    {% else %}
+                        禁用
+                    {% endif %}
+                </td>
+                <td>
+                    {% if user.status %}
+                        <a class="btn btn-warning btn-xs" href="#">禁用</a>
+                    {% else %}
+                        <a class="btn btn-success btn-xs" href="#">启用</a>
+                    {% endif %}
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+    <hr>
+    <div class="well">
+    <div style="margin-bottom: 20px">
+        <span style="font-size: 24px;line-height: 24px;margin-right: 20px">日志管理</span>
+        <a href="{{ url_for('digits.unofficial.views.system_log') }}" class="btn btn-sm btn-primary">下载系统日志</a>
+    </div>
+    <table class="table table-bordered table-striped list-group selectable"
+               style="word-wrap: break-word"
+               width="100%">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>类别</th>
+                <th>名称</th>
+                <th>ID</th>
+                <th>日志</th>
+{#                <th>操作</th>#}
+            </tr>
+        </thead>
+        <tbody>
+        {% set count = namespace(value=1) %}
+        {% for dataset_job in job_data['datasets'] %}
+            <tr>
+                <th>{{ count.value }}</th>
+                <td>{{ "数据集" }}</td>
+                <td>{{ dataset_job['name'] }}</td>
+                <td><a href="{{ url_for('digits.dataset.views.show', job_id=dataset_job['id']) }}">{{ dataset_job['id'] }}</a> </td>
+                {{ gen_dataset_log_path(dataset_job['id']) }}
+{#                <td><a id="delete-job" class="btn btn-danger btn-xs" href="#">删除</a></td>#}
+            </tr>
+            {% set count.value = count.value + 1 %}
+        {% endfor %}
+        {% for model_job in job_data['models'] %}
+            <tr>
+                <th>{{ count.value }}</th>
+                <td>{{ "模型" }}</td>
+                <td>{{ model_job['name'] }}</td>
+                <td><a href="{{ url_for('digits.model.views.show', job_id=model_job['id']) }}">{{ model_job['id'] }}</a> </td>
+                {{ gen_model_log_path(model_job['id']) }}
+{#                {{ delete_job(model_job['id']) }}#}
+            </tr>
+            {% set count.value = count.value + 1 %}
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+{% endblock %}
+
+

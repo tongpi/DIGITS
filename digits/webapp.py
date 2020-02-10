@@ -67,6 +67,10 @@ import digits.views  # noqa
 app.register_blueprint(digits.views.blueprint,
                        url_prefix=url_prefix)
 
+import digits.unofficial.views
+app.register_blueprint(digits.unofficial.views.blueprint,
+                       url_prefix=url_prefix+'/manager')
+
 import digits.dataset.views  # noqa
 app.register_blueprint(digits.dataset.views.blueprint,
                        url_prefix=url_prefix+'/datasets')

@@ -366,7 +366,8 @@ def login():
             return redirect(url_for('digits.views.home'))
         else:
             error = '错误的用户名或密码！'
-    return render_template('login.html', error=error)
+    have_user = User.have_user()
+    return render_template('login.html', error=error, have_user=have_user)
 
 
 @blueprint.route('/register', methods=['GET', 'POST'])
