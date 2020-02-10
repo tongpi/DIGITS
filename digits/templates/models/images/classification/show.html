@@ -142,8 +142,73 @@
         </div>
     </div>
 </div>
+{% if images_dict %}
+<div id="visualization_modal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form method="post" id="visualization_modal_form" action="">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">
+                        &times;
+                    </button>
+                    <h4 class="modal-title">模型可视化</h4>
+                </div>
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <h5>选择可视化类型：</h5>
+{#                            <select id="visualization_type" name="visualization_type" class="form-control"#}
+{#                                onchange="changeImage()">#}
+{#                                {% for index, v_image in enumerate(images_dict.keys()) %}#}
+{#                                    <option value="{{ v_image }}">{{ image_names[index] }}</option>#}
+{#                                {% endfor %}#}
+{#                            </select>#}
+                        <label><input name="vis_type" type="radio" value="confusion_matrix" checked>混淆矩阵</label>&nbsp;&nbsp;
+                        <label><input name="vis_type" type="radio" value="class_prediction_error">分类预测误差</label>&nbsp;&nbsp;
+                        <label><input name="vis_type" type="radio" value="roc_auc">ROC/AUC曲线</label>
+                    </div>
+                    <p>
+                        {% if images_dict %}
+                            <img id="visualization_image" src="data:image/png;base64,{{images_dict["confusion_matrix"]}}" style="max-width:100%;">
+                        {% endif %}
+                    </p>
+                <script>
+                    $("input[type='radio']").click(function(){
+                        var v_image = document.getElementById("visualization_image");
+                        var image_name = $("input[type='radio']:checked").val();
+                        if (image_name == "confusion_matrix") {
+                            v_image.src = 'data:image/png;base64,{{ images_dict['confusion_matrix'] }}'
+                        } else if (image_name == "class_prediction_error") {
+                            v_image.src = 'data:image/png;base64,{{ images_dict['class_prediction_error'] }}'
+                        } else if (image_name == "roc_auc") {
+                            v_image.src = 'data:image/png;base64,{{ images_dict['roc_auc'] }}'
+                        }
+                    });
 
 
+                    function changeImage() {
+                        var op = document.getElementById("visualization_type");
+                        var v_image = document.getElementById("visualization_image");
+                        var image_name = op.options[op.selectedIndex].value;
+                        if (image_name == "confusion_matrix") {
+                            v_image.src = 'data:image/png;base64,{{ images_dict['confusion_matrix'] }}'
+                        } else if (image_name == "class_prediction_error") {
+                            v_image.src = 'data:image/png;base64,{{ images_dict['class_prediction_error'] }}'
+                        } else if (image_name == "roc_auc") {
+                            v_image.src = 'data:image/png;base64,{{ images_dict['roc_auc'] }}'
+                        }
+                    }
+                </script>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-info" data-dismiss="modal">确认
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endif %}
 <div class="row">
     <div class="col-sm-12">
         <div class="well">
@@ -255,6 +320,12 @@ updateSnapshotList({% autoescape false %}{{task.snapshot_list()}}{% endautoescap
                                 data-target="#nuance_modal">
                             {{ _('Publish to inference server') }}
                         </button>
+                            {% if images_dict %}
+                            <button type="button" class="btn btn-success" data-toggle="modal"
+                                    data-target="#visualization_modal">
+                                模型可视化
+                            </button>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>

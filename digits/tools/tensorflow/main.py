@@ -42,6 +42,20 @@ from utils import model_property  # noqa
 
 import tf_data
 
+import lmdb
+import binascii
+import caffe
+from io import BytesIO
+import PIL.Image
+
+import keras
+from keras import Sequential
+from keras.utils import np_utils
+from keras.layers import Dense, Flatten, Dropout
+from keras.layers.convolutional import MaxPooling2D, Conv2D
+
+from digits.utils.visualization import DrawVisualization
+
 # Constants
 TF_INTRA_OP_THREADS = 0
 TF_INTER_OP_THREADS = 0
@@ -69,7 +83,7 @@ tf.app.flags.DEFINE_string('save', 'results', """Save directory""")
 tf.app.flags.DEFINE_integer('seed', 0, """Fixed input seed for repeatable experiments""")
 tf.app.flags.DEFINE_boolean('shuffle', False, """Shuffle records before training""")
 tf.app.flags.DEFINE_float(
-    'snapshotInterval', 1.0,
+    'snapshotInterval', 10.0,
     """Specifies the training epochs to be completed before taking a snapshot""")
 tf.app.flags.DEFINE_string('snapshotPrefix', '', """Prefix of the weights/snapshots""")
 tf.app.flags.DEFINE_string(
@@ -141,6 +155,8 @@ tf.app.flags.DEFINE_float(
     'augHSVv', 0., """The stddev of HSV's Value shift as pre-processing augmentation""")
 
 tf.app.flags.DEFINE_string('framework_id', '', """framework id""")
+tf.app.flags.DEFINE_string('db_dims', '', """the shape of the feature N-D array""")
+tf.app.flags.DEFINE_string('val_file', '', """val_file""")
 
 
 def save_timeline_trace(run_metadata, save_dir, step):
@@ -274,7 +290,22 @@ def load_snapshot(sess, weight_path, var_candidates):
     logging.info("Loading weights from pretrained model - %s ", weight_path)
     reader = tf.train.NewCheckpointReader(weight_path)
     var_map = reader.get_variable_to_shape_map()
-
+    _rename = False
+    if var_candidates[0].name.startswith("inf/"):
+        var_candidates2 = []
+        for var in var_candidates:
+            # n_name = '/'.join(var.name.split('/')[1:]).split(':')[0]
+            n_name = var.name.replace('inf', 'train').split(':')[0]
+            var = tf.Variable(var, name=n_name)
+            var_candidates2.append(var)
+        var_candidates = var_candidates2
+        _rename = True
+        # var_map2 = dict()
+        # for name, value in var_map.items():
+        #     new_name = '/'.join(name.split('/')[1:])
+        #     var_map2[new_name] = value
+        # var_map = var_map2
+    # inf/model/conv2d_9/bias:0
     # Only obtain all the variables that are [in the current graph] AND [in the checkpoint]
     vars_restore = []
     for vt in var_candidates:
@@ -283,11 +314,12 @@ def load_snapshot(sess, weight_path, var_candidates):
                 if ("global_step" not in vt.name) and not (vt.name.startswith("train/")):
                     vars_restore.append(vt)
                     logging.info('restoring %s -> %s' % (vm, vt.name))
+                elif _rename:
+                    vars_restore.append(vt)
                 else:
                     logging.info('NOT restoring %s -> %s' % (vm, vt.name))
-
     logging.info('Restoring %s variable ops.' % len(vars_restore))
-    tf.train.Saver(vars_restore, max_to_keep=0, sharded=FLAGS.serving_export).restore(sess, weight_path)
+    tf.train.Saver(vars_restore, max_to_keep=0, sharded=True).restore(sess, weight_path)
     logging.info('Variables restored.')
 
 
@@ -676,14 +708,14 @@ def main(_):
 
                     print_vals_sum = print_vals + print_vals_sum
 
+                    steps_since_log = step - step_last_log
+                    print_list = print_summarylist(tags, print_vals_sum / steps_since_log)
+                    logging.info("Training (epoch " + str(current_epoch) + "): " + print_list)
+                    print_vals_sum = 0
                     # @TODO(tzaman): account for variable batch_size value on very last epoch
                     current_epoch = round((step * batch_size_train) / train_model.dataloader.get_total(), epoch_round)
                     # Start with a forward pass
                     if ((step % logging_interval_step) == 0):
-                        steps_since_log = step - step_last_log
-                        print_list = print_summarylist(tags, print_vals_sum/steps_since_log)
-                        logging.info("Training (epoch " + str(current_epoch) + "): " + print_list)
-                        print_vals_sum = 0
                         step_last_log = step
 
                     # Potential Validation Pass
@@ -731,13 +763,146 @@ def main(_):
         if FLAGS.train_db:
             output_tensor = train_model.towers[0].inference
             out_name, _ = output_tensor.name.split(':')
-
         if FLAGS.train_db:
-            del train_model
-        if FLAGS.validation_db:
-            del val_model
-        if FLAGS.inference_db:
-            del inf_model
+            val_file = FLAGS.val_file
+            var_db = FLAGS.validation_db
+            dims = eval(FLAGS.db_dims)
+            try:
+                with open(val_file, 'r') as f:
+                    l = f.readlines()
+
+                y_test = []
+                for i in l:
+                    y_test.append(int(i.split(' ')[1][0]))
+
+                y = np.array(y_test)
+                labels = np.unique(y)
+
+                env_db = lmdb.open(var_db)
+
+                input_data = []
+                with env_db.begin() as txn:
+                    cursor = txn.cursor()
+                    for key, value in cursor:
+                        datum = caffe.proto.caffe_pb2.Datum()
+                        datum.ParseFromString(value)
+                        s = BytesIO()
+                        s.write(datum.data)
+                        s.seek(0)
+                        img = PIL.Image.open(s)
+                        img = np.array(img)
+                        img = img.flatten()
+                        input_data.append(img)
+
+                y_train = np.asarray(input_data)
+                y_train = y_train.reshape(-1, dims[0], dims[1], dims[2])
+
+                tf_model = train_model.towers[0].kmodel
+
+                dv = DrawVisualization(tf_model, y, y_train, labels, FLAGS.save)
+
+                dv.draw_confusion_matrix()
+                dv.draw_class_prediction_error()
+                dv.draw_roc_auc()
+
+
+
+                # print(y_pred)
+                # yp = np.asarray(y)
+                # if yp.dtype.kind in {"i", "u"}:
+                #     idx = yp
+                # else:
+                #     idx = LabelEncoder().fit_transform(yp)
+                # y_true = np.asarray(labels)[idx]
+                #
+                # yp = np.asarray(y_pred)
+                # if yp.dtype.kind in {"i", "u"}:
+                #     idx = yp
+                # else:
+                #     idx = LabelEncoder().fit_transform(yp)
+                # y_pred = np.asarray(labels)[idx]
+                #
+                # c_m = confusion_matrix(y_true, y_pred, labels=labels)
+                #
+                # cm_display = c_m[::-1, ::]
+                # n_classes = len(labels)
+                # X, Y = np.arange(n_classes + 1), np.arange(n_classes + 1)
+                #
+                # ax = plt.gca()
+                #
+                # ax.set_ylim(bottom=0, top=cm_display.shape[0])
+                # ax.set_xlim(left=0, right=cm_display.shape[1])
+                #
+                # xticklabels = labels
+                # yticklabels = labels[::-1]
+                # ticks = np.arange(n_classes) + 0.5
+                #
+                # ax.set(xticks=ticks, yticks=ticks)
+                # ax.set_xticklabels(xticklabels, rotation="vertical")
+                # ax.set_yticklabels(yticklabels)
+                #
+                # edgecolors = []
+                #
+                # for x in X[:-1]:
+                #     for y in Y[:-1]:
+                #         value = cm_display[x, y]
+                #         svalue = "{:0.0f}".format(value)
+                #
+                #         base_color = cmap(value / cm_display.max())
+                #         text_color = find_text_color(base_color)
+                #
+                #         if cm_display[x, y] == 0:
+                #             text_color = "0.75"
+                #
+                #         cx, cy = x + 0.5, y + 0.5
+                #         ax.text(
+                #             cy,
+                #             cx,
+                #             svalue,
+                #             va="center",
+                #             ha="center",
+                #             color=text_color
+                #         )
+                #         lc = "k" if xticklabels[x] == yticklabels[y] else "w"
+                #         edgecolors.append(lc)
+                #
+                # vmin = 0.00001
+                # vmax = cm_display.max()
+                #
+                # ax.pcolormesh(
+                #     X,
+                #     Y,
+                #     cm_display,
+                #     vmin=vmin,
+                #     vmax=vmax,
+                #     edgecolor=edgecolors,
+                #     cmap=cmap,
+                #     linewidth="0.01",
+                # )
+                # cm_image_path = os.path.join(FLAGS.save, 'confusion_matrix.png')
+                # # cm_image_path = os.path.join(FLAGS.save, 'confusion_matrix.png')
+                # # print('******************************', cm_image_path)
+                # plt.savefig(cm_image_path)
+                # # plt.savefig("/data/domon/test2020-6.png")
+            except Exception as e:
+                print(e)
+            finally:
+                try:
+                    if FLAGS.train_db:
+                        del train_model
+                    if FLAGS.validation_db:
+                        del val_model
+                    if FLAGS.inference_db:
+                        del inf_model
+                except tensorflow.python.framework.errors_impl.CancelledError:
+                    pass
+
+        # if FLAGS.train_db:
+        #     del train_model
+        # if FLAGS.validation_db:
+        #     del val_model
+        # if FLAGS.inference_db:
+        #     del inf_model
 
         # We need to call sess.close() because we've used a with block
         sess.close()
@@ -747,6 +912,7 @@ def main(_):
     tf.reset_default_graph()
 
     del sess
+    '''
     if FLAGS.train_db:
         path_frozen = os.path.join(FLAGS.save, 'frozen_model.pb')
 
@@ -764,7 +930,7 @@ def main(_):
             clear_devices=True,
             initializer_nodes=""
         )
-
+    '''
     logging.info('END')
 
     exit(0)

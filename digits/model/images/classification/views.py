@@ -6,6 +6,7 @@ import os
 import re
 import tempfile
 
+import base64
 import flask
 import numpy as np
 import werkzeug.exceptions
@@ -374,6 +375,20 @@ def show(job, related_jobs=None):
     """
     Called from digits.model.views.models_show()
     """
+    images = dict()
+
+    c_m_image_path = os.path.join(job.dir(), 'confusion_matrix.png')
+    cpe_path = os.path.join(job.dir(), 'class_prediction_error.png')
+    roc_image_path = os.path.join(job.dir(), 'roc_auc.png')
+    image_list = [("confusion_matrix", c_m_image_path),
+                  ("class_prediction_error", cpe_path),
+                  ("roc_auc", roc_image_path)]
+    image_names = ["混淆矩阵", "分类预测误差", "ROC/AUC曲线"]
+    if os.path.exists(c_m_image_path) and os.path.exists(cpe_path) and os.path.exists(roc_image_path):
+        for i_name, i_path in image_list:
+            with open(i_path, 'rb') as f:
+                image = f.read()
+                images[i_name] = base64.b64encode(image).decode('utf-8')
     return flask.render_template(
         'models/images/classification/show.html',
         job=job,
@@ -381,7 +396,10 @@ def show(job, related_jobs=None):
             fw.get_id()
             for fw in frameworks.get_frameworks()
         ],
-        related_jobs=related_jobs
+        related_jobs=related_jobs,
+        images_dict=images,
+        image_names=image_names,
+        enumerate=enumerate
     )
 
 

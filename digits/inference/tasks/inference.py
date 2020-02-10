@@ -77,7 +77,8 @@ class InferenceTask(Task):
             _, self.image_list_path = tempfile.mkstemp(dir=self.job_dir, suffix='.txt')
             with open(self.image_list_path, "w") as imglist_handle:
                 for image_path in self.images:
-                    print(image_path, file=imglist_handle)
+                    imglist_handle.writelines(image_path)
+                    # print(image_path, file=imglist_handle)
 
     @override
     def process_output(self, line):

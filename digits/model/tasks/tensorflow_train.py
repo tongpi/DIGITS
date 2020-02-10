@@ -152,7 +152,6 @@ class TensorflowTrainTask(TrainTask):
             return "no snapshots"
 
         if epoch == -1 or not epoch:
-            epoch = self.snapshots[-1][1]
             snapshot_pre = self.snapshots[-1][0]
         else:
             for f, e in self.snapshots:
@@ -170,7 +169,6 @@ class TensorflowTrainTask(TrainTask):
             snapshot_files = os.path.join(os.path.dirname(snapshot_pre), "frozen_model.pb")
         else:
             snapshot_files = snapshot_pre
-
         return snapshot_files
 
     @override
@@ -203,8 +201,11 @@ class TensorflowTrainTask(TrainTask):
         train_label_db_path = self.dataset.get_label_db_path(constants.TRAIN_DB)
         val_feature_db_path = self.dataset.get_feature_db_path(constants.VAL_DB)
         val_label_db_path = self.dataset.get_label_db_path(constants.VAL_DB)
+        val_file_db_path = self.dataset.get_feature_db_path(constants.VAL_FILE)
 
         args.append('--train_db=%s' % train_feature_db_path)
+        args.append('--db_dims=%s' % str(self.dataset.get_feature_dims()))
+        args.append('--val_file=%s' % val_file_db_path)
         if train_label_db_path:
             args.append('--train_labels=%s' % train_label_db_path)
         if val_feature_db_path:
