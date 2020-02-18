@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% from "helper.html" import serve_file %}
+
+
+{% block content %}
+    <h2>模型可视化诊断与分析</h2>
+    <hr>
+    <div class="well">
+    <table class="table table-bordered table-striped list-group selectable"
+               style="word-wrap: break-word"
+               width="100%">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>框架</th>
+                <th>ID</th>
+                <th>操作</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set count = namespace(value=1) %}
+        {% for model in models %}
+            <tr>
+                <td>{{ count.value }}</td>
+                <td>{{ model.name }}</td>
+                <td>{{ model.framework }}</td>
+                <td><a href="{{ url_for('digits.model.views.show', job_id=model.id) }}">{{ model.id }}</a> </td>
+                <td>
+                    <a href="#" class="btn btn-primary btn-xs">
+                        可视化分析
+                    </a>
+                </td>
+                {% set count.value = count.value + 1 %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}
+
+
+
+

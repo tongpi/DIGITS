@@ -1,0 +1,71 @@
+{% extends "layout.html" %}
+{% from "helper.html" import serve_file %}
+
+{% block head %}
+{% endblock %}
+
+{% block nav %}
+{% endblock %}
+
+{% macro gen_dataste_path(job_id) %}
+    {% set job = scheduler.get_job(job_id) %}
+    {% set train_task = job.create_db_tasks()[0] %}
+    {% set val_task = job.create_db_tasks()[1] %}
+    {% set dataset_dir = job.json_dict(verbose=True) %}
+    {% if dataset_dir and dataset_dir.get('ParseFolderTasks')!="" %}
+        <td>{{dataset_dir.ParseFolderTasks[0].train_count}}</td>
+        <td>{{dataset_dir.ParseFolderTasks[0].val_count}}</td>
+        <td>
+            <a href="{{ url_for('digits.dataset.images.classification.views.explore', job_id=job_id, db=train_task.db_name.lower()) }}"
+               class="btn btn-primary btn-xs">
+                训练集
+            </a>
+            <a href="{{ url_for('digits.dataset.images.classification.views.explore', job_id=job_id, db=val_task.db_name.lower()) }}"
+               class="btn btn-primary btn-xs">
+                验证集
+            </a>
+        </td>
+    {% else %}
+        <td>无</td>
+        <td>无</td>
+        <td>无</td>
+    {% endif %}
+{% endmacro %}
+
+
+{% block content %}
+
+    <h2>索引管理</h2>
+    <hr>
+    <div class="well">
+    <table class="table table-bordered table-striped list-group selectable"
+               style="word-wrap: break-word"
+               width="100%">
+        <thead>
+            <tr>
+                <th>序号</th>
+                <th>名称</th>
+                <th>文件目录</th>
+                <th>训练索引数</th>
+                <th>验证索引数</th>
+                <th>浏览训练图片</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% set count = namespace(value=1) %}
+        {% for dataset in datasets %}
+            <tr>
+                <td>{{ count.value }}</td>
+                <td>{{ dataset.name }}</td>
+                <td>{{ dataset.directory }}</td>
+                {{ gen_dataste_path(dataset.id) }}
+                {% set count.value = count.value + 1 %}
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    </div>
+{% endblock %}
+
+
+

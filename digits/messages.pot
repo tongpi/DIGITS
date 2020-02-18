@@ -1,0 +1,4250 @@
+# Translations template for PROJECT.
+# Copyright (C) 2019 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2019.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2019-07-19 10:31+0800\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.5.3\n"
+
+#: scheduler.py:223
+#, python-format
+msgid "Unhandled job type %(job_type)s"
+msgstr ""
+
+#: scheduler.py:256
+#, python-format
+msgid "called delete_job with a %(type)s"
+msgstr ""
+
+#: scheduler.py:481
+#, python-format
+msgid "Resource \"%(resourceType)s\" with identifier=\"%(identifier)s\" not found"
+msgstr ""
+
+#: status.py:61
+msgid "Initialized"
+msgstr ""
+
+#: status.py:65
+msgid "Waiting"
+msgstr ""
+
+#: status.py:69
+msgid "Running"
+msgstr ""
+
+#: status.py:73
+msgid "Done"
+msgstr ""
+
+#: status.py:77
+msgid "Aborted"
+msgstr ""
+
+#: status.py:81
+msgid "Error"
+msgstr ""
+
+#: status.py:85
+msgid "?"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/data.py:123
+#: views.py:84 views.py:99
+msgid "Classification"
+msgstr ""
+
+#: views.py:89 views.py:104
+msgid "Other"
+msgstr ""
+
+#: pretrained_model/tasks/upload_pretrained.py:37
+#: static/js/PretrainedModel.js:154 views.py:114
+msgid "Upload Pretrained Model"
+msgstr ""
+
+#: model/views.py:45 model/views.py:81 model/views.py:460 utils/routing.py:21
+#: views.py:280 views.py:410 views.py:430 views.py:494 views.py:610
+#: views.py:629
+msgid "Job not found"
+msgstr ""
+
+#: dataset/views.py:43 dataset/views.py:60 model/views.py:58 views.py:419
+#: views.py:643
+msgid "Invalid job type"
+msgstr ""
+
+#: views.py:439
+msgid "name cannot be blank"
+msgstr ""
+
+#: views.py:474
+msgid "Job not found."
+msgstr ""
+
+#: views.py:597
+msgid "Jobs aborted."
+msgstr ""
+
+#: views.py:615
+msgid "Job not aborted"
+msgstr ""
+
+#: model/views.py:131 views.py:749
+#, python-format
+msgid "Unknown extension '%(extension_id)s'"
+msgstr ""
+
+#: dataset/forms.py:17
+msgid "Dataset Name"
+msgstr ""
+
+#: dataset/forms.py:21 model/forms.py:387
+msgid "Group Name"
+msgstr ""
+
+#: dataset/forms.py:22 model/forms.py:388
+msgid "An optional group name for organization on the main page."
+msgstr ""
+
+#: dataset/job.py:28 dataset/job.py:34 dataset/job.py:40 dataset/job.py:46
+#: dataset/job.py:52 dataset/job.py:58 frameworks/framework.py:54
+#: frameworks/framework.py:66 frameworks/framework.py:72
+#: frameworks/framework.py:78 frameworks/framework.py:84
+#: frameworks/framework.py:90 frameworks/framework.py:96
+#: pretrained_model/tasks/upload_pretrained.py:73
+#: pretrained_model/tasks/upload_pretrained.py:79
+msgid "Please implement me"
+msgstr ""
+
+#: dataset/views.py:74
+#, python-format
+msgid "Unable to find data extension with ID=%(id)s"
+msgstr ""
+
+#: dataset/generic/forms.py:18
+msgid "Feature Encoding"
+msgstr ""
+
+#: dataset/generic/forms.py:20 dataset/generic/forms.py:33
+#: dataset/images/classification/forms.py:40 dataset/images/forms.py:23
+#: extensions/data/imageProcessing/forms.py:93
+#: extensions/data/imageSegmentation/forms.py:110
+#: extensions/data/objectDetection/forms.py:109 model/images/forms.py:28
+#: model/images/forms.py:39 model/images/forms.py:51
+#: templates/models/images/classification/partials/new/network_tab_pretrained.html:65
+#: templates/models/images/classification/partials/new/network_tab_previous.html:38
+#: templates/models/images/generic/partials/new/network_tab_pretrained.html:25
+#: templates/models/images/generic/partials/new/network_tab_previous.html:37
+msgid "None"
+msgstr ""
+
+#: dataset/generic/forms.py:21 dataset/generic/forms.py:34
+#: dataset/images/forms.py:24
+msgid "PNG (lossless)"
+msgstr ""
+
+#: dataset/generic/forms.py:22 dataset/generic/forms.py:35
+#: dataset/images/forms.py:25
+msgid "JPEG (lossy, 90% quality)"
+msgstr ""
+
+#: dataset/generic/forms.py:24 dataset/generic/forms.py:37
+#: dataset/images/forms.py:27
+msgid ""
+"Using either of these compression formats can save disk space, but can "
+"also require marginally more time for training."
+msgstr ""
+
+#: dataset/generic/forms.py:30
+msgid "Label Encoding"
+msgstr ""
+
+#: dataset/generic/forms.py:43
+msgid "Encoder batch size"
+msgstr ""
+
+#: dataset/generic/forms.py:49
+msgid "Encode data in batches of specified number of entries"
+msgstr ""
+
+#: dataset/generic/forms.py:53
+msgid "Number of encoder threads"
+msgstr ""
+
+#: dataset/generic/forms.py:59
+msgid "Use specified number of encoder threads"
+msgstr ""
+
+#: dataset/generic/forms.py:63 dataset/images/classification/forms.py:21
+#: templates/datasets/images/classification/summary.html:27
+msgid "DB backend"
+msgstr ""
+
+#: dataset/generic/forms.py:71 dataset/images/generic/forms.py:81
+msgid "Enforce same shape"
+msgstr ""
+
+#: dataset/generic/forms.py:73 dataset/images/classification/forms.py:342
+#: dataset/images/generic/forms.py:83 extensions/view/imageOutput/forms.py:51
+msgid "Yes"
+msgstr ""
+
+#: dataset/generic/forms.py:74 dataset/images/classification/forms.py:343
+#: dataset/images/generic/forms.py:84 extensions/view/imageOutput/forms.py:52
+msgid "No"
+msgstr ""
+
+#: dataset/generic/forms.py:78
+msgid ""
+"Check that each entry in the database has the same shape.Disabling this "
+"will also disable mean image computation."
+msgstr ""
+
+#: dataset/generic/job.py:114
+msgid "Generic Dataset"
+msgstr ""
+
+#: dataset/generic/views.py:45
+#, python-format
+msgid "Unknown extension '%(id)s'"
+msgstr ""
+
+#: dataset/generic/views.py:185
+msgid "Expected encoded database"
+msgstr ""
+
+#: dataset/images/forms.py:20
+#: templates/datasets/images/classification/show.html:24
+msgid "Image Encoding"
+msgstr ""
+
+#: dataset/images/forms.py:34 static/js/PretrainedModel.js:84
+#: templates/datasets/images/classification/show.html:18
+#: templates/datasets/images/classification/summary.html:19
+msgid "Image Type"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:52
+#: dataset/images/forms.py:36 extensions/data/imageProcessing/forms.py:92
+#: extensions/data/imageSegmentation/forms.py:109
+#: extensions/data/objectDetection/forms.py:108 static/js/PretrainedModel.js:30
+#: templates/datasets/images/classification/show.html:19
+msgid "Grayscale"
+msgstr ""
+
+#: dataset/images/forms.py:36 static/js/PretrainedModel.js:29
+#: templates/datasets/images/classification/show.html:19
+msgid "Color"
+msgstr ""
+
+#: dataset/images/forms.py:37
+msgid "Color is 3-channel RGB. Grayscale is single channel monochrome."
+msgstr ""
+
+#: dataset/images/forms.py:40
+msgid "Resize Width"
+msgstr ""
+
+#: dataset/images/forms.py:45
+msgid "Resize Height"
+msgstr ""
+
+#: dataset/images/forms.py:50
+#: templates/datasets/images/classification/show.html:20
+msgid "Resize Transformation"
+msgstr ""
+
+#: dataset/images/forms.py:53
+msgid ""
+"Options for dealing with aspect ratio changes during resize. See examples"
+" below."
+msgstr ""
+
+#: dataset/images/job.py:31 static/js/PretrainedModel.js:35
+msgid "Crop"
+msgstr ""
+
+#: dataset/images/job.py:32 static/js/PretrainedModel.js:34
+msgid "Squash"
+msgstr ""
+
+#: dataset/images/job.py:33 static/js/PretrainedModel.js:36
+msgid "Fill"
+msgstr ""
+
+#: dataset/images/job.py:34
+msgid "Half crop, half fill"
+msgstr ""
+
+#: dataset/images/views.py:52
+#, python-format
+msgid "unrecognized encoding \"%(encoding)s\""
+msgstr ""
+
+#: dataset/images/views.py:63
+#, python-format
+msgid ""
+"<img src=\"%(data)s\" style=\"width:%(width)spx;height=%(height)spx\" />\n"
+"<br>\n"
+"<i>Image size: %(size)s</i>"
+msgstr ""
+
+#: dataset/images/classification/forms.py:38
+msgid "DB compression"
+msgstr ""
+
+#: dataset/images/classification/forms.py:44
+msgid ""
+"Compressing the dataset may significantly decrease the size of your "
+"database files, but it may increase read and write times."
+msgstr ""
+
+#: dataset/images/classification/forms.py:50 dataset/images/generic/forms.py:23
+msgid "Dataset type"
+msgstr ""
+
+#: dataset/images/classification/forms.py:52
+#: templates/datasets/images/classification/show.html:42
+msgid "Folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:53
+msgid "Textfiles"
+msgstr ""
+
+#: dataset/images/classification/forms.py:68
+msgid "URL not found"
+msgstr ""
+
+#: dataset/images/classification/forms.py:70
+#, python-format
+msgid "Caught %(name)s while checking URL: %(e)s"
+msgstr ""
+
+#: dataset/images/classification/forms.py:77 dataset/images/generic/forms.py:36
+msgid "Folder does not exist"
+msgstr ""
+
+#: dataset/images/classification/forms.py:79
+msgid "Filesystem path is not absolute"
+msgstr ""
+
+#: dataset/images/classification/forms.py:88
+#: templates/datasets/images/classification/show.html:51
+msgid "Training Images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:93
+msgid ""
+"Indicate a folder which holds subfolders full of images. Each subfolder "
+"should be named according to the desired label for the images that it "
+"holds. Can also be a URL for an apache/nginx auto-indexed folder."
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:71
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:59
+#: dataset/images/classification/forms.py:99
+#: extensions/data/imageProcessing/forms.py:54
+#: extensions/data/imageSegmentation/forms.py:68
+msgid "for validation"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:76
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:64
+#: dataset/images/classification/forms.py:105
+#: extensions/data/imageProcessing/forms.py:59
+#: extensions/data/imageSegmentation/forms.py:73
+msgid ""
+"You can choose to set apart a certain percentage of images from the "
+"training images for the validation set."
+msgstr ""
+
+#: dataset/images/classification/forms.py:110
+msgid "for testing"
+msgstr ""
+
+#: dataset/images/classification/forms.py:116
+msgid ""
+"You can choose to set apart a certain percentage of images from the "
+"training images for the test set."
+msgstr ""
+
+#: dataset/images/classification/forms.py:121
+#: dataset/images/classification/forms.py:162
+#: dataset/images/classification/forms.py:204
+msgid "Minimum samples per class"
+msgstr ""
+
+#: dataset/images/classification/forms.py:127
+#: dataset/images/classification/forms.py:168
+#: dataset/images/classification/forms.py:210
+msgid ""
+"You can choose to specify a minimum number of samples per class. If a "
+"class has fewer samples than the specified amount it will be ignored. "
+"Leave blank to ignore this feature."
+msgstr ""
+
+#: dataset/images/classification/forms.py:133
+#: dataset/images/classification/forms.py:174
+#: dataset/images/classification/forms.py:216
+msgid "Maximum samples per class"
+msgstr ""
+
+#: dataset/images/classification/forms.py:139
+#: dataset/images/classification/forms.py:180
+#: dataset/images/classification/forms.py:222
+msgid ""
+"You can choose to specify a maximum number of samples per class. If a "
+"class has more samples than the specified amount extra samples will be "
+"ignored. Leave blank to ignore this feature."
+msgstr ""
+
+#: dataset/images/classification/forms.py:145
+msgid "Separate validation images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:153
+#: templates/datasets/images/classification/show.html:55
+msgid "Validation Images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:186
+msgid "Separate test images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:194
+msgid "Test Images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:232
+msgid "Use local files"
+msgstr ""
+
+#: dataset/images/classification/forms.py:237
+#: dataset/images/classification/forms.py:245
+msgid "Training images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:252
+msgid "Training images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:262
+#: dataset/images/classification/forms.py:297
+#: dataset/images/classification/forms.py:332
+msgid "folder does not exist"
+msgstr ""
+
+#: dataset/images/classification/forms.py:265
+msgid "Validation set"
+msgstr ""
+
+#: dataset/images/classification/forms.py:271
+#: dataset/images/classification/forms.py:279
+msgid "Validation images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:287
+msgid "Validation images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:300
+msgid "Test set"
+msgstr ""
+
+#: dataset/images/classification/forms.py:306
+#: dataset/images/classification/forms.py:314
+#: templates/datasets/images/classification/show.html:64
+msgid "Test images"
+msgstr ""
+
+#: dataset/images/classification/forms.py:322
+msgid "Test images folder"
+msgstr ""
+
+#: dataset/images/classification/forms.py:340
+msgid "Shuffle lines"
+msgstr ""
+
+#: dataset/images/classification/forms.py:347
+msgid "Shuffle the list[s] of images before creating the database."
+msgstr ""
+
+#: dataset/images/classification/forms.py:351
+#: dataset/images/classification/forms.py:362
+msgid "Labels"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:69
+#: dataset/images/classification/forms.py:356
+#: dataset/images/classification/forms.py:367
+#: extensions/data/imageSegmentation/forms.py:122
+msgid ""
+"The 'i'th line of the file should give the string label associated with "
+"the '(i-1)'th numeric label. (E.g. the string label for the numeric label"
+" 0 is supposed to be on line 1.)"
+msgstr ""
+
+#: dataset/images/classification/job.py:134
+msgid "Image Classification Dataset"
+msgstr ""
+
+#: dataset/images/classification/views.py:323
+msgid "method not supported"
+msgstr ""
+
+#: dataset/images/classification/views.py:371
+#, python-format
+msgid "No create_db task for %(db)s"
+msgstr ""
+
+#: dataset/images/classification/views.py:373
+#, python-format
+msgid "This create_db task's status should be 'D' but is '%(status)s'"
+msgstr ""
+
+#: dataset/images/classification/views.py:375
+#, python-format
+msgid "Backend is %(backend)s while expected backend is lmdb"
+msgstr ""
+
+#: dataset/images/generic/forms.py:25
+msgid "Prebuilt"
+msgstr ""
+
+#: dataset/images/generic/forms.py:44
+msgid "File does not exist"
+msgstr ""
+
+#: dataset/images/generic/forms.py:88
+msgid ""
+"Check that each entry in the database has the same shape (can be time-"
+"consuming)"
+msgstr ""
+
+#: dataset/images/generic/forms.py:92
+msgid "Mean Image"
+msgstr ""
+
+#: dataset/images/generic/forms.py:96
+msgid "Path to a .binaryproto file on the server"
+msgstr ""
+
+#: dataset/images/generic/job.py:115
+msgid "Generic Image Dataset"
+msgstr ""
+
+#: dataset/tasks/create_generic_db.py:70
+#, python-format
+msgid "Unknown db: %(name)s"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:51
+msgid "percent_val must not exceed 100"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:61
+msgid "percent_test must not exceed 100"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:65
+msgid "the sum of percent_val and percent_test must not exceed 100"
+msgstr ""
+
+#: dataset/tasks/parse_folder.py:95
+#, python-format
+msgid "Parse Folder (%(name)s)"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:65
+#: extensions/data/imageSegmentation/data.py:107
+#, python-format
+msgid "Unhandled number of channels: %(ndim)d"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:107
+msgid "Processing"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:126
+#: extensions/data/imageSegmentation/data.py:169
+#, python-format
+msgid ""
+"Expect same number of images in feature and label folders "
+"(%(flist)d!=%(llist)d)"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:134
+#, python-format
+msgid ""
+"No corresponding feature/label pair found for "
+"(%(feature_name)s,%(label_name)s)"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:152
+#: extensions/data/objectDetection/data.py:229
+#, python-format
+msgid "Unable to find supported images in %(folder)s"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:162
+#, python-format
+msgid ""
+"Expect same number of images in folders "
+"(%(len_filelist)d!=%(len_random_indices)d)"
+msgstr ""
+
+#: extensions/data/imageProcessing/data.py:171
+#: extensions/data/imageSegmentation/data.py:233
+#: extensions/data/objectDetection/data.py:199
+#, python-format
+msgid "Unknown stage: %(stage)s"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:28
+#: extensions/data/imageSegmentation/forms.py:28
+#: extensions/data/objectDetection/forms.py:26
+msgid "Folder does not exist or is not reachable"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:33
+#: extensions/data/imageSegmentation/forms.py:44
+msgid "Feature image folder"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:38
+#: extensions/data/imageProcessing/forms.py:73
+#: extensions/data/imageSegmentation/forms.py:49
+#: extensions/data/imageSegmentation/forms.py:87
+msgid "Indicate a folder full of images."
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:42
+#: extensions/data/imageSegmentation/forms.py:53
+msgid "Label image folder"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:47
+#: extensions/data/imageProcessing/forms.py:82
+msgid ""
+"Indicate a folder full of images. For each image in the feature image "
+"folder there must be one corresponding image in the label image folder. "
+"The label image must have the same filename except for the extension, "
+"which may differ."
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:63
+#: extensions/data/imageSegmentation/forms.py:77
+msgid "Separate validation images"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:68
+#: extensions/data/imageSegmentation/forms.py:82
+msgid "Validation feature image folder"
+msgstr ""
+
+#: extensions/data/imageProcessing/forms.py:77
+#: extensions/data/imageSegmentation/forms.py:91
+msgid "Validation label image folder"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:49
+#: extensions/data/imageProcessing/forms.py:89
+#: extensions/data/imageSegmentation/forms.py:106
+#: extensions/data/objectDetection/forms.py:105
+msgid "Channel conversion"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:55
+#: extensions/data/imageProcessing/forms.py:96
+#: extensions/data/objectDetection/forms.py:112
+msgid "Perform selected channel conversion."
+msgstr ""
+
+#: extensions/data/imageProcessing/template.html:10
+#: extensions/data/imageProcessing/template.html:16
+#: templates/datasets/images/classification/new.html:105
+msgid "folder or URL"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:62
+#, python-format
+msgid ""
+"Your color map file seems to be badly formatted: '%(val)s' is not an "
+"integer"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:91
+msgid "All label images must use the same palette"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:149
+msgid "Segmentation"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:177
+#, python-format
+msgid "No corresponding feature/label pair found for (%(fname)s,%(lname)s)"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:195
+#, python-format
+msgid ""
+"Labels are expected to be single-channel (paletted or  grayscale) images "
+"- %(filename)s mode is '%(image_mode)s'. If your labels are RGB images "
+"then set the 'Color Map Specification' field to 'from text file' and "
+"provide a color map text file."
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:201
+#, python-format
+msgid ""
+"Labels are expected to be RGB images - %(filename)s mode is "
+"'%(image_mode)s'. If your labels are palette or grayscale images then set"
+" the 'Color Map Specification' field to 'from label image'."
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:215
+#, python-format
+msgid "Unable to find supported images in %(floder)s"
+msgstr ""
+
+#: extensions/data/imageSegmentation/data.py:224
+#, python-format
+msgid "Expect same number of images in folders (%(flist)d!=%(random_indices)d)"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:39
+msgid "File does not exist or is not reachable"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:58
+#: extensions/data/imageSegmentation/forms.py:96
+msgid ""
+"Indicate a folder full of images. For each image in the feature image "
+"folder there must be one corresponding image in the label image folder. "
+"The label image must have the same filename except for the extension, "
+"which may differ. Label images are expected to be single-channel images "
+"(paletted or grayscale), or RGB images, in which case the color/class "
+"mappings need to be specified through a separate text file."
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:113
+msgid ""
+"Perform selected channel conversion on feature images. Label images are "
+"single channel and not affected by this parameter."
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:118
+msgid "Class labels (optional)"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:129
+msgid "Color map specification"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:131
+msgid "From label image"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:132
+msgid "From text file"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:135
+msgid ""
+"Specify how to map class IDs to colors. Select 'From label image' to use "
+"palette or grayscale from label images. For RGB image labels, select "
+"'From text file' and provide color map in separate text file."
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:142
+msgid "Color map file"
+msgstr ""
+
+#: extensions/data/imageSegmentation/forms.py:147
+msgid ""
+"Specify color/class mappings through a text file. Each line in the file "
+"should contain three space-separated integer values, one for each of the "
+"Red, Green, Blue channels. The 'i'th line of the file should give the "
+"color associated with the '(i-1)'th class. (E.g. the color for class #0 "
+"is supposed to be on line 1.)"
+msgstr ""
+
+#: extensions/data/imageSegmentation/template.html:10
+#: extensions/data/imageSegmentation/template.html:16
+#: extensions/data/imageSegmentation/template.html:31
+#: extensions/data/imageSegmentation/template.html:37
+#: extensions/data/objectDetection/template.html:16
+#: extensions/data/objectDetection/template.html:27
+#: extensions/data/objectDetection/template.html:33
+#: extensions/data/objectDetection/template.html:39
+msgid "folder"
+msgstr ""
+
+#: extensions/data/imageSegmentation/template.html:43
+#: extensions/data/imageSegmentation/template.html:55
+msgid "file"
+msgstr ""
+
+#: extensions/data/imageSegmentation/template.html:99
+msgid "Note: the recommended label encoding is PNG."
+msgstr ""
+
+#: extensions/data/objectDetection/data.py:93
+#, python-format
+msgid "Unsupported image shape: %(shape)s"
+msgstr ""
+
+#: extensions/data/objectDetection/data.py:103
+#, python-format
+msgid "Label key %(label_id)s not found in label folder"
+msgstr ""
+
+#: extensions/data/objectDetection/data.py:172
+msgid "Object Detection"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:31
+msgid "Training image folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:36
+#: extensions/data/objectDetection/forms.py:54
+msgid "Indicate a folder of images to use for training"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:40
+msgid "Training label folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:45
+msgid "Indicate a folder of training labels"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:49
+msgid "Validation image folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:58
+msgid "Validation label folder"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:63
+msgid "Indicate a folder of validation labels"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:67
+msgid "Resize Image Width"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:72
+#: extensions/data/objectDetection/forms.py:81
+msgid "If specified, images will be resized to that dimension after padding"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:76
+msgid "Resize Image Height"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:85
+msgid "Padding Image Width"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:91
+#: extensions/data/objectDetection/forms.py:101
+msgid "If specified, images will be padded to that dimension"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:95
+msgid "Padding Image Height"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:116
+msgid "Minimum box size (in pixels) for validation set"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:122
+msgid ""
+"Retain only the boxes that are larger than the specified value in both "
+"dimensions. This only affects objects in the validation set. Enter 0 to "
+"disable this threshold."
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:128
+msgid "Custom classes"
+msgstr ""
+
+#: extensions/data/objectDetection/forms.py:132
+msgid ""
+"Enter a comma-separated list of class names. Class IDs are assigned "
+"sequentially, starting from 0. Unmapped class names automatically map to "
+"0. Leave this field blank to use default class mappings. See object "
+"detection extension documentation for more information."
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:7
+msgid "Object Detection Dataset Options"
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:10
+msgid ""
+"Images can be stored in any of the supported file formats "
+"('.png','.jpg','.jpeg','.bmp','.ppm')."
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:20
+msgid ""
+"Label files are expected to have the .txt extension.\n"
+"    For example if an image file is named foo.png the corresponding label"
+" file should be foo.txt."
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:43
+msgid "Pad image (Width x Height)"
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:47
+msgid ""
+"If specified, input images will be padded to that dimension. Pad "
+"dimensions should be greater than those of input images."
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:50
+#: extensions/data/objectDetection/template.html:64
+#: templates/datasets/images/classification/new.html:46
+msgid "width"
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:52
+#: extensions/data/objectDetection/template.html:66
+#: templates/datasets/images/classification/new.html:48
+msgid "height"
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:57
+msgid "Resize image (Width x Height)"
+msgstr ""
+
+#: extensions/data/objectDetection/template.html:61
+msgid ""
+"If specified, input images will be squashed to that dimension after "
+"padding."
+msgstr ""
+
+#: extensions/view/boundingBox/app_begin_template.html:250
+#: extensions/view/imageSegmentation/app_begin_template.html:88
+msgid "Line Width"
+msgstr ""
+
+#: extensions/view/boundingBox/app_begin_template.html:254
+msgid "Desaturation"
+msgstr ""
+
+#: extensions/view/boundingBox/app_begin_template.html:258
+#: extensions/view/imageSegmentation/app_begin_template.html:76
+msgid "Opacity"
+msgstr ""
+
+#: extensions/view/boundingBox/config_template.html:7
+msgid ""
+"Draw a bounding box around a detected object. The expected network output"
+" is a dictionary, keyed by class, where the values are lists of bounding "
+"boxes for that image."
+msgstr ""
+
+#: extensions/view/boundingBox/view.py:85
+msgid "Bounding boxes"
+msgstr ""
+
+#: extensions/view/imageOutput/config_template.html:7
+msgid "Display network output as an image."
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:16
+msgid "Channel order"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:22
+msgid ""
+"Set channel order to BGR for Caffe networks (this field is ignored in the"
+" case of a grayscale image)"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:27
+msgid "Data order"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:33
+msgid ""
+"Set the order of the data. For Caffe and Torch models this is often NCHW,"
+" for Tensorflow it's NHWC. N=Batch Size, W=Width, H=Height, C=Channels"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:39
+msgid "Pixel conversion"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:41
+msgid "Normalize"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:42
+msgid "Clip"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:45
+msgid "Select method to convert pixel values to the target bit range"
+msgstr ""
+
+#: extensions/view/imageOutput/forms.py:49
+#: extensions/view/imageOutput/forms.py:55
+msgid "Show input as image"
+msgstr ""
+
+#: extensions/view/imageOutput/view.py:64
+msgid "Image output"
+msgstr ""
+
+#: extensions/view/imageOutput/view.py:123
+#, python-format
+msgid "Unhandled number of channels: %(channels)d"
+msgstr ""
+
+#: extensions/view/imageSegmentation/app_begin_template.html:80
+msgid "Mask"
+msgstr ""
+
+#: extensions/view/imageSegmentation/app_begin_template.html:84
+msgid "Threshold"
+msgstr ""
+
+#: extensions/view/imageSegmentation/app_begin_template.html:92
+#: model/forms.py:228 model/forms.py:239 model/forms.py:240 model/forms.py:241
+#: model/forms.py:245
+msgid "Gamma"
+msgstr ""
+
+#: extensions/view/imageSegmentation/app_begin_template.html:98
+#: extensions/view/imageSegmentation/forms.py:17
+msgid "Colormap"
+msgstr ""
+
+#: extensions/view/imageSegmentation/app_begin_template.html:105
+msgid "Reset to defaults"
+msgstr ""
+
+#: extensions/view/imageSegmentation/config_template.html:7
+msgid "Display segmented image."
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:19
+msgid "From dataset"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:20
+msgid "Paired (matplotlib)"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:21
+msgid "None (grayscale)"
+msgstr ""
+
+#: extensions/view/imageSegmentation/forms.py:24
+msgid "Set color map to use when displaying segmented image"
+msgstr ""
+
+#: extensions/view/imageSegmentation/view.py:49
+msgid "No palette found in dataset - choose other colormap"
+msgstr ""
+
+#: extensions/view/imageSegmentation/view.py:64
+#, python-format
+msgid "Unknown color map option: %(colormap)s"
+msgstr ""
+
+#: extensions/view/imageSegmentation/view.py:149
+msgid "Image Segmentation"
+msgstr ""
+
+#: extensions/view/rawData/config_template.html:7
+msgid "This visualization has no configuration options"
+msgstr ""
+
+#: extensions/view/rawData/view.py:55
+msgid "Raw Data"
+msgstr ""
+
+#: frameworks/caffe_framework.py:50 frameworks/caffe_framework.py:158
+#: model/tasks/caffe_train.py:947
+msgid "Unknown flavor.  Support NVIDIA and BVLC flavors only."
+msgstr ""
+
+#: frameworks/caffe_framework.py:77
+#, python-format
+msgid "Not a valid NetParameter: %(e)s"
+msgstr ""
+
+#: inference/job.py:33
+#, python-format
+msgid "The \"%(id)s\" framework cannot be found. Check your server configuration."
+msgstr ""
+
+#: inference/images/job.py:17
+msgid "Image Inference"
+msgstr ""
+
+#: inference/tasks/inference.py:56
+msgid "Infer Model"
+msgstr ""
+
+#: model/forms.py:28
+msgid "Selected job doesn't exist. Maybe it was deleted by another user."
+msgstr ""
+
+#: model/forms.py:36
+#, python-format
+msgid "Bad network: %(message)s"
+msgstr ""
+
+#: model/forms.py:49
+#, python-format
+msgid "Server side file, %(filename)s, does not exist."
+msgstr ""
+
+#: model/forms.py:65
+#, python-format
+msgid "Python file, %(filename)s, needs .py or .pyc extension."
+msgstr ""
+
+#: model/forms.py:72
+msgid "Select Dataset"
+msgstr ""
+
+#: model/forms.py:74
+msgid "Choose the dataset to use for this model."
+msgstr ""
+
+#: model/forms.py:78
+msgid "Use client-side file"
+msgstr ""
+
+#: model/forms.py:83
+msgid "Client-side file"
+msgstr ""
+
+#: model/forms.py:87
+msgid "Choose a Python file on the client containing layer definitions."
+msgstr ""
+
+#: model/forms.py:90
+msgid "Server-side file"
+msgstr ""
+
+#: model/forms.py:95
+msgid "Choose a Python file on the server containing layer definitions."
+msgstr ""
+
+#: model/forms.py:99
+msgid "Training epochs"
+msgstr ""
+
+#: model/forms.py:104
+msgid "How many passes through the training data?"
+msgstr ""
+
+#: model/forms.py:108
+msgid "Snapshot interval (in epochs)"
+msgstr ""
+
+#: model/forms.py:113
+msgid "How many epochs of training between taking a snapshot?"
+msgstr ""
+
+#: model/forms.py:117
+msgid "Validation interval (in epochs)"
+msgstr ""
+
+#: model/forms.py:122
+msgid ""
+"How many epochs of training between running through one pass of the "
+"validation data?"
+msgstr ""
+
+#: model/forms.py:126
+msgid "Tracing Interval (in steps)"
+msgstr ""
+
+#: model/forms.py:131
+msgid "Generation of a timeline trace every few steps"
+msgstr ""
+
+#: model/forms.py:135
+msgid "Random seed"
+msgstr ""
+
+#: model/forms.py:140
+msgid ""
+"If you provide a random seed, then back-to-back runs with the same model "
+"and dataset should give identical results."
+msgstr ""
+
+#: model/forms.py:145
+msgid "Batch size"
+msgstr ""
+
+#: model/forms.py:150
+msgid ""
+"How many images to process at once. If blank, values are used from the "
+"network definition."
+msgstr ""
+
+#: model/forms.py:154
+msgid "Batch Accumulation"
+msgstr ""
+
+#: model/forms.py:159
+msgid ""
+"Accumulate gradients over multiple batches (useful when you need a bigger"
+" batch size for training but it doesn't fit in memory)."
+msgstr ""
+
+#: model/forms.py:166
+msgid "Solver type"
+msgstr ""
+
+#: model/forms.py:168
+msgid "SGD (Stochastic Gradient Descent)"
+msgstr ""
+
+#: model/forms.py:169
+msgid "Momentum"
+msgstr ""
+
+#: model/forms.py:170
+msgid "NAG (Nesterov's accelerated gradient)"
+msgstr ""
+
+#: model/forms.py:171
+msgid "AdaGrad (Adaptive Gradient)"
+msgstr ""
+
+#: model/forms.py:172
+msgid "AdaGradDA (AdaGrad Dual Averaging)"
+msgstr ""
+
+#: model/forms.py:173
+msgid "AdaDelta"
+msgstr ""
+
+#: model/forms.py:174
+msgid "Adam (Adaptive Moment Estimation)"
+msgstr ""
+
+#: model/forms.py:175
+msgid "RMSprop"
+msgstr ""
+
+#: model/forms.py:176
+msgid "FTRL (Follow-The-Regularized-Leader)"
+msgstr ""
+
+#: model/forms.py:179
+msgid "What type of solver will be used?"
+msgstr ""
+
+#: model/forms.py:187
+msgid "Solver type not supported by this framework"
+msgstr ""
+
+#: model/forms.py:192
+msgid "RMS decay value"
+msgstr ""
+
+#: model/forms.py:197
+msgid ""
+"If the gradient updates results in oscillations the gradient is reduced "
+"by times 1-rms_decay. Otherwise it will be increased by rms_decay."
+msgstr ""
+
+#: model/forms.py:204
+msgid "Base Learning Rate"
+msgstr ""
+
+#: model/forms.py:209
+msgid ""
+"Affects how quickly the network learns. If you are getting NaN for your "
+"loss, you probably need to lower this value."
+msgstr ""
+
+#: model/forms.py:214
+msgid "Policy"
+msgstr ""
+
+#: model/forms.py:216
+msgid "Fixed"
+msgstr ""
+
+#: model/forms.py:217
+msgid "Step Down"
+msgstr ""
+
+#: model/forms.py:218
+msgid "Step Down (arbitrary steps)"
+msgstr ""
+
+#: model/forms.py:219
+msgid "Exponential Decay"
+msgstr ""
+
+#: model/forms.py:220
+msgid "Inverse Decay"
+msgstr ""
+
+#: model/forms.py:221
+msgid "Polynomial Decay"
+msgstr ""
+
+#: model/forms.py:222
+msgid "Sigmoid Decay"
+msgstr ""
+
+#: model/forms.py:227
+msgid "Step Size"
+msgstr ""
+
+#: model/forms.py:229
+msgid "Step Values"
+msgstr ""
+
+#: model/forms.py:237
+msgid "invalid value"
+msgstr ""
+
+#: model/forms.py:242 model/forms.py:243
+msgid "Power"
+msgstr ""
+
+#: model/forms.py:244
+msgid "Step"
+msgstr ""
+
+#: model/forms.py:252
+msgid "Network type"
+msgstr ""
+
+#: model/forms.py:254
+msgid "Standard network"
+msgstr ""
+
+#: model/forms.py:255
+msgid "Previous network"
+msgstr ""
+
+#: model/forms.py:256
+msgid "Pretrained network"
+msgstr ""
+
+#: model/forms.py:257
+msgid "Custom network"
+msgstr ""
+
+#: model/forms.py:264 static/js/home_app.js:566 static/js/home_app.js:597
+msgid "framework"
+msgstr ""
+
+#: model/forms.py:268
+msgid "The framework you choose is not currently supported."
+msgstr ""
+
+#: model/forms.py:276 templates/models/images/classification/new.html:525
+#: templates/models/images/generic/new.html:519
+msgid "Standard Networks"
+msgstr ""
+
+#: model/forms.py:283 templates/models/images/classification/new.html:526
+#: templates/models/images/generic/new.html:520
+msgid "Previous Networks"
+msgstr ""
+
+#: model/forms.py:292 templates/models/images/classification/new.html:527
+#: templates/models/images/generic/new.html:521
+msgid "Pretrained Networks"
+msgstr ""
+
+#: model/forms.py:301 templates/models/images/classification/new.html:528
+#: templates/models/images/generic/new.html:522
+msgid "Custom Network"
+msgstr ""
+
+#: model/forms.py:309
+msgid "Pretrained model(s)"
+msgstr ""
+
+#: model/forms.py:310
+#, python-format
+msgid ""
+"Paths to pretrained model files, separated by '%(pathsep)s'. Only edit "
+"this field if you understand how fine-tuning works in caffe or torch."
+msgstr ""
+
+#: model/forms.py:324
+msgid "Select which GPU you would like to use"
+msgstr ""
+
+#: model/forms.py:341
+msgid "Select which GPU[s] you would like to use"
+msgstr ""
+
+#: model/forms.py:353
+msgid "The job won't start until all of the chosen GPUs are available."
+msgstr ""
+
+#: model/forms.py:358
+msgid "Select which GPU[s] you would like to use (comma separated)"
+msgstr ""
+
+#: model/forms.py:365
+msgid "Use this many GPUs (next available)"
+msgstr ""
+
+#: model/forms.py:380
+msgid "Model Name"
+msgstr ""
+
+#: model/forms.py:384
+msgid "An identifier, later used to refer to this model in the Application."
+msgstr ""
+
+#: model/forms.py:393
+msgid "Shuffle Train Data"
+msgstr ""
+
+#: model/forms.py:395
+msgid "For every epoch, shuffle the data before training."
+msgstr ""
+
+#: model/views.py:69
+msgid "network not provided"
+msgstr ""
+
+#: model/views.py:120
+msgid "step is a required field"
+msgstr ""
+
+#: model/views.py:144
+msgid "framework not provided"
+msgstr ""
+
+#: model/views.py:498
+msgid "Invalid extension"
+msgstr ""
+
+#: model/images/forms.py:16
+msgid "Crop Size"
+msgstr ""
+
+#: model/images/forms.py:21
+msgid ""
+"If specified, during training a random square crop will be taken from the"
+" input image before using as input for the network."
+msgstr ""
+
+#: model/images/forms.py:26
+msgid "Subtract Mean"
+msgstr ""
+
+#: model/images/forms.py:29 templates/models/images/generic/infer_many.html:53
+#: templates/models/images/generic/new.html:10
+#: templates/models/images/generic/new.html:19
+msgid "Image"
+msgstr ""
+
+#: model/images/forms.py:30
+msgid "Pixel"
+msgstr ""
+
+#: model/images/forms.py:33
+msgid "Subtract the mean file or mean pixel for this dataset from each image."
+msgstr ""
+
+#: model/images/forms.py:37
+msgid "Flipping"
+msgstr ""
+
+#: model/images/forms.py:40
+msgid "Horizontal"
+msgstr ""
+
+#: model/images/forms.py:41
+msgid "Vertical"
+msgstr ""
+
+#: model/images/forms.py:42
+msgid "Horizontal and/or Vertical"
+msgstr ""
+
+#: model/images/forms.py:45
+msgid "Randomly flips each image during batch preprocessing."
+msgstr ""
+
+#: model/images/forms.py:49
+msgid "Quadrilateral Rotation"
+msgstr ""
+
+#: model/images/forms.py:52
+msgid "0, 90 or 270 degrees"
+msgstr ""
+
+#: model/images/forms.py:53
+msgid "0 or 180 degrees"
+msgstr ""
+
+#: model/images/forms.py:54
+msgid "0, 90, 180 or 270 degrees."
+msgstr ""
+
+#: model/images/forms.py:57
+msgid "Randomly rotates (90 degree steps) each image during batch preprocessing."
+msgstr ""
+
+#: model/images/forms.py:61
+msgid "Rotation (+- deg)"
+msgstr ""
+
+#: model/images/forms.py:66
+msgid ""
+"The uniform-random rotation angle that will be performed during batch "
+"preprocessing."
+msgstr ""
+
+#: model/images/forms.py:70
+msgid "Rescale (stddev)"
+msgstr ""
+
+#: model/images/forms.py:75
+msgid ""
+"Retaining image size, the image is rescaled with a +-stddev of this "
+"parameter. Suggested value is 0.07."
+msgstr ""
+
+#: model/images/forms.py:80
+msgid "Noise (stddev)"
+msgstr ""
+
+#: model/images/forms.py:85
+msgid ""
+"Adds AWGN (Additive White Gaussian Noise) during batch preprocessing, "
+"assuming [0 1] pixel-value range. Suggested value is 0.03."
+msgstr ""
+
+#: model/images/forms.py:90
+msgid "Contrast (factor)"
+msgstr ""
+
+#: model/images/forms.py:95
+msgid ""
+"Per channel, the mean of the channel is computed and then adjusts each "
+"component x of each pixel to (x - mean) * contrast_factor + mean. The "
+"contrast_factor is picked form a random uniform distribution to yield a "
+"value between [1-contrast_factor, 1+contrast_factor]. Suggested value is "
+"0.8."
+msgstr ""
+
+#: model/images/forms.py:102
+msgid "Whitening"
+msgstr ""
+
+#: model/images/forms.py:105
+msgid ""
+"Per-image whitening by subtracting its own mean, and dividing by its own "
+"standard deviation."
+msgstr ""
+
+#: model/images/forms.py:109
+msgid "HSV Shifting"
+msgstr ""
+
+#: model/images/forms.py:111
+msgid ""
+"Augmentation by normal-distributed random shifts in HSV color space, "
+"assuming [0 1] pixel-value range."
+msgstr ""
+
+#: model/images/forms.py:115
+msgid "Hue"
+msgstr ""
+
+#: model/images/forms.py:120 model/images/forms.py:129
+#: model/images/forms.py:138
+msgid ""
+"Standard deviation of a shift that will be performed during "
+"preprocessing, assuming [0 1] pixel-value range."
+msgstr ""
+
+#: model/images/forms.py:124
+msgid "Saturation"
+msgstr ""
+
+#: model/images/forms.py:133
+msgid "Value"
+msgstr ""
+
+#: model/images/classification/job.py:26
+msgid "Image Classification Model"
+msgstr ""
+
+#: model/images/classification/views.py:127 model/images/generic/views.py:100
+#, python-format
+msgid "Unknown dataset job_id \"%(data)s\""
+msgstr ""
+
+#: model/images/classification/views.py:176
+#, python-format
+msgid "Unknown standard model \"%(data)s\""
+msgstr ""
+
+#: model/images/classification/views.py:181
+#, python-format
+msgid "Job not found: %(data)s"
+msgstr ""
+
+#: model/images/classification/views.py:198
+#, python-format
+msgid ""
+"For the job %(data)s, selected pretrained_model for epoch %(epoch)d is "
+"invalid!"
+msgstr ""
+
+#: model/images/classification/views.py:205 model/images/generic/views.py:170
+msgid ""
+"Pretrained_model for the selected epoch doesn't exist. May be deleted by "
+"another user/process. Please restart the server to load the correct "
+"pretrained_model details."
+msgstr ""
+
+#: model/images/classification/views.py:225 model/images/generic/views.py:189
+#, python-format
+msgid "Unrecognized method: \"%(data)s\""
+msgstr ""
+
+#: model/images/classification/views.py:248 model/images/generic/views.py:212
+msgid "Invalid learning rate policy"
+msgstr ""
+
+#: model/images/classification/views.py:393 model/images/generic/views.py:353
+msgid "must provide image_path or image_file"
+msgstr ""
+
+#: model/images/classification/views.py:402
+msgid "Classify One Image"
+msgstr ""
+
+#: model/images/classification/views.py:497
+msgid "Classify Many Images"
+msgstr ""
+
+#: model/images/classification/views.py:546
+msgid "Unable to classify any image from the file"
+msgstr ""
+
+#: model/images/classification/views.py:657
+msgid "TopN Image Classification"
+msgstr ""
+
+#: model/images/classification/views.py:683
+msgid "An error occurred while processing the images"
+msgstr ""
+
+#: model/images/generic/job.py:26
+msgid "Generic Image Model"
+msgstr ""
+
+#: model/images/generic/views.py:797
+#, python-format
+msgid "Unknown extension '%(view_extension_id)s'"
+msgstr ""
+
+#: model/images/generic/views.py:806
+#, python-format
+msgid "Extension form validation failed with %(ext_form_error)s"
+msgstr ""
+
+#: model/tasks/caffe_train.py:213
+msgid "Train Caffe Model"
+msgstr ""
+
+#: model/tasks/caffe_train.py:585 model/tasks/caffe_train.py:814
+#, python-format
+msgid "Unknown lr_policy: \"%(policy)s\""
+msgstr ""
+
+#: model/tasks/caffe_train.py:918
+msgid "Please select single GPU when running in Windows with Python layer."
+msgstr ""
+
+#: model/tasks/caffe_train.py:973
+#, python-format
+msgid "Unknown solver type %(solver_type)s."
+msgstr ""
+
+#: model/tasks/caffe_train.py:1652
+#, python-format
+msgid ""
+"Layer '%(name)s' references bottom '%(bottom)s' at the %(status)s stage "
+"however this blob is not included at that stage. Please consider using an"
+" include directive to limit the scope of this layer."
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:49
+msgid "gpus should be a list"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:129
+msgid "Train Tensorflow Model"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:162 model/tasks/train.py:458
+msgid "Invalid epoch"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:606 model/tasks/torch_train.py:626
+#, python-format
+msgid "%(id)s classify one task got aborted. error code - %(returncode)d"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:625
+#, python-format
+msgid ""
+"%(id)s classify one task failed with error code %(returncode)d \n"
+" %(str_e)s"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:637 model/tasks/torch_train.py:658
+#, python-format
+msgid "%(id)s classify one task failed with error code %(returncode)d"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:797 model/tasks/torch_train.py:817
+#, python-format
+msgid ""
+"%(id)s classify %(test_category)s task failed with error message - "
+"%(message)s"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:901
+#, python-format
+msgid "%(id)s classify many task got aborted.error code - %(returncode)d"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:921 model/tasks/torch_train.py:951
+#, python-format
+msgid ""
+"%(id)s classify many task failed with error code %(returncode)d \n"
+" %(str_e)s"
+msgstr ""
+
+#: model/tasks/tensorflow_train.py:931 model/tasks/torch_train.py:963
+#, python-format
+msgid "%(id)s classify many task failed with error code %(returncode)d"
+msgstr ""
+
+#: model/tasks/torch_train.py:122
+msgid "Train Torch Model"
+msgstr ""
+
+#: model/tasks/torch_train.py:278
+msgid "Torch does not support multiple pretrained model files"
+msgstr ""
+
+#: model/tasks/torch_train.py:554
+#, python-format
+msgid "Unable to save file to \"%(temp_image_path)s\""
+msgstr ""
+
+#: model/tasks/torch_train.py:857
+#, python-format
+msgid "Unable to save file to \"%(path)s\""
+msgstr ""
+
+#: model/tasks/torch_train.py:927
+#, python-format
+msgid "%(id)s classify many task got aborted. error code - %(returncode)d"
+msgstr ""
+
+#: model/tasks/train.py:195
+#, python-format
+msgid "Failed to load gpu information for GPU #\"%(index)s\""
+msgstr ""
+
+#: model/tasks/train.py:543
+msgid "Requested timeline not found in timeline list"
+msgstr ""
+
+#: pretrained_model/job.py:46
+#, python-format
+msgid "framework of type %(framework)s is not supported"
+msgstr ""
+
+#: pretrained_model/job.py:73
+#: templates/models/images/classification/partials/new/network_tab_pretrained.html:48
+#: templates/models/images/classification/partials/new/network_tab_previous.html:11
+#: templates/models/images/classification/show.html:29
+#: templates/models/images/generic/partials/new/network_tab_pretrained.html:10
+#: templates/models/images/generic/partials/new/network_tab_previous.html:10
+#: templates/models/images/generic/show.html:29
+msgid "Pretrained Model"
+msgstr ""
+
+#: pretrained_model/views.py:34 pretrained_model/views.py:56
+msgid "Missing weights file"
+msgstr ""
+
+#: pretrained_model/views.py:36
+msgid "Weights must be a .caffemodel file"
+msgstr ""
+
+#: pretrained_model/views.py:40 pretrained_model/views.py:62
+msgid "Missing model definition file"
+msgstr ""
+
+#: pretrained_model/views.py:42
+msgid "Model definition must be .prototxt file"
+msgstr ""
+
+#: pretrained_model/views.py:58
+msgid "Weights must be a .t7 file"
+msgstr ""
+
+#: pretrained_model/views.py:64
+msgid "Model definition must be .lua file"
+msgstr ""
+
+#: pretrained_model/views.py:169 pretrained_model/views.py:171
+msgid "Missing job name"
+msgstr ""
+
+#: pretrained_model/tasks/caffe_upload.py:18
+msgid "Upload Pretrained Caffe Model"
+msgstr ""
+
+#: pretrained_model/tasks/tensorflow_upload.py:18
+msgid "Upload Pretrained Tensorflow Model"
+msgstr ""
+
+#: pretrained_model/tasks/torch_upload.py:18
+msgid "Upload Pretrained Torch Model"
+msgstr ""
+
+#: static/js/PretrainedModel.js:24
+msgid "Caffe"
+msgstr ""
+
+#: static/js/PretrainedModel.js:25
+msgid "Torch"
+msgstr ""
+
+#: static/js/PretrainedModel.js:37
+msgid "Half Crop, Half Fill"
+msgstr ""
+
+#: static/js/PretrainedModel.js:75
+msgid "Jobname"
+msgstr ""
+
+#: static/js/PretrainedModel.js:78
+msgid "Framework"
+msgstr ""
+
+#: static/js/PretrainedModel.js:89
+msgid "Resize Mode"
+msgstr ""
+
+#: static/js/PretrainedModel.js:94
+msgid "Width"
+msgstr ""
+
+#: static/js/PretrainedModel.js:95
+msgid "Height"
+msgstr ""
+
+#: static/js/PretrainedModel.js:117
+msgid "Upload Tar or Zip Archive"
+msgstr ""
+
+#: static/js/PretrainedModel.js:131
+msgid "Manual Entry"
+msgstr ""
+
+#: static/js/PretrainedModel.js:181
+msgid "Weights (**.caffemodel)"
+msgstr ""
+
+#: static/js/PretrainedModel.js:182
+msgid "Model Definition (original.prototxt)"
+msgstr ""
+
+#: static/js/PretrainedModel.js:183
+msgid "Labels file: (labels.txt)"
+msgstr ""
+
+#: static/js/PretrainedModel.js:188 static/js/PretrainedModel.js:200
+msgid "Upload Model"
+msgstr ""
+
+#: static/js/PretrainedModel.js:194
+msgid "Weights (**.t7)"
+msgstr ""
+
+#: static/js/PretrainedModel.js:195
+msgid "Model Definition: (model.lua)"
+msgstr ""
+
+#: static/js/PretrainedModel.js:196
+msgid "Labels file: (Optional)"
+msgstr ""
+
+#: static/js/PretrainedModel.js:212
+msgid "Uploading archive, one moment..."
+msgstr ""
+
+#: static/js/PretrainedModel.js:218
+msgid "Bad File Type"
+msgstr ""
+
+#: static/js/PretrainedModel.js:219 static/js/PretrainedModel.js:235
+msgid "Try Upload Again?"
+msgstr ""
+
+#: static/js/PretrainedModel.js:234
+msgid "Upload Failed"
+msgstr ""
+
+#: static/js/digits.js:6
+msgid "An error occurred!"
+msgstr ""
+
+#: static/js/digits.js:7
+msgid "<p class=\"text-danger\">The server may be down.</p>"
+msgstr ""
+
+#: static/js/home_app.js:409
+msgid "Are you sure you want to delete the selected "
+msgstr ""
+
+#: static/js/home_app.js:410 static/js/home_app.js:437
+msgid "job?"
+msgstr ""
+
+#: static/js/home_app.js:410 static/js/home_app.js:437
+msgid " jobs?"
+msgstr ""
+
+#: static/js/home_app.js:411
+msgid "<br><br>(All related files will be permanently removed.)"
+msgstr ""
+
+#: static/js/home_app.js:436
+msgid "Are you sure you want to abort the selected "
+msgstr ""
+
+#: static/js/home_app.js:465
+#, python-format
+msgid ""
+"Enter a group name for the %(n_job_string)s selected %(job_string)s. "
+"<br><small>Leave the name blank to ungroup the .</small> %(job_string)s "
+".</small>"
+msgstr ""
+
+#: static/js/home_app.js:539 templates/home.html:60
+msgid "Running Jobs"
+msgstr ""
+
+#: static/js/home_app.js:540 static/js/home_app.js:550
+#: static/js/home_app.js:563 static/js/home_app.js:596
+msgid "name"
+msgstr ""
+
+#: static/js/home_app.js:541 static/js/home_app.js:556
+#: static/js/home_app.js:569 static/js/home_app.js:602
+msgid "submitted"
+msgstr ""
+
+#: static/js/home_app.js:542 static/js/home_app.js:554
+#: static/js/home_app.js:567 static/js/home_app.js:600
+msgid "status"
+msgstr ""
+
+#: static/js/home_app.js:543
+msgid "loss"
+msgstr ""
+
+#: static/js/home_app.js:544
+msgid "progress"
+msgstr ""
+
+#: static/js/home_app.js:549 templates/home.html:214
+msgid "Datasets"
+msgstr ""
+
+#: static/js/home_app.js:551
+msgid "refs"
+msgstr ""
+
+#: static/js/home_app.js:552 static/js/home_app.js:565
+msgid "extension"
+msgstr ""
+
+#: static/js/home_app.js:553
+msgid "backend"
+msgstr ""
+
+#: static/js/home_app.js:555 static/js/home_app.js:568
+#: static/js/home_app.js:601
+msgid "elapsed"
+msgstr ""
+
+#: static/js/home_app.js:561 static/js/home_app.js:595 templates/home.html:224
+msgid "Models"
+msgstr ""
+
+#: static/js/home_app.js:564
+msgid "id"
+msgstr ""
+
+#: static/js/home_app.js:598
+msgid "username"
+msgstr ""
+
+#: static/js/home_app.js:599
+msgid "has_labels"
+msgstr ""
+
+#: static/js/model-graphs.js:9
+msgid "loss-val"
+msgstr ""
+
+#: static/js/model-graphs.js:10
+msgid "accuracy-val"
+msgstr ""
+
+#: static/js/model-graphs.js:11
+msgid "loss-train"
+msgstr ""
+
+#: static/js/model-graphs.js:12
+msgid "accuracy-train"
+msgstr ""
+
+#: static/js/model-graphs.js:28 static/js/model-graphs.js:93
+msgid "Epoch"
+msgstr ""
+
+#: static/js/model-graphs.js:42
+msgid "Loss"
+msgstr ""
+
+#: static/js/model-graphs.js:51
+msgid "Accuracy"
+msgstr ""
+
+#: static/js/model-graphs.js:107
+msgid "Learning Rate"
+msgstr ""
+
+#: static/js/time_filters.js:26 static/js/time_filters.js:53
+#: utils/time_filters.py:101
+msgid "day"
+msgstr ""
+
+#: static/js/time_filters.js:26 static/js/time_filters.js:28
+#: static/js/time_filters.js:55 utils/time_filters.py:101
+#: utils/time_filters.py:103
+msgid "hour"
+msgstr ""
+
+#: static/js/time_filters.js:28 static/js/time_filters.js:30
+#: static/js/time_filters.js:57 utils/time_filters.py:103
+#: utils/time_filters.py:105
+msgid "minute"
+msgstr ""
+
+#: static/js/time_filters.js:30 static/js/time_filters.js:31
+#: static/js/time_filters.js:40 static/js/time_filters.js:58
+#: static/js/time_filters.js:67 utils/time_filters.py:105
+#: utils/time_filters.py:106
+msgid "second"
+msgstr ""
+
+#: static/js/time_filters.js:76
+msgid "d"
+msgstr ""
+
+#: static/js/time_filters.js:78
+msgid "h"
+msgstr ""
+
+#: static/js/time_filters.js:80
+msgid "m"
+msgstr ""
+
+#: static/js/time_filters.js:81
+msgid "s"
+msgstr ""
+
+#: static/js/time_filters.js:91
+msgid " ago"
+msgstr ""
+
+#: static/js/timeline-tracing.js:11
+msgid "No Trace Selected"
+msgstr ""
+
+#: static/js/timeline-tracing.js:22
+msgid "Trace #"
+msgstr ""
+
+#: static/js/timeline-tracing.js:27
+msgid "Import error"
+msgstr ""
+
+#: store/views.py:143
+msgid "Unable to find requested model"
+msgstr ""
+
+#: store/views.py:195
+#, python-format
+msgid "Thanks for visiting %(url)s"
+msgstr ""
+
+#: templates/home.html:27
+msgid "available"
+msgstr ""
+
+#: templates/home.html:30
+msgid "Home"
+msgstr ""
+
+#: templates/home.html:74 templates/partials/home/datasets_pane.html:43
+#: templates/partials/home/model_pane.html:65
+#: templates/partials/home/pretrained_model_pane.html:49
+#: templates/store.html:71
+msgid "Filter"
+msgstr ""
+
+#: templates/home.html:85 templates/partials/home/datasets_pane.html:54
+#: templates/partials/home/model_pane.html:76
+#: templates/partials/home/pretrained_model_pane.html:60
+msgid "Delete"
+msgstr ""
+
+#: templates/home.html:90
+msgid "Abort"
+msgstr ""
+
+#: templates/home.html:95 templates/partials/home/datasets_pane.html:59
+#: templates/partials/home/model_pane.html:81
+#: templates/partials/home/pretrained_model_pane.html:65
+msgid "Group"
+msgstr ""
+
+#: templates/home.html:191
+msgid "No Running Jobs"
+msgstr ""
+
+#: templates/home.html:203
+msgid "No Jobs Running"
+msgstr ""
+
+#: templates/home.html:234
+msgid "Pretrained Models"
+msgstr ""
+
+#: templates/job.html:119 templates/job.html:326
+msgid "Update"
+msgstr ""
+
+#: templates/job.html:120 templates/job.html:327
+msgid "Cancel"
+msgstr ""
+
+#: templates/job.html:124
+msgid "Owner:"
+msgstr ""
+
+#: templates/job.html:128 templates/job.html:130
+msgid "Clone Job"
+msgstr ""
+
+#: templates/job.html:132
+msgid "Abort Job"
+msgstr ""
+
+#: templates/job.html:133
+msgid "Delete Job"
+msgstr ""
+
+#: templates/job.html:140
+msgid "Are you sure you want to abort this job?"
+msgstr ""
+
+#: templates/job.html:155
+msgid ""
+"Are you sure you want to delete this job?<br><br>All related files will "
+"be permanently removed."
+msgstr ""
+
+#: templates/job.html:184
+msgid "Job Status"
+msgstr ""
+
+#: templates/job.html:216
+msgid "Estimated time remaining:"
+msgstr ""
+
+#: templates/job.html:246
+msgid "Related jobs"
+msgstr ""
+
+#: templates/job.html:289
+msgid "Notes"
+msgstr ""
+
+#: templates/job.html:321
+msgid "Enter notes"
+msgstr ""
+
+#: templates/layout.html:54
+msgid "Logout"
+msgstr ""
+
+#: templates/layout.html:56 templates/login.html:37 templates/register.html:34
+msgid "Login"
+msgstr ""
+
+#: templates/layout.html:57 templates/login.html:30
+msgid "Register"
+msgstr ""
+
+#: templates/register.html:22
+msgid "Username"
+msgstr ""
+
+#: templates/register.html:26
+msgid "Password"
+msgstr ""
+
+#: templates/register.html:30
+msgid "Repeat Password"
+msgstr ""
+
+#: templates/register.html:41
+msgid "register"
+msgstr ""
+
+#: templates/status_updates.html:7
+msgid "at"
+msgstr ""
+
+#: templates/status_updates.html:12
+msgid "Total"
+msgstr ""
+
+#: templates/status_updates.html:19
+msgid "ERROR:"
+msgstr ""
+
+#: templates/store.html:54
+msgid "Model Store"
+msgstr ""
+
+#: templates/store.html:57
+msgid "Update Model List"
+msgstr ""
+
+#: templates/store.html:60
+msgid "No models in Model Store"
+msgstr ""
+
+#: templates/store.html:83
+msgid "Name"
+msgstr ""
+
+#: templates/store.html:84
+msgid "Contributor"
+msgstr ""
+
+#: templates/store.html:85
+msgid "Affiliate"
+msgstr ""
+
+#: templates/store.html:86
+msgid "Note"
+msgstr ""
+
+#: templates/store.html:87
+msgid "Data sets"
+msgstr ""
+
+#: templates/store.html:88 templates/store.html:142
+msgid "License"
+msgstr ""
+
+#: templates/store.html:103
+msgid "Import"
+msgstr ""
+
+#: templates/store.html:148
+msgid "Close"
+msgstr ""
+
+#: templates/datasets/generic/new.html:10
+#: templates/datasets/generic/new.html:19
+#, python-format
+msgid "New %(title)s Dataset"
+msgstr ""
+
+#: templates/datasets/generic/new.html:14
+#: templates/datasets/images/classification/new.html:14
+#: templates/datasets/images/generic/new.html:14
+msgid "New Dataset"
+msgstr ""
+
+#: templates/datasets/generic/new.html:73
+#: templates/datasets/images/classification/new.html:441
+#: templates/datasets/images/generic/new.html:109
+#: templates/models/images/classification/new.html:787
+#: templates/models/images/generic/new.html:751
+msgid "Create"
+msgstr ""
+
+#: templates/datasets/generic/show.html:12
+msgid "Entry Count"
+msgstr ""
+
+#: templates/datasets/generic/show.html:17
+#: templates/datasets/generic/summary.html:23
+msgid "Feature shape"
+msgstr ""
+
+#: templates/datasets/generic/show.html:19
+#: templates/datasets/generic/show.html:27
+msgid ""
+"Shown below is the shape of a sample entry in the database. Other entries"
+" might\n"
+"                             have a different shape if the dataset has "
+"variable entry shapes."
+msgstr ""
+
+#: templates/datasets/generic/show.html:25
+#: templates/datasets/generic/summary.html:24
+msgid "Label shape"
+msgstr ""
+
+#: templates/datasets/generic/show.html:34
+#, python-format
+msgid "%(name)s DB"
+msgstr ""
+
+#: templates/datasets/generic/show.html:39
+#: templates/datasets/images/classification/show.html:124
+msgid "Explore the db"
+msgstr ""
+
+#: templates/datasets/generic/show.html:46
+msgid "DB create log file"
+msgstr ""
+
+#: templates/datasets/generic/show.html:50
+msgid "Mean file"
+msgstr ""
+
+#: templates/datasets/generic/show.html:63
+#: templates/datasets/images/classification/show.html:8
+#: templates/datasets/images/generic/show.html:46
+msgid "Job Information"
+msgstr ""
+
+#: templates/datasets/generic/show.html:67
+#: templates/datasets/images/classification/show.html:12
+#: templates/datasets/images/generic/show.html:50
+#: templates/models/images/classification/show.html:16
+#: templates/models/images/generic/show.html:16
+msgid "Job Directory"
+msgstr ""
+
+#: templates/datasets/generic/show.html:69
+#: templates/datasets/images/classification/show.html:30
+#: templates/datasets/images/generic/show.html:52
+msgid "Dataset size"
+msgstr ""
+
+#: templates/datasets/generic/summary.html:17
+#, python-format
+msgid "DB backend: %(dbd)s"
+msgstr ""
+
+#: templates/datasets/generic/summary.html:22
+msgid "Entry Count:"
+msgstr ""
+
+#: templates/datasets/images/explore.html:6
+#, python-format
+msgid "%(jn)s - Explorer"
+msgstr ""
+
+#: templates/datasets/images/explore.html:18
+#, python-format
+msgid "Exploring %(jn)s (%(db)s) images"
+msgstr ""
+
+#: templates/datasets/images/explore.html:22
+msgid "Show all images"
+msgstr ""
+
+#: templates/datasets/images/explore.html:24
+msgid "or"
+msgstr ""
+
+#: templates/datasets/images/explore.html:25
+msgid "filter by class:"
+msgstr ""
+
+#: templates/datasets/images/explore.html:32
+msgid "Items per page:"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:10
+#: templates/datasets/images/classification/new.html:20
+msgid "New Image Classification Dataset"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:39
+msgid "Image size (Width x Height)"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:43
+msgid "Input images will be resized to fit."
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:60
+msgid "See example"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:94
+msgid "Use Image Folder"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:95
+msgid "Use Text Files"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:217
+msgid "Set"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:219
+msgid "Text file"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:222
+msgid ""
+"Each line in the file should be formatted as '<PATH> <LABEL>' where "
+"<PATH> specifies image path either on the local filesystem or a URL, and "
+"the <LABEL> is a numeric label that matches the uploaded labels file"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:51
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:190
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:31
+#: templates/datasets/images/classification/new.html:225
+#: templates/models/images/classification/show.html:328
+#: templates/models/images/generic/show.html:349
+msgid "Image folder"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:225
+#: templates/models/images/classification/show.html:328
+#: templates/models/images/generic/show.html:349
+msgid "(optional)"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:228
+msgid "Paths in the text files will be appended with this value before reading"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:235
+#, python-format
+msgid ""
+"%(form_tulf)s\n"
+"                                        Use local paths on server"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:241
+msgid ""
+"Check to use local paths on server, uncheck to upload files from client "
+"machine"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:247
+#: templates/datasets/images/generic/new.html:46
+msgid "Training"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:252
+#: templates/datasets/images/classification/new.html:269
+#: templates/datasets/images/classification/new.html:286
+#: templates/datasets/images/classification/new.html:309
+msgid "enter path"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:261
+#, python-format
+msgid ""
+"%(from_tuv)s\n"
+"                                        Validation"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:278
+#, python-format
+msgid ""
+"%(form_tut)s\n"
+"                                        Test"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:385
+#: templates/datasets/images/classification/new.html:393
+#: templates/models/python_layer_explanation.html:55
+msgid "NOTE:"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:385
+msgid "HDF5 is currently only supported for classification."
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:387
+msgid "For the Caffe data layers, (change "
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:387
+#: templates/models/images/generic/infer_db.html:54
+#: templates/models/images/generic/infer_extension.html:54
+#: templates/models/images/generic/infer_many.html:54
+msgid "Data"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:387
+msgid "layers to"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:387
+#: templates/datasets/images/classification/new.html:388
+msgid "HDF5Data"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:387
+msgid "layers)"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:388
+msgid "The Caffe"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:388
+msgid "layer does not support mean subtraction"
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:389
+msgid "Database exploration in the DIGITS UI is not supported."
+msgstr ""
+
+#: templates/datasets/images/classification/new.html:393
+msgid "TFRecords currently only works with Tensorflow, not with Caffe or Torch."
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:16
+#: templates/datasets/images/generic/show.html:24
+#: templates/datasets/images/generic/summary.html:22
+msgid "Image Dimensions"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:17
+msgid "(Width x Height)"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:22
+msgid "DB Backend"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:26
+msgid "DB Compression"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:47
+msgid "Number of Categories"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:82
+msgid "Input File"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:82
+msgid " (before shuffling)"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:85
+msgid "DB Creation log file"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:89
+msgid "DB Entries"
+msgstr ""
+
+#: templates/datasets/images/classification/show.html:111
+msgid "Image Mean:"
+msgstr ""
+
+#: templates/datasets/images/classification/summary.html:17
+msgid "Image Size"
+msgstr ""
+
+#: templates/datasets/images/classification/summary.html:22
+msgid "COLOR"
+msgstr ""
+
+#: templates/datasets/images/classification/summary.html:24
+msgid "GRAYSCALE"
+msgstr ""
+
+#: templates/datasets/images/classification/summary.html:33
+#, python-format
+msgid "%(tec)s images"
+msgstr ""
+
+#: templates/datasets/images/generic/new.html:10
+#: templates/datasets/images/generic/new.html:19
+msgid "New Image Dataset"
+msgstr ""
+
+#: templates/datasets/images/generic/new.html:31
+msgid "Use Prebuilt LMDBs"
+msgstr ""
+
+#: templates/datasets/images/generic/new.html:42
+msgid "Images LMDB"
+msgstr ""
+
+#: templates/datasets/images/generic/new.html:43
+msgid "Labels LMDB"
+msgstr ""
+
+#: templates/datasets/images/generic/new.html:55
+msgid "Validation"
+msgstr ""
+
+#: templates/datasets/images/generic/show.html:12
+msgid "Database"
+msgstr ""
+
+#: templates/datasets/images/generic/show.html:16
+#: templates/datasets/images/generic/summary.html:21
+msgid "Image Count"
+msgstr ""
+
+#: templates/datasets/images/generic/show.html:27
+msgid "(Width x Height x Channels)"
+msgstr ""
+
+#: templates/datasets/images/generic/show.html:33
+msgid "DB analysis log file"
+msgstr ""
+
+#: templates/datasets/images/generic/summary.html:17
+#, python-format
+msgid "DB backend: %(dgb)s"
+msgstr ""
+
+#: templates/models/gpu_utilization.html:2
+msgid "Hardware"
+msgstr ""
+
+#: templates/models/gpu_utilization.html:7
+#: templates/models/gpu_utilization.html:31
+msgid "Memory"
+msgstr ""
+
+#: templates/models/gpu_utilization.html:14
+msgid "GPU Utilization"
+msgstr ""
+
+#: templates/models/gpu_utilization.html:18
+msgid "Temperature"
+msgstr ""
+
+#: templates/models/gpu_utilization.html:24
+msgid "Process"
+msgstr ""
+
+#: templates/models/gpu_utilization.html:26
+msgid "CPU Utilization"
+msgstr ""
+
+#: templates/models/images/generic/large_graph.html:6
+#: templates/models/large_graph.html:6
+msgid "Large graph"
+msgstr ""
+
+#: templates/models/images/generic/large_graph.html:31
+#: templates/models/large_graph.html:31 utils/forms.py:411
+msgid "No data."
+msgstr ""
+
+#: templates/models/python_layer_explanation.html:3
+msgid "Using Python layers"
+msgstr ""
+
+#: templates/models/python_layer_explanation.html:6
+msgid ""
+"Caffe lets you define custom layers with Python.\n"
+"    Python layers are obviously much slower than their C++ counterparts, "
+"but are easy to write and test quickly since using them doesn't require "
+"recompilation.\n"
+"    DIGITS moves some files around for you so that you can specify "
+"different Python layers for each network."
+msgstr ""
+
+#: templates/models/python_layer_explanation.html:11
+msgid ""
+"The BVLC and DIGITS documentation online has detailed information and "
+"tutorials about how to use these layers.\n"
+"    Some of that information has been re-created here for your "
+"convenience."
+msgstr ""
+
+#: templates/models/python_layer_explanation.html:16
+msgid ""
+"First, you'll need to create a Python file which defines one or more "
+"layers.\n"
+"    As an example, here is a layer which re-creates the functionality of "
+"the standard Accuracy layer using JSON-encoded parameters:"
+msgstr ""
+
+#: templates/models/python_layer_explanation.html:55
+msgid "The uploaded file will be renamed to"
+msgstr ""
+
+#: templates/models/python_layer_explanation.html:55
+msgid "discarding the original filename."
+msgstr ""
+
+#: templates/models/python_layer_explanation.html:59
+msgid ""
+"To add the layer to your network, include this prototxt snippet in your "
+"custom network definition:"
+msgstr ""
+
+#: templates/models/timeline_tracing.html:6
+#: templates/models/timeline_tracing.html:23
+msgid "Timeline Trace"
+msgstr ""
+
+#: templates/models/timeline_tracing.html:33
+msgid "Show Timeline Trace"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:6
+#: templates/models/images/classification/show.html:343
+msgid "Classify Many"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:22
+#: templates/models/images/classification/classify_one.html:41
+#: templates/models/images/classification/top_n.html:18
+msgid "Classification failed, see job log"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:28
+#: templates/models/images/generic/infer_db.html:38
+#: templates/models/images/generic/infer_extension.html:38
+#: templates/models/images/generic/infer_many.html:37
+msgid "Summary"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:32
+msgid "Top-1 accuracy"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:36
+msgid "Top-5 accuracy"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:49
+msgid "Confusion matrix"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:57
+msgid "Per-class accuracy"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:75
+msgid "All classifications"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:80
+msgid "Path"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:81
+msgid "Ground truth"
+msgstr ""
+
+#: templates/models/images/classification/classify_many.html:82
+msgid "Top predictions"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:6
+#: templates/models/images/classification/show.html:307
+msgid "Classify One"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:29
+msgid "Predictions"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:96
+#: templates/models/images/classification/show.html:75
+#: templates/models/images/generic/infer_extension.html:119
+#: templates/models/images/generic/infer_one.html:109
+msgid "Description"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:97
+#: templates/models/images/generic/infer_extension.html:120
+#: templates/models/images/generic/infer_one.html:110
+msgid "Statistics"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:98
+#: templates/models/images/generic/infer_extension.html:121
+#: templates/models/images/generic/infer_one.html:111
+msgid "Visualization"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:112
+#: templates/models/images/generic/infer_extension.html:135
+#: templates/models/images/generic/infer_one.html:125
+msgid "learned parameters"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:117
+#: templates/models/images/generic/infer_extension.html:140
+#: templates/models/images/generic/infer_one.html:130
+msgid "Data shape:"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:118
+#: templates/models/images/generic/infer_extension.html:141
+#: templates/models/images/generic/infer_one.html:131
+msgid "Mean:"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:119
+#: templates/models/images/generic/infer_extension.html:142
+#: templates/models/images/generic/infer_one.html:132
+msgid "Std deviation:"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:134
+#: templates/models/images/generic/infer_extension.html:157
+#: templates/models/images/generic/infer_one.html:147
+msgid "Not shown"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:140
+#: templates/models/images/generic/infer_extension.html:163
+#: templates/models/images/generic/infer_one.html:153
+msgid "Totals"
+msgstr ""
+
+#: templates/models/images/classification/classify_one.html:142
+#: templates/models/images/generic/infer_extension.html:165
+#: templates/models/images/generic/infer_one.html:155
+msgid "Total learned parameters:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:3
+#: templates/models/images/generic/custom_network_explanation.html:3
+msgid "Specifying a custom Caffe network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:6
+#: templates/models/images/generic/custom_network_explanation.html:6
+msgid "Use this field to enter a Caffe network in .prototxt format."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:10
+msgid "Classification are special in a few ways:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:14
+msgid "The Deploy network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:14
+msgid "must contain a Softmax layer"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:15
+msgid "This should produce the only network output."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "If any InnerProduct layers have left"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "num_output"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "unset, DIGITS will"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "fill it in for you automatically"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:18
+msgid "with the number of classes in your dataset."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "If any Accuracy layer has a"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "top_k"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid ""
+"value that is smaller than the number of classes in your dataset, then "
+"that layer is"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:21
+msgid "removed"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:26
+#: templates/models/images/generic/custom_network_explanation.html:10
+msgid ""
+"The network should include the necessary layers for all computation "
+"states - Train, Val and Deploy.\n"
+"    When searching for layers, the network will be set to one of these "
+"three states:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:30
+#: templates/models/images/generic/custom_network_explanation.html:14
+msgid "phase: TRAIN stage: \"train\""
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:31
+#: templates/models/images/generic/custom_network_explanation.html:15
+msgid "phase: TEST stage: \"val\""
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:32
+#: templates/models/images/generic/custom_network_explanation.html:16
+msgid "phase: TEST stage: \"deploy\""
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:35
+#: templates/models/images/generic/custom_network_explanation.html:19
+msgid ""
+"Your layer's include and exclude rules should be set properly to be "
+"picked up by the desired computation state[s].\n"
+"    You can look at the standard networks for examples.\n"
+"    In addition, since there are many ways to specify the rules, here's a"
+" table that you may find useful:"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:41
+#: templates/models/images/generic/custom_network_explanation.html:25
+msgid "Rule"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:42
+#: templates/models/images/generic/custom_network_explanation.html:26
+msgid "Train"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:43
+#: templates/models/images/generic/custom_network_explanation.html:27
+msgid "Val"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:44
+#: templates/models/images/generic/custom_network_explanation.html:28
+msgid "Deploy"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "You may notice that DIGITS still generates separate files for"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "train_val"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "and"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "deploy"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "networks, and that they each only use"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "phase"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "and not"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:98
+#: templates/models/images/generic/custom_network_explanation.html:82
+msgid "stage"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:99
+#: templates/models/images/generic/custom_network_explanation.html:83
+msgid "This is because Caffe doesn't fully support all-in-one networks yet."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:102
+#: templates/models/images/generic/custom_network_explanation.html:86
+msgid "Specifying a custom Torch network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:105
+#: templates/models/images/generic/custom_network_explanation.html:89
+msgid ""
+"Use this field to enter a Torch network using Lua code.\n"
+"    Refer to the documentation for more information."
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:109
+#: templates/models/images/generic/custom_network_explanation.html:93
+msgid "Specifying a custom Tensorflow network"
+msgstr ""
+
+#: templates/models/images/classification/custom_network_explanation.html:112
+msgid ""
+"Use this field to enter a Tensorflow network using python.\n"
+"        Refer to the documentation for more information."
+msgstr ""
+
+#: templates/models/images/classification/new.html:10
+#: templates/models/images/classification/new.html:19
+msgid "New Image Classification Model"
+msgstr ""
+
+#: templates/models/images/classification/new.html:14
+#: templates/models/images/generic/new.html:14
+msgid "New Model"
+msgstr ""
+
+#: templates/models/images/classification/new.html:46
+#: templates/models/images/generic/new.html:46
+msgid "Python Layers"
+msgstr ""
+
+#: templates/models/images/classification/new.html:107
+#: templates/models/images/generic/new.html:106
+msgid "Solver Options"
+msgstr ""
+
+#: templates/models/images/classification/new.html:142
+#: templates/models/images/classification/new.html:385
+#: templates/models/images/generic/new.html:142
+#: templates/models/images/generic/new.html:384
+msgid "[none]"
+msgstr ""
+
+#: templates/models/images/classification/new.html:150
+#: templates/models/images/generic/new.html:150
+msgid "[network defaults]"
+msgstr ""
+
+#: templates/models/images/classification/new.html:180
+#: templates/models/images/generic/new.html:180
+msgid "Show advanced learning rate options"
+msgstr ""
+
+#: templates/models/images/classification/new.html:271
+#: templates/models/images/generic/new.html:270
+msgid "Visualize LR"
+msgstr ""
+
+#: templates/models/images/classification/new.html:376
+#: templates/models/images/generic/new.html:375
+msgid "Data Transformations"
+msgstr ""
+
+#: templates/models/images/classification/new.html:389
+#: templates/models/images/generic/new.html:388
+msgid "Data Augmentations"
+msgstr ""
+
+#: templates/models/images/classification/new.html:703
+#: templates/models/images/generic/new.html:670
+msgid "Visualize"
+msgstr ""
+
+#: templates/models/images/classification/show.html:18
+#: templates/models/images/generic/show.html:18
+msgid "Disk Size"
+msgstr ""
+
+#: templates/models/images/classification/show.html:25
+#: templates/models/images/generic/show.html:25
+#, python-format
+msgid "Raw %(tgfi)s output"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:118
+#: templates/models/images/classification/show.html:37
+#: templates/models/images/generic/show.html:39
+msgid "Dataset"
+msgstr ""
+
+#: templates/models/images/classification/show.html:69
+#: templates/models/images/classification/show.html:254
+msgid "Publish to inference server"
+msgstr ""
+
+#: templates/models/images/classification/show.html:84
+msgid "Output layer"
+msgstr ""
+
+#: templates/models/images/classification/show.html:93
+msgid "Input layer"
+msgstr ""
+
+#: templates/models/images/classification/show.html:102
+msgid "Input shape"
+msgstr ""
+
+#: templates/models/images/classification/show.html:111
+msgid "Output shape"
+msgstr ""
+
+#: templates/models/images/classification/show.html:120
+msgid "Modality"
+msgstr ""
+
+#: templates/models/images/classification/show.html:137
+msgid "Submit"
+msgstr ""
+
+#: templates/models/images/classification/show.html:154
+msgid ""
+"Use bottom chart to select region of interest. Drag to pan left/right. "
+"Click outside of region to unselect."
+msgstr ""
+
+#: templates/models/images/classification/show.html:160
+#: templates/models/images/generic/show.html:69
+msgid "View Large"
+msgstr ""
+
+#: templates/models/images/classification/show.html:165
+#: templates/models/images/generic/show.html:74
+msgid "View Timeline Traces"
+msgstr ""
+
+#: templates/models/images/classification/show.html:197
+#: templates/models/images/generic/show.html:106
+msgid "Trained Models"
+msgstr ""
+
+#: templates/models/images/classification/show.html:200
+#: templates/models/images/generic/show.html:109
+msgid "Select Model"
+msgstr ""
+
+#: templates/models/images/classification/show.html:242
+#: templates/models/images/generic/show.html:151
+msgid "Download Model"
+msgstr ""
+
+#: templates/models/images/classification/show.html:249
+#: templates/models/images/generic/show.html:158
+msgid "Make Pretrained Model"
+msgstr ""
+
+#: templates/models/images/classification/show.html:261
+#: templates/models/images/generic/show.html:268
+msgid "Test a single image"
+msgstr ""
+
+#: templates/models/images/classification/show.html:263
+#: templates/models/images/generic/show.html:270
+msgid "Image Path"
+msgstr ""
+
+#: templates/models/images/classification/show.html:272
+#: templates/models/images/generic/show.html:279
+msgid "Upload image"
+msgstr ""
+
+#: templates/models/images/classification/show.html:277
+#: templates/models/images/classification/show.html:318
+#: templates/models/images/generic/show.html:284
+#: templates/models/images/generic/show.html:339
+msgid "Browse"
+msgstr ""
+
+#: templates/models/images/classification/show.html:293
+#: templates/models/images/generic/show.html:244
+#: templates/models/images/generic/show.html:300
+msgid "Show visualizations and statistics"
+msgstr ""
+
+#: templates/models/images/classification/show.html:298
+#: templates/models/images/generic/show.html:249
+#: templates/models/images/generic/show.html:305
+msgid ""
+"For each layer in the network, show statistics for the "
+"weights/activations and attempt to represent the data visually. Can delay"
+" classification considerably."
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:24
+#: templates/models/images/classification/show.html:311
+#: templates/models/images/generic/show.html:332
+msgid "Test a list of images"
+msgstr ""
+
+#: templates/models/images/classification/show.html:313
+#: templates/models/images/generic/show.html:334
+msgid "Upload Image List"
+msgstr ""
+
+#: templates/models/images/classification/show.html:324
+#: templates/models/images/generic/show.html:345
+msgid "Accepts a list of filenames or urls (you can use your val.txt file)"
+msgstr ""
+
+#: templates/models/images/classification/show.html:330
+#: templates/models/images/generic/show.html:351
+msgid ""
+"Relative paths in the text file will be prepended with this value before "
+"reading"
+msgstr ""
+
+#: templates/models/images/classification/show.html:333
+#: templates/models/images/generic/show.html:354
+msgid "Number of images use from the file"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:43
+#: templates/models/images/classification/show.html:334
+#: templates/models/images/generic/show.html:355
+msgid "All"
+msgstr ""
+
+#: templates/models/images/classification/show.html:335
+#: templates/models/images/generic/show.html:356
+msgid "Leave blank to use all"
+msgstr ""
+
+#: templates/models/images/classification/show.html:348
+msgid ""
+"Classify a list of images and show the top 5 category predictions for "
+"each."
+msgstr ""
+
+#: templates/models/images/classification/show.html:351
+msgid "Number of images to show per category"
+msgstr ""
+
+#: templates/models/images/classification/show.html:360
+#: templates/models/images/classification/top_n.html:13
+msgid "Top N Predictions per Category"
+msgstr ""
+
+#: templates/models/images/classification/show.html:365
+msgid ""
+"Classify a list of images and show the top N results per category by "
+"confidence."
+msgstr ""
+
+#: templates/models/images/classification/top_n.html:7
+msgid "Top N"
+msgstr ""
+
+#: templates/models/images/classification/top_n.html:29
+msgid "Category"
+msgstr ""
+
+#: templates/models/images/classification/top_n.html:30
+msgid "Top images for this category"
+msgstr ""
+
+#: templates/models/images/classification/partials/new/network_tab_pretrained.html:60
+#: templates/models/images/classification/partials/new/network_tab_previous.html:34
+#: templates/models/images/classification/partials/new/network_tab_standard.html:53
+#: templates/models/images/generic/partials/new/network_tab_pretrained.html:21
+#: templates/models/images/generic/partials/new/network_tab_previous.html:33
+msgid "Customize"
+msgstr ""
+
+#: templates/models/images/classification/partials/new/network_tab_previous.html:10
+#: templates/models/images/classification/partials/new/network_tab_standard.html:18
+#: templates/models/images/generic/partials/new/network_tab_previous.html:9
+#: templates/models/images/generic/partials/new/network_tab_standard.html:4
+msgid "Network"
+msgstr ""
+
+#: templates/models/images/classification/partials/new/network_tab_previous.html:21
+#: templates/models/images/generic/partials/new/network_tab_previous.html:20
+msgid "View"
+msgstr ""
+
+#: templates/models/images/classification/partials/new/network_tab_standard.html:19
+#: templates/models/images/generic/partials/new/network_tab_standard.html:5
+msgid "Details"
+msgstr ""
+
+#: templates/models/images/classification/partials/new/network_tab_standard.html:20
+#: templates/models/images/generic/partials/new/network_tab_standard.html:6
+msgid "Intended image size"
+msgstr ""
+
+#: templates/models/images/classification/partials/new/network_tab_standard.html:28
+#: templates/models/images/classification/partials/new/network_tab_standard.html:34
+#: templates/models/images/classification/partials/new/network_tab_standard.html:40
+#: templates/models/images/classification/partials/new/network_tab_standard.html:46
+msgid "Original paper"
+msgstr ""
+
+#: templates/models/images/classification/partials/new/network_tab_standard.html:31
+msgid "28x28 (gray)"
+msgstr ""
+
+#: templates/models/images/generic/custom_network_explanation.html:96
+msgid ""
+"Use this field to enter a Tensorflow network using python.\n"
+"    Refer to the documentation for more information."
+msgstr ""
+
+#: templates/models/images/generic/infer_db.html:12
+#: templates/models/images/generic/infer_extension.html:12
+#: templates/models/images/generic/infer_many.html:12
+#: templates/models/images/generic/show.html:364
+msgid "Test Many"
+msgstr ""
+
+#: templates/models/images/generic/infer_db.html:28
+#: templates/models/images/generic/infer_extension.html:28
+#: templates/models/images/generic/infer_many.html:27
+#: templates/models/images/generic/infer_one.html:50
+msgid "Inference failed, see job log"
+msgstr ""
+
+#: templates/models/images/generic/infer_db.html:49
+#: templates/models/images/generic/infer_many.html:48
+#: templates/models/images/generic/show.html:32
+msgid "Visualizations"
+msgstr ""
+
+#: templates/models/images/generic/infer_db.html:52
+#: templates/models/images/generic/infer_extension.html:53
+msgid "Index"
+msgstr ""
+
+#: templates/models/images/generic/infer_db.html:53
+msgid "Key"
+msgstr ""
+
+#: templates/models/images/generic/infer_extension.html:48
+msgid "Output visualizations"
+msgstr ""
+
+#: templates/models/images/generic/infer_extension.html:116
+msgid "Layer visualizations"
+msgstr ""
+
+#: templates/models/images/generic/infer_extension.html:130
+#: templates/models/images/generic/infer_one.html:120
+msgid "layer"
+msgstr ""
+
+#: templates/models/images/generic/infer_one.html:12
+#: templates/models/images/generic/show.html:314
+msgid "Test One"
+msgstr ""
+
+#: templates/models/images/generic/infer_one.html:40
+msgid "Source image"
+msgstr ""
+
+#: templates/models/images/generic/infer_one.html:44
+msgid "Inference visualization"
+msgstr ""
+
+#: templates/models/images/generic/new.html:10
+#: templates/models/images/generic/new.html:19
+msgid "New"
+msgstr ""
+
+#: templates/models/images/generic/new.html:10
+#: templates/models/images/generic/new.html:19
+msgid "Model"
+msgstr ""
+
+#: templates/models/images/generic/new.html:435
+msgid "This will overwrite data in the Custom Network tab. Continue?"
+msgstr ""
+
+#: templates/models/images/generic/new.html:620
+msgid "Visualization Error"
+msgstr ""
+
+#: templates/models/images/generic/new.html:620
+msgid "Tensorflow network visualization is only available for Google Chrome"
+msgstr ""
+
+#: templates/models/images/generic/new.html:634
+msgid "Loading..."
+msgstr ""
+
+#: templates/models/images/generic/show.html:33
+msgid "Tensorboard"
+msgstr ""
+
+#: templates/models/images/generic/show.html:164
+msgid "Select Visualization Method"
+msgstr ""
+
+#: templates/models/images/generic/show.html:174
+msgid "Visualization Options"
+msgstr ""
+
+#: templates/models/images/generic/show.html:201
+msgid "Inference Options"
+msgstr ""
+
+#: templates/models/images/generic/show.html:207
+msgid "Do not resize input image(s)"
+msgstr ""
+
+#: templates/models/images/generic/show.html:212
+msgid ""
+"By default input images are resized to the dimensions of the images in "
+"the dataset. Check this box\n"
+"                                to skip this stage. This may be useful "
+"for models that can take inputs of various dimensions."
+msgstr ""
+
+#: templates/models/images/generic/show.html:222
+msgid "Select Inference form"
+msgstr ""
+
+#: templates/models/images/generic/show.html:261
+msgid "Test"
+msgstr ""
+
+#: templates/models/images/generic/show.html:274
+msgid "Can be a path on the server's filesystem, or a URL."
+msgstr ""
+
+#: templates/models/images/generic/show.html:316
+msgid "Test a Database"
+msgstr ""
+
+#: templates/models/images/generic/show.html:318
+msgid "LMDB path"
+msgstr ""
+
+#: templates/models/images/generic/show.html:320
+msgid "Specify path to LMDB database on server"
+msgstr ""
+
+#: templates/models/images/generic/show.html:328
+msgid "Test DB"
+msgstr ""
+
+#: templates/models/images/generic/show.html:369
+msgid "Infer a list of images and show the network outputs."
+msgstr ""
+
+#: templates/partials/home/datasets_pane.html:25
+#: templates/partials/home/model_pane.html:25
+#: templates/partials/home/pretrained_model_pane.html:31
+msgid "Group Jobs:"
+msgstr ""
+
+#: templates/partials/home/datasets_pane.html:152
+msgid "No Datasets"
+msgstr ""
+
+#: templates/partials/home/model_pane.html:194
+msgid "No Models"
+msgstr ""
+
+#: templates/partials/home/pretrained_model_pane.html:147
+msgid "No Pretrained Models"
+msgstr ""
+
+#: tools/analyze_db.py:70
+msgid "No such file or directory"
+msgstr ""
+
+#: tools/analyze_db.py:74
+msgid "Not a directory"
+msgstr ""
+
+#: tools/analyze_db.py:148
+msgid "Shape is not set and datum is not encoded"
+msgstr ""
+
+#: tools/create_db.py:242
+msgid "input_file does not exist"
+msgstr ""
+
+#: tools/create_db.py:250
+msgid "invalid image width"
+msgstr ""
+
+#: tools/create_db.py:252
+msgid "invalid image height"
+msgstr ""
+
+#: tools/create_db.py:254
+msgid "invalid number of channels"
+msgstr ""
+
+#: tools/create_db.py:256
+msgid "invalid resize_mode"
+msgstr ""
+
+#: tools/create_db.py:258
+msgid "image_folder does not exist"
+msgstr ""
+
+#: tools/create_db.py:268
+#, python-format
+msgid "Cannot save mean file at \"%(mean_file)s\""
+msgstr ""
+
+#: tools/create_db.py:308
+msgid "invalid backend"
+msgstr ""
+
+#: tools/create_db.py:325
+msgid "Can't create TFRecords as support for Tensorflow is not enabled."
+msgstr ""
+
+#: tools/create_db.py:384 tools/create_db.py:463 tools/create_db.py:546
+msgid "no images loaded from input file"
+msgstr ""
+
+#: tools/create_db.py:388 tools/create_db.py:467 tools/create_db.py:550
+msgid "no images written to database"
+msgstr ""
+
+#: tools/create_db.py:594
+msgid "No valid lines in input file"
+msgstr ""
+
+#: tools/create_db.py:735 tools/create_db.py:790 tools/create_generic_db.py:138
+msgid "Invalid encoding type"
+msgstr ""
+
+#: tools/create_db.py:772
+#, python-format
+msgid "Image has unrecognized shape: \"%(image_shape)s\""
+msgstr ""
+
+#: tools/create_db.py:815 tools/create_generic_db.py:210
+#, python-format
+msgid "py-lmdb is out of date (%(version)s vs 0.87)"
+msgstr ""
+
+#: tools/create_db.py:867
+msgid "An input file of labeled images"
+msgstr ""
+
+#: tools/create_db.py:869
+msgid "Path to the output database"
+msgstr ""
+
+#: tools/create_db.py:872
+msgid "width of resized images"
+msgstr ""
+
+#: tools/create_db.py:876
+msgid "height of resized images"
+msgstr ""
+
+#: tools/create_db.py:884
+msgid "channels of resized images (1 for grayscale, 3 for color [default])"
+msgstr ""
+
+#: tools/create_db.py:887
+msgid ""
+"resize mode for images (must be \"crop\", \"squash\" [default], \"fill\" "
+"or \"half_crop\")"
+msgstr ""
+
+#: tools/create_db.py:890
+msgid "location to output the image mean (doesn't save mean if not specified)"
+msgstr ""
+
+#: tools/create_db.py:892
+msgid "folder containing the images (if the paths in input_file are not absolute)"
+msgstr ""
+
+#: tools/create_db.py:895
+msgid "Shuffle images before saving"
+msgstr ""
+
+#: tools/create_db.py:898
+msgid "Image encoding format (jpg/png)"
+msgstr ""
+
+#: tools/create_db.py:901
+msgid "Database compression format (gzip)"
+msgstr ""
+
+#: tools/create_db.py:905
+msgid "The database backend - lmdb[default], hdf5 or tfrecords"
+msgstr ""
+
+#: tools/create_db.py:908
+msgid "The initial map size for LMDB (in MB)"
+msgstr ""
+
+#: tools/create_db.py:912
+msgid "The size limit for HDF5 datasets"
+msgstr ""
+
+#: tools/create_generic_db.py:114
+#, python-format
+msgid "Invalid number of dimensions: %(ndim)d"
+msgstr ""
+
+#: tools/create_generic_db.py:262 tools/create_generic_db.py:352
+#, python-format
+msgid "Feature shape mismatch (last:%(fshape1)s, previous:%(fshape2)s)"
+msgstr ""
+
+#: tools/create_generic_db.py:265 tools/create_generic_db.py:355
+#, python-format
+msgid "Label shape mismatch (last:%(lshape1)s, previous:%(lshape2)s)"
+msgstr ""
+
+#: tools/create_generic_db.py:373
+#, python-format
+msgid "Number of processed entries (%(i1)d) does not match entry count (%(i2)d)"
+msgstr ""
+
+#: tools/create_generic_db.py:417
+#, python-format
+msgid "Dataset dir %(dataset_dir)s does not exist"
+msgstr ""
+
+#: utils/auth.py:22
+msgid "username is required"
+msgstr ""
+
+#: utils/auth.py:24
+msgid "Must start with a lowercase letter"
+msgstr ""
+
+#: utils/auth.py:26
+msgid "Only lowercase letters, numbers, periods, dashes and underscores allowed"
+msgstr ""
+
+#: utils/filesystem.py:16
+#, python-format
+msgid "Incorrect path: %(start_path)s"
+msgstr ""
+
+#: utils/filesystem.py:29
+#, python-format
+msgid "Python file, %(basename)s, needs .py or .pyc extension."
+msgstr ""
+
+#: utils/filesystem.py:32
+#, python-format
+msgid "Python file, %(filename)s, already exists."
+msgstr ""
+
+#: utils/filesystem.py:75
+#, python-format
+msgid "%(dir_name)s is not a directory."
+msgstr ""
+
+#: utils/forms.py:33
+msgid "This field is required."
+msgstr ""
+
+#: utils/forms.py:57
+#, python-format
+msgid "This field is required if %(other_field)s is set."
+msgstr ""
+
+#: utils/forms.py:77
+#, python-format
+msgid "Invalid field name '%(fieldname)s'."
+msgstr ""
+
+#: utils/forms.py:79
+#, python-format
+msgid "Field must be greater than %(fieldname)s."
+msgstr ""
+
+#: utils/forms.py:233
+msgid "      Browse&hellip;"
+msgstr ""
+
+#: utils/forms.py:290 utils/forms.py:336
+msgid "multiples allowed"
+msgstr ""
+
+#: utils/forms.py:315
+msgid "Not a valid integer value"
+msgstr ""
+
+#: utils/forms.py:361
+msgid "Not a valid float value"
+msgstr ""
+
+#: utils/forms.py:413
+#, python-format
+msgid "Number %(data)s must be at least %(min)s."
+msgstr ""
+
+#: utils/forms.py:415
+#, python-format
+msgid "Number %(data)s must be at most %(max)s."
+msgstr ""
+
+#: utils/forms.py:417
+#, python-format
+msgid "Number %(data)s must be greater than %(min)s."
+msgstr ""
+
+#: utils/forms.py:419
+#, python-format
+msgid "Number %(data)s must be less than %(max)s."
+msgstr ""
+
+#: utils/image.py:67
+#, python-format
+msgid "IOError: Trying to load \"%(path)s\": %(message)s"
+msgstr ""
+
+#: utils/image.py:70
+#, python-format
+msgid "\"%(path)s\" not found"
+msgstr ""
+
+#: utils/image.py:92
+#, python-format
+msgid "Image mode \"%(mode)s\" not supported"
+msgstr ""
+
+#: utils/image.py:106
+#, python-format
+msgid "Ratio must be greater than 1 (ratio=%(ratio)f)"
+msgstr ""
+
+#: utils/image.py:129
+#, python-format
+msgid "unsupported number of channels: %(channels)s"
+msgstr ""
+
+#: utils/image.py:136
+#, python-format
+msgid "unknown image mode \"%(image_mode)s\""
+msgstr ""
+
+#: utils/image.py:156 utils/image.py:163 utils/image.py:172 utils/image.py:183
+#, python-format
+msgid "invalid image shape: %(image_shape)s"
+msgstr ""
+
+#: utils/image.py:185
+msgid "resize_image() expected a PIL.Image.Image or a numpy.ndarray"
+msgstr ""
+
+#: utils/image.py:210
+#, python-format
+msgid "resize_mode \"%(resize_mode)s\" not supported"
+msgstr ""
+
+#: utils/image.py:275
+#, python-format
+msgid "unrecognized resize_mode \"%(resize_mode)s\""
+msgstr ""
+
+#: utils/image.py:311
+msgid "image must be a PIL.Image or a np.ndarray"
+msgstr ""
+
+#: utils/image.py:346
+#, python-format
+msgid "Unsupported channel_order %(channel_order)s"
+msgstr ""
+
+#: utils/image.py:385
+#, python-format
+msgid "unrecognized data shape: %(data_shape)s"
+msgstr ""
+
+#: utils/routing.py:17
+msgid "job_id is a required field"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/data.py:97
+msgid "bAbI"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:31
+msgid "Story folder"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:36
+msgid ""
+"Specify the path to a folder of stories - filenames are expected to have "
+"this format: qa[1-N]*[train|test].txt"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:41
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:128
+msgid "Task ID"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:66
+msgid "Select a task to train on or 'all' to train a joint model on all tasks."
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:98
+msgid "Story/Question"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/forms.py:99
+msgid "Write all sentences there and end with a question"
+msgstr ""
+
+#: ../plugins/data/bAbI/digitsDataPluginBAbI/templates/inference_template.html:9
+msgid "Test a story/question"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/data.py:170
+#: ../plugins/view/gan/digitsViewPluginGan/view.py:116
+msgid "GAN"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:43
+msgid "File list (with attributes) in CelebA format"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:47
+msgid "Provide file list in CelebA format"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:56
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:194
+msgid "Specify the path to a folder of images."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:60
+msgid "Center crop size"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:65
+msgid "Specify center crop."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:69
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:71
+msgid "Resize after crop."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:109
+msgid "Rows"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:114
+msgid "Rows to generate in output grid."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:124
+msgid "Select a dataset."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:130
+msgid "MNIST - Class sweep"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:131
+msgid "MNIST - Style sweep"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:132
+msgid "Generate single image"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:133
+msgid "CelebA - add/remove attributes"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:134
+msgid "CelebA - Encode list of images"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:135
+msgid "CelebA - Analogy"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:136
+msgid "CelebA - Animation"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:139
+msgid "Select a task to execute."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:143
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:155
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:168
+msgid "Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:147
+msgid "Z1 vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:151
+msgid "Z2 vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:159
+msgid "Class ID"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:164
+msgid "Class of image to generate (leave blank for CelebA)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:172
+msgid "Attributes vector file"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:176
+msgid "Specify the path to a file that contains attributes vectors."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:182
+msgid "File list"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:186
+msgid "Specify the path to a file that contains a list of files."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:198
+msgid "Number of images to encode"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:203
+msgid "Max number of images to encode."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:207
+msgid "Source Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:211
+msgid "First Sink Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:215
+msgid "Second Sink Z vector (leave blank for random)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:219
+msgid "Number of transitions per image"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:224
+msgid "Number of transitions between each of the specified images"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/forms.py:228
+msgid "z vectors (one per line)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:57
+msgid "GAN inference Options"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:61
+msgid "Choose a type of dataset"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:69
+msgid "Choose a task"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:78
+msgid "MNIST Class sweep parameters"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:80
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:92
+msgid "Use with \"GAN\" visualization method (select \"Grid\" task)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:90
+msgid "MNIST Style sweep parameters"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:108
+msgid "Image generation parameters"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:110
+msgid "Use with \"Image Output\" visualization method (select \"HWC\" data order)"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:126
+msgid "CelebA Additive Attributes"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:128
+msgid "Use with \"Image Output\" visualization method (HWC data order)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:142
+msgid ""
+"Add or remove attributes by filling corresponding box with +1 or -1\n"
+"        (or any other multiplier)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:167
+msgid "Encode file list"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:169
+msgid "Use with \"GAN\" visualization method (select \"Encoder\" task)."
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:191
+msgid "Analogy"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:193
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:217
+msgid "Use with \"GAN\" visualization method"
+msgstr ""
+
+#: ../plugins/data/gan/digitsDataPluginGan/templates/inference_template.html:215
+msgid "Animation"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/data.py:96
+#: ../plugins/view/imageGradients/digitsViewPluginImageGradients/view.py:80
+msgid "Gradients"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:20
+msgid "Train Image count"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:26
+msgid "Number of images to create in training set"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:30
+msgid "Validation Image count"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:36
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:46
+msgid "Number of images to create in validation set"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:40
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:87
+msgid "Test Image count"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:50
+msgid "Image Width"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:56
+msgid "Image Height"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:69
+msgid "Gradient (x)"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:74
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:83
+msgid "Specify a number between -0.5 and 0.5"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:78
+msgid "Gradient (y)"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/forms.py:92
+msgid "Number of images to create in test set"
+msgstr ""
+
+#: ../plugins/data/imageGradients/digitsDataPluginImageGradients/templates/inference_template.html:9
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:9
+msgid "Test an image"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/data.py:205
+msgid "Sunnybrook LV Segmentation"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:36
+msgid "Specify the path to the image folder"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:40
+msgid "Contour folder"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:45
+msgid "Specify the path to the contour folder"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:51
+msgid "RGB"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:86
+msgid "Image file"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:90
+msgid "Provide the (server) path to an image."
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:94
+msgid "Record from validation set"
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/forms.py:99
+msgid "Test a record from the validation set."
+msgstr ""
+
+#: ../plugins/data/sunnybrook/digitsDataPluginSunnybrook/templates/inference_template.html:20
+msgid "Test a record from validation set"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:32
+msgid "Training data (.csv)"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:37
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:49
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:105
+msgid ""
+"Data file in .csv format. There should be one sample per line. On each "
+"line, the first field should be the numerical class label. All subsequent"
+" fields will be concatenated to produce a single string of characters, up"
+" to the specified limit."
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:45
+msgid "Validation data (.csv)"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:57
+msgid "Dictionary"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:59
+msgid ""
+"Alphabet to use when converting characters to IDs (1-based indexing). "
+"Unknown characters will be all be assigned the same next available ID. "
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:65
+msgid "Class labels"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:76
+msgid "Number of characters per sample"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:82
+msgid ""
+"Specify how many characters to retain per sample. Shorter samples will be"
+" padded. Longer samples will be truncated. Leave blank and disable "
+"'Enforce same shape' below to use sample size in data file "
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:96
+msgid "Snippet"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:97
+msgid "Test a single snippet"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/forms.py:101
+msgid "Test data (.csv)"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:9
+msgid "Test a snippet"
+msgstr ""
+
+#: ../plugins/data/textClassification/digitsDataPluginTextClassification/templates/inference_template.html:19
+msgid "Test a data file"
+msgstr ""
+
+#: ../plugins/view/textClassification/digitsViewPluginTextClassification/view.py:78
+msgid "Text Classification"
+msgstr ""
+

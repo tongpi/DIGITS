@@ -1,0 +1,63 @@
+{# Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved. #}
+
+{% from "helper.html" import print_flashes %}
+
+{% extends "layout.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gds_style.css', ver=dir_hash) }}">
+{% endblock %}
+
+{% block content %}
+    <div class="gds-login-div">
+        <div class="gds-login" id="gds-login">
+            <div class="login-box">
+                 <div class="login-title">
+                        <span class="login-logo"></span>人工智能训练平台
+                 </div>
+                <form method="POST">
+                    <div class="login-content">
+                        <div class="infor-box"> {{ print_flashes() }}</div>
+                    <div class="form-group">
+                        <i class="icon icon-user"></i>
+                        <input class="form-control input-box" id="username" name="username" autofocus/>
+                    </div>
+                    <div class="form-group">
+                        <i class="icon icon-password"></i>
+                        <input class="form-control input-box" id="password" name="password" type="password" autofocus/>
+                    </div>
+                    <div class="register-text">
+                        <a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a>
+                        {% if have_user %}
+                        <a href="{{ url_for("digits.views.register") }}">{{ _('Register') }}</a>
+                        {% endif %}
+                        {% if error %}
+                            <p class="form-error-text">
+                                {{ error }}
+                            </p>
+                        {% endif %}
+                    </div>
+                    <input type="submit" name="login-button" class="login-btn" value='{{ _("Login") }}'/>
+
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    autodivheight();
+    function autodivheight(){
+        var winHeight=0;
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        if (document.documentElement && document.documentElement.clientHeight)
+            winHeight = document.documentElement.clientHeight;
+        document.getElementById("gds-login").style.marginTop= (winHeight - 545) / 2 +"px";
+    }
+    window.onresize=autodivheight;
+    </script>
+
+{% endblock %}
+

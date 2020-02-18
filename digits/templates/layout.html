@@ -1,0 +1,146 @@
+{# Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved. #}
+
+<!doctype html>
+<head>
+    <!-- For Internet Explorer -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="icon" href="{{url_for('static', filename='images/logo.png')}}" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap.min.css', ver=dir_hash) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/bootstrap-theme.min.css', ver=dir_hash) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css', ver=dir_hash) }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/c3.min.css', ver=dir_hash) }}">
+    <link rel="gettext" type="application/x-po" href="{{ url_for('static', filename='translations/zh_Hans_CN/LC_MESSAGES/messages.po') }}">
+    <title>{% block title %}人工智能训练平台{% endblock %}</title>
+
+    <script type="text/javascript">
+        var URL_PREFIX = "{{config['URL_PREFIX']}}";
+    </script>
+    <script src="{{ url_for('static', filename='js/3rdparty/jquery-1.11.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/bootstrap-3.3.6.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/bootbox-4.3.0.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/digits.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/d3-3.5.5.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/c3-0.4.10.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/jquery.autocomplete-1.2.21.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/file_field.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/underscore-1.8.3.min.js') }}"></script>
+
+    <script src="{{ url_for('static', filename='js/3rdparty/ace-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/ace.mode-python-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/ace.mode-lua-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/ace.theme-chrome-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
+    <script src="{{ url_for('static', filename='js/3rdparty/ace.ext-searchbox-1.2.3.min.js', ver=dir_hash) }}" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/Gettext.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/3rdparty/angular-1.5.3.min.js', ver=dir_hash) }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='js/angular-locale_zh.js', ver=dir_hash) }}"></script>
+    {% block head %}
+    {% endblock %}
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand logo" href="{{ url_for("digits.views.home") }}">人工智能训练平台</a>
+        </div>
+        <ul class="nav navbar-nav">
+            {% block nav %}
+            {% endblock %}
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="{{ url_for("digits.views.home") }}" class="navbar-link">首页</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.task_manager") }}" class="navbar-link">任务管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.system_manager") }}" class="navbar-link">系统管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.index_manager") }}" class="navbar-link">索引管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.data_manager") }}" class="navbar-link">数据管理</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.mark_manager", index='none') }}" class="navbar-link">数据标注</a></li>
+            <li><a href="{{ url_for("digits.unofficial.views.visualization_manager") }}" class="navbar-link">诊断分析</a></li>
+            <li>
+            <p class="navbar-text">
+            {% if username %}
+            欢迎您，{{username}} (<a class="navbar-link" href="{{ url_for("digits.views.logout") }}">{{_('Logout')}}</a>)
+            {% else %}
+            <a class="navbar-link" href="{{ url_for("digits.views.login") }}">{{_('Login')}}</a>
+            <a class="navbar-link" href="{{ url_for("digits.views.register") }}">{{_('Register')}}</a>
+            {% endif %}
+            </p>
+            </li>
+            <!--<li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Info<span class="caret"></span></a>
+            <ul class="dropdown-menu navbar-inverse">
+                {% if server_name %}
+                <li><span class="navbar-text">Server: {{server_name}}</span></li>
+                {% endif %}
+                <li><span class="navbar-text">DIGITS version: <br> {{server_version}}</span></li>
+                <li><span class="navbar-text">Caffe version: <br> {{caffe_version}}</span></li>
+                <li><span class="navbar-text">Caffe flavor: <br> {{caffe_flavor}}</span></li>
+            </ul>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">About<span class="caret"></span></a>
+                <ul class="dropdown-menu about-menu navbar-inverse">
+                    <li><span class="navbar-text"><a target="_blank" href="https://developer.nvidia.com/digits">
+                        DIGITS on developer.nvidia.com
+                    </a></span></li>
+                    <li><span class="navbar-text"><a target="_blank" href="https://github.com/NVIDIA/DIGITS">
+                        DIGITS on GitHub
+                    </a></span></li>
+                    <li><span class="navbar-text"><a target="_blank" href="https://groups.google.com/d/forum/digits-users">
+                        DIGITS user group
+                    </a></span></li>
+                    <li><span class="navbar-text"><a href="mailto:digits@nvidia.com">
+                        digits@nvidia.com
+                    </a></span></li>
+                </ul>
+            </li>
+            -->
+        </ul>
+    </div>
+</div>
+
+<div class="container">
+    {% block content %}
+    {% endblock %}
+</div>
+<script>
+
+bootbox.setDefaults("locale","zh_CN");
+
+$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+
+$(".explanation-tooltip").tooltip();
+
+window.onload = function () {
+    $('.autocomplete_path').autocomplete({
+       serviceUrl: '/autocomplete/path',
+       formatResult: function (suggestion, currentValue)
+       {
+            function baseName(str)
+            {
+               var base = new String(str).substring(str.lastIndexOf('/') + 1);
+               return base;
+            }
+            return baseName(suggestion.value);
+        },
+        minChars: 0
+    });
+    $(".autocomplete_path").removeAttr("autocomplete");
+};
+
+var gt = new Gettext({domain: 'digits'});
+var gettext = function(msgid) { return gt.gettext(msgid); };
+
+</script>
+
+<style>
+ .about-menu {
+     width: 240px !important;
+ }
+ .brightness {
+     display: inline-block;
+ }
+ .brightness img:hover {
+     opacity: .75;
+ }
+</style>
+</body>

@@ -1,0 +1,118 @@
+.btn-register > a:hover,
+.btn-register > a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.gds-login-div .page-header{
+    background-color: #EEF3F7;
+}
+.gds-login-div h1{
+    text-align: center;
+}
+.gds-login-div{
+    position:fixed;
+    left:0;
+    top:0;
+    bottom:0;
+    right:0;
+    width: 100%!important;
+    height: 100%!important;
+    background: url(../images/login-body-bg.jpg) no-repeat;
+    z-index:9999;
+}
+.gds-login{
+    width: 1100px!important;
+    height: 545px!important;
+    margin:auto;
+    background:  url(../images/cont_box.png) no-repeat;
+}
+.login-box {
+    width: 450px;
+    background: #fff;
+    margin-left: 650px;
+    height: 545px;
+}
+.login-title{
+    margin: 0;
+    padding:0;
+    height: 115px;
+    background: #eef3f7;
+    line-height: 115px;
+    font-size: 20px;
+    color: #454545;
+    padding-left: 65px;
+    text-indent: 45px;
+}
+.login-logo{
+    display:inline-block;
+    width: 37px;
+    height: 34px;
+    margin-right: 8px;
+    vertical-align: middle;
+    background:  url(../images/login-logo.png) no-repeat;
+}
+.login-content{
+    padding: 8px;
+    color:#333;
+}
+.infor-box{
+    height:50px;
+}
+.login-content .form-group{
+    position:relative;
+}
+.input-box{
+    width:300px;
+    height:42px;
+    margin:0 auto;
+    padding-left:40px;
+}
+.icon{
+    position: absolute;
+    top: 9px;
+    left: 75px;
+    display:inline-block;
+    width:24px;
+    height:24px;
+}
+.login-content .icon-user{
+     background:  url(../images/icon-user.png) no-repeat;
+}
+.login-content .icon-password{
+     background:  url(../images/icon-password.png) no-repeat;
+}
+.register-text{
+    width:300px;
+    height:50px;
+    margin:0 auto;
+    text-align:right;
+}
+.register-text a{
+     line-height:50px;
+    color:#333;
+}
+.login-btn{
+    display:block;
+    width:300px;
+    height:36px;
+    margin:0 auto;
+    color: #fff!important;
+    background-image:none;
+    border-width:0px;
+    background-color: #00adf9!important;
+    font-size: 20px;
+    letter-spacing: 30px;
+    text-align: center;
+    text-indent: 30px;
+    border-radius: 4px;
+}
+.register-box .form-group{
+    width:300px;
+    margin:0 auto 20px;
+}
+.form-error-text{
+    text-align: center;
+    margin-top: -35px;
+}
+

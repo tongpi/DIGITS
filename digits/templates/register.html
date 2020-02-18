@@ -1,0 +1,64 @@
+{# Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved. #}
+
+{% from "helper.html" import print_flashes %}
+
+{% extends "layout.html" %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/gds_style.css', ver=dir_hash) }}">
+{% endblock %}
+
+{% block content %}
+    <div class="gds-login-div">
+        <div class="gds-login" id="gds-login">
+            <div class="login-box">
+                 <div class="login-title">
+                        <span class="login-logo"></span>人工智能训练平台
+                 </div>
+                <form method="POST">
+                    <div class="login-content register-box">
+                        <div class="infor-box"> {{ print_flashes() }}</div>
+                    <div class="form-group">
+                        <label for="username">{{_('Username')}}</label>
+                        <input class="form-control" id="username" name="username" autofocus />
+                    </div>
+                    <div class="form-group">
+                        <label>{{ _('Password') }}</label>
+                        <input class="form-control" id="password" name="password" type="password" autofocus />
+                    </div>
+                     <div class="form-group">
+                         <label>{{ _('Repeat Password') }}</label>
+                        <input class="form-control" id="repeat_pwd" name="repeat_pwd" type="password" autofocus/>
+                     </div>
+                     <div class="register-text">
+                         <a href="{{ url_for("digits.views.login") }}">{{ _('Login') }}</a>
+                         {% if error %}
+                            <p class="form-error-text">
+                                {{ error }}
+                            </p>
+                        {% endif %}
+                     </div>
+                     <input type="submit" name="login-button" class="login-btn" value='{{_("register")}}' />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    autodivheight();
+    function autodivheight(){
+        var winHeight=0;
+        if (window.innerHeight)
+            winHeight = window.innerHeight;
+        else if ((document.body) && (document.body.clientHeight))
+            winHeight = document.body.clientHeight;
+        if (document.documentElement && document.documentElement.clientHeight)
+            winHeight = document.documentElement.clientHeight;
+        document.getElementById("gds-login").style.marginTop= (winHeight - 545) / 2 +"px";
+    }
+    window.onresize=autodivheight;
+    </script>
+
+
+{% endblock %}
+

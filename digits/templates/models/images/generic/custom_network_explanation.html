@@ -1,0 +1,98 @@
+{# Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved. #}
+
+<h1>{{_('Specifying a custom Caffe network')}}</h1>
+
+<p>
+    {{_('Use this field to enter a Caffe network in .prototxt format.')}}
+</p>
+
+<p>
+    {{_('The network should include the necessary layers for all computation states - Train, Val and Deploy.
+    When searching for layers, the network will be set to one of these three states:')}}
+</p>
+<ul>
+    <li>{{_('phase: TRAIN stage: "train"')}}</li>
+    <li>{{_('phase: TEST stage: "val"')}}</li>
+    <li>{{_('phase: TEST stage: "deploy"')}}</li>
+</ul>
+<p>
+    {{_('Your layer\'s include and exclude rules should be set properly to be picked up by the desired computation state[s].
+    You can look at the standard networks for examples.
+    In addition, since there are many ways to specify the rules, here\'s a table that you may find useful:')}}
+</p>
+<table class="table">
+    <tr>
+        <th>{{_('Rule')}}</th>
+        <th>{{_('Train')}}</th>
+        <th>{{_('Val')}}</th>
+        <th>{{_('Deploy')}}</th>
+    </tr>
+    <tr>
+        <td><i>none</i></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr>
+        <td>include { phase: TRAIN }</td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>include { stage: "train" }</td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>include { phase: TEST }</td>
+        <td></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr>
+        <td>include { stage: "val" }</td>
+        <td></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td><td></td>
+    </tr>
+    <tr>
+        <td>include { stage: "deploy" }</td>
+        <td></td>
+        <td></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+    </tr>
+    <tr>
+        <td>exclude { stage: "deploy" }</td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>
+            include { stage: "train" }
+            include { stage: "val" }
+        </td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td><span class="glyphicon glyphicon-ok"></span></td>
+        <td></td>
+    </tr>
+</table>
+<p>
+    {{_('You may notice that DIGITS still generates separate files for')}} <i>{{_('train_val')}}</i> {{_('and')}} <i>{{_('deploy')}}</i> {{_('networks, and that they each only use')}} <i>{{_('phase')}}</i> {{_('and not')}} <i>{{_('stage')}}</i>.
+    {{_('This is because Caffe doesn\'t fully support all-in-one networks yet.')}}
+</p>
+
+<h1>{{_('Specifying a custom Torch network')}}</h1>
+
+<p>
+    {{_('Use this field to enter a Torch network using Lua code.
+    Refer to the documentation for more information.')}}
+</p>
+
+<h1>{{_('Specifying a custom Tensorflow network')}}</h1>
+
+<p>
+    {{_('Use this field to enter a Tensorflow network using python.
+    Refer to the documentation for more information.')}}
+</p>
