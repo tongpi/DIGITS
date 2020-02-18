@@ -1,13 +1,8 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
+from __future__ import absolute_import
 
-
+from io import BytesIO
 import os.path
-
-# Find the best implementation available
-try:
-    from io import StringIO, BytesIO
-except ImportError:
-    from io import StringIO, BytesIO
 
 import flask
 import PIL.Image
@@ -56,11 +51,10 @@ def resize_example():
 
         data = utils.image.embed_image_html(image)
 
-        return _('<img src="%(data)s" style=\"width:%(width)spx;height=%(height)spx\" />\n<br>\n<i>Image size: %(size)s</i>',
-                 data=data,
-                 width=width,
-                 height=height,
-                 size=utils.sizeof_fmt(length)
-                 )
+        return '<img src=\"' + data + '\" style=\"width:%spx;height=%spx\" />\n<br>\n<i>Image size: %s</i>' % (
+            width,
+            height,
+            utils.sizeof_fmt(length)
+        )
     except Exception as e:
         return '%s: %s' % (type(e).__name__, e)

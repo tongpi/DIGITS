@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import datetime
 from ..job import ModelJob
@@ -32,5 +32,6 @@ class ImageModelJob(ModelJob):
             "creation time": creation_time,
             "username": self.username,
         })
+
         d.update(task.get_task_stats(epoch))
         return d

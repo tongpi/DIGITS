@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import hashlib
 import os
@@ -59,7 +58,7 @@ class PretrainedModelJob(Job):
             # 创建hub预训练模型的任务
             self.tasks.append(HubUploadTask(**taskKwargs))
         else:
-            raise Exception(_("framework of type %(framework)s is not supported", framework=self.framework))
+            raise Exception("framework of type " + self.framework + " is not supported")
 
     def get_weights_path(self):
         return self.tasks[0].get_weights_path()

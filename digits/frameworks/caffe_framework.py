@@ -1,10 +1,10 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os
 import re
-import base64
 
+import base64
 import caffe.draw
 from caffe.proto import caffe_pb2
 from google.protobuf import text_format

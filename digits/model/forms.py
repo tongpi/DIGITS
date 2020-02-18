@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 
 import os
@@ -160,6 +159,20 @@ class ModelForm(FlaskForm):
         ],
         tooltip=_("Accumulate gradients over multiple batches (useful when you "
                   "need a bigger batch size for training but it doesn't fit in memory).")
+    )
+
+    nvcaffe_blob_format = utils.forms.SelectField(
+        'Blob format',
+        choices=[
+            ('NVCaffe', 'NVCaffe'),
+            ('Compatible', 'Compatible'),
+        ],
+        tooltip=("Newer NVCaffe stores blobs in a more efficient, BVLC-Caffe-incompatible, format. "
+                 "Selecting 'Compatible' makes .caffemodel files compatible with BVLC Caffe. "
+                 "Ignored in BVLC or other frameworks. "
+                 "Users have to remove 'store_blob_in_old_format' line in solver.prototxt "
+                 "when it is reused in BVLC Caffe"),
+        default='NVCaffe'
     )
 
     # Solver types

@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import io
 import json
@@ -169,7 +168,7 @@ def visualize_lr():
     """
     policy = flask.request.form['lr_policy']
     # There may be multiple lrs if the learning_rate is swept
-    lrs = list(map(float, flask.request.form['learning_rate'].split(',')))
+    lrs = map(float, flask.request.form['learning_rate'].split(','))
     if policy == 'fixed':
         pass
     elif policy == 'step':
@@ -450,7 +449,7 @@ def download(job_id, extension):
         raise werkzeug.exceptions.BadRequest(_('Invalid extension'))
 
     response = flask.make_response(b.getvalue())
-    response.headers['Content-Disposition'] = 'attachment; filename=%s_epoch_%s.%s' % (job.id(), epoch, extension)
+    response.headers['Content-Disposition'] = 'attachment; filename={}_epoch_{}.{}'.format(job.id(), epoch, extension)
     return response
 
 
@@ -479,7 +478,7 @@ class ColumnType(object):
 
 
 def get_column_attrs():
-    job_outs = [set(list(j.train_task().train_outputs.keys()) + list(j.train_task().val_outputs.keys()))
-                for j in list(scheduler.jobs.values()) if isinstance(j, ModelJob)]
+    job_outs = [set(j.train_task().train_outputs.keys() + j.train_task().val_outputs.keys())
+                for j in scheduler.jobs.values() if isinstance(j, ModelJob)]
 
     return reduce(lambda acc, j: acc.union(j), job_outs, set())

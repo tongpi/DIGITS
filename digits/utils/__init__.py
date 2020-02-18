@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import inspect
 from io import BlockingIOError
@@ -9,8 +9,7 @@ import os
 import pkg_resources
 import platform
 from random import uniform
-from urllib.parse import urlparse
-
+from urllib import parse
 if not platform.system() == 'Windows':
     import fcntl
 else:
@@ -20,7 +19,7 @@ HTTP_TIMEOUT = 6.05
 
 
 def is_url(url):
-    return url is not None and urlparse(url).scheme != "" and not os.path.exists(url)
+    return url is not None and parse.urlparse(url).scheme != "" and not os.path.exists(url)
 
 
 def wait_time():
@@ -42,8 +41,7 @@ def nonblocking_readlines(f):
         fl = fcntl.fcntl(fd, fcntl.F_GETFL)
         fcntl.fcntl(fd, fcntl.F_SETFL, fl | os.O_NONBLOCK)
     enc = locale.getpreferredencoding(False)
-    # TODO(dzh):Use charset utf-8 in filename
-    enc = 'utf-8'
+
     buf = bytearray()
     while True:
         try:

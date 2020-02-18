@@ -9,6 +9,7 @@ import re
 import sys
 import time
 import urllib.request, urllib.parse, urllib.error
+from urllib import parse
 
 # Add path for DIGITS package
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))))
@@ -19,7 +20,7 @@ logger = logging.getLogger('digits.tools.parse_folder')
 
 
 def unescape(s):
-    return urllib.parse.unquote(s)
+    return parse.unquote(s)
 
 
 def validate_folder(folder):

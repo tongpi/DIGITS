@@ -1,6 +1,6 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
 
-import cPickle
+import pickle
 import os
 import tarfile
 
@@ -34,7 +34,7 @@ class Cifar100Downloader(DataDownloader):
         label_filename = 'meta'
         label_filepath = os.path.join(self.outdir, 'cifar-100-python', label_filename)
         with open(label_filepath, 'rb') as infile:
-            pickleObj = cPickle.load(infile)
+            pickleObj = pickle.load(infile)
             fine_label_names = pickleObj['fine_label_names']
             coarse_label_names = pickleObj['coarse_label_names']
 
@@ -71,8 +71,8 @@ class Cifar100Downloader(DataDownloader):
 
         # Read the pickle file
         with open(input_file, 'rb') as infile:
-            pickleObj = cPickle.load(infile)
-            # print 'Batch -', pickleObj['batch_label']
+            pickleObj = pickle.load(infile)
+            # print('Batch -', pickleObj['batch_label'])
             data = pickleObj['data']
             assert data.shape[1] == 3072, 'Unexpected data.shape %s' % (data.shape,)
             count = data.shape[0]

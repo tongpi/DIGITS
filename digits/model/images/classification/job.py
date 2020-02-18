@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os.path
 
@@ -28,7 +28,6 @@ class ImageClassificationModelJob(ImageModelJob):
     @override
     def download_files(self, epoch=-1, frozen_file=False):
         task = self.train_task()
-
         if frozen_file:
             snapshot_filenames = task.get_snapshot(epoch, frozen_file=True)
         else:
@@ -37,7 +36,7 @@ class ImageClassificationModelJob(ImageModelJob):
         # get model files
         model_files = task.get_model_files()
         download_files = [(self.path(filename), os.path.basename(filename))
-                          for filename in list(model_files.values())]
+                          for filename in model_files.values()]
 
         # add other files
         download_files.extend([

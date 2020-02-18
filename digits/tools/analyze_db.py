@@ -10,9 +10,9 @@ import time
 
 # Find the best implementation available
 try:
-    from io import StringIO, BytesIO
+    from cStringIO import StringIO
 except ImportError:
-    from io import StringIO, BytesIO
+    from io import StringIO
 
 import lmdb
 import numpy as np
@@ -107,7 +107,7 @@ def analyze_db(database,
     try:
         database = validate_database_path(database)
     except ValueError as e:
-        logger.error(e.args[0])
+        logger.error(str(e))
         return False
 
     reader = DbReader(database)
@@ -131,7 +131,7 @@ def analyze_db(database,
             if datum.encoded:
                 if force_same_shape or not len(unique_shapes.keys()):
                     # Decode datum to learn the shape
-                    s = BytesIO()
+                    s = StringIO()
                     s.write(datum.data)
                     s.seek(0)
                     img = PIL.Image.open(s)
@@ -143,9 +143,8 @@ def analyze_db(database,
                     height = '?'
                     channels = '?'
             else:
-                errstrlog = 'Shape is not set and datum is not encoded'
-                errstr = _('Shape is not set and datum is not encoded')
-                logger.error(errstrlog)
+                errstr = 'Shape is not set and datum is not encoded'
+                logger.error(errstr)
                 raise ValueError(errstr)
         else:
             width, height, channels = datum.width, datum.height, datum.channels
@@ -170,7 +169,7 @@ def analyze_db(database,
             # quit after reading one
             count = reader.total_entries
             logger.info('Assuming all entries have same shape ...')
-            unique_shapes[unique_shapes.keys()[0]] = count
+            unique_shapes[list(unique_shapes.keys())[0]] = count
             break
 
     if count != reader.total_entries:

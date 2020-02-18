@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 from werkzeug.datastructures import FileStorage
 import wtforms
@@ -28,10 +28,8 @@ def validate_required_iff(**kwargs):
         if all_conditions_met:
             # Verify that data exists
             if field.data is None \
-                    or (isinstance(field.data, (str, bytes))
-                        and not field.data.strip()) \
-                    or (isinstance(field.data, FileStorage)
-                        and not field.data.filename.strip()):
+                    or (isinstance(field.data, (bytes, str)) and not field.data.strip()) \
+                    or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
                 raise validators.ValidationError('This field is required.')
         else:
             # This field is not required, ignore other errors
@@ -53,11 +51,9 @@ def validate_required_if_set(other_field, **kwargs):
         other_field_value = getattr(form, other_field).data
         if other_field_value:
             # Verify that data exists
-            if field.data is None \
-                    or (isinstance(field.data, (str, bytes))
-                        and not field.data.strip()) \
-                    or (isinstance(field.data, FileStorage)
-                        and not field.data.filename.strip()):
+            if field.data is None or \
+                    (isinstance(field.data, (bytes, str)) and not field.data.strip()) \
+                    or (isinstance(field.data, FileStorage) and not field.data.filename.strip()):
                 raise validators.ValidationError('This field is required if %s is set.' % other_field)
         else:
             # This field is not required, ignore other errors
@@ -78,9 +74,9 @@ def validate_greater_than(fieldname):
         try:
             other = form[fieldname]
         except KeyError:
-            raise validators.ValidationError(field.gettext(_("Invalid field name '%(fieldname)s'.", fieldname=fieldname)))
+            raise validators.ValidationError(field.gettext(u"Invalid field name '%s'.") % fieldname)
         if field.data != '' and field.data < other.data:
-            message = field.gettext(_('Field must be greater than %(fieldname)s.', fieldname=fieldname))
+            message = field.gettext(u'Field must be greater than %s.' % fieldname)
             raise validators.ValidationError(message)
     return _validator
 
@@ -399,12 +395,15 @@ class MultiNumberRange(object):
     def __call__(self, form, field):
         fdata = field.data if isinstance(field.data, (list, tuple)) else [field.data]
         for data in fdata:
-            flags = 0
-            flags |= (data is None) << 0
-            flags |= (self.min is not None and self.min_inclusive and data < self.min) << 1
-            flags |= (self.max is not None and self.max_inclusive and data > self.max) << 2
-            flags |= (self.min is not None and not self.min_inclusive and data <= self.min) << 3
-            flags |= (self.max is not None and not self.max_inclusive and data >= self.max) << 4
+            if data is None:
+                flags = 1
+            else:
+                flags = 0
+                flags |= (data is None) << 0
+                flags |= (self.min is not None and self.min_inclusive and data < self.min) << 1
+                flags |= (self.max is not None and self.max_inclusive and data > self.max) << 2
+                flags |= (self.min is not None and not self.min_inclusive and data <= self.min) << 3
+                flags |= (self.max is not None and not self.max_inclusive and data >= self.max) << 4
 
             if flags:
                 message = self.message

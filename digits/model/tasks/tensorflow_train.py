@@ -1,5 +1,5 @@
 # Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import operator
 import os
@@ -17,6 +17,7 @@ from .train import TrainTask
 import digits
 from digits import utils
 from digits.utils import subclass, override, constants
+import absl.logging
 import tensorflow as tf
 from flask_babel import lazy_gettext as _
 from functools import reduce
@@ -152,6 +153,7 @@ class TensorflowTrainTask(TrainTask):
             return "no snapshots"
 
         if epoch == -1 or not epoch:
+            epoch = self.snapshots[-1][1]
             snapshot_pre = self.snapshots[-1][0]
         else:
             for f, e in self.snapshots:
@@ -169,6 +171,7 @@ class TensorflowTrainTask(TrainTask):
             snapshot_files = os.path.join(os.path.dirname(snapshot_pre), "frozen_model.pb")
         else:
             snapshot_files = snapshot_pre
+
         return snapshot_files
 
     @override
@@ -416,8 +419,33 @@ class TensorflowTrainTask(TrainTask):
                 level = 'critical'
             return (timestamp, level, message)
         else:
-            # self.logger.warning('Unrecognized task output "%s"' % line)
-            return (None, None, None)
+            """ Abseil logging facility output format.  Different from native Python logger."""
+            match = re.match(absl.logging.ABSL_LOGGING_PREFIX_REGEX + r'] (?P<message>.*)$', line)
+            if match:
+                matched_time = "{}-{} {}:{}:{}".format(
+                    match.group('month'),
+                    match.group('day'),
+                    match.group('hour'),
+                    match.group('minute'),
+                    match.group('second'))
+                timestamp = time.mktime(time.strptime(matched_time, '%m-%d %H:%M:%S'))
+                level = match.group('severity')
+                message = match.group('message')
+                """ Check this for definition of level.
+                https://github.com/abseil/abseil-py/blob/313935f33c31cc2bee2ef1c0dd883f8444a20723/absl/logging/converter.py#L95
+                """
+                if level == 'I':
+                    level = 'info'
+                elif level == 'W':
+                    level = 'warning'
+                elif level == 'E':
+                    level = 'error'
+                elif level == 'F':  # FAIL
+                    level = 'critical'
+                return (timestamp, level, message)
+            else:
+                # self.logger.warning('Unrecognized task output "%s"' % line)
+                return (None, None, None)
 
     def send_snapshot_update(self):
         """
@@ -448,7 +476,7 @@ class TensorflowTrainTask(TrainTask):
         if os.path.exists(self.path(self.TENSORFLOW_LOG)):
             output = subprocess.check_output(['tail', '-n40', self.path(self.TENSORFLOW_LOG)])
             lines = []
-            for line in output.split('\n'):
+            for line in output.decode('utf-8').split('\n'):
                 # parse tensorflow header
                 timestamp, level, message = self.preprocess_output_tensorflow(line)
 
@@ -621,11 +649,9 @@ class TensorflowTrainTask(TrainTask):
             if type(e) == digits.inference.errors.InferenceError:
                 error_message = e.__str__()
             else:
-                error_message_log = '%s classify one task failed with error code %d \n %s' % (
+                error_message = '%s classify one task failed with error code %d \n %s' % (
                     self.get_framework_id(), p.returncode, str(e))
-                error_message = _('%(id)s classify one task failed with error code %(returncode)d \n %(str_e)s',
-                                  id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
-            self.logger.error(error_message_log)
+            self.logger.error(error_message)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
                 error_message = error_message + unrecognized_output
@@ -635,9 +661,8 @@ class TensorflowTrainTask(TrainTask):
             self.after_test_run(temp_image_path)
 
         if p.returncode != 0:
-            error_message_log = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
-            error_message = _('%(id)s classify one task failed with error code %(returncode)d', id=self.get_framework_id(), returncode=p.returncode)
-            self.logger.error(error_message_log)
+            error_message = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
+            self.logger.error(error_message)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
                 error_message = error_message + unrecognized_output
@@ -737,7 +762,7 @@ class TensorflowTrainTask(TrainTask):
         std = np.std(data)
         y, x = np.histogram(data, bins=20)
         y = list(y)
-        ticks = x[[0, len(x)/2, -1]]
+        ticks = x[[0, len(x)//2, -1]]
         x = [(x[i]+x[i+1])/2.0 for i in range(len(x)-1)]
         ticks = list(ticks)
         return (mean, std, [y, x, ticks])
@@ -795,8 +820,8 @@ class TensorflowTrainTask(TrainTask):
             return True
 
         if level in ['error', 'critical']:
-            raise digits.inference.errors.InferenceError(_('%(id)s classify %(test_category)s task failed with error message - %(message)s',
-                                                           id=self.get_framework_id(), test_category=test_category, message=message))
+            raise digits.inference.errors.InferenceError('%s classify %s task failed with error message - %s' % (
+                self.get_framework_id(), test_category, message))
 
         return False  # control should never reach this line.
 
@@ -917,22 +942,18 @@ class TensorflowTrainTask(TrainTask):
                 if type(e) == digits.inference.errors.InferenceError:
                     error_message = e.__str__()
                 else:
-                    error_message_log = '%s classify many task failed with error code %d \n %s' % (
+                    error_message = '%s classify many task failed with error code %d \n %s' % (
                         self.get_framework_id(), p.returncode, str(e))
-                    error_message = _('%(id)s classify many task failed with error code %(returncode)d \n %(str_e)s',
-                                      id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
-                self.logger.error(error_message_log)
+                self.logger.error(error_message)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output
                 raise digits.inference.errors.InferenceError(error_message)
 
             if p.returncode != 0:
-                error_message_log = '%s classify many task failed with error code %d' % (self.get_framework_id(),
+                error_message = '%s classify many task failed with error code %d' % (self.get_framework_id(),
                                                                                      p.returncode)
-                error_message = _('%(id)s classify many task failed with error code %(returncode)d', id=self.get_framework_id(),
-                                  returncode=p.returncode)
-                self.logger.error(error_message_log)
+                self.logger.error(error_message)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output

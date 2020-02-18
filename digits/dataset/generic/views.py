@@ -1,12 +1,12 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os
 # Find the best implementation available
 try:
-    from io import StringIO, BytesIO
+    from cStringIO import StringIO
 except ImportError:
-    from io import StringIO, BytesIO
+    from io import StringIO
 
 from caffe.proto import caffe_pb2
 import flask
@@ -14,7 +14,7 @@ import matplotlib as mpl
 import matplotlib.pyplot as plt
 import numpy as np
 import PIL.Image
-
+from io import BytesIO
 from .forms import GenericDatasetForm
 from .job import GenericDatasetJob
 from digits import extensions, utils

@@ -78,10 +78,11 @@ class HubInferenceTask(Task):
         self.inference_log = open(self.path(self.inference_log_file), 'a')
         if isinstance(self.images, list):
             # create a file to pass the list of images to perform inference on
-            _, self.image_list_path = tempfile.mkstemp(dir=self.job_dir, suffix='.txt')
-            with open(self.image_list_path, "w") as imglist_handle:
-                for image_path in self.images:
-                    print(image_path, file=imglist_handle)
+            imglist_handle, self.image_list_path = tempfile.mkstemp(dir=self.job_dir, suffix='.txt', text=True)
+            for image_path in self.images:
+                line = "{}\n".format(image_path)
+                os.write(imglist_handle, line.encode())
+            os.close(imglist_handle)
 
 
     @override

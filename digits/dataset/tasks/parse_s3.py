@@ -9,20 +9,23 @@ import digits
 from digits import utils
 from digits.task import Task
 from digits.utils import subclass, override
-from flask_babel import lazy_gettext as _
 
 # NOTE: Increment this every time the pickled object
 PICKLE_VERSION = 1
 
 
 @subclass
-class ParseFolderTask(Task):
+class ParseS3Task(Task):
     """Parses a folder into textfiles"""
 
-    def __init__(self, folder, **kwargs):
+    def __init__(self, s3_endpoint_url, s3_bucket, s3_path, s3_accesskey, s3_secretkey, **kwargs):
         """
         Arguments:
-        folder -- the folder to parse (can be a filesystem path or a url)
+        s3_endpoint_url -- endpoint url
+        s3_bucket -- bucekt name
+        s3_path -- a path to images
+        s3_accesskey -- accesskey
+        s3_secretkey -- secretkey
 
         Keyword arguments:
         percent_val -- percent of images used in the validation set
@@ -36,10 +39,14 @@ class ParseFolderTask(Task):
         self.min_per_category = kwargs.pop('min_per_category', 2)
         self.max_per_category = kwargs.pop('max_per_category', None)
 
-        super(ParseFolderTask, self).__init__(**kwargs)
+        super(ParseS3Task, self).__init__(**kwargs)
         self.pickver_task_parsefolder = PICKLE_VERSION
 
-        self.folder = folder
+        self.s3_endpoint_url = s3_endpoint_url
+        self.s3_bucket = s3_bucket
+        self.s3_path = s3_path
+        self.s3_accesskey = s3_accesskey
+        self.s3_secretkey = s3_secretkey
 
         if percent_val is None:
             self.percent_val = 0
@@ -48,7 +55,7 @@ class ParseFolderTask(Task):
             if pct < 0:
                 pct = 0
             elif pct > 100:
-                raise ValueError(_('percent_val must not exceed 100'))
+                raise ValueError('percent_val must not exceed 100')
             self.percent_val = pct
 
         if percent_test is None:
@@ -58,11 +65,11 @@ class ParseFolderTask(Task):
             if pct < 0:
                 pct = 0
             elif pct > 100:
-                raise ValueError(_('percent_test must not exceed 100'))
+                raise ValueError('percent_test must not exceed 100')
             self.percent_test = pct
 
         if percent_val is not None and percent_test is not None and percent_val + percent_test > 100:
-            raise ValueError(_('the sum of percent_val and percent_test must not exceed 100'))
+            raise ValueError('the sum of percent_val and percent_test must not exceed 100')
 
         self.train_file = utils.constants.TRAIN_FILE
         self.val_file = utils.constants.VAL_FILE
@@ -76,11 +83,11 @@ class ParseFolderTask(Task):
         self.label_count = None
 
     def __getstate__(self):
-        state = super(ParseFolderTask, self).__getstate__()
+        state = super(ParseS3Task, self).__getstate__()
         return state
 
     def __setstate__(self, state):
-        super(ParseFolderTask, self).__setstate__(state)
+        super(ParseS3Task, self).__setstate__(state)
 
     @override
     def name(self):
@@ -92,7 +99,7 @@ class ParseFolderTask(Task):
         if self.percent_test > 0:
             sets.append('test')
 
-        return _('Parse Folder (%(name)s)', name=('/'.join(sets)))
+        return 'Parse Folder (%s)' % ('/'.join(sets))
 
     @override
     def html_id(self):
@@ -120,8 +127,12 @@ class ParseFolderTask(Task):
     def task_arguments(self, resources, env):
         args = [sys.executable, os.path.join(
             os.path.dirname(os.path.abspath(digits.__file__)),
-            'tools', 'parse_folder.py'),
-            self.folder,
+            'tools', 'parse_s3.py'),
+            self.s3_endpoint_url,
+            self.s3_bucket,
+            self.s3_path,
+            self.s3_accesskey,
+            self.s3_secretkey,
             self.path(utils.constants.LABELS_FILE),
             '--min=%s' % self.min_per_category,
         ]

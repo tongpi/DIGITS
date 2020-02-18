@@ -47,6 +47,7 @@ import binascii
 import caffe
 from io import BytesIO
 import PIL.Image
+import inspect
 
 import keras
 from keras import Sequential
@@ -60,8 +61,6 @@ from digits.utils.visualization import DrawVisualization
 TF_INTRA_OP_THREADS = 0
 TF_INTER_OP_THREADS = 0
 MIN_LOGS_PER_TRAIN_EPOCH = 8  # torch default: 8
-
-logging.basicConfig(level=logging.INFO)
 
 FLAGS = tf.app.flags.FLAGS
 
@@ -318,6 +317,7 @@ def load_snapshot(sess, weight_path, var_candidates):
                     vars_restore.append(vt)
                 else:
                     logging.info('NOT restoring %s -> %s' % (vm, vt.name))
+
     logging.info('Restoring %s variable ops.' % len(vars_restore))
     tf.train.Saver(vars_restore, max_to_keep=0, sharded=True).restore(sess, weight_path)
     logging.info('Variables restored.')
@@ -405,9 +405,9 @@ def Inference(sess, model):
     try:
         while not model.queue_coord.should_stop():
             keys, preds, [w], [a] = sess.run([model.dataloader.batch_k,
-                                              inference_op,
-                                              [weight_vars],
-                                              [activation_ops]])
+                                             inference_op,
+                                             [weight_vars],
+                                             [activation_ops]])
 
             if FLAGS.visualize_inf:
                 save_weight_visualization(weight_vars, activation_ops, w, a)
@@ -416,8 +416,8 @@ def Inference(sess, model):
             for i in range(len(keys)):
                 #    for j in range(len(preds)):
                 # We're allowing multiple predictions per image here. DIGITS doesnt support that iirc
-
-                logging.info('Predictions for image ' + str(model.dataloader.get_key_index(keys[i].decode('utf-8'))) +
+                str_key = keys[i].decode('utf-8')
+                logging.info('Predictions for image ' + str(model.dataloader.get_key_index(str_key)) +
                              ': ' + json.dumps(preds[i].tolist()))
     except tf.errors.OutOfRangeError:
         print('Done: tf.errors.OutOfRangeError')
@@ -576,11 +576,13 @@ def main(_):
         # Start running operations on the Graph. allow_soft_placement must be set to
         # True to build towers on GPU, as some of the ops do not have GPU
         # implementations.
-        sess = tf.Session(config=tf.ConfigProto(
-                          allow_soft_placement=True,  # will automatically do non-gpu supported ops on cpu
-                          inter_op_parallelism_threads=TF_INTER_OP_THREADS,
-                          intra_op_parallelism_threads=TF_INTRA_OP_THREADS,
-                          log_device_placement=FLAGS.log_device_placement))
+        tf_config = tf.ConfigProto(
+            allow_soft_placement=True,  # will automatically do non-gpu supported ops on cpu
+            inter_op_parallelism_threads=TF_INTER_OP_THREADS,
+            intra_op_parallelism_threads=TF_INTRA_OP_THREADS,
+            log_device_placement=FLAGS.log_device_placement)
+        tf_config.gpu_options.allow_growth = True
+        sess = tf.Session(config=tf_config)
 
         if FLAGS.visualizeModelPath:
             visualize_graph(sess.graph_def, FLAGS.visualizeModelPath)
@@ -619,8 +621,6 @@ def main(_):
         for n in tf.get_default_graph().as_graph_def().node:
             if '_Size' in n.name:
                 queue_size_op.append(n.name+':0')
-
-        start = time.time()  # @TODO(tzaman) - removeme
 
         # Initial Forward Validation Pass
         if FLAGS.validation_db:
@@ -708,14 +708,14 @@ def main(_):
 
                     print_vals_sum = print_vals + print_vals_sum
 
-                    steps_since_log = step - step_last_log
-                    print_list = print_summarylist(tags, print_vals_sum / steps_since_log)
-                    logging.info("Training (epoch " + str(current_epoch) + "): " + print_list)
-                    print_vals_sum = 0
                     # @TODO(tzaman): account for variable batch_size value on very last epoch
                     current_epoch = round((step * batch_size_train) / train_model.dataloader.get_total(), epoch_round)
                     # Start with a forward pass
                     if ((step % logging_interval_step) == 0):
+                        steps_since_log = step - step_last_log
+                        print_list = print_summarylist(tags, print_vals_sum/steps_since_log)
+                        logging.info("Training (epoch " + str(current_epoch) + "): " + print_list)
+                        print_vals_sum = 0
                         step_last_log = step
 
                     # Potential Validation Pass
@@ -740,7 +740,6 @@ def main(_):
                             FLAGS.snapshotInterval
                         last_snapshot_save_epoch = current_epoch
                     writer.flush()
-
             except tf.errors.OutOfRangeError:
                 logging.info('Done training for epochs: tf.errors.OutOfRangeError')
             except ValueError as err:
@@ -754,32 +753,55 @@ def main(_):
                 checkpoint_path, graphdef_path = \
                     save_snapshot(sess, saver, FLAGS.save, snapshot_prefix, FLAGS.epoch, FLAGS.serving_export)
 
-        print('Training wall-time:', time.time()-start)  # @TODO(tzaman) - removeme
-
         # If required, perform final Validation pass
         if FLAGS.validation_db and current_epoch >= next_validation:
             Validation(sess, val_model, current_epoch)
 
         if FLAGS.train_db:
-            output_tensor = train_model.towers[0].inference
-            out_name, _ = output_tensor.name.split(':')
+            if FLAGS.labels_list:
+                output_tensor = train_model.towers[0].inference
+                out_name, _ = output_tensor.name.split(':')
+
         if FLAGS.train_db:
-            val_file = FLAGS.val_file
-            var_db = FLAGS.validation_db
+            del train_model
+        if FLAGS.validation_db:
+            del val_model
+        if FLAGS.inference_db:
+            del inf_model
+
+        # 从用户自定义keras网络中提取model
+        if FLAGS.train_db:
             dims = eval(FLAGS.db_dims)
-            try:
+            with open(path_network, 'r') as f:
+                network_code = f.read()
+            keras_codes = network_code.split('\n')
+            code_list = []
+            for line in keras_codes:
+                if 'model' in line and 'return' not in line and 'self' not in line \
+                        and 'output' not in line and 'property' not in line and 'import' not in line:
+                    code_list.append(line.replace(' ', ''))
+
+            code_list[1] = code_list[1][:-2] + ',input_shape=({},{},{})))'.format(dims[0], dims[1], dims[2])
+            loc = locals()
+            exec(code_list[0])
+            model = loc['model']
+            for code in code_list[1:]:
+                exec(code)
+            model.add(tf.contrib.keras.layers.Dense(nclasses, activation='softmax'))
+
+            if hasattr(model, 'predict_classes'):
+                # load_snapshot(sess, checkpoint_path, tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES))
+                val_file = FLAGS.val_file
+                var_db = FLAGS.validation_db
+
                 with open(val_file, 'r') as f:
                     l = f.readlines()
-
                 y_test = []
                 for i in l:
                     y_test.append(int(i.split(' ')[1][0]))
-
                 y = np.array(y_test)
                 labels = np.unique(y)
-
                 env_db = lmdb.open(var_db)
-
                 input_data = []
                 with env_db.begin() as txn:
                     cursor = txn.cursor()
@@ -793,116 +815,12 @@ def main(_):
                         img = np.array(img)
                         img = img.flatten()
                         input_data.append(img)
-
                 y_train = np.asarray(input_data)
                 y_train = y_train.reshape(-1, dims[0], dims[1], dims[2])
-
-                tf_model = train_model.towers[0].kmodel
-
-                dv = DrawVisualization(tf_model, y, y_train, labels, FLAGS.save)
-
+                dv = DrawVisualization(model, y, y_train, labels, FLAGS.save)
                 dv.draw_confusion_matrix()
                 dv.draw_class_prediction_error()
                 dv.draw_roc_auc()
-
-
-
-                # print(y_pred)
-                # yp = np.asarray(y)
-                # if yp.dtype.kind in {"i", "u"}:
-                #     idx = yp
-                # else:
-                #     idx = LabelEncoder().fit_transform(yp)
-                # y_true = np.asarray(labels)[idx]
-                #
-                # yp = np.asarray(y_pred)
-                # if yp.dtype.kind in {"i", "u"}:
-                #     idx = yp
-                # else:
-                #     idx = LabelEncoder().fit_transform(yp)
-                # y_pred = np.asarray(labels)[idx]
-                #
-                # c_m = confusion_matrix(y_true, y_pred, labels=labels)
-                #
-                # cm_display = c_m[::-1, ::]
-                # n_classes = len(labels)
-                # X, Y = np.arange(n_classes + 1), np.arange(n_classes + 1)
-                #
-                # ax = plt.gca()
-                #
-                # ax.set_ylim(bottom=0, top=cm_display.shape[0])
-                # ax.set_xlim(left=0, right=cm_display.shape[1])
-                #
-                # xticklabels = labels
-                # yticklabels = labels[::-1]
-                # ticks = np.arange(n_classes) + 0.5
-                #
-                # ax.set(xticks=ticks, yticks=ticks)
-                # ax.set_xticklabels(xticklabels, rotation="vertical")
-                # ax.set_yticklabels(yticklabels)
-                #
-                # edgecolors = []
-                #
-                # for x in X[:-1]:
-                #     for y in Y[:-1]:
-                #         value = cm_display[x, y]
-                #         svalue = "{:0.0f}".format(value)
-                #
-                #         base_color = cmap(value / cm_display.max())
-                #         text_color = find_text_color(base_color)
-                #
-                #         if cm_display[x, y] == 0:
-                #             text_color = "0.75"
-                #
-                #         cx, cy = x + 0.5, y + 0.5
-                #         ax.text(
-                #             cy,
-                #             cx,
-                #             svalue,
-                #             va="center",
-                #             ha="center",
-                #             color=text_color
-                #         )
-                #         lc = "k" if xticklabels[x] == yticklabels[y] else "w"
-                #         edgecolors.append(lc)
-                #
-                # vmin = 0.00001
-                # vmax = cm_display.max()
-                #
-                # ax.pcolormesh(
-                #     X,
-                #     Y,
-                #     cm_display,
-                #     vmin=vmin,
-                #     vmax=vmax,
-                #     edgecolor=edgecolors,
-                #     cmap=cmap,
-                #     linewidth="0.01",
-                # )
-                # cm_image_path = os.path.join(FLAGS.save, 'confusion_matrix.png')
-                # # cm_image_path = os.path.join(FLAGS.save, 'confusion_matrix.png')
-                # # print('******************************', cm_image_path)
-                # plt.savefig(cm_image_path)
-                # # plt.savefig("/data/domon/test2020-6.png")
-            except Exception as e:
-                print(e)
-            finally:
-                try:
-                    if FLAGS.train_db:
-                        del train_model
-                    if FLAGS.validation_db:
-                        del val_model
-                    if FLAGS.inference_db:
-                        del inf_model
-                except tensorflow.python.framework.errors_impl.CancelledError:
-                    pass
-
-        # if FLAGS.train_db:
-        #     del train_model
-        # if FLAGS.validation_db:
-        #     del val_model
-        # if FLAGS.inference_db:
-        #     del inf_model
 
         # We need to call sess.close() because we've used a with block
         sess.close()
@@ -912,29 +830,26 @@ def main(_):
     tf.reset_default_graph()
 
     del sess
-    '''
-    if FLAGS.train_db:
-        path_frozen = os.path.join(FLAGS.save, 'frozen_model.pb')
+    # if FLAGS.train_db:
+    #     if FLAGS.labels_list:
+    #         path_frozen = os.path.join(FLAGS.save, 'frozen_model.pb')
+    #         print('Saving frozen model at path {}'.format(path_frozen))
+    #         freeze_graph.freeze_graph(
+    #             input_graph=graphdef_path,
+    #             input_saver='',
+    #             input_binary=True,
+    #             input_checkpoint=checkpoint_path,
+    #             output_node_names=out_name,
+    #             restore_op_name="save/restore_all",
+    #             filename_tensor_name="save/Const:0",
+    #             output_graph=path_frozen,
+    #             clear_devices=True,
+    #             initializer_nodes="",
+    #         )
 
-        print('Saving frozen model at path {}'.format(path_frozen))
-
-        freeze_graph.freeze_graph(
-            input_graph=graphdef_path,
-            input_saver='',
-            input_binary=True,
-            input_checkpoint=checkpoint_path,
-            output_node_names=out_name,
-            restore_op_name="save/restore_all",
-            filename_tensor_name="save/Const:0",
-            output_graph=path_frozen,
-            clear_devices=True,
-            initializer_nodes=""
-        )
-    '''
     logging.info('END')
 
     exit(0)
-
 
 if __name__ == '__main__':
     tf.app.run()

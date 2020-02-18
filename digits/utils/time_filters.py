@@ -1,6 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-# -*- coding: utf-8 -*-
-
+from __future__ import absolute_import
 
 import time
 from flask_babel import lazy_gettext as _

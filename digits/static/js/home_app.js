@@ -10,7 +10,6 @@ try {
             return $sce.trustAsHtml(input);
         }
     });
-
     app.controller('tab_controller', function($scope) {
         var self = this;
         $scope.init = function(tab) {
@@ -37,7 +36,7 @@ try {
         $scope.add_job = function(job_id) {
             $http({
                 method: 'GET',
-                url: URL_PREFIX + '/jobs/' + job_id + '/table_data.json',
+                url: URL_PREFIX + '/jobs/' + job_id + '/table_data/json',
             }).then(function success(response) {
                 var job = response.data.job;
                 for (var i = 0; i < $scope.jobs.length; i++) {
@@ -69,7 +68,7 @@ try {
         $scope.load_jobs = function() {
             $http({
                 method: 'GET',
-                url: URL_PREFIX + '/completed_jobs.json',
+                url: URL_PREFIX + '/completed_jobs/json',
             }).then(function success(response) {
                 // Find the dataset reference count
                 var count = {};
@@ -90,9 +89,6 @@ try {
 
                 var r = response.data;
                 $scope.jobs = [].concat(r.running, r.datasets, r.models, r.pretrained_models);
-                for (var i = 0; i < $scope.jobs.length; i++) {
-                    $scope.jobs[i].status = gettext($scope.jobs[i].status);
-                }
 
                 var scope = angular.element(document.getElementById('models-table')).scope();
                 // scope.storage.model_output_fields = [];
@@ -551,6 +547,12 @@ try {
             {name: 'elapsed', title:gettext('elapsed'), show: true, min_width: 50},
             {name: 'submitted', title:gettext('submitted'), show: true, min_width: 50}
         ];
+
+        $scope.storage = $localStorage.$default({
+            model_output_fields: [],
+            model_fields: model_fields,
+        });
+
         if ($localStorage.model_fields) {
             for (var i = 0; i < model_fields.length; i++) {
                 var index = $localStorage.model_fields.findIndex(
@@ -566,10 +568,11 @@ try {
                 }
             }
         }
-        $scope.storage = $localStorage.$default({
-            model_output_fields: [],
-            model_fields: model_fields,
-        });
+
+        // $scope.storage = $localStorage.$default({
+        //     model_output_fields: [],
+        //     model_fields: model_fields,
+        // });
         $scope.storage.model_fields = model_fields.slice();
     });
 

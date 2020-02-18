@@ -1,5 +1,5 @@
 # Copyright (c) 2016, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 from . import option_list
 
 
@@ -10,7 +10,7 @@ def test_tf_import():
     try:
         import tensorflow  # noqa
         return True
-    except ImportError:
+    except (ImportError, ModuleNotFoundError):
         return False
 
 tf_enabled = test_tf_import()

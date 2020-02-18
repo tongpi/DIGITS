@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import json
 import os
@@ -192,7 +192,7 @@ def models():
                 parser.feed(page.content)
                 if len(parser.get_child_dirs()) > 0:  # we have list of subdirectories
                     dirs = [d[:-1] for d in parser.get_child_dirs()]
-                    msg = _('Thanks for visiting %(url)s', url=store_base_url)
+                    msg = 'Thanks for visiting {}'.format(store_base_url)
                 else:  # nothing found, try next URL
                     continue
         except requests.exceptions.RequestException as e:

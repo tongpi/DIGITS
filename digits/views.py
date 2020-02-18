@@ -1,6 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-# -*- coding: utf-8 -*-
-
+from __future__ import absolute_import
 
 import glob
 import hashlib
@@ -27,26 +26,7 @@ from .models import valid_login, valid_regist, User, verify_pwd
 blueprint = flask.Blueprint(__name__, __name__)
 
 
-@blueprint.route('/model.json', methods=['GET'])
-def model_json():
-    """
-    Returns JSON when requested:
-        {
-            datasets: [{id, name, status},...],
-            models: [{id, name, status},...]
-        }
-    """
-    running_models = get_job_list(model.ModelJob, True)
-    completed_models = get_job_list(model.ModelJob, False)
-
-    data = {
-        'models': [j.json_dict()
-                   for j in running_models + completed_models],
-    }
-    return flask.jsonify(data)
-
-
-@blueprint.route('/index.json', methods=['GET'])
+@blueprint.route('/index/json', methods=['GET'])
 @blueprint.route('/home', methods=['GET'])
 @utils.auth.requires_login
 def home(tab=2):
@@ -136,6 +116,7 @@ def home(tab=2):
         for extension in data_extensions:
             ext_category = extension.get_category()
             ext_title = extension.get_title()
+            ext_title = ext_title[:21] + ' ..' if len(ext_title) > 21 else ext_title
             ext_id = extension.get_id()
             if ext_category not in new_dataset_options:
                 new_dataset_options[ext_category] = {}
@@ -177,6 +158,7 @@ def json_dict(job, model_output_fields):
         'group': job.group,
         'status': job.status_of_tasks().name,
         'status_css': job.status_of_tasks().css,
+        'status_text': job.status_of_tasks().text,
         'submitted': job.status_history[0][1],
         'elapsed': job.runtime_of_tasks(),
     }
@@ -190,6 +172,7 @@ def json_dict(job, model_output_fields):
         d.update({
             'framework': job.train_task().get_framework_id(),
         })
+
         for prefix, outputs in (('train', job.train_task().train_outputs),
                                 ('val', job.train_task().val_outputs)):
             for key in outputs.keys():
@@ -200,8 +183,15 @@ def json_dict(job, model_output_fields):
                     model_output_fields.add(key + 'min')
                     model_output_fields.add(key + 'max')
                     d.update({key + 'last': data[-1]})
-                    d.update({key + 'min': min(data)})
-                    d.update({key + 'max': max(data)})
+                    try:
+                        d.update({key + 'min': min(data)})
+                    except TypeError:
+                        d.update({key + 'min': 0})
+                    try:
+                        d.update({key + 'max': max(data)})
+                    except TypeError:
+                        d.update({key + 'max': 100})
+
 
         if (job.train_task().combined_graph_data() and
                 'columns' in job.train_task().combined_graph_data()):
@@ -249,7 +239,7 @@ def json_dict(job, model_output_fields):
     return d
 
 
-@blueprint.route('/completed_jobs.json', methods=['GET'])
+@blueprint.route('/completed_jobs/json', methods=['GET'])
 def completed_jobs():
     """
     Returns JSON
@@ -276,7 +266,7 @@ def completed_jobs():
     return flask.jsonify(data)
 
 
-@blueprint.route('/jobs/<job_id>/table_data.json', methods=['GET'])
+@blueprint.route('/jobs/<job_id>/table_data/json', methods=['GET'])
 def job_table_data(job_id):
     """
     Get the job data for the front page tables
@@ -753,7 +743,7 @@ def extension_static(extension_type, extension_id, filename):
         extension = extensions.data.get_extension(extension_id)
 
     if extension is None:
-        raise ValueError(_("Unknown extension '%(extension_id)s'", extension_id=extension_id))
+        raise ValueError("Unknown extension '%s'" % extension_id)
 
     digits_root = os.path.dirname(os.path.abspath(digits.__file__))
     rootdir = os.path.join(digits_root, *['extensions', 'view', extension.get_dirname(), 'static'])

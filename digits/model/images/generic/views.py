@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os
 import re
@@ -10,6 +10,7 @@ import werkzeug.exceptions
 
 from .forms import GenericImageModelForm
 from .job import GenericImageModelJob
+from digits.job import Job
 from digits.pretrained_model.job import PretrainedModelJob
 from digits import extensions, frameworks, utils
 from digits.config import config_value
@@ -56,9 +57,9 @@ def new(extension_id=None):
     )
 
 
-@blueprint.route('<extension_id>.json', methods=['POST'])
+@blueprint.route('<extension_id>/json', methods=['POST'])
 @blueprint.route('<extension_id>', methods=['POST'], strict_slashes=False)
-@blueprint.route('.json', methods=['POST'])
+@blueprint.route('/json', methods=['POST'])
 @blueprint.route('', methods=['POST'], strict_slashes=False)
 @utils.auth.requires_login(redirect=False)
 def create(extension_id=None):
@@ -332,7 +333,7 @@ def large_graph():
     return flask.render_template('models/large_graph.html', job=job)
 
 
-@blueprint.route('/infer_one.json', methods=['POST'])
+@blueprint.route('/infer_one/json', methods=['POST'])
 @blueprint.route('/infer_one', methods=['POST', 'GET'])
 def infer_one():
     """
@@ -427,7 +428,7 @@ def infer_one():
         ), status_code
 
 
-@blueprint.route('/infer_extension.json', methods=['POST'])
+@blueprint.route('/infer_extension/json', methods=['POST'])
 @blueprint.route('/infer_extension', methods=['POST', 'GET'])
 def infer_extension():
     """
@@ -523,7 +524,7 @@ def infer_extension():
         ), status_code
 
 
-@blueprint.route('/infer_db.json', methods=['POST'])
+@blueprint.route('/infer_db/json', methods=['POST'])
 @blueprint.route('/infer_db', methods=['POST', 'GET'])
 def infer_db():
     """
@@ -609,7 +610,7 @@ def infer_db():
         ), status_code
 
 
-@blueprint.route('/infer_many.json', methods=['POST'])
+@blueprint.route('/infer_many/json', methods=['POST'])
 @blueprint.route('/infer_many', methods=['POST', 'GET'])
 def infer_many():
     """
@@ -645,7 +646,7 @@ def infer_many():
     paths = []
 
     for line in image_list.readlines():
-        line = line.strip()
+        line = line.decode('utf-8').strip()
         if not line:
             continue
 
@@ -782,9 +783,10 @@ def get_datasets(extension_id):
                 j.extension_id == extension_id and (j.status.is_running() or j.status == Status.DONE)]
     else:
         jobs = [j for j in scheduler.jobs.values()
-                if (isinstance(j, GenericImageDatasetJob) or isinstance(j, GenericDatasetJob))
-                and (j.status.is_running() or j.status == Status.DONE)]
-    return [(j.id(), j.name()) for j in sorted(jobs, key=id)]
+                if (isinstance(j, GenericImageDatasetJob) or isinstance(j, GenericDatasetJob)) and
+                (j.status.is_running() or j.status == Status.DONE)]
+    return [(j.id(), j.name())
+            for j in sorted(jobs, key=Job.id)]
 
 
 def get_inference_visualizations(dataset, inputs, outputs):
@@ -793,7 +795,7 @@ def get_inference_visualizations(dataset, inputs, outputs):
         view_extension_id = flask.request.form['view_extension_id']
         extension_class = extensions.view.get_extension(view_extension_id)
         if extension_class is None:
-            raise ValueError(_("Unknown extension '%(view_extension_id)s'", view_extension_id=view_extension_id))
+            raise ValueError("Unknown extension '%s'" % view_extension_id)
     else:
         # no view extension specified, use default
         extension_class = extensions.view.get_default_extension()
@@ -802,7 +804,7 @@ def get_inference_visualizations(dataset, inputs, outputs):
     # validate form
     extension_form_valid = extension_form.validate_on_submit()
     if not extension_form_valid:
-        raise ValueError(_("Extension form validation failed with %(ext_form_error)s", ext_form_error=repr(extension_form.errors)))
+        raise ValueError("Extension form validation failed with %s" % repr(extension_form.errors))
 
     # create instance of extension class
     extension = extension_class(dataset, **extension_form.data)
@@ -831,7 +833,7 @@ def get_inference_visualizations(dataset, inputs, outputs):
 def get_previous_networks():
     return [(j.id(), j.name()) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, GenericImageModelJob)],
-        key=id
+        key=Job.id
     )
     ]
 
@@ -839,7 +841,7 @@ def get_previous_networks():
 def get_previous_networks_fulldetails():
     return [(j) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, GenericImageModelJob)],
-        key=id
+        key=Job.id
     )
     ]
 
@@ -859,7 +861,7 @@ def get_previous_network_snapshots():
 def get_pretrained_networks():
     return [(j.id(), j.name()) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, PretrainedModelJob)],
-        key=id
+        key=Job.id
     )
     ]
 
@@ -867,7 +869,7 @@ def get_pretrained_networks():
 def get_pretrained_networks_fulldetails():
     return [(j) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, PretrainedModelJob)],
-        key=id
+        key=Job.id
     )
     ]
 

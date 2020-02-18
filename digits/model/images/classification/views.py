@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os
 import re
@@ -13,6 +12,7 @@ import werkzeug.exceptions
 
 from .forms import ImageClassificationModelForm
 from .job import ImageClassificationModelJob
+from digits.job import Job
 from digits import frameworks
 from digits import utils
 from digits.config import config_value
@@ -38,12 +38,12 @@ def read_image_list(image_list, image_folder, num_test_images):
     ground_truths = []
 
     for line in image_list.readlines():
-        line = line.decode().strip()
+        line = line.strip()
         if not line:
             continue
 
         # might contain a numerical label at the end
-        match = re.match(r'(.*\S)\s+(\d+)$', line)
+        match = re.match(r'(.*\S)\s+(\d+)$', line.decode())
         if match:
             path = match.group(1)
             ground_truth = int(match.group(2))
@@ -89,7 +89,7 @@ def new():
                                  )
 
 
-@blueprint.route('.json', methods=['POST'])
+@blueprint.route('/json', methods=['POST'])
 @blueprint.route('', methods=['POST'], strict_slashes=False)
 @utils.auth.requires_login(redirect=False)
 def create():
@@ -244,7 +244,6 @@ def create():
 
                     network = fw.get_network_from_path(model_def_path)
                     pretrained_model = weights_path
-
 
             elif form.method.data == 'custom':
                 network = fw.get_network_from_desc(form.custom_network.data)
@@ -423,7 +422,7 @@ def large_graph():
     return flask.render_template('models/large_graph.html', job=job)
 
 
-@blueprint.route('/classify_one.json', methods=['POST'])
+@blueprint.route('/classify_one/json', methods=['POST'])
 @blueprint.route('/classify_one', methods=['POST', 'GET'])
 def classify_one():
     """
@@ -443,7 +442,7 @@ def classify_one():
         os.close(outfile[0])
         remove_image_path = True
     else:
-        raise werkzeug.exceptions.BadRequest(_('must provide image_path or image_file'))
+        raise werkzeug.exceptions.BadRequest('must provide image_path or image_file')
 
     epoch = None
     if 'snapshot_epoch' in flask.request.form:
@@ -531,7 +530,7 @@ def classify_one():
                                      ), status_code
 
 
-@blueprint.route('/classify_many.json', methods=['POST'])
+@blueprint.route('/classify_many/json', methods=['POST'])
 @blueprint.route('/classify_many', methods=['POST', 'GET'])
 def classify_many():
     """
@@ -609,7 +608,13 @@ def classify_many():
 
     if outputs is not None:
         # convert to class probabilities for viewing
+        print("----------------{}".format(len(outputs.items())))
+        print(outputs.items())
+        print("---------------")
+
         last_output_name, last_output_data = list(outputs.items())[-1]
+        print("++++name:{}".format(last_output_name))
+        print("++data:{}".format(last_output_data))
         if len(last_output_data) < 1:
             raise werkzeug.exceptions.BadRequest(
                 _('Unable to classify any image from the file'))
@@ -758,6 +763,9 @@ def top_n():
         # Can't have more images per category than the number of images
         images_per_category = min(top_n, len(images))
         # Can't have more categories than the number of labels or the number of outputs
+
+        print("###################")
+        print(scores)
         n_categories = min(indices.shape[1], len(labels))
         for i in range(n_categories):
             result_images = []
@@ -780,9 +788,9 @@ def top_n():
 
 def get_datasets():
     return [(j.id(), j.name()) for j in sorted(
-        [j for j in scheduler.jobs.values() if isinstance(j, ImageClassificationDatasetJob)
-         and (j.status.is_running() or j.status == Status.DONE)],
-        key=id
+        [j for j in scheduler.jobs.values() if isinstance(j, ImageClassificationDatasetJob) and
+         (j.status.is_running() or j.status == Status.DONE)],
+        key=Job.id
     )
     ]
 
@@ -802,7 +810,7 @@ def get_default_standard_network():
 def get_previous_networks():
     return [(j.id(), j.name()) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, ImageClassificationModelJob)],
-        key=id
+        key=Job.id
     )
     ]
 
@@ -810,7 +818,7 @@ def get_previous_networks():
 def get_previous_networks_fulldetails():
     return [(j) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, ImageClassificationModelJob)],
-        key=id
+        key=Job.id
     )
     ]
 
@@ -830,7 +838,7 @@ def get_previous_network_snapshots():
 def get_pretrained_networks():
     return [(j.id(), j.name()) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, PretrainedModelJob)],
-        key=id
+        key=Job.id
     )
     ]
 
@@ -838,6 +846,6 @@ def get_pretrained_networks():
 def get_pretrained_networks_fulldetails():
     return [(j) for j in sorted(
         [j for j in scheduler.jobs.values() if isinstance(j, PretrainedModelJob)],
-        key=id
+        key=Job.id
     )
     ]

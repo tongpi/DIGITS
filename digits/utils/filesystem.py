@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import hashlib
 import os.path
@@ -82,8 +82,9 @@ def dir_hash(dir_name):
                 # Skip if the file is hidden
                 if not f.startswith('.') and not re.search(r'/\.', f):
                     # Change the hash if the file name changes
-                    file_name = os.path.join(root, f).encode('utf-8')
-                    md5.update(hashlib.md5(file_name).hexdigest().encode('utf-8'))
+                    file_name = os.path.join(root, f)
+                    md_ = hashlib.md5(file_name.encode('utf-8'))
+                    md5.update(md_.hexdigest().encode('utf-8'))
                     # Change the hash if the file content changes
                     data = open(file_name, 'rb').read()
                     md5.update(hashlib.md5(data).hexdigest().encode('utf-8'))

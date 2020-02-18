@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-from __future__ import absolute_import, print_function
+from __future__ import absolute_import
 
 from collections import OrderedDict
 import copy
@@ -13,7 +13,8 @@ import time
 from google.protobuf import text_format
 import numpy as np
 import platform
-import scipy
+from skimage import transform
+from six.moves import reduce
 
 from .train import TrainTask
 import digits
@@ -28,7 +29,7 @@ from flask_babel import lazy_gettext as _
 # Must import after importing digit.config
 import caffe
 from caffe.proto import caffe_pb2
-from functools import reduce
+# from functools import reduce
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 5
@@ -233,6 +234,7 @@ class CaffeTrainTask(TrainTask):
 
     def get_mean_image(self, mean_file, resize=False):
         mean_image = None
+        spline_order = 1
         with open(self.dataset.path(mean_file), 'rb') as f:
             blob = caffe_pb2.BlobProto()
             blob.MergeFromString(f.read())
@@ -267,10 +269,11 @@ class CaffeTrainTask(TrainTask):
                 # other than 3 or 4.  If it's 1, imresize expects an
                 # array.
                 if (len(shape) == 2 or (len(shape) == 3 and (shape[2] == 3 or shape[2] == 4))):
-                    mean_image = scipy.misc.imresize(mean_image, (data_shape[2], data_shape[3]))
+                    mean_image = transform.resize(mean_image, (data_shape[2], data_shape[3]),
+                                                  order=spline_order, preserve_range=True).astype(np.uint8)
                 else:
-                    mean_image = scipy.misc.imresize(mean_image[:, :, 0],
-                                                     (data_shape[2], data_shape[3]))
+                    mean_image = transform.resize(mean_image[:, :, 0],(data_shape[2], data_shape[3]),
+                                                  order=spline_order, preserve_range=True).astype(np.uint8)
                     mean_image = np.expand_dims(mean_image, axis=2)
                 mean_image = mean_image.transpose(2, 0, 1)
                 mean_image = mean_image.astype('float')
@@ -512,7 +515,8 @@ class CaffeTrainTask(TrainTask):
         # get enum value for solver type
         solver.solver_type = getattr(solver, self.solver_type)
         solver.net = self.train_val_file
-
+        if hasattr(solver, 'store_blobs_in_old_format') and self.blob_format is not None:
+            solver.store_blobs_in_old_format = True if self.blob_format=='Compatible' else False
         # Set CPU/GPU mode
         if config_value('caffe')['cuda_enabled'] and \
                 bool(config_value('gpu_list')):
@@ -926,7 +930,7 @@ class CaffeTrainTask(TrainTask):
         # This is the normal path
         args = [config_value('caffe')['executable'],
                 'train',
-                '--solver=%s' % self.path(self.solver_file)
+                '--solver=%s' % self.path(self.solver_file),
                 ]
 
         if 'gpus' in resources:
@@ -1011,6 +1015,9 @@ class CaffeTrainTask(TrainTask):
             self.new_iteration(i)
 
         # net output
+        leading_match = re.match(r'(\(\d\.\d\)?\s{0,7})(.*)', message)
+        if leading_match:
+            message = leading_match.group(2)
         match = re.match(r'(Train|Test) net output #(\d+): (\S*) = %s' % float_exp, message, flags=re.IGNORECASE)
         if match:
             phase = match.group(1)
@@ -1411,7 +1418,7 @@ class CaffeTrainTask(TrainTask):
         std = np.std(data).astype(np.float32)
         y, x = np.histogram(data, bins=20)
         y = list(y.astype(np.float32))
-        ticks = x[[0, int(len(x) / 2), -1]]
+        ticks = x[[0, len(x) // 2, -1]]
         x = [((x[i] + x[i + 1]) / 2.0).astype(np.float32) for i in range(len(x) - 1)]
         ticks = list(ticks.astype(np.float32))
         return (mean, std, [y, x, ticks])
@@ -1650,10 +1657,13 @@ class CaffeTrainTask(TrainTask):
             for bottom in layer.bottom:
                 if bottom not in tops:
                     raise CaffeTrainSanityCheckError(
-                        _("Layer '%(name)s' references bottom '%(bottom)s' at the %(status)s stage however "
-                          "this blob is not included at that stage. Please consider "
-                          "using an include directive to limit the scope of this layer."
-                          , name=layer.name, bottom=bottom, status="TRAIN" if phase == caffe_pb2.TRAIN else "TEST")
+                        "Layer '%s' references bottom '%s' at the %s stage however "
+                        "this blob is not included at that stage. Please consider "
+                        "using an include directive to limit the scope of this layer."
+                        % (
+                            layer.name, bottom,
+                            "TRAIN" if phase == caffe_pb2.TRAIN else "TEST"
+                        )
                     )
 
 

@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import imp
 import os
@@ -37,10 +37,7 @@ def load_from_envvar(envvar):
         import_pycaffe(python_dir)
         version, flavor = get_version_and_flavor(executable)
     except:
-        print(('"%s" from %s does not point to a valid installation of Caffe.'
-               % (value, envvar)))
-        print('Use the envvar CAFFE_ROOT to indicate a valid installation.')
-        raise
+        raise ValueError('"%s" from %s does not point to a valid installation of Caffe.'% (value, envvar))
     return executable, version, flavor
 
 
@@ -57,9 +54,7 @@ def load_from_path():
         import_pycaffe()
         version, flavor = get_version_and_flavor(executable)
     except:
-        print('A valid Caffe installation was not found on your system.')
-        print('Use the envvar CAFFE_ROOT to indicate a valid installation.')
-        raise
+        raise Exception('A valid Caffe installation was not found on your system.')
     return executable, version, flavor
 
 
@@ -70,9 +65,9 @@ def find_executable_in_dir(dirname=None):
     Returns None if not found
     """
     if platform.system() == 'Windows':
-        exe_names = ['caffe.exe']
+        exe_name = 'caffe.exe'
     else:
-        exe_names = ['caffe', 'caffe.bin']
+        exe_name = 'caffe'
 
     if dirname is None:
         dirnames = [path.strip("\"' ") for path in os.environ['PATH'].split(os.pathsep)]
@@ -80,10 +75,9 @@ def find_executable_in_dir(dirname=None):
         dirnames = [dirname]
 
     for dirname in dirnames:
-        for exe_name in exe_names:
-            path = os.path.join(dirname, exe_name)
-            if os.path.isfile(path) and os.access(path, os.X_OK):
-                return path
+        path = os.path.join(dirname, exe_name)
+        if os.path.isfile(path) and os.access(path, os.X_OK):
+            return path
     return None
 
 
@@ -126,8 +120,7 @@ def import_pycaffe(dirname=None):
     try:
         import caffe
     except ImportError:
-        print('Did you forget to "make pycaffe"?')
-        raise
+        raise ImportError('Did you forget to "make pycaffe"?')
 
     # Strange issue with protocol buffers and pickle - see issue #32
     sys.path.insert(0, os.path.join(

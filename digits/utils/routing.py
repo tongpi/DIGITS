@@ -1,5 +1,5 @@
 # Copyright (c) 2015-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import flask
 import werkzeug.exceptions
@@ -29,7 +29,7 @@ def request_wants_json():
     """
     Returns True if the response should be JSON
     """
-    if flask.request.base_url.endswith('.json'):
+    if flask.request.base_url.endswith('/json'):
         return True
     best = flask.request.accept_mimetypes \
         .best_match(['application/json', 'text/html'])

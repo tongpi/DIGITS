@@ -163,8 +163,8 @@ class Hdf5Writer(DbWriter):
             self._count += split
 
         self._create_new_file(len(batch) - split)
-        self._db['data'][:] = data_batch[split:]
-        self._db['label'][:] = label_batch[split:]
+        self._db['data'][:] = data_batch[int(split):]
+        self._db['label'][:] = label_batch[int(split):]
         self._count += len(batch) - split
 
     def _create_new_file(self, initial_count):
@@ -219,6 +219,7 @@ def create_db(input_file, output_dir,
               mean_files=None,
               job_dir=None,
               is_train=None,
+              delete_files=False,
               **kwargs):
     """
     Create a database of images from a list of image paths
@@ -236,6 +237,7 @@ def create_db(input_file, output_dir,
     resize_mode -- passed to utils.image.resize_image()
     shuffle -- if True, shuffle the images in the list before creating
     mean_files -- a list of mean files to save
+    delete_files -- if True, delete raw images after creation of database
     """
     # Validate arguments
     from flask_babel import lazy_gettext as _
@@ -314,7 +316,21 @@ def create_db(input_file, output_dir,
         except ValueError:
             logger.error("数据集图片尺寸不能生成bottleneck文件")
 
-    logger.info('Database created after %d seconds.' % (time.time() - start))
+    if delete_files:
+        # delete files
+        deleted_files = 0
+        distribution = Counter()
+        with open(input_file) as infile:
+            for line in infile:
+                try:
+                    # delete file
+                    [path, label] = _parse_line(line, distribution)
+                    os.remove(path)
+                    deleted_files += 1
+                except ParseLineError:
+                    pass
+                logger.info("Deleted " + str(deleted_files) + " files")
+        logger.info('Database created after %d seconds.' % (time.time() - start))
 
 
 def _create_tfrecords(image_count, write_queue, batch_size, output_dir,
@@ -1164,6 +1180,9 @@ if __name__ == '__main__':
                         help=_('Path to the dataset job_dir'))
     parser.add_argument('--is_train',
                         help=_('T(1) or F(0)'))
+    parser.add_argument('--delete_files',
+                        action='store_true',
+                        help='Specifies whether to keep files after creation of dataset')
 
     args = vars(parser.parse_args())
 
@@ -1183,9 +1202,10 @@ if __name__ == '__main__':
                   compression=args['compression'],
                   lmdb_map_size=args['lmdb_map_size'],
                   hdf5_dset_limit=args['hdf5_dset_limit'],
+                  delete_files=args['delete_files'],
                   job_dir=args['job_dir'],
                   is_train=args['is_train']
                   )
     except Exception as e:
-        logger.error('%s: %s' % (type(e).__name__, e.args[0]))
+        logger.error('%s: %s' % (type(e).__name__, str(e)))
         raise

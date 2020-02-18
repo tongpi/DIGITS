@@ -1,6 +1,5 @@
-# -*- coding: utf-8 -*-
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 from collections import OrderedDict, namedtuple
 import os.path
@@ -68,6 +67,7 @@ class TrainTask(Task):
         self.network = kwargs.pop('network', None)
         self.framework_id = kwargs.pop('framework_id', None)
         self.data_aug = kwargs.pop('data_aug', None)
+        self.blob_format = kwargs.pop('blob_format', None)
 
         # dzh: hub模型所需参数
         self.image_dir = kwargs.pop('image_dir', None)
@@ -133,7 +133,7 @@ class TrainTask(Task):
             if vl:
                 state['val_outputs']['epoch'] = NetworkOutput('Epoch', [x[0] for x in vl])
                 if va:
-                    state['val_outputs']['accuracy'] = NetworkOutput('Accuracy', [int(x[1] / 100) for x in va])
+                    state['val_outputs']['accuracy'] = NetworkOutput('Accuracy', [x[1] / 100 for x in va])
                 state['val_outputs']['loss'] = NetworkOutput('SoftmaxWithLoss', [x[1] for x in vl])
 
         if state['use_mean'] is True:
@@ -236,7 +236,7 @@ class TrainTask(Task):
 
             data_gpu = []
             for index, device in devices:
-                update = {'name': device.name.decode('utf-8'), 'index': index}
+                update = {'name': device.name, 'index': index}
                 nvml_info = device_query.get_nvml_info(index)
                 if nvml_info is not None:
                     update.update(nvml_info)
@@ -262,11 +262,11 @@ class TrainTask(Task):
         """
         Sends socketio message about the current progress
         """
-        if self.train_epochs == epoch:
+        if self.current_epoch == epoch:
             return
 
         self.current_epoch = epoch
-        self.progress = round(epoch / self.train_epochs, 2)
+        self.progress = epoch / self.train_epochs
         self.emit_progress_update()
 
     def save_train_output(self, *args):
@@ -372,7 +372,6 @@ class TrainTask(Task):
         epoch_len = len(d['epoch'].data)
         name_len = len(d[name].data)
 
-        # print("**********", d[name].data)
         # save to back of d[name]
         if name_len > epoch_len:
             raise Exception('Received a new output without being told the new epoch')
@@ -381,8 +380,7 @@ class TrainTask(Task):
             if isinstance(d[name].data[-1], list):
                 d[name].data[-1].append(value)
             else:
-                # d[name].data[-1] = [d[name].data[-1], value]
-                d[name].data.append(value)
+                d[name].data[-1] = [d[name].data[-1], value]
         elif name_len == epoch_len - 1:
             # expected case
             d[name].data.append(value)
@@ -532,7 +530,7 @@ class TrainTask(Task):
             return None
 
         # return 100-200 values or fewer
-        stride = int(max(len(self.train_outputs['epoch'].data) / 100, 1))
+        stride = max(len(self.train_outputs['epoch'].data) // 100, 1)
         e = ['epoch'] + self.train_outputs['epoch'].data[::stride]
         lr = ['lr'] + self.train_outputs['learning_rate'].data[::stride]
 
@@ -597,7 +595,7 @@ class TrainTask(Task):
         if self.train_outputs and 'epoch' in self.train_outputs:
             if cull:
                 # max 200 data points
-                stride = int(max(len(self.train_outputs['epoch'].data) / 100, 1))
+                stride = max(len(self.train_outputs['epoch'].data) // 100, 1)
             else:
                 # return all data
                 stride = 1
@@ -622,7 +620,7 @@ class TrainTask(Task):
         if self.val_outputs and 'epoch' in self.val_outputs:
             if cull:
                 # max 200 data points
-                stride = int(max(len(self.val_outputs['epoch'].data) / 100, 1))
+                stride = max(len(self.val_outputs['epoch'].data) // 100, 1)
             else:
                 # return all data
                 stride = 1

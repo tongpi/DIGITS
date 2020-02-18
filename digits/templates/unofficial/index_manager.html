@@ -12,7 +12,7 @@
     {% set train_task = job.create_db_tasks()[0] %}
     {% set val_task = job.create_db_tasks()[1] %}
     {% set dataset_dir = job.json_dict(verbose=True) %}
-    {% if dataset_dir and dataset_dir.has_key('ParseFolderTasks') %}
+    {% if dataset_dir and dataset_dir.get('ParseFolderTasks') != '' %}
         <td>{{dataset_dir.ParseFolderTasks[0].train_count}}</td>
         <td>{{dataset_dir.ParseFolderTasks[0].val_count}}</td>
         <td>

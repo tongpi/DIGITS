@@ -1,5 +1,5 @@
 """Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved."""
-
+from __future__ import absolute_import
 
 import json
 import os
@@ -49,7 +49,7 @@ class Visualization(VisualizationInterface):
                 raise ValueError(_("No palette found in dataset - choose other colormap"))
             palette = dataset.extension_userdata[COLOR_PALETTE_ATTRIBUTE]
             # assume 8-bit RGB palette and convert to N*3 numpy array
-            palette = np.array(palette).reshape((len(palette) / 3, 3)) / 255.
+            palette = np.array(palette).reshape((len(palette) // 3, 3)) / 255.
             # normalize input pixels to [0,1]
             norm = mpl.colors.Normalize(vmin=0, vmax=255)
             # create map

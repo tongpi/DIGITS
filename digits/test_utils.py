@@ -2,12 +2,16 @@
 """
 Utility functions used in other test files
 """
-
+from __future__ import absolute_import
 
 import os
 import unittest
 
 from digits.config import config_value
+
+
+def skipTest(message):
+    raise unittest.SkipTest(message)
 
 
 def skipIfNotFramework(framework):
@@ -45,6 +49,9 @@ class CaffeMixin(object):
     @classmethod
     def setUpClass(cls):
         skipIfNotFramework('caffe')
+        if cls.FRAMEWORK == 'caffe' and not config_value('caffe')['loaded']:
+            raise unittest.SkipTest('Caffe not found')
+
 
         # Call super.setUpClass() unless we're the last in the class hierarchy
         supercls = super(CaffeMixin, cls)

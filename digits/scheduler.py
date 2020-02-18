@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 from collections import OrderedDict
 import os
@@ -308,28 +308,28 @@ class Scheduler:
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, DatasetJob) and j.status.is_running()],
-            key=id
+            cmp=lambda x, y: cmp(y.id(), x.id())
         )
 
     def completed_dataset_jobs(self):
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, DatasetJob) and not j.status.is_running()],
-            key=id
+            cmp=lambda x, y: cmp(y.id(), x.id())
         )
 
     def running_model_jobs(self):
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, ModelJob) and j.status.is_running()],
-            key=id
+            cmp=lambda x, y: cmp(y.id(), x.id())
         )
 
     def completed_model_jobs(self):
         """a query utility"""
         return sorted(
             [j for j in self.jobs.values() if isinstance(j, ModelJob) and not j.status.is_running()],
-            key=id
+            cmp=lambda x, y: cmp(y.id(), x.id())
         )
 
     def start(self):

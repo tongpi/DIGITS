@@ -1,7 +1,11 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
 
 import argparse
-from io import BytesIO
+# Find the best implementation available
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
 import lmdb
 import logging
 import numpy as np
@@ -10,6 +14,7 @@ import PIL.Image
 import queue
 import sys
 import threading
+from io import BytesIO
 from flask_babel import lazy_gettext as _
 
 # Add path for DIGITS package
@@ -104,7 +109,7 @@ class LmdbWriter(DbWriter):
                                                           sub_dir))
         return db
 
-    def array_to_datum(self, data, scalar_label, encoding):
+    def _array_to_datum(self, data, scalar_label, encoding):
         if data.ndim != 3:
             raise ValueError(_('Invalid number of dimensions: %(ndim)d', ndim=data.ndim))
         if encoding == 'none':
@@ -149,7 +154,7 @@ class LmdbWriter(DbWriter):
             if not (label.ndim == 3 or label.size == 1):
                 raise ValueError("LMDB/Caffe expect 3D or scalar label - ndim=%d" % label.ndim)
             if label.size > 1:
-                label_datum = self.array_to_datum(
+                label_datum = self._array_to_datum(
                     label,
                     0,
                     self.label_encoding)
@@ -159,7 +164,7 @@ class LmdbWriter(DbWriter):
             else:
                 label = label[0]
                 label_datum = None
-            feature_datum = self.array_to_datum(
+            feature_datum = self._array_to_datum(
                 feature,
                 label,
                 self.feature_encoding)
@@ -192,7 +197,7 @@ class LmdbWriter(DbWriter):
         try:
             with db.begin(write=True) as lmdb_txn:
                 for key, datum in batch:
-                    lmdb_txn.put(key.encode(), datum)
+                    lmdb_txn.put(key.encode('utf-8'), datum)
         except lmdb.MapFullError:
             # double the map_size
             curr_limit = db.info()['map_size']
@@ -211,9 +216,9 @@ class LmdbWriter(DbWriter):
 
 class Encoder(threading.Thread):
 
-    def __init__(self, queue, writer, extension, error_queue, force_same_shape):
+    def __init__(self, _queue, writer, extension, error_queue, force_same_shape):
         self.extension = extension
-        self.queue = queue
+        self.queue = _queue
         self.writer = writer
         self.label_shape = None
         self.feature_shape = None
@@ -273,7 +278,7 @@ class Encoder(threading.Thread):
                     # write data
                     self.writer.write_batch(data)
             except Exception as e:
-                self.error_queue.put('%s: %s' % (type(e).__name__, e.args[0]))
+                self.error_queue.put('%s: %s' % (type(e).__name__, str(e)))
                 raise
 
 
@@ -290,7 +295,8 @@ class DbCreator(object):
                   force_same_shape):
         # retrieve itemized list of entries
         entry_ids = extension.itemize_entries(stage)
-        entry_count = len(entry_ids)
+        temp = list(entry_ids)
+        entry_count = len(temp)
 
         if entry_count > 0:
             # create a queue to write errors to
@@ -298,8 +304,8 @@ class DbCreator(object):
 
             # create and fill encoder queue
             encoder_queue = queue.Queue()
-            batch_indices = range(0, len(entry_ids), batch_size)
-            for batch in [entry_ids[start:start+batch_size] for start in batch_indices]:
+            batch_indices = range(0, len(temp), batch_size)
+            for batch in [temp[start:start+batch_size] for start in batch_indices]:
                 # queue this batch
                 encoder_queue.put(batch)
 
@@ -466,7 +472,6 @@ if __name__ == '__main__':
     )
 
     args = vars(parser.parse_args())
-
     try:
         create_generic_db(
             args['jobs_dir'],
@@ -474,5 +479,5 @@ if __name__ == '__main__':
             args['stage']
         )
     except Exception as e:
-        logger.error('%s: %s' % (type(e).__name__, e.args[0]))
+        logger.error('%s: %s' % (type(e).__name__, e))
         raise

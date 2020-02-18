@@ -1,6 +1,6 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
+from __future__ import absolute_import
 
-import codecs
 import os
 import os.path
 import pickle
@@ -13,6 +13,7 @@ import flask
 from .status import Status, StatusCls
 from digits.config import config_value
 from digits.utils import sizeof_fmt, filesystem as fs
+import binascii
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 2
@@ -55,7 +56,7 @@ class Job(StatusCls):
         super(Job, self).__init__()
 
         # create a unique ID
-        self._id = '%s-%s' % (time.strftime('%Y%m%d-%H%M%S'), codecs.encode(os.urandom(2), 'hex_codec').decode())
+        self._id = '%s-%s' % (time.strftime('%Y%m%d-%H%M%S'), binascii.hexlify(os.urandom(2)).decode())
         self._dir = os.path.join(config_value('jobs_dir'), self._id)
         self._name = name
         self.group = group

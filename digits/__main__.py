@@ -3,7 +3,6 @@
 import argparse
 import os.path
 import sys
-import imp
 
 
 # Update PATH to include the local DIGITS directory
@@ -48,9 +47,11 @@ def main():
     print('  ___ ___ ___ ___ _____ ___')
     print(' |   \_ _/ __|_ _|_   _/ __|')
     print(' | |) | | (_ || |  | | \__ \\')
-    print(' |___/___\___|___| |_| |___/')
-    print(digits.__version__)
-    print('')
+    print(' |___/___\___|___| |_| |___/', digits.__version__)
+    print()
+
+    from gevent import monkey
+    monkey.patch_all()
 
     import digits.config
     import digits.log

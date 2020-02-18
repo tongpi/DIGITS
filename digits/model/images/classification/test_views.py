@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import itertools
 import json
@@ -11,12 +11,7 @@ import unittest
 from caffe.proto import caffe_pb2
 import math
 
-
-# Find the best implementation available
-try:
-    from io import StringIO
-except ImportError:
-    from io import StringIO
+from io import BytesIO
 
 from bs4 import BeautifulSoup
 
@@ -180,6 +175,7 @@ class BaseViewsTestWithDataset(BaseViewsTest,
     AUG_HSV_S = None
     AUG_HSV_V = None
     OPTIMIZER = None
+    BLOB_FORMAT = None
 
     @classmethod
     def setUpClass(cls):
@@ -215,7 +211,8 @@ class BaseViewsTestWithDataset(BaseViewsTest,
             'train_epochs':     cls.TRAIN_EPOCHS,
             'framework':       cls.FRAMEWORK,
             'random_seed':      0xCAFEBABE,
-            'shuffle':          'true' if cls.SHUFFLE else 'false'
+            'shuffle':          'true' if cls.SHUFFLE else 'false',
+            'blob_format':  'NVCaffe'
         }
         if cls.CROP_SIZE is not None:
             data['crop_size'] = cls.CROP_SIZE
@@ -256,16 +253,16 @@ class BaseViewsTestWithDataset(BaseViewsTest,
         request_json = data.pop('json', False)
         url = '/models/images/classification'
         if request_json:
-            url += '.json'
+            url += '/json'
 
         rv = cls.app.post(url, data=data)
 
         if request_json:
             if rv.status_code != 200:
-                print(json.loads(rv.data))
+                print(json.loads(rv.get_data(as_text=True)))
                 raise RuntimeError('Model creation failed with %s' % rv.status_code)
-            data = json.loads(rv.data)
-            if 'jobs' in list(data.keys()):
+            data = json.loads(rv.get_data(as_text=True))
+            if 'jobs' in data.keys():
                 return [j['id'] for j in data['jobs']]
             else:
                 return data['id']
@@ -278,7 +275,7 @@ class BaseViewsTestWithDataset(BaseViewsTest,
             if div:
                 print(div[0])
             else:
-                print(rv.data)
+                print(rv.get_data(as_text=True))
             raise RuntimeError('Failed to create dataset - status %s' % rv.status_code)
 
         job_id = cls.job_id_from_response(rv)
@@ -307,7 +304,7 @@ class BaseTestViews(BaseViewsTest):
     def test_page_model_new(self):
         rv = self.app.get('/models/images/classification/new')
         assert rv.status_code == 200, 'page load failed with %s' % rv.status_code
-        assert 'New Image Classification Model' in rv.data, 'unexpected page format'
+        assert 'New Image Classification Model' in rv.get_data(as_text=True), 'unexpected page format'
 
     def test_nonexistent_model(self):
         assert not self.model_exists('foo'), "model shouldn't exist"
@@ -361,17 +358,17 @@ class BaseTestCreation(BaseViewsTestWithDataset):
     def test_snapshot_interval_2(self):
         job_id = self.create_model(snapshot_interval=0.5)
         assert self.model_wait_completion(job_id) == 'Done', 'create failed'
-        rv = self.app.get('/models/%s.json' % job_id)
+        rv = self.app.get('/models/%s/json' % job_id)
         assert rv.status_code == 200, 'json load failed with %s' % rv.status_code
-        content = json.loads(rv.data)
+        content = json.loads(rv.get_data(as_text=True))
         assert len(content['snapshots']) > 1, 'should take >1 snapshot'
 
     def test_snapshot_interval_0_5(self):
         job_id = self.create_model(train_epochs=4, snapshot_interval=2)
         assert self.model_wait_completion(job_id) == 'Done', 'create failed'
-        rv = self.app.get('/models/%s.json' % job_id)
+        rv = self.app.get('/models/%s/json' % job_id)
         assert rv.status_code == 200, 'json load failed with %s' % rv.status_code
-        content = json.loads(rv.data)
+        content = json.loads(rv.get_data(as_text=True))
         assert len(content['snapshots']) == 2, 'should take 2 snapshots'
 
     @unittest.skipIf(
@@ -405,7 +402,9 @@ class BaseTestCreation(BaseViewsTestWithDataset):
         gpu_list = config_value('gpu_list').split(',')
         for i in range(len(gpu_list)):
             for combination in itertools.combinations(gpu_list, i + 1):
-                yield self.check_select_gpus, combination
+                # Don't test more than 4 GPUs
+                if len(combination) <= 4:
+                    yield self.check_select_gpus, combination
 
     def check_select_gpus(self, gpu_list):
         job_id = self.create_model(select_gpus_list=','.join(gpu_list), batch_size=len(gpu_list))
@@ -413,12 +412,12 @@ class BaseTestCreation(BaseViewsTestWithDataset):
 
     def classify_one_for_job(self, job_id, test_misclassification=True):
         # carry out one inference test per category in dataset
-        for category in list(self.imageset_paths.keys()):
+        for category in self.imageset_paths.keys():
             image_path = self.imageset_paths[category][0]
             image_path = os.path.join(self.imageset_folder, image_path)
             with open(image_path, 'rb') as infile:
                 # StringIO wrapping is needed to simulate POST file upload.
-                image_upload = (StringIO(infile.read()), 'image.png')
+                image_upload = (BytesIO(infile.read()), 'image.png')
 
             rv = self.app.post(
                 '/models/images/classification/classify_one?job_id=%s' % job_id,
@@ -455,9 +454,9 @@ class BaseTestCreation(BaseViewsTestWithDataset):
     def test_retrain(self):
         job1_id = self.create_model()
         assert self.model_wait_completion(job1_id) == 'Done', 'first job failed'
-        rv = self.app.get('/models/%s.json' % job1_id)
+        rv = self.app.get('/models/%s/json' % job1_id)
         assert rv.status_code == 200, 'json load failed with %s' % rv.status_code
-        content = json.loads(rv.data)
+        content = json.loads(rv.get_data(as_text=True))
         assert len(content['snapshots']), 'should have at least snapshot'
 
         options = {
@@ -473,9 +472,9 @@ class BaseTestCreation(BaseViewsTestWithDataset):
         # retrain from a job which already had a pretrained model
         job1_id = self.create_model()
         assert self.model_wait_completion(job1_id) == 'Done', 'first job failed'
-        rv = self.app.get('/models/%s.json' % job1_id)
+        rv = self.app.get('/models/%s/json' % job1_id)
         assert rv.status_code == 200, 'json load failed with %s' % rv.status_code
-        content = json.loads(rv.data)
+        content = json.loads(rv.get_data(as_text=True))
         assert len(content['snapshots']), 'should have at least snapshot'
         options_2 = {
             'method': 'previous',
@@ -567,9 +566,9 @@ class UserModel(Tower):
 
         job1_id = self.create_model(**options_1)
         assert self.model_wait_completion(job1_id) == 'Done', 'first job failed'
-        rv = self.app.get('/models/%s.json' % job1_id)
+        rv = self.app.get('/models/%s/json' % job1_id)
         assert rv.status_code == 200, 'json load failed with %s' % rv.status_code
-        content1 = json.loads(rv.data)
+        content1 = json.loads(rv.get_data(as_text=True))
 
         # Clone job1 as job2
         options_2 = {
@@ -578,9 +577,9 @@ class UserModel(Tower):
 
         job2_id = self.create_model(**options_2)
         assert self.model_wait_completion(job2_id) == 'Done', 'second job failed'
-        rv = self.app.get('/models/%s.json' % job2_id)
+        rv = self.app.get('/models/%s/json' % job2_id)
         assert rv.status_code == 200, 'json load failed with %s' % rv.status_code
-        content2 = json.loads(rv.data)
+        content2 = json.loads(rv.get_data(as_text=True))
 
         # These will be different
         content1.pop('id')
@@ -627,9 +626,9 @@ class BaseTestCreated(BaseViewsTestWithModel):
         assert rv.status_code == 200, 'download "%s" failed with %s' % (url, rv.status_code)
 
     def test_index_json(self):
-        rv = self.app.get('/index.json')
+        rv = self.app.get('/index/json')
         assert rv.status_code == 200, 'page load failed with %s' % rv.status_code
-        content = json.loads(rv.data)
+        content = json.loads(rv.get_data(as_text=True))
         found = False
         for m in content['models']:
             if m['id'] == self.model_id:
@@ -638,9 +637,9 @@ class BaseTestCreated(BaseViewsTestWithModel):
         assert found, 'model not found in list'
 
     def test_model_json(self):
-        rv = self.app.get('/models/%s.json' % self.model_id)
+        rv = self.app.get('/models/%s/json' % self.model_id)
         assert rv.status_code == 200, 'page load failed with %s' % rv.status_code
-        content = json.loads(rv.data)
+        content = json.loads(rv.get_data(as_text=True))
         assert content['id'] == self.model_id, 'id %s != %s' % (content['id'], self.model_id)
         assert content['dataset_id'] == self.dataset_id, 'dataset_id %s != %s' % (
             content['dataset_id'], self.dataset_id)
@@ -667,7 +666,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
         image_path = os.path.join(self.imageset_folder, image_path)
         with open(image_path, 'rb') as infile:
             # StringIO wrapping is needed to simulate POST file upload.
-            image_upload = (StringIO(infile.read()), 'image.png')
+            image_upload = (BytesIO(infile.read()), 'image.png')
 
         rv = self.app.post(
             '/models/images/classification/classify_one?job_id=%s' % self.model_id,
@@ -681,6 +680,9 @@ class BaseTestCreated(BaseViewsTestWithModel):
         assert rv.status_code == 200, 'POST failed with %s\n\n%s' % (rv.status_code, body)
         # gets an array of arrays [[confidence, label],...]
         predictions = [p.get_text().split() for p in s.select('ul.list-group li')]
+        print("!!!!!!!!!!!!!!!!!!!!!!")
+        print(s)
+        print("!!!!!!!!!!!!!!!!!!!!!!!")
         assert predictions[0][1] == category, 'image misclassified'
 
     def test_classify_one_json(self):
@@ -690,17 +692,20 @@ class BaseTestCreated(BaseViewsTestWithModel):
         image_path = os.path.join(self.imageset_folder, image_path)
         with open(image_path, 'rb') as infile:
             # StringIO wrapping is needed to simulate POST file upload.
-            image_upload = (StringIO(infile.read()), 'image.png')
+            image_upload = (BytesIO(infile.read()), 'image.png')
 
         rv = self.app.post(
-            '/models/images/classification/classify_one.json?job_id=%s' % self.model_id,
+            '/models/images/classification/classify_one/json?job_id=%s' % self.model_id,
             data={
                 'image_file': image_upload,
                 'show_visualizations': 'y',
             }
         )
         assert rv.status_code == 200, 'POST failed with %s' % rv.status_code
-        data = json.loads(rv.data)
+        data = json.loads(rv.get_data(as_text=True))
+        print("!!!!!!!!!!!!!!!!!!!!!!")
+        print(data)
+        print("!!!!!!!!!!!!!!!!!!!!!!!")
         assert data['predictions'][0][0] == category, 'image misclassified'
 
     def test_classify_many(self):
@@ -714,7 +719,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
             label_id += 1
 
         # StringIO wrapping is needed to simulate POST file upload.
-        file_upload = (StringIO(textfile_images), 'images.txt')
+        file_upload = (BytesIO(textfile_images.encode('utf-8')), 'images.txt')
 
         rv = self.app.post(
             '/models/images/classification/classify_many?job_id=%s' % self.model_id,
@@ -734,7 +739,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
             label_id += 1
 
         # StringIO wrapping is needed to simulate POST file upload.
-        file_upload = (StringIO(textfile_images), 'images.txt')
+        file_upload = (BytesIO(textfile_images.encode('utf-8')), 'images.txt')
 
         rv = self.app.post(
             '/models/images/classification/classify_many?job_id=%s' % self.model_id,
@@ -757,7 +762,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
             label_id += 1
 
         # StringIO wrapping is needed to simulate POST file upload.
-        file_upload = (StringIO(textfile_images), 'images.txt')
+        file_upload = (BytesIO(textfile_images.encode('utf-8')), 'images.txt')
 
         rv = self.app.post(
             '/models/images/classification/classify_many?job_id=%s' % self.model_id,
@@ -778,17 +783,17 @@ class BaseTestCreated(BaseViewsTestWithModel):
             label_id += 1
 
         # StringIO wrapping is needed to simulate POST file upload.
-        file_upload = (StringIO(textfile_images), 'images.txt')
+        file_upload = (BytesIO(textfile_images.encode()), 'images.txt')
 
         rv = self.app.post(
-            '/models/images/classification/classify_many.json?job_id=%s' % self.model_id,
+            '/models/images/classification/classify_many/json?job_id=%s' % self.model_id,
             data={'image_list': file_upload}
         )
         assert rv.status_code == 200, 'POST failed with %s' % rv.status_code
-        data = json.loads(rv.data)
+        data = json.loads(rv.get_data(as_text=True))
         assert 'classifications' in data, 'invalid response'
         # verify classification of first image in each category
-        for category in list(self.imageset_paths.keys()):
+        for category in self.imageset_paths.keys():
             image_path = self.imageset_paths[category][0]
             image_path = os.path.join(self.imageset_folder, image_path)
             prediction = data['classifications'][image_path][0][0]
@@ -805,7 +810,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
             label_id += 1
 
         # StringIO wrapping is needed to simulate POST file upload.
-        file_upload = (StringIO(textfile_images), 'images.txt')
+        file_upload = (BytesIO(textfile_images.encode('utf-8')), 'images.txt')
 
         rv = self.app.post(
             '/models/images/classification/top_n?job_id=%s' % self.model_id,
@@ -814,9 +819,9 @@ class BaseTestCreated(BaseViewsTestWithModel):
         s = BeautifulSoup(rv.data, 'html.parser')
         body = s.select('body')
         assert rv.status_code == 200, 'POST failed with %s\n\n%s' % (rv.status_code, body)
-        keys = list(self.imageset_paths.keys())
+        keys = self.imageset_paths.keys()
         for key in keys:
-            assert key in rv.data, '"%s" not found in the response'
+            assert key in rv.get_data(as_text=True), '"%s" not found in the response'
 
     def test_top_n_from_folder(self):
         textfile_images = ''
@@ -828,7 +833,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
             label_id += 1
 
         # StringIO wrapping is needed to simulate POST file upload.
-        file_upload = (StringIO(textfile_images), 'images.txt')
+        file_upload = (BytesIO(textfile_images.encode()), 'images.txt')
 
         rv = self.app.post(
             '/models/images/classification/top_n?job_id=%s' % self.model_id,
@@ -838,9 +843,9 @@ class BaseTestCreated(BaseViewsTestWithModel):
         s = BeautifulSoup(rv.data, 'html.parser')
         body = s.select('body')
         assert rv.status_code == 200, 'POST failed with %s\n\n%s' % (rv.status_code, body)
-        keys = list(self.imageset_paths.keys())
+        keys = self.imageset_paths.keys()
         for key in keys:
-            assert key in rv.data, '"%s" not found in the response'
+            assert key in rv.get_data(as_text=True), '"%s" not found in the response'
 
     def test_inference_while_training(self):
         # make sure we can do inference while all GPUs are in use for training
@@ -862,7 +867,7 @@ class BaseTestCreated(BaseViewsTestWithModel):
         image_path = os.path.join(self.imageset_folder, image_path)
         with open(image_path, 'rb') as infile:
             # StringIO wrapping is needed to simulate POST file upload.
-            image_upload = (StringIO(infile.read()), 'image.png')
+            image_upload = (BytesIO(infile.read()), 'image.png')
 
         # create a long-running training job
         job2_id = self.create_model(
@@ -881,10 +886,10 @@ class BaseTestCreated(BaseViewsTestWithModel):
                     raise RuntimeError('job status is %s' % status)
 
             rv = self.app.post(
-                '/models/images/classification/classify_one.json?job_id=%s' % self.model_id,
+                '/models/images/classification/classify_one/json?job_id=%s' % self.model_id,
                 data={'image_file': image_upload}
             )
-            json.loads(rv.data)
+            json.loads(rv.get_data(as_text=True))
             assert rv.status_code == 200, 'POST failed with %s' % rv.status_code
         finally:
             self.delete_model(job2_id)
@@ -1125,7 +1130,7 @@ class TestCaffeCreatedCropInNetwork(BaseTestCreatedCropInNetwork, test_utils.Caf
 
 
 @unittest.skipIf(
-    not CaffeFramework().can_accumulate_gradients(),
+    not config_value('caffe')['loaded'] or not CaffeFramework().can_accumulate_gradients(),
     'This version of Caffe cannot accumulate gradients')
 class TestBatchAccumulationCaffe(BaseViewsTestWithDataset, test_utils.CaffeMixin):
     TRAIN_EPOCHS = 1
@@ -1308,16 +1313,16 @@ import numpy as np
 class PythonLayer(caffe.Layer):
 
     def setup(self, bottom, top):
-        print 'PythonLayer::setup'
+        print('PythonLayer::setup')
         if len(bottom) != 1:
             raise Exception("Need one input.")
 
     def reshape(self, bottom, top):
-        print 'PythonLayer::reshape'
+        print('PythonLayer::reshape')
         top[0].reshape(1)
 
     def forward(self, bottom, top):
-        print 'PythonLayer::forward'
+        print('PythonLayer::forward')
         top[0].data[...] = np.sum(bottom[0].data) / 2. / bottom[0].num
 """)
 
@@ -1338,9 +1343,9 @@ class PythonLayer(caffe.Layer):
         shutil.rmtree(tmpdir)
 
         assert self.model_wait_completion(job_id) == 'Done', 'first job failed'
-        rv = self.app.get('/models/%s.json' % job_id)
+        rv = self.app.get('/models/%s/json' % job_id)
         assert rv.status_code == 200, 'json load failed with %s' % rv.status_code
-        content = json.loads(rv.data)
+        content = json.loads(rv.get_data(as_text=True))
         assert len(content['snapshots']), 'should have at least snapshot'
 
 

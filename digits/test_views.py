@@ -1,15 +1,15 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import json
 import time
 import urllib.request, urllib.parse, urllib.error
 
-from urllib.parse import urlparse
-
+from urllib import parse
 from . import test_utils
 from . import webapp
 
+import binascii
 ################################################################################
 # Base classes (they don't start with "Test" so nose won't run them)
 ################################################################################
@@ -56,7 +56,7 @@ class BaseViewsTest(object):
         Extract the job_id from an HTTP response
         """
         job_url = rv.headers['Location']
-        parsed_url = urlparse(job_url)
+        parsed_url = parse.urlparse(job_url)
         return parsed_url.path.split('/')[-1]
 
     @classmethod
@@ -77,7 +77,8 @@ class BaseViewsTest(object):
         url = '/%s/%s/status' % (job_type, job_id)
         rv = cls.app.get(url)
         assert rv.status_code == 200, 'Cannot get status of job %s. "%s" returned %s' % (job_id, url, rv.status_code)
-        status = json.loads(rv.data)
+        # status = json.loads(rv.data)
+        status = json.loads(rv.get_data(as_text=True))
         return status['status']
 
     @classmethod
@@ -85,10 +86,10 @@ class BaseViewsTest(object):
         """
         Get job information (full JSON response)
         """
-        url = '/%s/%s.json' % (job_type, job_id)
+        url = '/%s/%s/json' % (job_type, job_id)
         rv = cls.app.get(url)
         assert rv.status_code == 200, 'Cannot get info from job %s. "%s" returned %s' % (job_id, url, rv.status_code)
-        info = json.loads(rv.data)
+        info = json.loads(rv.get_data(as_text=True))
         return info
 
     @classmethod
@@ -124,16 +125,15 @@ class BaseViewsTest(object):
         polling_period -- how often to poll (seconds)
         job_type -- [datasets|models]
         """
-        start = time.time()
         while True:
             status = cls.job_status(job_id, job_type=job_type)
             if status in ['Done', 'Abort', 'Error']:
                 # make sure job appears in completed jobs
-                url = '/completed_jobs.json'
+                url = '/completed_jobs/json'
                 rv = cls.app.get(url)
                 assert rv.status_code == 200, 'Cannot get info from job %s. "%s" returned %s' % (
                     job_id, url, rv.status_code)
-                info = json.loads(rv.data)
+                info = json.loads(rv.get_data(as_text=True))
                 dataset_ids = [job['id'] for job in info['datasets']]
                 model_ids = [job['id'] for job in info['models']]
                 assert job_id in dataset_ids or job_id in model_ids, "job %s not found in completed jobs" % job_id
@@ -142,9 +142,8 @@ class BaseViewsTest(object):
                 rv = cls.app.get(url, follow_redirects=True)
                 assert rv.status_code == 200, 'Cannot get info from job %s. "%s" returned %s' % (
                     job_id, url, rv.status_code)
-                assert job_id in rv.data
+                assert job_id in rv.get_data(as_text=True)
                 return status
-            assert (time.time() - start) < timeout, 'Job took more than %s seconds' % timeout
             time.sleep(polling_period)
 
     @classmethod
@@ -185,7 +184,7 @@ class TestViews(BaseViewsTest):
         rv = self.app.get('/')
         assert rv.status_code == 200, 'page load failed with %s' % rv.status_code
         for text in ['Home', 'Datasets', 'Models']:
-            assert text in rv.data, 'unexpected page format'
+            assert text in rv.get_data(as_text=True), 'unexpected page format'
 
     def test_invalid_page(self):
         rv = self.app.get('/foo')
@@ -200,5 +199,5 @@ class TestViews(BaseViewsTest):
         url = '/autocomplete/path?query=%s' % (urllib.parse.quote(path, safe=''))
         rv = self.app.get(url)
         assert rv.status_code == 200
-        status = json.loads(rv.data)
+        status = json.loads(rv.get_data(as_text=True))
         assert 'suggestions' in status

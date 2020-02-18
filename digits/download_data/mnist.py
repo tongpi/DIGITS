@@ -3,6 +3,7 @@
 import gzip
 import os
 import struct
+import sys
 
 import numpy as np
 import PIL.Image
@@ -74,8 +75,9 @@ class MnistDownloader(DataDownloader):
             infile.read(4)  # ignore magic number
             count = struct.unpack('>i', infile.read(4))[0]
             data = infile.read(count)
-            for byte in data:
-                label = struct.unpack('>B', byte)[0]
+            for int_byte in data:
+                label_byte = int_byte.to_bytes(1, sys.byteorder)
+                label = struct.unpack('>B', label_byte)[0]
                 labels.append(str(label))
         return labels
 

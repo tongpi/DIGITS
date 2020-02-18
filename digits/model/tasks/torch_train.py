@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import operator
 import os
@@ -12,6 +12,7 @@ import time
 import h5py
 import numpy as np
 import PIL.Image
+from six.moves import reduce
 
 from .train import TrainTask
 import digits
@@ -21,8 +22,7 @@ from digits.utils import subclass, override, constants
 from flask_babel import lazy_gettext as _
 
 # Must import after importing digit.config
-from caffe.proto import caffe_pb2
-from functools import reduce
+import caffe_pb2
 
 # NOTE: Increment this every time the pickled object changes
 PICKLE_VERSION = 1
@@ -551,9 +551,8 @@ class TorchTrainTask(TrainTask):
         try:
             image.save(temp_image_path, format='png')
         except KeyError:
-            error_message_log = 'Unable to save file to "%s"' % temp_image_path
-            error_message = _('Unable to save file to "%(temp_image_path)s"', temp_image_path=temp_image_path)
-            self.logger.error(error_message_log)
+            error_message = 'Unable to save file to "%s"' % temp_image_path
+            self.logger.error(error_message)
             raise digits.inference.errors.InferenceError(error_message)
 
         file_to_load = self.get_snapshot(snapshot_epoch)
@@ -624,7 +623,8 @@ class TorchTrainTask(TrainTask):
                     if self.aborted.is_set():
                         p.terminate()
                         raise digits.inference.errors.InferenceError(
-                            _('%(id)s classify one task got aborted. error code - %(returncode)d', id=self.get_framework_id(), returncode=p.returncode))
+                            '%s classify one task got aborted. error code - %d'
+                            % (self.get_framework_id(), p.returncode))
 
                     if line is not None:
                         # Remove color codes and whitespace
@@ -656,9 +656,8 @@ class TorchTrainTask(TrainTask):
             self.after_test_run(temp_image_path)
 
         if p.returncode != 0:
-            error_message = _('%(id)s classify one task failed with error code %(returncode)d', id=self.get_framework_id(), returncode=p.returncode)
-            error_message_log = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
-            self.logger.error(error_message_log)
+            error_message = '%s classify one task failed with error code %d' % (self.get_framework_id(), p.returncode)
+            self.logger.error(error_message)
             if unrecognized_output:
                 unrecognized_output = '\n'.join(unrecognized_output)
                 error_message = error_message + unrecognized_output
@@ -680,7 +679,7 @@ class TorchTrainTask(TrainTask):
             #    |  |- activations
             #    |  |- weights
             #    |- 2
-            for layer_id, layer in list(vis_db['layers'].items()):
+            for layer_id, layer in vis_db['layers'].items():
                 layer_desc = layer['name'][...].tostring()
                 if 'Sequential' in layer_desc or 'Parallel' in layer_desc:
                     # ignore containers
@@ -755,7 +754,7 @@ class TorchTrainTask(TrainTask):
         std = np.std(data)
         y, x = np.histogram(data, bins=20)
         y = list(y)
-        ticks = x[[0, len(x) / 2, -1]]
+        ticks = x[[0, len(x) // 2, -1]]
         x = [(x[i] + x[i + 1]) / 2.0 for i in range(len(x) - 1)]
         ticks = list(ticks)
         return (mean, std, [y, x, ticks])
@@ -815,7 +814,8 @@ class TorchTrainTask(TrainTask):
 
         if level in ['error', 'critical']:
             raise digits.inference.errors.InferenceError(
-                _('%(id)s classify %(test_category)s task failed with error message - %(message)s', id=self.get_framework_id(), test_category=test_category, message=message))
+                '%s classify %s task failed with error message - %s'
+                % (self.get_framework_id(), test_category, message))
 
         return True           # control never reach this line. It can be removed.
 
@@ -854,9 +854,8 @@ class TorchTrainTask(TrainTask):
                 try:
                     image.save(temp_image_path, format='png')
                 except KeyError:
-                    error_message_log = 'Unable to save file to "%s"' % temp_image_path
-                    error_message = _('Unable to save file to "%(path)s"', path=temp_image_path)
-                    self.logger.error(error_message_log)
+                    error_message = 'Unable to save file to "%s"' % temp_image_path
+                    self.logger.error(error_message)
                     raise digits.inference.errors.InferenceError(error_message)
                 os.write(temp_imglist_handle, "%s\n" % temp_image_path)
                 os.close(temp_image_handle)
@@ -925,7 +924,8 @@ class TorchTrainTask(TrainTask):
                         if self.aborted.is_set():
                             p.terminate()
                             raise digits.inference.errors.InferenceError(
-                                _('%(id)s classify many task got aborted. error code - %(returncode)d', id=self.get_framework_id(), returncode=p.returncode))
+                                '%s classify many task got aborted. error code - %d'
+                                % (self.get_framework_id(), p.returncode))
 
                         if line is not None:
                             # Remove whitespace and color codes.
@@ -947,22 +947,18 @@ class TorchTrainTask(TrainTask):
                 if type(e) == digits.inference.errors.InferenceError:
                     error_message = e.__str__()
                 else:
-                    error_message_log = '%s classify many task failed with error code %d \n %s' % (
+                    error_message = '%s classify many task failed with error code %d \n %s' % (
                         self.get_framework_id(), p.returncode, str(e))
-                    error_message = _('%(id)s classify many task failed with error code %(returncode)d \n %(str_e)s', id=self.get_framework_id(), returncode=p.returncode, str_e=str(e))
-
-                self.logger.error(error_message_log)
+                self.logger.error(error_message)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output
                 raise digits.inference.errors.InferenceError(error_message)
 
             if p.returncode != 0:
-                error_message_log = '%s classify many task failed with error code %d' % (
+                error_message = '%s classify many task failed with error code %d' % (
                     self.get_framework_id(), p.returncode)
-                error_message = _('%(id)s classify many task failed with error code %(returncode)d',
-                                  id=self.get_framework_id(), returncode=p.returncode)
-                self.logger.error(error_message_log)
+                self.logger.error(error_message)
                 if unrecognized_output:
                     unrecognized_output = '\n'.join(unrecognized_output)
                     error_message = error_message + unrecognized_output

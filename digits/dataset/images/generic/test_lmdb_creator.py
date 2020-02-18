@@ -3,18 +3,14 @@
 Functions for creating temporary LMDBs
 Used in test_views
 """
-
+from __future__ import absolute_import
 
 import argparse
 import os
 import sys
 import time
 
-# Find the best implementation available
-try:
-    from io import StringIO, BytesIO
-except ImportError:
-    from io import StringIO, BytesIO
+from io import BytesIO
 
 import lmdb
 import numpy as np
@@ -132,7 +128,7 @@ def _write_to_lmdb(db, key, value):
     while not success:
         txn = db.begin(write=True)
         try:
-            txn.put(key, value)
+            txn.put(key.encode('utf-8'), value)
             txn.commit()
             success = True
         except lmdb.MapFullError:

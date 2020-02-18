@@ -1,5 +1,5 @@
 # Copyright (c) 2016-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import math
 import os
@@ -109,7 +109,7 @@ class DataIngestion(DataIngestionInterface):
     @override
     def itemize_entries(self, stage):
         if stage == constants.TEST_DB:
-            # don't retun anything for the test stage
+            # don't return anything for the test stage
             return []
 
         if stage == constants.TRAIN_DB or (not self.has_val_folder):
@@ -138,9 +138,9 @@ class DataIngestion(DataIngestionInterface):
             feature_image_list = self.split_image_list(feature_image_list, stage)
             label_image_list = self.split_image_list(label_image_list, stage)
 
-        return list(zip(
+        return zip(
             feature_image_list,
-            label_image_list))
+            label_image_list)
 
     def make_image_list(self, folder):
         image_files = []
@@ -154,8 +154,8 @@ class DataIngestion(DataIngestionInterface):
 
     def split_image_list(self, filelist, stage):
         if self.random_indices is None:
-            self.random_indices = list(range(len(filelist)))
-            random.shuffle(self.random_indices)
+            self.random_indices = range(len(filelist))
+            random.shuffle(list(self.random_indices))
         elif len(filelist) != len(self.random_indices):
             raise ValueError(
                 _("Expect same number of images in folders (%(len_filelist)d!=%(len_random_indices)d)"

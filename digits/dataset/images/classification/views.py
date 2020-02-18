@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os
 import random
@@ -7,10 +7,7 @@ import time
 import shutil
 
 # Find the best implementation available
-try:
-    from io import StringIO, BytesIO
-except ImportError:
-    from io import StringIO, BytesIO
+from io import BytesIO
 
 from caffe.proto import caffe_pb2
 import flask
@@ -54,6 +51,8 @@ def from_folders(job, form):
     min_per_class = form.folder_train_min_per_class.data
     max_per_class = form.folder_train_max_per_class.data
 
+    if max_per_class is None:
+        max_per_class = 0
     parse_train_task = tasks.ParseFolderTask(
         job_dir=job.dir(),
         folder=form.folder_train.data,
@@ -231,6 +230,8 @@ def from_sound_folders(job, form):
         min_per_class = form.folder_val_min_per_class.data
         max_per_class = form.folder_val_max_per_class.data
 
+        if max_per_class is None:
+            max_per_class = 0
         parse_val_task = tasks.ParseFolderTask(
             job_dir=job.dir(),
             parents=parse_train_task,
@@ -247,6 +248,8 @@ def from_sound_folders(job, form):
         min_per_class = form.folder_test_min_per_class.data
         max_per_class = form.folder_test_max_per_class.data
 
+        if max_per_class is None:
+            max_per_class = 0
         parse_test_task = tasks.ParseFolderTask(
             job_dir=job.dir(),
             parents=parse_train_task,
@@ -430,6 +433,102 @@ def from_files(job, form):
         )
 
 
+def from_s3(job, form):
+    """
+    Add tasks for creating a dataset by parsing s3s of images
+    """
+    job.labels_file = utils.constants.LABELS_FILE
+
+    # Add Parses3Task
+
+    percent_val = form.s3_pct_val.data
+    val_parents = []
+
+    percent_test = form.s3_pct_test.data
+    test_parents = []
+
+    min_per_class = form.s3_train_min_per_class.data
+    max_per_class = form.s3_train_max_per_class.data
+    if max_per_class is None:
+        max_per_class = -1
+    delete_files = not form.s3_keepcopiesondisk.data
+
+    parse_train_task = tasks.ParseS3Task(
+        job_dir=job.dir(),
+        s3_endpoint_url=form.s3_endpoint_url.data,
+        s3_bucket=form.s3_bucket.data,
+        s3_path=form.s3_path.data,
+        s3_accesskey=form.s3_accesskey.data,
+        s3_secretkey=form.s3_secretkey.data,
+        percent_val=percent_val,
+        percent_test=percent_test,
+        min_per_category=min_per_class if min_per_class > 0 else 1,
+        max_per_category=max_per_class if max_per_class > 0 else None
+    )
+    job.tasks.append(parse_train_task)
+
+    # set parents
+    val_parents = [parse_train_task]
+    test_parents = [parse_train_task]
+
+    # Add CreateDbTasks
+
+    backend = form.backend.data
+    encoding = form.encoding.data
+    compression = form.compression.data
+
+    job.tasks.append(
+        tasks.CreateDbTask(
+            job_dir=job.dir(),
+            parents=parse_train_task,
+            input_file=utils.constants.TRAIN_FILE,
+            db_name=utils.constants.TRAIN_DB,
+            backend=backend,
+            image_dims=job.image_dims,
+            resize_mode=job.resize_mode,
+            encoding=encoding,
+            compression=compression,
+            mean_file=utils.constants.MEAN_FILE_CAFFE,
+            labels_file=job.labels_file,
+            delete_files=delete_files,
+        )
+    )
+
+    if percent_val > 0:
+        job.tasks.append(
+            tasks.CreateDbTask(
+                job_dir=job.dir(),
+                parents=val_parents,
+                input_file=utils.constants.VAL_FILE,
+                db_name=utils.constants.VAL_DB,
+                backend=backend,
+                image_dims=job.image_dims,
+                resize_mode=job.resize_mode,
+                encoding=encoding,
+                compression=compression,
+                labels_file=job.labels_file,
+                delete_files=delete_files,
+            )
+        )
+
+    if percent_test > 0:
+        job.tasks.append(
+            tasks.CreateDbTask(
+                job_dir=job.dir(),
+                parents=test_parents,
+                input_file=utils.constants.TEST_FILE,
+                db_name=utils.constants.TEST_DB,
+                backend=backend,
+                image_dims=job.image_dims,
+                resize_mode=job.resize_mode,
+                encoding=encoding,
+                compression=compression,
+                labels_file=job.labels_file,
+                delete_files=delete_files,
+            )
+        )
+
+
 @blueprint.route('/new', methods=['GET'])
 @utils.auth.requires_login
 def new():
@@ -556,6 +655,9 @@ def create():
         elif form.method.data == 'textfile':
             from_files(job, form)
 
+        elif form.method.data == 's3':
+            from_s3(job, form)
+
         else:
             raise ValueError(_('method not supported'))
 
@@ -631,6 +733,8 @@ def explore():
     if label is None:
         total_entries = reader.total_entries
     else:
+        # After PR#1500, task.distribution[str(label)] is a dictionary
+        # with keys = 'count' and 'error_count'
         label_entries = task.distribution[str(label)]
         if isinstance(label_entries, dict):
             total_entries = label_entries['count']
@@ -645,7 +749,6 @@ def explore():
             datum.ParseFromString(value)
             if label is None or datum.label == label:
                 if datum.encoded:
-                    # s = StringIO()
                     s = BytesIO()
                     s.write(datum.data)
                     s.seek(0)

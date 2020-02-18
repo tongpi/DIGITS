@@ -118,7 +118,7 @@
                         <td ng-bind-html="job.username|html"></td>
                         <td><dg-has-labels></dg-has-labels></td>
                         <td class="text-{[job.status_css]}">
-                            {[ job.status ]}
+                            {[ job.status_text ]}
                         </td>
                         <td start="{[job.elapsed]}">
                             <small title="{[ print_time_diff(job.elapsed) ]}">

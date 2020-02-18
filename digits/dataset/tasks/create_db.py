@@ -1,5 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os.path
 import re
@@ -45,6 +45,7 @@ class CreateDbTask(Task):
         self.compression = kwargs.pop('compression', None)
         self.mean_file = kwargs.pop('mean_file', None)
         self.labels_file = kwargs.pop('labels_file', None)
+        self.delete_files = kwargs.pop('delete_files', False)
         self.is_train = kwargs.pop('is_train', None)
 
         super(CreateDbTask, self).__init__(**kwargs)
@@ -105,7 +106,7 @@ class CreateDbTask(Task):
 
         if not hasattr(self, 'entries_error'):
             self.entries_error = 0
-            for key in list(self.distribution.keys()):
+            for key in self.distribution.keys():
                 self.distribution[key] = {
                     'count': self.distribution[key],
                     'error_count': 0
@@ -120,7 +121,7 @@ class CreateDbTask(Task):
         elif self.db_name == utils.constants.TEST_DB or 'test' in self.db_name.lower():
             return 'Create DB (test)'
         else:
-            return 'Create DB %s' % self.db_name
+            return 'Create DB (%s)' % self.db_name
 
     @override
     def before_run(self):
@@ -178,6 +179,8 @@ class CreateDbTask(Task):
             args.append('--compression=%s' % self.compression)
         if self.backend == 'hdf5':
             args.append('--hdf5_dset_limit=%d' % 2**31)
+        if self.delete_files:
+            args.append('--delete_files')
 
         return args
 
@@ -313,7 +316,7 @@ class CreateDbTask(Task):
         except AssertionError:
             return None
 
-        if len(list(self.distribution.keys())) != len(labels):
+        if len(self.distribution.keys()) != len(labels):
             return None
 
         label_count = 'Count'
@@ -323,7 +326,7 @@ class CreateDbTask(Task):
         count_values = [label_count]
         titles = []
         for key, value in sorted(
-                list(self.distribution.items()),
+                self.distribution.items(),
                 key=lambda item: item[1]['count'],
                 reverse=True):
             count_values.append(value['count'])
@@ -331,12 +334,7 @@ class CreateDbTask(Task):
             titles.append(labels[int(key)])
 
         # distribution graph always displays the Count data
-        data = {'columns': [count_values],
-                'type': 'bar',
-                'names': {
-                        'Count': 'Count'
-                    },
-                }
+        data = {'columns': [count_values], 'type': 'bar'}
 
         # only display error data if any error occurred
         if sum(error_values[1:]) > 0:

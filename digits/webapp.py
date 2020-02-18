@@ -1,4 +1,5 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
+from __future__ import absolute_import
 
 import codecs
 import os
@@ -6,17 +7,16 @@ import os
 import flask
 from flask import session
 from flask_socketio import SocketIO
-from gevent import monkey
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel
-monkey.patch_all()
+
 
 from .config import config_value  # noqa
 from digits import utils  # noqa
 from digits.utils import filesystem as fs  # noqa
 from digits.utils.store import StoreCache  # noqa
 import digits.scheduler  # noqa
-
+import binascii
 
 # Create Flask, Scheduler and SocketIO objects
 
@@ -27,7 +27,7 @@ app.config['DEBUG'] = True
 app.config['WTF_CSRF_ENABLED'] = False
 # This is still necessary for SocketIO
 # app.config['SECRET_KEY'] = os.urandom(12).encode('hex')
-app.config['SECRET_KEY'] = codecs.encode(os.urandom(12), 'hex_codec')
+app.config['SECRET_KEY'] = binascii.hexlify(os.urandom(12)).decode()
 app.url_map.redirect_defaults = False
 app.config['URL_PREFIX'] = url_prefix
 socketio = SocketIO(app, async_mode='gevent', path=url_prefix+'/socket.io')

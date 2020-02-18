@@ -11,7 +11,7 @@ function print_time_diff(diff) {
     var seconds = total_seconds % 60;
 
     function plural(number, name) {
-        return number + ' ' + name + (number == 1 ? '' : '');
+        return number + ' ' + name + (number == 1 ? '' : 's');
     }
 
     function pair(number1, name1, number2, name2) {
@@ -45,7 +45,7 @@ function print_time_diff_simple(diff, min_unit) {
     var seconds = total_seconds % 60;
 
     function plural(number, name) {
-        return number + ' ' + name + (number == 1 ? '' : '');
+        return number + ' ' + name + (number == 1 ? '' : 's');
     }
 
     if (days >= 1 || min_unit == 'day')

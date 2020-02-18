@@ -1,14 +1,12 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import os
 import tempfile
 
 # Find the best implementation available
-try:
-    from io import StringIO
-except ImportError:
-    from io import StringIO
+
+from io import StringIO
 
 import mock
 from nose.tools import assert_raises
@@ -105,20 +103,20 @@ class TestLoadImage():
 
         # Save image to a JPEG buffer.
         buffer_io = StringIO()
-        image.save(buffer_io, format='jpeg')
+        image.save(str(buffer_io), format='jpeg')
         encoded = buffer_io.getvalue()
         buffer_io.close()
 
         # Corrupt the second half of the image buffer.
         size = len(encoded)
-        corrupted = encoded[:size / 2] + encoded[size / 2:][::-1]
+        corrupted = encoded[:int(size / 2)] + encoded[int(size / 2):][::-1]
 
         # Save the corrupted image to a temporary file.
         fname = tempfile.mkstemp(suffix='.bin')
         f = os.fdopen(fname[0], 'wb')
         fname = fname[1]
 
-        f.write(corrupted)
+        f.write(corrupted.encode('utf-8'))
         f.close()
 
         assert_raises(

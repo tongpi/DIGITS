@@ -34,7 +34,7 @@ class BaseTestWithDB(object):
                 width = 10 + i
             datum = cls.create_datum(10, width, 3)
             with cls.db.begin(write=True) as txn:
-                txn.put(str(i), datum.SerializeToString())
+                txn.put(str(i).encode('utf-8'), datum.SerializeToString())
 
     @classmethod
     def tearDownClass(cls):

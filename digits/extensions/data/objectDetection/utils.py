@@ -11,7 +11,7 @@ class ObjectType:
 
     Dontcare, Car, Van, Truck, Bus, Pickup, VehicleWithTrailer, SpecialVehicle,\
         Person, Person_fa, Person_unsure, People, Cyclist, Tram, Person_Sitting,\
-        Misc = list(range(16))
+        Misc = range(16)
 
     def __init__(self):
         pass
@@ -172,12 +172,12 @@ class GroundTruth:
     def load_gt_obj(self):
         """ load bbox ground truth from files either via the provided label directory or list of label files"""
         files = os.listdir(self.label_dir)
-        files = [x for x in files if x.endswith(self.label_ext)]
+        files = list(filter(lambda x: x.endswith(self.label_ext), files))
         if len(files) == 0:
             raise RuntimeError('error: no label files found in %s' % self.label_dir)
         for label_file in files:
             objects_per_image = list()
-            with open(os.path.join(self.label_dir, label_file), 'rb') as flabel:
+            with open(os.path.join(self.label_dir, label_file), 'rt') as flabel:
                 for row in csv.reader(flabel, delimiter=self.label_delimiter):
                     if len(row) == 0:
                         # This can happen when you open an empty file

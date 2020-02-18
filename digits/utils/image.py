@@ -1,18 +1,20 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
-
+from __future__ import absolute_import
 
 import math
 import os.path
 import requests
 
 # Find the best implementation available
-from io import BytesIO
+try:
+    from cStringIO import StringIO
+except ImportError:
+    from io import StringIO
 
 import numpy as np
+from io import BytesIO
 import PIL.Image
-import scipy.misc
-
-import base64
+from skimage import transform
 
 from . import is_url, HTTP_TIMEOUT, errors
 from flask_babel import lazy_gettext as _
@@ -52,21 +54,20 @@ def load_image(path):
                              allow_redirects=False,
                              timeout=HTTP_TIMEOUT)
             r.raise_for_status()
-            stream = StringIO(r.content)
+            stream = BytesIO(r.content)
             image = PIL.Image.open(stream)
         except requests.exceptions.RequestException as e:
-            raise errors.LoadImageError(e.args[0])
+            raise errors.LoadImageError(errors.LoadImageError, e.response)
         except IOError as e:
-            raise errors.LoadImageError(e.args[0])
+            raise errors.LoadImageError(errors.LoadImageError, str(e))
     elif os.path.exists(path):
         try:
             image = PIL.Image.open(path)
             image.load()
         except IOError as e:
-            raise errors.LoadImageError(_('IOError: Trying to load "%(path)s": %(message)s', path=path,
-                                           message=e.message))
+            raise errors.LoadImageError(errors.LoadImageError, 'IOError: Trying to load "%s": %s' % (path, e))
     else:
-        raise errors.LoadImageError(_('"%(path)s" not found', path=path))
+        raise errors.LoadImageError(errors.LoadImageError, '"%s" not found' % path)
 
     if image.mode in ['L', 'RGB']:
         # No conversion necessary
@@ -88,7 +89,7 @@ def load_image(path):
         new.paste(image, mask=image.convert('RGBA'))
         return new
     else:
-        raise errors.LoadImageError(_('Image mode "%(mode)s" not supported', mode=image.mode))
+        raise ValueError(errors.LoadImageError, 'Image mode "%s" not supported' % image.mode)
 
 
 def upscale(image, ratio):
@@ -102,7 +103,7 @@ def upscale(image, ratio):
     if not isinstance(image, np.ndarray):
         raise ValueError('Expected ndarray')
     if ratio < 1:
-        raise ValueError(_('Ratio must be greater than 1 (ratio=%(ratio)f)', ratio=ratio))
+        raise ValueError('Ratio must be greater than 1 (ratio=%f)' % ratio)
     width = int(math.floor(image.shape[1] * ratio))
     height = int(math.floor(image.shape[0] * ratio))
     channels = image.shape[2]
@@ -210,6 +211,7 @@ def resize_image(image, height, width,
 
     # convert to array
     image = image_to_array(image, channels)
+    result_type = image.dtype
 
     # No need to resize
     if image.shape[0] == height and image.shape[1] == width:
@@ -217,11 +219,12 @@ def resize_image(image, height, width,
 
     # Resize
     interp = 'bilinear'
+    spline_order = 1
 
     width_ratio = float(image.shape[1]) / width
     height_ratio = float(image.shape[0]) / height
     if resize_mode == 'squash' or width_ratio == height_ratio:
-        return scipy.misc.imresize(image, (height, width), interp=interp)
+        return transform.resize(image, (height, width), order=spline_order, preserve_range=True).astype(result_type)
     elif resize_mode == 'crop':
         # resize to smallest of ratios (relatively larger image), keeping aspect ratio
         if width_ratio > height_ratio:
@@ -230,7 +233,8 @@ def resize_image(image, height, width,
         else:
             resize_width = width
             resize_height = int(round(image.shape[0] / width_ratio))
-        image = scipy.misc.imresize(image, (resize_height, resize_width), interp=interp)
+        image = transform.resize(image, (resize_height, resize_width),
+                                 order=spline_order, preserve_range=True).astype(result_type)
 
         # chop off ends of dimension that is still too long
         if width_ratio > height_ratio:
@@ -252,7 +256,8 @@ def resize_image(image, height, width,
                 resize_width = int(round(image.shape[1] / height_ratio))
                 if (width - resize_width) % 2 == 1:
                     resize_width += 1
-            image = scipy.misc.imresize(image, (resize_height, resize_width), interp=interp)
+            image = transform.resize(image, (resize_height, resize_width),
+                                     order=spline_order, preserve_range=True).astype(result_type)
         elif resize_mode == 'half_crop':
             # resize to average ratio keeping aspect ratio
             new_ratio = (width_ratio + height_ratio) / 2.0
@@ -262,7 +267,8 @@ def resize_image(image, height, width,
                 resize_height += 1
             elif width_ratio < height_ratio and (width - resize_width) % 2 == 1:
                 resize_width += 1
-            image = scipy.misc.imresize(image, (resize_height, resize_width), interp=interp)
+            image = transform.resize(image, (resize_height, resize_width),
+                                     order=spline_order, preserve_range=True).astype(result_type)
             # chop off ends of dimension that is still too long
             if width_ratio > height_ratio:
                 start = int(round((resize_width - width) / 2.0))
@@ -275,14 +281,14 @@ def resize_image(image, height, width,
 
         # fill ends of dimension that is too short with random noise
         if width_ratio > height_ratio:
-            padding = (height - resize_height) / 2
+            padding = int((height - resize_height) / 2)
             noise_size = (padding, width)
             if channels > 1:
                 noise_size += (channels,)
             noise = np.random.randint(0, 255, noise_size).astype('uint8')
             image = np.concatenate((noise, image, noise), axis=0)
         else:
-            padding = (width - resize_width) / 2
+            padding = int((width - resize_width) / 2)
             noise_size = (height, padding)
             if channels > 1:
                 noise_size += (channels,)
@@ -317,10 +323,10 @@ def embed_image_html(image):
     else:
         fmt = fmt.lower()
 
-    # Python3
-    bytes_buf = BytesIO()
-    image.save(bytes_buf, format=fmt)
-    data = base64.encodebytes(bytes_buf.getvalue()).decode().strip()
+    string_buf = BytesIO()
+    image.save(string_buf, format=fmt)
+    import base64
+    data = base64.b64encode(string_buf.getvalue()).decode('utf-8').replace('\n', '')
     return 'data:image/%s;base64,%s' % (fmt, data)
 
 
@@ -393,7 +399,7 @@ def get_layer_vis_square(data,
         if width > 1:
             padsize = 1
             width += 1
-        n = int(max(max_width / width, 1))
+        n = max(max_width // width, 1)
         n *= n
         data = data[:n]
 

@@ -4,7 +4,6 @@ from __future__ import absolute_import
 import os
 import flask
 from flask import request, flash, session, redirect, render_template, url_for
-from flask.ext.socketio import join_room, leave_room
 from werkzeug import HTTP_STATUS_CODES, secure_filename
 import werkzeug.exceptions
 import hashlib
