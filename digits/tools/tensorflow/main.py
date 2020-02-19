@@ -771,24 +771,26 @@ def main(_):
 
         # 从用户自定义keras网络中提取model
         if FLAGS.train_db:
-            dims = eval(FLAGS.db_dims)
-            with open(path_network, 'r') as f:
-                network_code = f.read()
-            keras_codes = network_code.split('\n')
-            code_list = []
-            for line in keras_codes:
-                if 'model' in line and 'return' not in line and 'self' not in line \
-                        and 'output' not in line and 'property' not in line and 'import' not in line:
-                    code_list.append(line.replace(' ', ''))
-
-            code_list[1] = code_list[1][:-2] + ',input_shape=({},{},{})))'.format(dims[0], dims[1], dims[2])
-            loc = locals()
-            exec(code_list[0])
-            model = loc['model']
-            for code in code_list[1:]:
-                exec(code)
-            model.add(tf.contrib.keras.layers.Dense(nclasses, activation='softmax'))
-
+            try:
+                model = None
+                dims = eval(FLAGS.db_dims)
+                with open(path_network, 'r') as f:
+                    network_code = f.read()
+                keras_codes = network_code.split('\n')
+                code_list = []
+                for line in keras_codes:
+                    if 'model' in line and 'return' not in line and 'self' not in line \
+                            and 'output' not in line and 'property' not in line and 'import' not in line and '#' not in line:
+                        code_list.append(line.replace(' ', ''))
+                code_list[1] = code_list[1][:-2] + ',input_shape=({},{},{})))'.format(dims[0], dims[1], dims[2])
+                loc = locals()
+                exec(code_list[0])
+                model = loc['model']
+                for code in code_list[1:]:
+                    exec(code)
+                model.add(tf.contrib.keras.layers.Dense(nclasses, activation='softmax'))
+            except Exception as e:
+                pass
             if hasattr(model, 'predict_classes'):
                 # load_snapshot(sess, checkpoint_path, tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES))
                 val_file = FLAGS.val_file
