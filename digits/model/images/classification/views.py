@@ -765,8 +765,6 @@ def top_n():
         images_per_category = min(top_n, len(images))
         # Can't have more categories than the number of labels or the number of outputs
 
-        print("###################")
-        print(scores)
         n_categories = min(indices.shape[1], len(labels))
         for i in range(n_categories):
             result_images = []

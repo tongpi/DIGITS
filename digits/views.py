@@ -1,13 +1,14 @@
 # Copyright (c) 2014-2017, NVIDIA CORPORATION.  All rights reserved.
 from __future__ import absolute_import
 
+import datetime
 import glob
 import hashlib
 import json
 import platform
 import traceback
 import os
-
+import time
 import flask
 from flask import request, flash, session, redirect, render_template, url_for, current_app
 from flask_socketio import join_room, leave_room
@@ -378,6 +379,9 @@ def login():
             flash("成功登录！")
             login_user(user)
             identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
+            old_user = User.query.filter(User.username == session['username']).first()
+            old_user.last_login = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            db.session.commit()
             return redirect(url_for('digits.views.home'))
         else:
             error = '错误的用户名或密码！'
@@ -396,7 +400,8 @@ def register():
             error = '两次密码不相同！'
         elif valid_regist(request.form['username']):
             password = hashlib.md5(request.form['password'].encode()).hexdigest()
-            user = User(username=request.form['username'], password_hash=password, roles='SUPER')
+            last_login = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+            user = User(username=request.form['username'], password_hash=password, status="T",last_login = last_login)
             db.session.add(user)
             db.session.commit()
 

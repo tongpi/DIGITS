@@ -95,7 +95,7 @@ def data_manager():
     if request.method == 'POST':
         # print(request.form.get('image_folder'))
         # image_file = request.files['image_file']
-        image_folder = request.files
+        # image_folder = request.files
         # file_path = request.form.get('file_path')
         # if not file_path:
         #     file_path = '/data/upload_file/'
@@ -148,5 +148,29 @@ def add_user():
         db.session.commit()
     else:
         flash("用户名已存在！请重新输入用户名。")
+    return redirect(url_for('digits.unofficial.views.system_manager'))
+
+
+@blueprint.route('/modify_user', methods=['POST'])
+def modify_user():
+    username = request.form.get('modUser_name')
+    old_user = User.query.filter(User.username == username).first()
+    permissions = request.form.get('modUser_perm')
+    status = request.form.get('is_jinyong')
+
+    old_user.permissions = permissions
+    old_user.status = status
+    db.session.commit()
+    return redirect(url_for('digits.unofficial.views.system_manager'))
+
+
+@blueprint.route("/del_user/<del_user_name>",methods = ['GET','POST'])
+def del_user(del_user_name):
+    # username = request.args['delUserName']
+    username = del_user_name
+    print(username)
+    old_user = User.query.filter(User.username == username).first()
+    db.session.delete(old_user)
+    db.session.commit()
     return redirect(url_for('digits.unofficial.views.system_manager'))
 

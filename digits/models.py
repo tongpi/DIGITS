@@ -12,12 +12,14 @@ from digits.utils.permission import NORMAL, ROLES
 
 class User(db.Model, UserMixin):
     DEFAULT_PERMISSIONS = '0'
+    DEFAULT_STATUS = 'T'
 
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(320), unique=True)
     password_hash = db.Column(db.String(128), nullable=True)
     permissions = db.Column(db.String(128), default=DEFAULT_PERMISSIONS)
-    status = db.Column(db.Boolean, default=True)
+    status = db.Column(db.Boolean, default=DEFAULT_STATUS)
+    last_login = db.Column(db.String(128), nullable=True)
 
     roles = db.Column(ChoiceType(ROLES), default=NORMAL)
 

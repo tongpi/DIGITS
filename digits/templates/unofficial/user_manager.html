@@ -39,6 +39,23 @@
             border: 1px solid transparent;
             border-radius: 4px;
         }
+         #modify-user-dialog{
+             width: 400px;
+            position: absolute;
+            z-index: 999999;
+            background: #ffffff;
+            top: 50%;
+            left: 50%;
+            margin-left: -200px;
+            margin-top: -200px;
+            box-shadow: 7px 15px 30px #285a63;
+            border: 1px solid transparent;
+            border-radius: 4px;
+             display:none;
+         }
+    {#input[readonly]{#}
+    {#background-color: red;#}
+
     </style>
 {% endblock %}
 
@@ -89,20 +106,53 @@
                 </div>
             </form>
         </div>
-    <a class="btn btn-success btn-sm" id="create_user" style="float:right" >添加用户</a>
 
-    <script>
-        $('#create_user').click(
-            function () {
-                $('#add-user-dialog')[0].style.display = 'block';
-            }
-        );
-        $('#close-add-user').click(
-            function () {
-                $('#add-user-dialog')[0].style.display = 'none';
-            }
-        )
-    </script>
+    <div id="modify-user-dialog" style="display: none;">
+        <form action="{{ url_for('digits.unofficial.views.modify_user') }}" method="post" class="panel panel-default modalBody" style="margin-bottom: 0">
+            <div class="panel-heading text-center">
+                <span style="font-size:24px;">修改用户</span>
+                <a class="btn btn-danger btn-xs closeButton" style="float: right;" id="close-modify-user">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </a>
+                </div>
+                <div class="" style="top: -10px; position: relative; padding: 10px 20px;">
+                    <div class="row" style="margin:10px 30px 0 30px;">
+                        <div class="form-group">
+                            <label for="modUser_id" class="control-label">ID</label>
+                            <input type="text" class="form-control idclass" disabled>
+                            <input type="text" class="form-control idclass" id="modUser_id" name="modUser_id" style="display:none">
+                        </div>
+                    </div>
+                    <div class="row" style="margin:10px 30px 0 30px;">
+                        <div class="form-group">
+                            <label for="modUser_name" class="control-label">用户名</label>
+                            <input type="text" class="form-control nameclass" disabled>
+                            <input type="text" class="form-control nameclass" id="modUser_name" name="modUser_name"  style="display:none">
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0 30px">
+                        <div class="form-group">
+                            <label for="modUser_perm" class="control-label">权限</label>
+                            <select class="form-control" name="modUser_perm" id="modUser_perm" autocomplete="off">
+                                <option value="0">{{ permiss[0] }}</option>
+                                <option value="1">{{ permiss[1] }}</option>
+                                <option value="2">{{ permiss[2] }}</option>
+                                <option value="3">{{ permiss[3] }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row" style="margin:0 30px">
+                        <div class="form-group">
+                            <label for="is_jinyong" class="control-label">是否禁用</label>
+                            <label><input name="is_jinyong" type="radio" value="T" id="modUser_isJ">是</label>&nbsp;
+                            <label><input name="is_jinyong" type="radio" value="F"  id="modUser_isN">否</label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary" style="display:block;margin:0 auto">保存</button>
+                </div>
+            </form>
+     </div>
+    <a class="btn btn-success btn-sm" id="create_user" style="float:right" >添加用户</a>
 
 
     <hr>
@@ -115,7 +165,8 @@
                 <th>用户名</th>
                 <th>权限</th>
                 <th>状态</th>
-                <th>修改状态</th>
+                <th>最后登录时间</th>
+                <th>操作</th>
             </tr>
         </thead>
         <tbody>
@@ -127,18 +178,24 @@
                     {{ user.roles }}
                 </td>
                 <td>
-                    {% if user.status %}
-                        正常
-                    {% else %}
+                    {% if user.status == 'T' %}
                         禁用
+                    {% elif user.status == 'F' %}
+                        启用
                     {% endif %}
                 </td>
                 <td>
-                    {% if user.status %}
-                        <a class="btn btn-warning btn-xs" href="#">禁用</a>
-                    {% else %}
-                        <a class="btn btn-success btn-xs" href="#">启用</a>
-                    {% endif %}
+                    {{ user.last_login }}
+                </td>
+                <td>
+                    {% for perm in user.permissions %}
+                        <a class="btn btn-primary btn-edit" id = '{{ user.id}}' onclick="f('{{ user.id}}', '{{user.username}}','{{ user.status }}','{{ perm }}')">
+                            <i class="fa fa-edit"></i> 修改
+                        </a>
+                    {% endfor %}
+                    <a class="btn btn-danger btn-del btn-del delUser" href='{{ url_for("digits.unofficial.views.del_user",del_user_name=user.username) }}' onClick="return confirm('删除后将无法恢复,确定要删除?')">
+                        <i class="fa fa-remove"></i> 删除
+                    </a>
                 </td>
             </tr>
         {% endfor %}
@@ -146,7 +203,7 @@
     </table>
     </div>
     <hr>
-    <div class="well">
+    <div>
     <div style="margin-bottom: 20px">
         <span style="font-size: 24px;line-height: 24px;margin-right: 20px">日志管理</span>
         <a href="{{ url_for('digits.unofficial.views.system_log') }}" class="btn btn-sm btn-primary">下载系统日志</a>
@@ -191,7 +248,54 @@
         </tbody>
     </table>
     </div>
+ <script>
 
+
+        function f(user_id,user_name,user_status,user_perm){
+            $(".idclass").attr("value",user_id);
+            $(".nameclass").attr("value",user_name);
+            var perm = user_perm
+            if(perm=="0"){
+                $("#modUser_perm").find("option[value='0']").prop("selected",true);
+            }else if(perm=="1"){
+                $("#modUser_perm").find("option[value='1']").prop("selected",true);
+            }else if(perm=="2"){
+                $("#modUser_perm").find("option[value='2']").prop("selected",true);
+            }else if(perm=="3"){
+                $("#modUser_perm").find("option[value='3']").prop("selected",true);
+            }
+            console.log(user_status)
+            if(user_status == "T") {
+                $("#modUser_isJ").prop("checked",true);
+            }
+            else{
+                $("#modUser_isN").prop("checked",true);
+            }
+            $('#modify-user-dialog')[0].style.display = 'block';
+            };
+
+        $(function(){
+
+            var modUser={};
+            $('#create_user').click(
+            function () {
+                $('#add-user-dialog')[0].style.display = 'block';
+            }
+            );
+            $('#close-add-user').click(
+                function () {
+                    $('#add-user-dialog')[0].style.display = 'none';
+                }
+            );
+
+            $('#close-modify-user').click(
+                function () {
+                    $('#modify-user-dialog')[0].style.display = 'none';
+                }
+            );
+
+        });
+    </script>
 {% endblock %}
 
 
