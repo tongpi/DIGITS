@@ -8,6 +8,7 @@ from werkzeug import HTTP_STATUS_CODES, secure_filename
 from flask_login import login_required
 import werkzeug.exceptions
 import hashlib
+import datetime
 
 from digits.config import config_value
 from digits.webapp import app, socketio, scheduler, db
@@ -143,7 +144,8 @@ def add_user():
     if User.inspect_username(username):
         permissions = request.form.get('permissions')
         password = hashlib.md5(request.form.get('upassword').encode()).hexdigest()
-        user = User(username=username, password_hash=password, roles=permissions, status=True)
+        last_login = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
+        user = User(username=username, password_hash=password, roles=permissions, status='T', last_login=last_login)
         db.session.add(user)
         db.session.commit()
     else:

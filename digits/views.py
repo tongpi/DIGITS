@@ -379,7 +379,7 @@ def login():
             flash("成功登录！")
             login_user(user)
             identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
-            old_user = User.query.filter(User.username == session['username']).first()
+            old_user = User.query.filter(User.username == user.username).first()
             old_user.last_login = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
             db.session.commit()
             return redirect(url_for('digits.views.home'))
@@ -401,7 +401,7 @@ def register():
         elif valid_regist(request.form['username']):
             password = hashlib.md5(request.form['password'].encode()).hexdigest()
             last_login = str(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"))
-            user = User(username=request.form['username'], password_hash=password, status="T",last_login = last_login)
+            user = User(username=request.form['username'], password_hash=password, status="T", last_login=last_login, roles='SUPER')
             db.session.add(user)
             db.session.commit()
 

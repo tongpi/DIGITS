@@ -31,7 +31,7 @@ super_permission = Permission(RoleNeed(SUPER))
 def admin_authority(func):
     @wraps(func)
     def decorated_view(*arg, **kwargs):
-        if admin_permission.can():
+        if admin_permission.can() or super_permission.can():
             return func(*arg, **kwargs)
         flash("非admin用户，无权限访问！")
         return redirect(url_for('digits.views.home'))

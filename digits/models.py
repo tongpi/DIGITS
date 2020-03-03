@@ -18,7 +18,7 @@ class User(db.Model, UserMixin):
     username = db.Column(db.String(320), unique=True)
     password_hash = db.Column(db.String(128), nullable=True)
     permissions = db.Column(db.String(128), default=DEFAULT_PERMISSIONS)
-    status = db.Column(db.Boolean, default=DEFAULT_STATUS)
+    status = db.Column(db.String(128), default=DEFAULT_STATUS)
     last_login = db.Column(db.String(128), nullable=True)
 
     roles = db.Column(ChoiceType(ROLES), default=NORMAL)
