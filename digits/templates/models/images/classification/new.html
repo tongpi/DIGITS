@@ -526,9 +526,33 @@ function setFramework(fwid)
     if (fwid == 'tensorflow_hub'){
         $("#hub-div").show();
         $(".disable-hub").hide();
+        $.ajax("{{url_for('digits.model.images.classification.views.get_hub_datasets')}}" ,
+            {
+                type: "GET",
+                }
+            )
+        .done(function(data) {
+            var hub_datasets = data['data'];
+            $("#dataset").find("option").remove();
+            for (var i=0; i < hub_datasets.length; i++){
+                $("#dataset").append("<option value='" + hub_datasets[i][0] + "'>" + hub_datasets[i][1] + "</option>");
+            }
+            })
     } else {
         $("#hub-div").hide();
         $(".disable-hub").show();
+        $.ajax("{{url_for('digits.model.images.classification.views.get_all_datasets')}}" ,
+            {
+                type: "GET",
+                }
+            )
+        .done(function(data) {
+            var all_datasets = data['data'];
+            $("#dataset").find("option").remove();
+            for (var i=0; i < all_datasets.length; i++){
+                $("#dataset").append("<option value='" + all_datasets[i][0] + "'>" + all_datasets[i][1] + "</option>");
+            }
+            })
     }
 
     if (fwid == 'torch'){

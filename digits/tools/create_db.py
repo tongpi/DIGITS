@@ -218,8 +218,8 @@ def create_db(input_file, output_dir,
               shuffle=True,
               mean_files=None,
               job_dir=None,
-              is_train=None,
               delete_files=False,
+              hub_model_url=None,
               **kwargs):
     """
     Create a database of images from a list of image paths
@@ -310,9 +310,9 @@ def create_db(input_file, output_dir,
                      mean_files, **kwargs)
     else:
         raise ValueError(_('invalid backend'))
-    if int(is_train) == 1:
+    if hub_model_url:
         try:
-            _create_bottleneck(job_dir, image_folder, image_height, image_width, image_channels)
+            _create_bottleneck(job_dir, image_folder, image_height, image_width, image_channels, hub_model_url)
         except ValueError:
             logger.error("数据集图片尺寸不能生成bottleneck文件")
 
@@ -887,7 +887,7 @@ FAKE_QUANT_OPS = ('FakeQuantWithMinMaxVars',
 
 
 # dzh: create tensorflow_hub bottleneck file
-def _create_bottleneck(job_dir, folder, height, width, channel):
+def _create_bottleneck(job_dir, folder, height, width, channel, model_url):
     # 10,10: 验证图像百分比和测试图像百分比
     image_lists = create_image_lists(folder, 10, 10)
     class_count = len(list(image_lists.keys()))
@@ -903,7 +903,7 @@ def _create_bottleneck(job_dir, folder, height, width, channel):
 
     # module_spec = hub.load_module_spec(tfhub_module)
     graph, bottleneck_tensor, resized_image_tensor, wants_quantization = (
-        create_module_graph(height, width))
+        create_module_graph(height, width, model_url))
 
     with tf.Session(graph=graph) as sess:
         init = tf.global_variables_initializer()
@@ -1114,10 +1114,10 @@ def add_jpeg_decoding(height, width, channel):
     return jpeg_data, resized_image
 
 
-def create_module_graph(height, width):
+def create_module_graph(height, width, model_url):
     with tf.Graph().as_default() as graph:
         resized_input_tensor = tf.placeholder(tf.float32, [None, height, width, 3])
-        m = hub.Module("https://tfhub.dev/google/imagenet/inception_v3/classification/3")
+        m = hub.Module(model_url)
         bottleneck_tensor = m(resized_input_tensor)
         wants_quantization = any(node.op in FAKE_QUANT_OPS
                                  for node in graph.as_graph_def().node)
@@ -1178,8 +1178,9 @@ if __name__ == '__main__':
                         help=_('The size limit for HDF5 datasets'))
     parser.add_argument('--job_dir',
                         help=_('Path to the dataset job_dir'))
-    parser.add_argument('--is_train',
-                        help=_('T(1) or F(0)'))
+    parser.add_argument('--hub_model_url',
+                        help=_('Path to the tensorflow hub model url'),
+                        default=None)
     parser.add_argument('--delete_files',
                         action='store_true',
                         help='Specifies whether to keep files after creation of dataset')
@@ -1204,7 +1205,7 @@ if __name__ == '__main__':
                   hdf5_dset_limit=args['hdf5_dset_limit'],
                   delete_files=args['delete_files'],
                   job_dir=args['job_dir'],
-                  is_train=args['is_train']
+                  hub_model_url=args['hub_model_url']
                   )
     except Exception as e:
         logger.error('%s: %s' % (type(e).__name__, str(e)))

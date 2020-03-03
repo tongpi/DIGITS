@@ -73,7 +73,7 @@ class UploadPretrainedModelTask(Task):
         """
         Get path to model definition
         """
-        raise NotImplementedError(_('Please implement me'))
+        return self.model_url
 
     def get_weights_path(self):
         """

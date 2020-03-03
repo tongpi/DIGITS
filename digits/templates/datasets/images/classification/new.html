@@ -133,6 +133,41 @@ function showResizeExample()
                             {{ form.folder_pct_test.tooltip }}
                             {{ form.folder_pct_test(class='form-control') }}
                         </div>
+                        <div class="form-group col-sm-12">
+                            <input type="checkbox" id="use_hub" name="use_hub" value="y">
+                            <label for="use_hub">使用tfhub预训练模型创建数据瓶颈值</label>
+                        </div>
+                        <div class="form-group col-sm-6" id="hub_model_div">
+                            <label for="select_hub_model">选择tfhub预训练模型</label>
+                            <span class="explanation-tooltip glyphicon glyphicon-question-sign" data-container="body" title data-original-title="您可以选择已上传的HUB预训练模型进行对应数据集的构建（使用此选项，请先上传最少一个tensorflow_hub预训练模型）。"></span>
+                            <select id="select_hub_model" name="select_hub_model" class="form-control">
+                                {% if model_choices %}
+                                    {% for model_url, model_name in model_choices %}
+                                        <option value="{{ model_url }}">{{ model_name }}</option>
+                                    {% endfor %}
+                                {% else %}
+                                    <script>
+                                        $('#select_hub_model').attr('disabled', 'disabled')
+                                    </script>
+                                {% endif %}
+                            </select>
+                        </div>
+                        <script>
+function useHubModelChanged() {
+    if ($("#use_hub").prop("checked"))
+    {
+        $("#select_hub_model").prop("disabled", false);
+        $("#hub_model_div").show();
+    }
+    else
+    {
+        $("#hub_model_div").hide();
+        $("#select_hub_model").prop("disabled", true);
+    }
+}
+$("#use_hub").click(useHubModelChanged);
+useHubModelChanged();
+                        </script>
                     </div>
                     <br>
                     {{form.has_val_folder}}

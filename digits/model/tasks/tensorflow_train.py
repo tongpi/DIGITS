@@ -272,7 +272,7 @@ class TensorflowTrainTask(TrainTask):
             raise ValueError('Unknown solver_type %s' % self.solver_type)
 
         if self.val_interval is not None:
-            args.append('--validation_interval=%d' % self.val_interval)
+            args.append('--validation_interval=%s' % self.val_interval)
 
         # if self.traces_interval is not None:
         args.append('--log_runtime_stats_per_step=%d' % self.traces_interval)

@@ -528,7 +528,8 @@ try {
         $scope.title = gettext('Datasets');
         $scope.fields = [{name: 'name', title:gettext('name'), show: true},
                          {name: 'refs', title:gettext('refs'), show: true},
-                         {name: 'extension', title:gettext('extension'), show: true, min_width: 150},
+                         {name: 'extension', title:gettext('extension'), show: true, min_width: 100},
+                         {name: 'tfhub', title:'tfhub', show: true, min_width: 100},
                          {name: 'backend', title:gettext('backend'), show: true},
                          {name: 'status', title:gettext('status'), show: true},
                          {name: 'elapsed', title:gettext('elapsed'), show: true},

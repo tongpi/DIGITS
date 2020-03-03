@@ -70,7 +70,7 @@ tf.app.flags.DEFINE_integer(
     'croplen', 0, """Crop (x and y). A zero value means no cropping will be applied""")
 tf.app.flags.DEFINE_integer('epoch', 1, """Number of epochs to train, -1 for unbounded""")
 tf.app.flags.DEFINE_string('inference_db', '', """Directory with inference file source""")
-tf.app.flags.DEFINE_integer(
+tf.app.flags.DEFINE_float(
     'validation_interval', 1, """Number of train epochs to complete, to perform one validation""")
 tf.app.flags.DEFINE_string('labels_list', '', """Text file listing label definitions""")
 tf.app.flags.DEFINE_string('mean', '', """Mean image file""")
@@ -202,8 +202,8 @@ def average_head_keys(tags, vals):
         else:
             sums[a] += b
             nums[a] += 1
-    tags_clean = sums.keys()
-    return tags_clean, np.asarray(list(sums.values()))/np.asarray(list(nums.values()))
+    tags_clean = list(sums.keys())
+    return tags_clean, np.asarray(list(sums.values())) / np.asarray(list(nums.values()))
 
 
 def summary_to_lists(summary_str):
@@ -691,7 +691,6 @@ def main(_):
                                                         feed_dict=feed_dict,
                                                         options=run_options,
                                                         run_metadata=run_metadata)
-
                     # HACK
                     step = step / len(train_model.train)
 

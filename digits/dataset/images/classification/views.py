@@ -15,10 +15,12 @@ import PIL.Image
 import pandas as pd
 import librosa.display
 import matplotlib.pyplot as plt
+from flask_login import login_required
 
 from .forms import ImageClassificationDatasetForm
 from .job import ImageClassificationDatasetJob
-from digits import utils
+from digits import utils, pretrained_model
+from digits.views import get_job_list
 from digits.dataset import tasks
 from digits.utils.forms import fill_form_if_cloned, save_form_to_job
 from digits.utils.lmdbreader import DbReader
@@ -30,7 +32,7 @@ from flask_babel import lazy_gettext as _
 blueprint = flask.Blueprint(__name__, __name__)
 
 
-def from_folders(job, form):
+def from_folders(job, form, hub_model_url):
     """
     Add tasks for creating a dataset by parsing folders of images
     """
@@ -121,7 +123,7 @@ def from_folders(job, form):
             mean_file=utils.constants.MEAN_FILE_CAFFE,
             labels_file=job.labels_file,
             image_folder=form.folder_train.data,
-            is_train=1
+            hub_model_url=hub_model_url
         )
     )
 
@@ -139,7 +141,6 @@ def from_folders(job, form):
                 compression=compression,
                 labels_file=job.labels_file,
                 image_folder=form.folder_train.data,
-                is_train=0
             )
         )
 
@@ -157,7 +158,6 @@ def from_folders(job, form):
                 compression=compression,
                 labels_file=job.labels_file,
                 image_folder=form.folder_train.data,
-                is_train=0
             )
         )
 
@@ -529,8 +529,18 @@ def from_s3(job, form):
         )
 
 
+# 准备hub预训练模型的url信息
+def hub_model_choices():
+    pretrained_models = get_job_list(pretrained_model.PretrainedModelJob, False)
+    model_choices = []
+    for job in pretrained_models:
+        if job.framework == 'tensorflow_hub':
+            model_choices.append((job.get_model_path(), job.name()))
+    return model_choices
+
+
 @blueprint.route('/new', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def new():
     """
     Returns a form for a new ImageClassificationDatasetJob
@@ -539,12 +549,13 @@ def new():
 
     # Is there a request to clone a job with ?clone=<job_id>
     fill_form_if_cloned(form)
+    model_choices = hub_model_choices()
 
-    return flask.render_template('datasets/images/classification/new.html', form=form)
+    return flask.render_template('datasets/images/classification/new.html', form=form, model_choices=model_choices)
 
 
 @blueprint.route('/sound_new', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def sound_new():
     """
     Returns a form for a new ImageClassificationDatasetJob
@@ -559,7 +570,7 @@ def sound_new():
 
 @blueprint.route('.json', methods=['POST'])
 @blueprint.route('/sound_create', methods=['POST'], strict_slashes=False)
-@utils.auth.requires_login(redirect=False)
+@login_required
 def sound_create():
     """
     Creates a new ImageClassificationDatasetJob
@@ -617,7 +628,7 @@ def sound_create():
 
 @blueprint.route('.json', methods=['POST'])
 @blueprint.route('', methods=['POST'], strict_slashes=False)
-@utils.auth.requires_login(redirect=False)
+@login_required
 def create():
     """
     Creates a new ImageClassificationDatasetJob
@@ -625,6 +636,8 @@ def create():
     Returns JSON when requested: {job_id,name,status} or {errors:[]}
     """
     form = ImageClassificationDatasetForm()
+
+    hub_model_url = flask.request.form.get('select_hub_model', None)
 
     # Is there a request to clone a job with ?clone=<job_id>
     fill_form_if_cloned(form)
@@ -646,11 +659,12 @@ def create():
                 int(form.resize_width.data),
                 int(form.resize_channels.data),
             ),
-            resize_mode=form.resize_mode.data
+            resize_mode=form.resize_mode.data,
+            hub_model_url=hub_model_url
         )
 
         if form.method.data == 'folder':
-            from_folders(job, form)
+            from_folders(job, form, hub_model_url)
 
         elif form.method.data == 'textfile':
             from_files(job, form)
@@ -692,7 +706,7 @@ def summary(job):
 
 
 @blueprint.route('/explore', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def explore():
     """
     Returns a gallery consisting of the images of one of the dbs

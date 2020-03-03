@@ -312,7 +312,6 @@ class Tower(object):
         self.x = x
         self.y = y
         self.train = None
-        self.kmodel = None
 
     def gradientUpdate(self, grad):
         return grad

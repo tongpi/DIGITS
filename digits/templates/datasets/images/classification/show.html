@@ -25,6 +25,12 @@
         <dd>{{job.get_encoding()}}</dd>
         <dt>{{_('DB Compression')}}</dt>
         <dd>{{job.get_compression()}}</dd>
+        {% if job.hub_model_url %}
+        <dt>tfhub预训练模型URL</dt>
+        <dd>
+            {{ job.hub_model_url }}
+        </dd>
+        {% endif %}
     </dl>
     <dl>
         <dt>{{_('Dataset size')}}</dt>

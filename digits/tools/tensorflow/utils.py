@@ -47,9 +47,9 @@ def classification_loss(pred, y):
     return tf.reduce_mean(ssoftmax, name='cross_entropy_batch')
 
 
+
 def mse_loss(lhs, rhs):
     return tf.reduce_mean(tf.square(lhs - rhs))
-
 
 def constrastive_loss(lhs, rhs, y, margin=1.0):
     """

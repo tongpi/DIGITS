@@ -597,11 +597,13 @@ def main(_):
         # Start running operations on the Graph. allow_soft_placement must be set to
         # True to build towers on GPU, as some of the ops do not have GPU
         # implementations.
-        sess = tf.Session(config=tf.ConfigProto(
-                          allow_soft_placement=True,  # will automatically do non-gpu supported ops on cpu
-                          inter_op_parallelism_threads=TF_INTER_OP_THREADS,
-                          intra_op_parallelism_threads=TF_INTRA_OP_THREADS,
-                          log_device_placement=FLAGS.log_device_placement))
+        tf_config = tf.ConfigProto(
+            allow_soft_placement=True,  # will automatically do non-gpu supported ops on cpu
+            inter_op_parallelism_threads=TF_INTER_OP_THREADS,
+            intra_op_parallelism_threads=TF_INTRA_OP_THREADS,
+            log_device_placement=FLAGS.log_device_placement)
+        tf_config.gpu_options.allow_growth = True
+        sess = tf.Session(config=tf_config)
 
         if FLAGS.visualizeModelPath:
             visualize_graph(sess.graph_def, FLAGS.visualizeModelPath)

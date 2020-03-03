@@ -9,6 +9,7 @@ import base64
 import flask
 import numpy as np
 import werkzeug.exceptions
+from flask_login import login_required
 
 from .forms import ImageClassificationModelForm
 from .job import ImageClassificationModelJob
@@ -62,7 +63,7 @@ def read_image_list(image_list, image_folder, num_test_images):
 
 
 @blueprint.route('/new', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def new():
     """
     Return a form for a new ImageClassificationModelJob
@@ -91,7 +92,7 @@ def new():
 
 @blueprint.route('/json', methods=['POST'])
 @blueprint.route('', methods=['POST'], strict_slashes=False)
-@utils.auth.requires_login(redirect=False)
+@login_required
 def create():
     """
     Create a new ImageClassificationModelJob
@@ -793,6 +794,30 @@ def get_datasets():
         key=Job.id
     )
     ]
+
+
+@blueprint.route('/get_hub_datasets', methods=['GET'])
+@login_required
+def get_hub_datasets():
+    hub_datasets = [(j.id(), j.name()) for j in sorted(
+        [j for j in scheduler.jobs.values() if isinstance(j, ImageClassificationDatasetJob) and
+         (j.status.is_running() or j.status == Status.DONE) and hasattr(j, 'hub_model_url') and j.hub_model_url],
+        key=Job.id
+    )
+    ]
+    return flask.jsonify({'data': hub_datasets})
+
+
+@blueprint.route('/get_all_datasets', methods=['GET'])
+@login_required
+def get_all_datasets():
+    all_datasets = [(j.id(), j.name()) for j in sorted(
+        [j for j in scheduler.jobs.values() if isinstance(j, ImageClassificationDatasetJob) and
+         (j.status.is_running() or j.status == Status.DONE)],
+        key=Job.id
+    )
+    ]
+    return flask.jsonify({'data': all_datasets})
 
 
 def get_standard_networks():

@@ -46,7 +46,7 @@ class CreateDbTask(Task):
         self.mean_file = kwargs.pop('mean_file', None)
         self.labels_file = kwargs.pop('labels_file', None)
         self.delete_files = kwargs.pop('delete_files', False)
-        self.is_train = kwargs.pop('is_train', None)
+        self.hub_model_url = kwargs.pop('hub_model_url', None)
 
         super(CreateDbTask, self).__init__(**kwargs)
         self.pickver_task_createdb = PICKLE_VERSION
@@ -162,8 +162,9 @@ class CreateDbTask(Task):
             '--channels=%s' % self.image_dims[2],
             '--resize_mode=%s' % self.resize_mode,
             '--job_dir=%s' % self.job_dir,
-            '--is_train=%d' % self.is_train
         ]
+        if self.hub_model_url:
+            args.append('--hub_model_url=%s' % self.hub_model_url)
 
         if self.mean_file is not None:
             args.append('--mean_file=%s' % self.path(self.mean_file))

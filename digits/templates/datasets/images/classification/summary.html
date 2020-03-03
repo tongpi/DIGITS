@@ -36,5 +36,11 @@
     {% endif %}
     </dd>
     {% endfor %}
+    {% if dataset.hub_model_url %}
+    <dt>tfhub预训练模型URL</dt>
+    <dd>
+        {{ dataset.hub_model_url }}
+    </dd>
+    {% endif %}
 </dl>
 

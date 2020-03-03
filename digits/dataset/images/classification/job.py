@@ -25,6 +25,8 @@ class ImageClassificationDatasetJob(ImageDatasetJob):
 
         self.labels_file = None
 
+        self.hub_model_url = kwargs.pop('hub_model_url', None)
+
     def __setstate__(self, state):
         super(ImageClassificationDatasetJob, self).__setstate__(state)
 
