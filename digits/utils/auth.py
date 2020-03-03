@@ -7,7 +7,9 @@ import re
 import werkzeug.exceptions
 
 from .routing import get_request_arg, request_wants_json
+from digits.utils.permission import admin_permission, super_permission
 from flask_babel import lazy_gettext as _
+
 
 def get_username():
     return get_request_arg('username') or \
@@ -67,6 +69,9 @@ def has_permission(job, action, username=None):
     Keyword arguments:
     username -- the user in question (defaults to current user)
     """
+    if super_permission.can() or admin_permission.can():
+        return True
+
     if job.is_read_only():
         return False
 

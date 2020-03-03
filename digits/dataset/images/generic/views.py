@@ -2,6 +2,7 @@
 from __future__ import absolute_import
 
 import flask
+from flask_login import login_required
 
 from .forms import GenericImageDatasetForm
 from .job import GenericImageDatasetJob
@@ -15,7 +16,7 @@ blueprint = flask.Blueprint(__name__, __name__)
 
 
 @blueprint.route('/new', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def new():
     """
     Returns a form for a new GenericImageDatasetJob
@@ -30,7 +31,7 @@ def new():
 
 @blueprint.route('.json', methods=['POST'])
 @blueprint.route('', methods=['POST'], strict_slashes=False)
-@utils.auth.requires_login(redirect=False)
+@login_required
 def create():
     """
     Creates a new GenericImageDatasetJob

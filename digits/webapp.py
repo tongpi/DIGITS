@@ -9,6 +9,8 @@ from flask import session
 from flask_socketio import SocketIO
 from flask_sqlalchemy import SQLAlchemy
 from flask_babel import Babel
+from flask_login import LoginManager, current_user
+from flask_principal import Principal, UserNeed, RoleNeed, identity_loaded
 
 
 from .config import config_value  # noqa
@@ -42,9 +44,23 @@ app.config['BABEL_TRANSLATION_DIRECTORIES'] = 'static/translations'
 babel = Babel(app)
 
 # db
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', "postgresql://postgres@192.168.15.100/digits")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI', "postgresql://postgres@192.168.15.100/digits_permission")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 db = SQLAlchemy(app)
+
+# login + principal
+login = LoginManager(app)
+login.login_view = 'digits.views.login'
+principals = Principal(app)
+
+
+@identity_loaded.connect_via(app)
+def on_identity_loaded(sender, identity):
+    identity.user = current_user
+    if hasattr(current_user, 'id'):
+        identity.provides.add(UserNeed(current_user.id))
+    if hasattr(current_user, 'roles'):
+        identity.provides.add(RoleNeed(current_user.roles.code))
 # Register filters and views
 
 app.jinja_env.globals['server_name'] = config_value('server_name')

@@ -4,6 +4,7 @@ import tempfile
 import tarfile
 import zipfile
 import json
+from flask_login import login_required
 
 import os
 import shutil
@@ -129,8 +130,8 @@ def validate_archive_keys(info):
     return (True, 0)
 
 
-@utils.auth.requires_login
 @blueprint.route('/upload_archive', methods=['POST'])
+@login_required
 def upload_archive():
     """
     Upload archive
@@ -196,8 +197,8 @@ def upload_archive():
         return flask.jsonify({"status": "Missing or Incorrect json file"}), 500
 
 
-@utils.auth.requires_login
 @blueprint.route('/new', methods=['POST'])
+@login_required
 def new():
     """
     Upload a pretrained model

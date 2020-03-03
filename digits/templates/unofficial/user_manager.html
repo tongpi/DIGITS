@@ -47,7 +47,7 @@
 
 
 {% block content %}
-    {% set permiss = ['高级管理员', '普通管理员', '普通用户', '只读用户'] %}
+    {% set permiss = ['超级管理员', '普通管理员', '普通用户', '只读用户'] %}
     <h2>系统管理</h2>
     <hr>
     {{ print_flashes() }}
@@ -72,10 +72,10 @@
                         <div class="form-group">
                             <label for="permissions" class="control-label">权限</label>
                             <select class="form-control" name="permissions">
-                                <option value="0">{{ permiss[0] }}</option>
-                                <option value="1">{{ permiss[1] }}</option>
-                                <option value="2">{{ permiss[2] }}</option>
-                                <option value="3">{{ permiss[3] }}</option>
+                                <option value="SUPER">{{ permiss[0] }}</option>
+                                <option value="ADMIN">{{ permiss[1] }}</option>
+                                <option value="NORMAL">{{ permiss[2] }}</option>
+                                <option value="READER">{{ permiss[3] }}</option>
                             </select>
                         </div>
                     </div>
@@ -102,7 +102,6 @@
                 $('#add-user-dialog')[0].style.display = 'none';
             }
         )
-
     </script>
 
 
@@ -125,9 +124,7 @@
                 <td>{{ user.id }}</td>
                 <td><a href="#">{{ user.username }}</a> </td>
                 <td>
-                    {% for per in user.permissions %}
-                        {{ permiss[int(per)] }}
-                    {% endfor %}
+                    {{ user.roles }}
                 </td>
                 <td>
                     {% if user.status %}

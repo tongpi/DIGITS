@@ -10,6 +10,7 @@ import zipfile
 
 import flask
 from flask import flash
+from flask_login import login_required
 import requests
 import werkzeug.exceptions
 import tensorflow as tf
@@ -34,7 +35,7 @@ inference_server_model_path = os.environ.get("INFERENCE_SERVER_MODEL_PATH", '/ho
 
 @blueprint.route('/<job_id>.json', methods=['GET'])
 @blueprint.route('/<job_id>', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def show(job_id):
     """
     Show a ModelJob
@@ -216,7 +217,6 @@ def visualize_lr():
     return json.dumps({'data': {'columns': datalist}})
 
 
-@auth.requires_login
 @blueprint.route('/<job_id>/to_pretrained', methods=['GET', 'POST'])
 def to_pretrained(job_id):
     job = scheduler.get_job(job_id)

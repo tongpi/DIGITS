@@ -3,6 +3,7 @@ from __future__ import absolute_import
 
 import flask
 import werkzeug.exceptions
+from flask_login import login_required
 
 from . import images as dataset_images
 from . import generic
@@ -16,7 +17,7 @@ blueprint = flask.Blueprint(__name__, __name__)
 
 @blueprint.route('/<job_id>.json', methods=['GET'])
 @blueprint.route('/<job_id>', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def show(job_id):
     """
     Show a DatasetJob
@@ -44,7 +45,7 @@ def show(job_id):
 
 
 @blueprint.route('/summary', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def summary():
     """
     Return a short HTML summary of a DatasetJob
@@ -61,7 +62,7 @@ def summary():
 
 
 @blueprint.route('/inference-form/<extension_id>/<job_id>', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def inference_form(extension_id, job_id):
     """
     Returns a rendering of an inference form

@@ -15,6 +15,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import PIL.Image
 from io import BytesIO
+from flask_login import login_required
+
 from .forms import GenericDatasetForm
 from .job import GenericDatasetJob
 from digits import extensions, utils
@@ -29,7 +31,7 @@ blueprint = flask.Blueprint(__name__, __name__)
 
 
 @blueprint.route('/new/<extension_id>', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def new(extension_id):
     """
     Returns a form for a new GenericDatasetJob
@@ -64,7 +66,7 @@ def new(extension_id):
 @blueprint.route('/create/<extension_id>',
                  methods=['POST'],
                  strict_slashes=False)
-@utils.auth.requires_login(redirect=False)
+@login_required
 def create(extension_id):
     """
     Creates a new GenericDatasetJob
@@ -141,7 +143,7 @@ def create(extension_id):
 
 
 @blueprint.route('/explore', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def explore():
     """
     Returns a gallery consisting of the images of one of the dbs

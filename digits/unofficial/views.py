@@ -5,6 +5,7 @@ import os
 import flask
 from flask import request, flash, session, redirect, render_template, url_for
 from werkzeug import HTTP_STATUS_CODES, secure_filename
+from flask_login import login_required
 import werkzeug.exceptions
 import hashlib
 
@@ -15,12 +16,13 @@ from digits import dataset, extensions, model, utils, pretrained_model
 from digits.log import logger
 from digits.utils.routing import request_wants_json
 from digits.models import valid_login, valid_regist, User, verify_pwd
+from digits.utils.permission import admin_permission, admin_authority
 
 blueprint = flask.Blueprint(__name__, __name__)
 
 
 @blueprint.route('/task_manager', methods=['GET'])
-@utils.auth.requires_login
+@admin_authority
 def task_manager():
     running_datasets = get_job_list(dataset.DatasetJob, True)
     completed_datasets = get_job_list(dataset.DatasetJob, False)
@@ -33,7 +35,6 @@ def task_manager():
         'models': [j.json_dict(True)
                    for j in running_models + completed_models],
     }
-
     return render_template('unofficial/task_manager.html', job_data=job_data, scheduler=scheduler, enumerate=enumerate)
 
 
@@ -46,7 +47,8 @@ def get_job_list(cls, running):
 
 
 @blueprint.route('/system_manager', methods=['GET'])
-@utils.auth.requires_login
+@admin_authority
+@login_required
 def system_manager():
     users = User.get_all_users()
     running_datasets = get_job_list(dataset.DatasetJob, True)
@@ -75,7 +77,7 @@ def system_log():
 
 
 @blueprint.route('/index_manager', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def index_manager():
     completed_datasets = get_job_list(dataset.DatasetJob, False)
     datasets = [j.json_dict(True) for j in completed_datasets]
@@ -88,7 +90,7 @@ def index_manager():
 
 
 @blueprint.route('/data_manager', methods=['GET', 'POST'])
-@utils.auth.requires_login
+@login_required
 def data_manager():
     if request.method == 'POST':
         # print(request.form.get('image_folder'))
@@ -112,7 +114,7 @@ def data_manager():
 
 
 @blueprint.route('/mark_manager/<index>', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def mark_manager(index):
     if index == 'image':
         return render_template('unofficial/gds-image.html')
@@ -124,7 +126,7 @@ def mark_manager(index):
 
 
 @blueprint.route('/visualization_manager', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def visualization_manager():
     completed_models = get_job_list(model.ModelJob, False)
     models = [j.json_dict(True) for j in completed_models]
@@ -135,13 +137,13 @@ def visualization_manager():
 
 
 @blueprint.route('/add_user', methods=['POST'])
-@utils.auth.requires_login
+@login_required
 def add_user():
     username = request.form.get('username')
     if User.inspect_username(username):
         permissions = request.form.get('permissions')
         password = hashlib.md5(request.form.get('upassword').encode()).hexdigest()
-        user = User(username=username, password_hash=password, permissions=permissions, status=True)
+        user = User(username=username, password_hash=password, roles=permissions, status=True)
         db.session.add(user)
         db.session.commit()
     else:

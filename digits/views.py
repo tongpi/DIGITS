@@ -9,8 +9,10 @@ import traceback
 import os
 
 import flask
-from flask import request, flash, session, redirect, render_template, url_for
+from flask import request, flash, session, redirect, render_template, url_for, current_app
 from flask_socketio import join_room, leave_room
+from flask_login import login_user, logout_user, current_user, login_required
+from flask_principal import Identity, AnonymousIdentity, identity_changed, IdentityContext
 from werkzeug import HTTP_STATUS_CODES
 import werkzeug.exceptions
 
@@ -22,13 +24,30 @@ from digits.log import logger
 from digits.utils.routing import request_wants_json
 from flask_babel import lazy_gettext as _
 from .models import valid_login, valid_regist, User, verify_pwd
+from digits.utils.permission import admin_permission, normal_permission, reader_permission, super_permission
 
 blueprint = flask.Blueprint(__name__, __name__)
 
 
+@app.context_processor
+def context():
+    p_reader = IdentityContext(reader_permission)
+    p_normal = IdentityContext(normal_permission)
+    p_admin = IdentityContext(admin_permission)
+    p_super = IdentityContext(super_permission)
+    username = current_user.username if hasattr(current_user, 'username') else 'anonymous'
+    return dict(
+                p_reader=p_reader,
+                p_normal=p_normal,
+                p_admin=p_admin,
+                p_super=p_super,
+                username=username
+                )
+
+
 @blueprint.route('/index/json', methods=['GET'])
 @blueprint.route('/home', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def home(tab=2):
     """
     DIGITS home page
@@ -223,6 +242,10 @@ def json_dict(job, model_output_fields):
 
     if isinstance(job, dataset.DatasetJob):
         d.update({'type': 'dataset'})
+        if isinstance(job, dataset.ImageClassificationDatasetJob) and hasattr(job, 'hub_model_url'):
+            hub_model_url_split = job.hub_model_url.split('/')
+            sign = '/'.join(hub_model_url_split[-3:-1])
+            d.update({'tfhub': sign})
 
     if isinstance(job, model.ModelJob):
         d.update({'type': 'model'})
@@ -288,7 +311,7 @@ def get_job_list(cls, running):
 
 
 @blueprint.route('/group', methods=['GET', 'POST'])
-@utils.auth.requires_login
+@login_required
 def group():
     """
     Assign the group for the listed jobs
@@ -346,13 +369,15 @@ def login():
     """
     user login
     """
-    if session.get('username'):
+    if current_user.is_authenticated:
         return redirect(url_for('digits.views.home'))
     error = None
     if request.method == 'POST':
-        if valid_login(request.form['username'], request.form['password']):
+        user = valid_login(request.form['username'], request.form['password'])
+        if user:
             flash("成功登录！")
-            session['username'] = request.form.get('username')
+            login_user(user)
+            identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
             return redirect(url_for('digits.views.home'))
         else:
             error = '错误的用户名或密码！'
@@ -371,12 +396,13 @@ def register():
             error = '两次密码不相同！'
         elif valid_regist(request.form['username']):
             password = hashlib.md5(request.form['password'].encode()).hexdigest()
-            user = User(username=request.form['username'], password_hash=password)
+            user = User(username=request.form['username'], password_hash=password, roles='SUPER')
             db.session.add(user)
             db.session.commit()
 
             flash("成功注册！")
-            session['username'] = request.form['username']
+            login_user(user)
+            identity_changed.send(current_app._get_current_object(), identity=Identity(user.id))
             return redirect(url_for('digits.views.home'))
         else:
             error = '该用户名已被注册！'
@@ -390,14 +416,15 @@ def logout():
     Unset the username cookie
     """
     response = flask.make_response(flask.redirect(url_for('digits.views.login')))
-    session.pop('username', None)
+    logout_user()
+    identity_changed.send(current_app._get_current_object(), identity=AnonymousIdentity())
     return response
 
 
 # Jobs routes
 
 @blueprint.route('/jobs/<job_id>', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def show_job(job_id):
     """
     Redirects to the appropriate /datasets/ or /models/ page
@@ -417,7 +444,7 @@ def show_job(job_id):
 
 
 @blueprint.route('/jobs/<job_id>', methods=['PUT'])
-@utils.auth.requires_login(redirect=False)
+@login_required
 def edit_job(job_id):
     """
     Edit a job's name and/or notes
@@ -460,7 +487,7 @@ def edit_job(job_id):
 @blueprint.route('/datasets/<job_id>/status', methods=['GET'])
 @blueprint.route('/models/<job_id>/status', methods=['GET'])
 @blueprint.route('/jobs/<job_id>/status', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def job_status(job_id):
     """
     Returns a JSON objecting representing the status of a job
@@ -481,7 +508,8 @@ def job_status(job_id):
 @blueprint.route('/datasets/<job_id>', methods=['DELETE'])
 @blueprint.route('/models/<job_id>', methods=['DELETE'])
 @blueprint.route('/jobs/<job_id>', methods=['DELETE'])
-@utils.auth.requires_login(redirect=False)
+@login_required
+# @utils.auth.requires_login(redirect=False)
 def delete_job(job_id):
     """
     Deletes a job
@@ -491,7 +519,7 @@ def delete_job(job_id):
         raise werkzeug.exceptions.NotFound(_('Job not found'))
 
     if not utils.auth.has_permission(job, 'delete'):
-        raise werkzeug.exceptions.Forbidden()
+        raise werkzeug.exceptions.Forbidden("没有权限")
 
     try:
         if scheduler.delete_job(job_id):
@@ -503,7 +531,8 @@ def delete_job(job_id):
 
 
 @blueprint.route('/jobs', methods=['DELETE'])
-@utils.auth.requires_login(redirect=False)
+# @utils.auth.requires_login(redirect=False)
+@login_required
 def delete_jobs():
     """
     Deletes a list of jobs
@@ -533,13 +562,13 @@ def delete_jobs():
             pass
 
     if not_found:
-        error.append('%d job%s not found.' % (not_found, '' if not_found == 1 else 's'))
+        error.append('%d job%s 不存在。' % (not_found, '' if not_found == 1 else 's'))
 
     if forbidden:
-        error.append('%d job%s not permitted to be deleted.' % (forbidden, '' if forbidden == 1 else 's'))
+        error.append('%d job%s 没有删除权限。' % (forbidden, '' if forbidden == 1 else 's'))
 
     if failed:
-        error.append('%d job%s failed to delete.' % (failed, '' if failed == 1 else 's'))
+        error.append('%d job%s 删除失败。' % (failed, '' if failed == 1 else 's'))
 
     if len(error) > 0:
         error = ' '.join(error)
@@ -549,7 +578,7 @@ def delete_jobs():
 
 
 @blueprint.route('/abort_jobs', methods=['POST'])
-@utils.auth.requires_login(redirect=False)
+@login_required
 def abort_jobs():
     """
     Aborts a list of jobs
@@ -597,7 +626,7 @@ def abort_jobs():
 @blueprint.route('/datasets/<job_id>/abort', methods=['POST'])
 @blueprint.route('/models/<job_id>/abort', methods=['POST'])
 @blueprint.route('/jobs/<job_id>/abort', methods=['POST'])
-@utils.auth.requires_login(redirect=False)
+@login_required
 def abort_job(job_id):
     """
     Aborts a running job
@@ -613,7 +642,7 @@ def abort_job(job_id):
 
 
 @blueprint.route('/clone/<clone>', methods=['POST', 'GET'])
-@utils.auth.requires_login
+@login_required
 def clone_job(clone):
     """
     Clones a job with the id <clone>, populating the creation page with data saved in <clone>

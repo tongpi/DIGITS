@@ -7,6 +7,7 @@ import tempfile
 
 import flask
 import werkzeug.exceptions
+from flask_login import login_required
 
 from .forms import GenericImageModelForm
 from .job import GenericImageModelJob
@@ -29,7 +30,7 @@ blueprint = flask.Blueprint(__name__, __name__)
 
 @blueprint.route('/new', methods=['GET'])
 @blueprint.route('/new/<extension_id>', methods=['GET'])
-@utils.auth.requires_login
+@login_required
 def new(extension_id=None):
     """
     Return a form for a new GenericImageModelJob
@@ -61,7 +62,7 @@ def new(extension_id=None):
 @blueprint.route('<extension_id>', methods=['POST'], strict_slashes=False)
 @blueprint.route('/json', methods=['POST'])
 @blueprint.route('', methods=['POST'], strict_slashes=False)
-@utils.auth.requires_login(redirect=False)
+@login_required
 def create(extension_id=None):
     """
     Create a new GenericImageModelJob
